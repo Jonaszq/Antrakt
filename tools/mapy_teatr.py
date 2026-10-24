@@ -36,7 +36,7 @@ FONT = {
     "H": ["101", "101", "111", "101", "101"], "M": ["101", "111", "111", "101", "101"],
     "I": ["111", "010", "010", "010", "111"], "J": ["001", "001", "001", "101", "010"],
     "K": ["101", "101", "110", "101", "101"], "L": ["100", "100", "100", "100", "111"],
-    "N": ["101", "111", "111", "101", "101"], "O": ["010", "101", "101", "101", "010"],
+    "N": ["110", "101", "101", "101", "101"], "O": ["010", "101", "101", "101", "010"],
     "P": ["110", "101", "110", "100", "100"], "R": ["110", "101", "110", "101", "101"],
     "S": ["011", "100", "010", "001", "110"], "T": ["111", "010", "010", "010", "010"],
     "U": ["101", "101", "101", "101", "111"], "W": ["101", "101", "111", "111", "101"],
@@ -251,9 +251,20 @@ def foyer():
     plakat(d, 290, 26, ["OSTATNI", "AKT"], "maska")
     plakat(d, 556, 26, ["HAMLET"], "korona")
     plakat(d, 674, 30, ["ROMEO"], "roza")
-    for kx in (220, 386, 540, 720):
+    for kx in (386, 540, 720):
         mp.kinkiet(d, kx, 52)
         m.swiatla.append((kx, 46, 0.7))
+
+    # drzwi służbowe do kulis (tędy Antoni trafia za scenę)
+    prost(d, 196, PY - 66, 36, 66, DREWNO_C[1])
+    obrys(d, 196, PY - 66, 36, 66)
+    prost(d, 200, PY - 62, 28, 62, DREWNO[2])
+    prost(d, 200, PY - 62, 28, 1, DREWNO[4])
+    obrys(d, 204, PY - 56, 20, 20, DREWNO[1])
+    obrys(d, 204, PY - 30, 20, 24, DREWNO[1])
+    prost(d, 222, PY - 34, 3, 2, ZLOTO[3])
+    szyld(d, 194, PY - 80, "PERSONEL")
+    m.swiatla.append((214, 70, 0.5))
 
     # kasa biletowa (lewa strona tylnej ściany)
     prost(d, 40, 24, 150, PY - 24, DREWNO_C[2])
@@ -313,7 +324,7 @@ def foyer():
     m.obiekt("lawka_1", lawka(), 90, 260, 10)
     m.obiekt("lawka_2", lawka(), 90, 380, 10)
     m.obiekt("lawka_3", lawka(), 640, 420, 10)
-    m.obiekt("popiersie", popiersie(), 230, 170, 10)
+    m.obiekt("popiersie", popiersie(), 150, 196, 10)
     m.obiekt("stolik_1", stolik_okragly(), 640, 160, 8)
     m.obiekt("stolik_2", stolik_okragly(), 700, 200, 8)
     m.obiekt("stolik_3", stolik_okragly(), 600, 230, 8)
@@ -337,7 +348,7 @@ def foyer():
     prost(d, 400, H - mp.SCIANA - 22, 80, 18, (60, 50, 40))
     for wx in range(402, 478, 3):
         prost(d, wx, H - mp.SCIANA - 20, 1, 14, (46, 38, 30))
-    return m, dict(korzen="Foyer", start=(440, 470), postacie=(("Ania", "ania", (300, 180)),),
+    return m, dict(korzen="Foyer", start=(440, 470), postacie=(("Ania", "ania", (230, 142)),),
                    mrok=(0.5, 0.45, 0.56))
 
 

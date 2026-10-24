@@ -366,6 +366,88 @@ def halina(faza):
     return ap.pokoloruj(p, None)
 
 
+# ---------- goście premiery (tło foyer) ----------
+
+def gosc_pan(faza):
+    """Starszy pan w smokingu z wąsem, przyszedł na każdą premierę od trzydziestu lat."""
+    p = ap.Plotno()
+    b, mrug = oddech_mrug(faza)
+    wl = material("pan_wlosy", [(110, 106, 104), (160, 156, 150), (204, 200, 192)])
+    smok = material("pan_smoking", [(8, 8, 12), (16, 16, 22), (28, 28, 36), (44, 44, 54)])
+    buty = material("bogdan_buty", [(12, 8, 8), (30, 22, 20), (60, 48, 44)])
+    skora = material("skora_starsza", SKORA_STARSZA)
+    usta = material("usta_meskie", [(120, 70, 60), (150, 92, 78)])
+    nogi(p, 48, smok, buty, rozstaw=4, szer=5)
+    rece(p, b, smok, skora, 20, 16, rozstaw=11)
+    p.wielokat([(10, 19 + b), (30, 19 + b), (31, 36 + b), (30, 49), (10, 49), (9, 36 + b)], smok)
+    p.elipsa(9, 17 + b, 31, 23 + b, smok)
+    p.wielokat([(17, 19 + b), (23, 19 + b), (21, 32 + b), (19, 32 + b)], "koszula")
+    p.prost(18, 19 + b, 22, 20 + b, smok, 0)  # muszka
+    p.wielokat([(14, 18 + b), (17, 19 + b), (19, 33 + b), (15, 26 + b)], smok, 3)
+    p.wielokat([(26, 18 + b), (23, 19 + b), (21, 33 + b), (25, 26 + b)], smok, 3)
+    kwiat = material("czerwien_kwiat", [(110, 20, 30), (170, 36, 44), (220, 70, 70)])
+    p.prost(26, 26 + b, 27, 27 + b, kwiat, 2)  # goździk w butonierce
+    twarz(p, SRODEK, 8 + b, skora, mrug, usta=(usta, 0), brwi=wl, szer=5)
+    p.prost(17, 14 + b, 23, 15 + b, wl, 1)  # wąs
+    p.elipsa(14, 2 + b, 26, 9 + b, wl)
+    p.prost(14, 6 + b, 14, 11 + b, wl, 1)
+    p.prost(26, 6 + b, 26, 11 + b, wl, 1)
+    return ap.pokoloruj(p, None)
+
+
+def gosc_pani(faza):
+    """Elegancka pani w granatowej sukni wieczorowej, perły, upięte włosy."""
+    p = ap.Plotno()
+    b, mrug = oddech_mrug(faza)
+    wl = material("pani_wlosy", [(20, 14, 14), (40, 28, 26), (64, 44, 38)])
+    su = material("pani_suknia", [(12, 14, 40), (22, 26, 66), (36, 42, 98), (56, 64, 136), (84, 94, 170)])
+    perly = material("perly", [(190, 186, 176), (236, 232, 222)])
+    skora = material("skora_jasna", SKORA_JASNA)
+    usta = material("usta_czerwone", [(110, 28, 36), (150, 40, 46)])
+    # suknia do ziemi
+    p.wielokat([(14, 20 + b), (26, 20 + b), (25, 32 + b), (30, ZIEMIA), (10, ZIEMIA), (15, 32 + b)], su)
+    p.linia([(17, 34 + b), (14, ZIEMIA - 1)], su, 1)
+    p.linia([(23, 34 + b), (26, ZIEMIA - 1)], su, 1)
+    p.prost(15, 31 + b, 25, 31 + b, su, 4)
+    rece(p, b, skora, skora, 21, 14, rozstaw=8, odcien=2)
+    p.prost(16, 17 + b, 24, 21 + b, skora, 2)  # dekolt
+    for px in range(16, 25, 2):
+        p.piksel(px, 20 + b, perly, 1)
+    twarz(p, SRODEK, 8 + b, skora, mrug, usta=(usta, 1), brwi=wl, szer=5)
+    p.elipsa(14, 2 + b, 26, 9 + b, wl)
+    p.elipsa(17, 0 + b, 23, 5 + b, wl)  # kok
+    p.piksel(22, 1 + b, perly, 1)
+    return ap.pokoloruj(p, None)
+
+
+def gosc_student(faza):
+    """Student w swetrze i szaliku, kupił bilet pół roku temu."""
+    p = ap.Plotno()
+    b, mrug = oddech_mrug(faza)
+    wl = material("student_wlosy", [(60, 40, 20), (96, 66, 34), (130, 94, 52)])
+    sw = material("student_sweter", [(24, 46, 34), (36, 70, 48), (56, 100, 66), (86, 134, 90)])
+    sz = material("student_szal", [(110, 70, 20), (170, 118, 40), (214, 166, 70)])
+    sp = material("student_spodnie", [(30, 32, 48), (44, 48, 70), (62, 68, 96)])
+    buty = material("ania_buty", [(16, 10, 10), (34, 20, 18), (56, 34, 28)])
+    skora = material("skora_jasna", SKORA_JASNA)
+    usta = material("usta_meskie", [(120, 70, 60), (150, 92, 78)])
+    okul = material("okulary", [(30, 24, 22)])
+    nogi(p, 46, sp, buty, rozstaw=4, szer=4)
+    rece(p, b, sw, skora, 20, 15, rozstaw=10)
+    p.wielokat([(11, 19 + b), (29, 19 + b), (29, 46), (11, 46)], sw)
+    p.elipsa(10, 17 + b, 30, 23 + b, sw)
+    for ry in range(26, 44, 4):
+        p.prost(12, ry + b, 28, ry + b, sw, 1)
+    p.elipsa(13, 16 + b, 27, 22 + b, sz)
+    p.wielokat([(23, 20 + b), (26, 20 + b), (26, 36 + b), (23, 35 + b)], sz, 1)
+    for fy in (30, 33):
+        p.prost(23, fy + b, 26, fy + b, sz, 2)
+    twarz(p, SRODEK, 8 + b, skora, mrug, usta=(usta, 0), brwi=wl, okulary=okul, szer=5)
+    for lx, ly in ((15, 3), (19, 1), (24, 2), (27, 6), (13, 7)):  # rozczochrane
+        p.elipsa(lx - 3, ly - 2 + b, lx + 3, ly + 3 + b, wl)
+    return ap.pokoloruj(p, None)
+
+
 POSTACIE = {
     "ania": ("Ania", ania),
     "wolski": ("Wolski", wolski),
@@ -374,6 +456,9 @@ POSTACIE = {
     "marta": ("Marta", marta),
     "zenon": ("Zenon", zenon),
     "halina": ("Halina", halina),
+    "gosc_pan": ("GoscPan", gosc_pan),
+    "gosc_pani": ("GoscPani", gosc_pani),
+    "gosc_student": ("GoscStudent", gosc_student),
 }
 
 

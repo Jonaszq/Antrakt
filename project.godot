@@ -11,8 +11,12 @@ config_version=5
 [application]
 
 config/name="Ostatni akt"
-run/main_scene="res://mapy/pracownia/pracownia.tscn"
+run/main_scene="res://wstep/wstep.tscn"
 config/features=PackedStringArray("4.4")
+
+[autoload]
+
+Notatnik="*res://ui/notatnik.gd"
 
 [display]
 
@@ -23,6 +27,10 @@ window/size/window_height_override=1080
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 window/stretch/scale_mode="integer"
+
+[gui]
+
+theme/custom_font="res://fonty/PixelifySans.ttf"
 
 [rendering]
 

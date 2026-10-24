@@ -14,3 +14,10 @@ Gra „Ostatni akt”: kryminał w teatrze, Godot 4.4, pixel art 480×270 powię
 2. Wróć do Godota. Sam przeładuje zmienione pliki (jeśli zapyta, wybierz „Reload”).
 
 Nie trzeba niczego rozpakowywać ani podmieniać ręcznie.
+
+## Co jest w grze
+
+- **F5** uruchamia grę od filmiku wstępnego (`wstep/wstep.tscn`). Spacja przewija ujęcie, Escape pomija filmik.
+- Po filmiku startuje scena 1 w foyer (`sceny/scena1/scena1.tscn`): WASD chodzenie, E rozmowa, Tab notes.
+- Mapy do swobodnego chodzenia: `mapy/<nazwa>/<nazwa>.tscn` (otwórz i naciśnij F6).
+- Grafiki rysują skrypty w `tools/`, czcionka to Pixelify Sans (licencja OFL, `fonty/OFL.txt`).

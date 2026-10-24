@@ -10,12 +10,17 @@ extends CharacterBody2D
 ## Kamera pod skosem skraca pion, więc ruch w górę i w dół jest trochę wolniejszy.
 @export var skrot_pionu := 0.75
 
+## Wyłączone w filmikach i podczas rozmów: Antoni stoi, a animacją steruje scena.
+@export var sterowanie := true
+
 var kierunek := "dol"
 
 @onready var sprite: AnimatedSprite2D = $Sprite
 
 
 func _physics_process(_delta: float) -> void:
+	if not sterowanie:
+		return
 	var wejscie := Vector2(
 		_klawisz(KEY_D, KEY_RIGHT) - _klawisz(KEY_A, KEY_LEFT),
 		_klawisz(KEY_S, KEY_DOWN) - _klawisz(KEY_W, KEY_UP)
@@ -36,6 +41,13 @@ func _physics_process(_delta: float) -> void:
 
 func _klawisz(a: Key, b: Key) -> float:
 	return 1.0 if Input.is_physical_key_pressed(a) or Input.is_physical_key_pressed(b) else 0.0
+
+
+## Ustawia postawę "stoi" w danym kierunku (dol, gora, prawo, lewo).
+func stan(kier: String) -> void:
+	sprite.flip_h = kier == "lewo"
+	kierunek = "prawo" if kier == "lewo" else kier
+	_graj("stoi_" + kierunek)
 
 
 func _graj(nazwa: String) -> void:
