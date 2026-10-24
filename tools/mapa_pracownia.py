@@ -656,11 +656,19 @@ def zbuduj():
     return m
 
 
-def scena_godot(m, folder_res):
-    """Składa plik .tscn z tłem, meblami, kolizjami i światłami."""
+IRENA_PRZY_STOLE = (("Irena", "irena", (536, 262)),)
+
+
+def scena_godot(m, folder_res, korzen="Pracownia", start=(390, 300), postacie=IRENA_PRZY_STOLE,
+                mrok=(0.42, 0.38, 0.5)):
+    """Składa plik .tscn z tłem, meblami, kolizjami i światłami.
+
+    postacie: krotki (nazwa węzła, folder postaci, pozycja stóp).
+    """
     ext = [f'[ext_resource type="Texture2D" path="{folder_res}tlo.png" id="tlo"]',
-           '[ext_resource type="PackedScene" path="res://postacie/antoni/antoni.tscn" id="antoni"]',
-           '[ext_resource type="PackedScene" path="res://postacie/irena/irena.tscn" id="irena"]']
+           '[ext_resource type="PackedScene" path="res://postacie/antoni/antoni.tscn" id="antoni"]']
+    for klucz in sorted({k for _, k, _ in postacie}):
+        ext.append(f'[ext_resource type="PackedScene" path="res://postacie/{klucz}/{klucz}.tscn" id="{klucz}"]')
     for nazwa, *_ in m.obiekty:
         ext.append(f'[ext_resource type="Texture2D" path="{folder_res}{nazwa}.png" id="{nazwa}"]')
     sub = ['''[sub_resource type="Gradient" id="grad"]
@@ -673,9 +681,9 @@ height = 256
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(1, 0.5)''']
-    wezly = ['''[node name="Pracownia" type="Node2D"]''',
-             '''[node name="Mrok" type="CanvasModulate" parent="."]
-color = Color(0.42, 0.38, 0.5, 1)''',
+    wezly = [f'''[node name="{korzen}" type="Node2D"]''',
+             f'''[node name="Mrok" type="CanvasModulate" parent="."]
+color = Color({mrok[0]}, {mrok[1]}, {mrok[2]}, 1)''',
              '''[node name="Tlo" type="Sprite2D" parent="."]
 texture = ExtResource("tlo")
 centered = false''',
@@ -704,10 +712,11 @@ position = Vector2({x}, {y + img.height})
 texture = ExtResource("{nazwa}")
 centered = false
 offset = Vector2(0, {-img.height})''')
-    wezly.append('''[node name="Irena" parent="Obiekty" instance=ExtResource("irena")]
-position = Vector2(536, 262)''')
-    wezly.append('''[node name="Antoni" parent="Obiekty" instance=ExtResource("antoni")]
-position = Vector2(390, 300)''')
+    for wezel, klucz, (px, py) in postacie:
+        wezly.append(f'''[node name="{wezel}" parent="Obiekty" instance=ExtResource("{klucz}")]
+position = Vector2({px}, {py})''')
+    wezly.append(f'''[node name="Antoni" parent="Obiekty" instance=ExtResource("antoni")]
+position = Vector2({start[0]}, {start[1]})''')
     wezly.append('''[node name="Latarnia" type="PointLight2D" parent="Obiekty/Antoni"]
 position = Vector2(-10, -20)
 color = Color(1, 0.72, 0.4, 1)
@@ -737,19 +746,22 @@ texture_scale = {skala:.2f}''')
             + "\n\n".join(wezly) + "\n")
 
 
-def main():
-    folder = Path("mapy/pracownia")
+def zapisz(m, klucz, **scena):
+    """Zapisuje tło, meble i scenę mapy do mapy/<klucz>/ i zwraca podgląd bez oświetlenia."""
+    folder = Path("mapy") / klucz
     folder.mkdir(parents=True, exist_ok=True)
-    m = zbuduj()
     m.tlo.save(folder / "tlo.png")
     for nazwa, img, *_ in m.obiekty:
         img.save(folder / f"{nazwa}.png")
-    (folder / "pracownia.tscn").write_text(scena_godot(m, "res://mapy/pracownia/"), encoding="utf-8")
-    # podgląd całości z meblami (bez oświetlenia)
+    (folder / f"{klucz}.tscn").write_text(scena_godot(m, f"res://mapy/{klucz}/", **scena), encoding="utf-8")
     pod = m.tlo.copy()
     for nazwa, img, x, y in sorted(m.obiekty, key=lambda o: o[3] + o[1].height):
         pod.alpha_composite(img, (x, y))
     return pod
+
+
+def main():
+    return zapisz(zbuduj(), "pracownia")
 
 
 if __name__ == "__main__":
