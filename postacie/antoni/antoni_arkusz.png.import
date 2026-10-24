@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d1h42d16x10by"
-path="res://.godot/imported/antoni_prawo.png-43896ae2ceb357051b131724ebd815d1.ctex"
+uid="uid://blqqrx5yie6xx"
+path="res://.godot/imported/antoni_arkusz.png-203b35ac1c09c8abbebd5f122c9c7481.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://postacie/antoni/antoni_prawo.png"
-dest_files=["res://.godot/imported/antoni_prawo.png-43896ae2ceb357051b131724ebd815d1.ctex"]
+source_file="res://postacie/antoni/antoni_arkusz.png"
+dest_files=["res://.godot/imported/antoni_arkusz.png-203b35ac1c09c8abbebd5f122c9c7481.ctex"]
 
 [params]
 

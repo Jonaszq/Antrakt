@@ -1,82 +1,353 @@
-[gd_scene load_steps=8 format=3]
+[gd_scene load_steps=48 format=3]
 
 [ext_resource type="Script" path="res://postacie/antoni/antoni.gd" id="skrypt"]
-[ext_resource type="Texture2D" path="res://postacie/antoni/antoni_dol.png" id="tex_dol"]
-[ext_resource type="Texture2D" path="res://postacie/antoni/antoni_gora.png" id="tex_gora"]
-[ext_resource type="Texture2D" path="res://postacie/antoni/antoni_prawo.png" id="tex_prawo"]
-[ext_resource type="Texture2D" path="res://postacie/antoni/cien.png" id="tex_cien"]
+[ext_resource type="Texture2D" path="res://postacie/antoni/antoni_arkusz.png" id="arkusz"]
+[ext_resource type="Texture2D" path="res://postacie/antoni/cien.png" id="cien"]
+
+[sub_resource type="AtlasTexture" id="k1"]
+atlas = ExtResource("arkusz")
+region = Rect2(0, 0, 40, 68)
+
+[sub_resource type="AtlasTexture" id="k2"]
+atlas = ExtResource("arkusz")
+region = Rect2(40, 0, 40, 68)
+
+[sub_resource type="AtlasTexture" id="k3"]
+atlas = ExtResource("arkusz")
+region = Rect2(80, 0, 40, 68)
+
+[sub_resource type="AtlasTexture" id="k4"]
+atlas = ExtResource("arkusz")
+region = Rect2(120, 0, 40, 68)
+
+[sub_resource type="AtlasTexture" id="k5"]
+atlas = ExtResource("arkusz")
+region = Rect2(160, 0, 40, 68)
+
+[sub_resource type="AtlasTexture" id="k6"]
+atlas = ExtResource("arkusz")
+region = Rect2(200, 0, 40, 68)
+
+[sub_resource type="AtlasTexture" id="k7"]
+atlas = ExtResource("arkusz")
+region = Rect2(0, 68, 40, 68)
+
+[sub_resource type="AtlasTexture" id="k8"]
+atlas = ExtResource("arkusz")
+region = Rect2(40, 68, 40, 68)
+
+[sub_resource type="AtlasTexture" id="k9"]
+atlas = ExtResource("arkusz")
+region = Rect2(80, 68, 40, 68)
+
+[sub_resource type="AtlasTexture" id="k10"]
+atlas = ExtResource("arkusz")
+region = Rect2(120, 68, 40, 68)
+
+[sub_resource type="AtlasTexture" id="k11"]
+atlas = ExtResource("arkusz")
+region = Rect2(160, 68, 40, 68)
+
+[sub_resource type="AtlasTexture" id="k12"]
+atlas = ExtResource("arkusz")
+region = Rect2(200, 68, 40, 68)
+
+[sub_resource type="AtlasTexture" id="k13"]
+atlas = ExtResource("arkusz")
+region = Rect2(0, 136, 40, 68)
+
+[sub_resource type="AtlasTexture" id="k14"]
+atlas = ExtResource("arkusz")
+region = Rect2(40, 136, 40, 68)
+
+[sub_resource type="AtlasTexture" id="k15"]
+atlas = ExtResource("arkusz")
+region = Rect2(80, 136, 40, 68)
+
+[sub_resource type="AtlasTexture" id="k16"]
+atlas = ExtResource("arkusz")
+region = Rect2(120, 136, 40, 68)
+
+[sub_resource type="AtlasTexture" id="k17"]
+atlas = ExtResource("arkusz")
+region = Rect2(160, 136, 40, 68)
+
+[sub_resource type="AtlasTexture" id="k18"]
+atlas = ExtResource("arkusz")
+region = Rect2(200, 136, 40, 68)
+
+[sub_resource type="AtlasTexture" id="k19"]
+atlas = ExtResource("arkusz")
+region = Rect2(0, 204, 40, 68)
+
+[sub_resource type="AtlasTexture" id="k20"]
+atlas = ExtResource("arkusz")
+region = Rect2(40, 204, 40, 68)
+
+[sub_resource type="AtlasTexture" id="k21"]
+atlas = ExtResource("arkusz")
+region = Rect2(80, 204, 40, 68)
+
+[sub_resource type="AtlasTexture" id="k22"]
+atlas = ExtResource("arkusz")
+region = Rect2(120, 204, 40, 68)
+
+[sub_resource type="AtlasTexture" id="k23"]
+atlas = ExtResource("arkusz")
+region = Rect2(160, 204, 40, 68)
+
+[sub_resource type="AtlasTexture" id="k24"]
+atlas = ExtResource("arkusz")
+region = Rect2(200, 204, 40, 68)
+
+[sub_resource type="AtlasTexture" id="k25"]
+atlas = ExtResource("arkusz")
+region = Rect2(240, 204, 40, 68)
+
+[sub_resource type="AtlasTexture" id="k26"]
+atlas = ExtResource("arkusz")
+region = Rect2(280, 204, 40, 68)
+
+[sub_resource type="AtlasTexture" id="k27"]
+atlas = ExtResource("arkusz")
+region = Rect2(0, 272, 40, 68)
+
+[sub_resource type="AtlasTexture" id="k28"]
+atlas = ExtResource("arkusz")
+region = Rect2(40, 272, 40, 68)
+
+[sub_resource type="AtlasTexture" id="k29"]
+atlas = ExtResource("arkusz")
+region = Rect2(80, 272, 40, 68)
+
+[sub_resource type="AtlasTexture" id="k30"]
+atlas = ExtResource("arkusz")
+region = Rect2(120, 272, 40, 68)
+
+[sub_resource type="AtlasTexture" id="k31"]
+atlas = ExtResource("arkusz")
+region = Rect2(160, 272, 40, 68)
+
+[sub_resource type="AtlasTexture" id="k32"]
+atlas = ExtResource("arkusz")
+region = Rect2(200, 272, 40, 68)
+
+[sub_resource type="AtlasTexture" id="k33"]
+atlas = ExtResource("arkusz")
+region = Rect2(240, 272, 40, 68)
+
+[sub_resource type="AtlasTexture" id="k34"]
+atlas = ExtResource("arkusz")
+region = Rect2(280, 272, 40, 68)
+
+[sub_resource type="AtlasTexture" id="k35"]
+atlas = ExtResource("arkusz")
+region = Rect2(0, 340, 40, 68)
+
+[sub_resource type="AtlasTexture" id="k36"]
+atlas = ExtResource("arkusz")
+region = Rect2(40, 340, 40, 68)
+
+[sub_resource type="AtlasTexture" id="k37"]
+atlas = ExtResource("arkusz")
+region = Rect2(80, 340, 40, 68)
+
+[sub_resource type="AtlasTexture" id="k38"]
+atlas = ExtResource("arkusz")
+region = Rect2(120, 340, 40, 68)
+
+[sub_resource type="AtlasTexture" id="k39"]
+atlas = ExtResource("arkusz")
+region = Rect2(160, 340, 40, 68)
+
+[sub_resource type="AtlasTexture" id="k40"]
+atlas = ExtResource("arkusz")
+region = Rect2(200, 340, 40, 68)
+
+[sub_resource type="AtlasTexture" id="k41"]
+atlas = ExtResource("arkusz")
+region = Rect2(240, 340, 40, 68)
+
+[sub_resource type="AtlasTexture" id="k42"]
+atlas = ExtResource("arkusz")
+region = Rect2(280, 340, 40, 68)
 
 [sub_resource type="SpriteFrames" id="klatki"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("tex_dol")
+"texture": SubResource("k1")
+}, {
+"duration": 1.0,
+"texture": SubResource("k2")
+}, {
+"duration": 1.0,
+"texture": SubResource("k3")
+}, {
+"duration": 1.0,
+"texture": SubResource("k4")
+}, {
+"duration": 1.0,
+"texture": SubResource("k5")
+}, {
+"duration": 1.0,
+"texture": SubResource("k6")
 }],
 "loop": true,
 "name": &"stoi_dol",
-"speed": 6.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("tex_gora")
+"texture": SubResource("k7")
+}, {
+"duration": 1.0,
+"texture": SubResource("k8")
+}, {
+"duration": 1.0,
+"texture": SubResource("k9")
+}, {
+"duration": 1.0,
+"texture": SubResource("k10")
+}, {
+"duration": 1.0,
+"texture": SubResource("k11")
+}, {
+"duration": 1.0,
+"texture": SubResource("k12")
 }],
 "loop": true,
 "name": &"stoi_gora",
-"speed": 6.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("tex_prawo")
+"texture": SubResource("k13")
+}, {
+"duration": 1.0,
+"texture": SubResource("k14")
+}, {
+"duration": 1.0,
+"texture": SubResource("k15")
+}, {
+"duration": 1.0,
+"texture": SubResource("k16")
+}, {
+"duration": 1.0,
+"texture": SubResource("k17")
+}, {
+"duration": 1.0,
+"texture": SubResource("k18")
 }],
 "loop": true,
 "name": &"stoi_prawo",
-"speed": 6.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("tex_dol")
+"texture": SubResource("k19")
+}, {
+"duration": 1.0,
+"texture": SubResource("k20")
+}, {
+"duration": 1.0,
+"texture": SubResource("k21")
+}, {
+"duration": 1.0,
+"texture": SubResource("k22")
+}, {
+"duration": 1.0,
+"texture": SubResource("k23")
+}, {
+"duration": 1.0,
+"texture": SubResource("k24")
+}, {
+"duration": 1.0,
+"texture": SubResource("k25")
+}, {
+"duration": 1.0,
+"texture": SubResource("k26")
 }],
 "loop": true,
 "name": &"idzie_dol",
-"speed": 8.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("tex_gora")
+"texture": SubResource("k27")
+}, {
+"duration": 1.0,
+"texture": SubResource("k28")
+}, {
+"duration": 1.0,
+"texture": SubResource("k29")
+}, {
+"duration": 1.0,
+"texture": SubResource("k30")
+}, {
+"duration": 1.0,
+"texture": SubResource("k31")
+}, {
+"duration": 1.0,
+"texture": SubResource("k32")
+}, {
+"duration": 1.0,
+"texture": SubResource("k33")
+}, {
+"duration": 1.0,
+"texture": SubResource("k34")
 }],
 "loop": true,
 "name": &"idzie_gora",
-"speed": 8.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("tex_prawo")
+"texture": SubResource("k35")
+}, {
+"duration": 1.0,
+"texture": SubResource("k36")
+}, {
+"duration": 1.0,
+"texture": SubResource("k37")
+}, {
+"duration": 1.0,
+"texture": SubResource("k38")
+}, {
+"duration": 1.0,
+"texture": SubResource("k39")
+}, {
+"duration": 1.0,
+"texture": SubResource("k40")
+}, {
+"duration": 1.0,
+"texture": SubResource("k41")
+}, {
+"duration": 1.0,
+"texture": SubResource("k42")
 }],
 "loop": true,
 "name": &"idzie_prawo",
-"speed": 8.0
+"speed": 10.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="stopy"]
-radius = 28.0
-height = 90.0
+radius = 6.0
+height = 20.0
 
 [node name="Antoni" type="CharacterBody2D"]
 motion_mode = 1
 script = ExtResource("skrypt")
 
 [node name="Cien" type="Sprite2D" parent="."]
-scale = Vector2(0.95, 0.95)
-texture = ExtResource("tex_cien")
+texture = ExtResource("cien")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
-self_modulate = Color(0.85, 0.82, 0.8, 1)
-scale = Vector2(0.69, 0.69)
 sprite_frames = SubResource("klatki")
 animation = &"stoi_dol"
 autoplay = "stoi_dol"
 centered = false
-offset = Vector2(-97, -366)
+offset = Vector2(-20, -65)
 
 [node name="Stopy" type="CollisionShape2D" parent="."]
 rotation = 1.5707964
