@@ -28,7 +28,7 @@ from mapa_pracownia import (CZERWIEN, DREWNO, DREWNO_C, KAMIEN, O, PAPIER, SKORA
                             nowy, obrys, prost, skrzynia)
 
 W, H = 480, 270
-FONT = "fonty/PixelifySans.ttf"
+FONT = "fonty/Jersey10.ttf"
 CIEPLE = (255, 196, 110)
 ZIMNE = (120, 150, 210)
 FASADA = [(40, 36, 44), (62, 56, 62), (88, 80, 84), (116, 106, 104), (146, 134, 124)]

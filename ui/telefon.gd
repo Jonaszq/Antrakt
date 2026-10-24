@@ -2,6 +2,8 @@ extends CanvasLayer
 ## Telefon Antoniego pod klawiszem Q (singleton "Telefon"): ekran główny z aplikacjami
 ## Telefon (historia połączeń), Wiadomości, Pogoda i Muzyka.
 ## W/S albo strzałki wybierają, E otwiera, Q lub Escape cofa i chowa telefon.
+## Działa też myszką: klik w aplikację lub rozmowę otwiera, klik w "wróć" albo
+## w przycisk pod ekranem cofa, klik poza telefonem go chowa, kółko przewija.
 ## Sceny mogą dopisywać SMS-y przez Telefon.dodaj_sms(kto, tekst, godzina, od_antoniego).
 
 const EKRAN := Rect2(10, 22, 150, 214)
@@ -52,7 +54,7 @@ func _etykieta(tekst: String, kolor := BIALY, poz := Vector2.ZERO, szer := 0.0) 
 	var l := Label.new()
 	l.text = tekst
 	l.position = poz
-	l.add_theme_font_size_override("font_size", 16)
+	l.add_theme_font_size_override("font_size", 20)
 	l.add_theme_color_override("font_color", kolor)
 	l.add_theme_constant_override("line_spacing", -6)
 	_ekran.add_child(l)
@@ -98,7 +100,7 @@ func _rysuj() -> void:
 func _naglowek(tekst: String) -> void:
 	_prost(Vector2(0, 16), Vector2(150, 1), Color8(60, 70, 100))
 	_etykieta(tekst, Color8(242, 212, 126), Vector2(6, 16))
-	_etykieta("Q – wróć", SZARY, Vector2(82, 196))
+	_etykieta("Q – wróć", SZARY, Vector2(82, 196))  # klikalne, patrz _klik()
 
 
 const APLIKACJE := [["telefon", "Telefon"], ["wiadomosci", "Wiadomości"], ["pogoda", "Pogoda"], ["muzyka", "Muzyka"]]
@@ -177,11 +179,8 @@ func _unhandled_input(zdarzenie: InputEvent) -> void:
 	get_viewport().set_input_as_handled()
 	match k.physical_keycode:
 		KEY_Q, KEY_ESCAPE, KEY_BACKSPACE:
-			if _widok == "start":
-				_korpus.visible = false
-				return
-			_widok = "wiadomosci" if _widok == "rozmowa" else "start"
-			_wybor = 0
+			_wroc()
+			return
 		KEY_W, KEY_UP:
 			if _widok == "rozmowa":
 				_przewiniecie = maxi(0, _przewiniecie - 20)
@@ -191,14 +190,86 @@ func _unhandled_input(zdarzenie: InputEvent) -> void:
 			if _widok == "rozmowa":
 				_przewiniecie += 20
 			else:
-				var ile := APLIKACJE.size() if _widok == "start" else sms.size()
-				_wybor = mini(ile - 1, _wybor + 1)
+				_wybor = mini(_ile_pozycji() - 1, _wybor + 1)
 		KEY_E, KEY_ENTER, KEY_KP_ENTER, KEY_SPACE:
-			if _widok == "start":
-				_widok = APLIKACJE[_wybor][0]
-				_wybor = 0
-			elif _widok == "wiadomosci":
-				_rozmowa = sms.keys()[_wybor]
-				_widok = "rozmowa"
-				_przewiniecie = 0
+			_otworz()
 	_rysuj()
+
+
+func _ile_pozycji() -> int:
+	return APLIKACJE.size() if _widok == "start" else sms.size()
+
+
+func _otworz() -> void:
+	if _widok == "start":
+		_widok = APLIKACJE[_wybor][0]
+		_wybor = 0
+	elif _widok == "wiadomosci":
+		_rozmowa = sms.keys()[_wybor]
+		_widok = "rozmowa"
+		_przewiniecie = 0
+
+
+## Cofa o jeden ekran, a z ekranu głównego chowa telefon.
+func _wroc() -> void:
+	if _widok == "start":
+		_korpus.visible = false
+		return
+	_widok = "wiadomosci" if _widok == "rozmowa" else "start"
+	_wybor = 0
+	_rysuj()
+
+
+## Którą pozycję listy wskazuje mysz (-1, gdy żadnej).
+func _pozycja_pod(poz: Vector2) -> int:
+	if poz.x < 0 or poz.x > EKRAN.size.x or _widok not in ["start", "wiadomosci"]:
+		return -1
+	var gora := 22 if _widok == "start" else 37
+	var i := floori((poz.y - gora) / 40.0)
+	if i < 0 or i >= _ile_pozycji() or poz.y - gora - i * 40 > 36:
+		return -1
+	return i
+
+
+func _input(zdarzenie: InputEvent) -> void:
+	if not _korpus.visible or not zdarzenie is InputEventMouse:
+		return
+	get_viewport().set_input_as_handled()
+	var poz: Vector2 = (zdarzenie as InputEventMouse).position - _korpus.position - EKRAN.position
+	if zdarzenie is InputEventMouseMotion:
+		var i := _pozycja_pod(poz)
+		if i >= 0 and i != _wybor:
+			_wybor = i
+			_rysuj()
+		return
+	var m := zdarzenie as InputEventMouseButton
+	if not m.pressed:
+		return
+	match m.button_index:
+		MOUSE_BUTTON_WHEEL_UP:
+			if _widok == "rozmowa":
+				_przewiniecie = maxi(0, _przewiniecie - 20)
+				_rysuj()
+		MOUSE_BUTTON_WHEEL_DOWN:
+			if _widok == "rozmowa":
+				_przewiniecie += 20
+				_rysuj()
+		MOUSE_BUTTON_LEFT:
+			_klik(poz)
+		MOUSE_BUTTON_RIGHT:
+			_wroc()
+
+
+func _klik(poz: Vector2) -> void:
+	var korpus := Rect2(-EKRAN.position, _korpus.texture.get_size())
+	if not korpus.has_point(poz):
+		_korpus.visible = false  # klik obok telefonu
+		return
+	if poz.y > EKRAN.size.y or (_widok != "start" and poz.y > 190):
+		_wroc()  # przycisk pod ekranem albo napis "wróć"
+		return
+	var i := _pozycja_pod(poz)
+	if i >= 0:
+		_wybor = i
+		_otworz()
+		_rysuj()

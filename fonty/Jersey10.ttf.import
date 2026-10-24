@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://durieit3eubej"
-path="res://.godot/imported/PixelifySans.ttf-64e0f984e8a831df1a49f98fca503855.fontdata"
+uid="uid://cvepprblmw6pg"
+path="res://.godot/imported/Jersey10.ttf-6a867b613e01af1752a07ca634469197.fontdata"
 
 [deps]
 
-source_file="res://fonty/PixelifySans.ttf"
-dest_files=["res://.godot/imported/PixelifySans.ttf-64e0f984e8a831df1a49f98fca503855.fontdata"]
+source_file="res://fonty/Jersey10.ttf"
+dest_files=["res://.godot/imported/Jersey10.ttf-6a867b613e01af1752a07ca634469197.fontdata"]
 
 [params]
 
@@ -21,6 +21,7 @@ msdf_pixel_range=8
 msdf_size=48
 allow_system_fallback=true
 force_autohinter=false
+modulate_color_glyphs=false
 hinting=0
 subpixel_positioning=0
 keep_rounding_remainders=true

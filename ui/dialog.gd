@@ -49,7 +49,7 @@ func _ready() -> void:
 	_tekst.position = Vector2(10, 5)
 	_tekst.size = Vector2(444, 62)
 	_tekst.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	_tekst.add_theme_font_size_override("font_size", 16)
+	_tekst.add_theme_font_size_override("font_size", 20)
 	_tekst.add_theme_color_override("font_color", Color8(236, 226, 200))
 	_tekst.add_theme_constant_override("line_spacing", -2)
 	_okno.add_child(_tekst)
@@ -60,7 +60,7 @@ func _ready() -> void:
 	_imie_tlo = _ramka(preload("res://ui/imie.png"), 4, Rect2(14, 174, 60, 20))
 	_imie = Label.new()
 	_imie.position = Vector2(6, -1)
-	_imie.add_theme_font_size_override("font_size", 16)
+	_imie.add_theme_font_size_override("font_size", 20)
 	_imie.add_theme_color_override("font_color", Color8(242, 212, 126))
 	_imie_tlo.add_child(_imie)
 	_glos = AudioStreamPlayer.new()
@@ -143,6 +143,14 @@ func _mow(litery: int) -> void:
 	_glos.play()
 
 
+func _input(zdarzenie: InputEvent) -> void:
+	# kliknięcie myszą w dowolnym miejscu działa jak E
+	var m := zdarzenie as InputEventMouseButton
+	if m and m.pressed and m.button_index == MOUSE_BUTTON_LEFT and visible and not Gra.okno_otwarte():
+		get_viewport().set_input_as_handled()
+		_nastepna()
+
+
 func _unhandled_input(zdarzenie: InputEvent) -> void:
 	if not visible or not zdarzenie is InputEventKey or Gra.okno_otwarte():
 		return
@@ -151,10 +159,14 @@ func _unhandled_input(zdarzenie: InputEvent) -> void:
 		return
 	if k.physical_keycode in [KEY_E, KEY_SPACE, KEY_ENTER, KEY_KP_ENTER]:
 		get_viewport().set_input_as_handled()
-		if _tekst.visible_characters < _tekst.get_total_character_count():
-			_czas = 1000.0  # pokaż od razu całą kwestię
-		else:
-			_dalej()
+		_nastepna()
+
+
+func _nastepna() -> void:
+	if _tekst.visible_characters < _tekst.get_total_character_count():
+		_czas = 1000.0  # pokaż od razu całą kwestię
+	else:
+		_dalej()
 
 
 func _dalej() -> void:

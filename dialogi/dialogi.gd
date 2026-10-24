@@ -24,6 +24,11 @@ const WSTEP := {
 # ---------- SCENA 1: FOYER, SOBOTA 18:30 ----------
 
 const SCENA1 := {
+	# zaraz po planszy "Foyer, 18:30"
+	"poczatek": [
+		["Antoni", "Ech, ta kawa na komendzie... Strasznie chce mi się siku."],
+		["Antoni", "Do spektaklu pół godziny. Muszę znaleźć jakiś kibel."],
+	],
 	"starszy_pan": [
 		["Starszy pan", "Słyszał pan? Podobno dubler Wolskiego zniknął. Od wczoraj nikt go nie widział."],
 		["Antoni", "Może po prostu ma tremę."],
@@ -45,7 +50,7 @@ const SCENA1 := {
 	# po wyjściu Ani
 	"antoni_po_ani": [
 		["Antoni", "Za co ona przeprasza? I komu?"],
-		["Antoni", "Dobra. Najpierw toaleta, potem zagadki. Może tymi drzwiami?"],
+		["Antoni", "Dobra. Najpierw kibel, potem zagadki. Może tymi drzwiami?"],
 	],
 }
 
@@ -88,6 +93,18 @@ const SCENA2 := {
 	"marta_potem": [
 		["Marta", "Toaleta w foyer, po lewej od szatni. Proszę już iść, za chwilę trzeci dzwonek."],
 	],
+}
+
+
+# ---------- ZAMKNIĘTE DRZWI ----------
+# Napis, który pojawia się, gdy Antoni podejdzie do drzwi, którymi nie da się przejść.
+# Trzymaj je krótkie, żeby mieściły się w jednej linijce.
+
+const DRZWI := {
+	"foyer_widownia": "Zamknięte. Widownię otwierają tuż przed spektaklem.",
+	"foyer_wyjscie": "Nie wyjdę teraz. Ola by mnie zabiła.",
+	"kulisy_wyjscie": "Zaraz wracam. Najpierw sprawdzę, kto się tak drze.",
+	"kulisy_wyjscie_2": "Nie wiem, którędy do foyer. Zapytam kogoś.",
 }
 
 

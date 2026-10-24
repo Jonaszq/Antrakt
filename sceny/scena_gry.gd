@@ -5,7 +5,8 @@ extends Node2D
 ## i plansza z miejscem i godziną na początku.
 ##
 ## Scena dziedziczy po tej klasie, w _ready() woła przygotuj($Mapa) i dodaje
-## rozmówców (dodaj_rozmowce), wydarzenia (gdy_blisko) i wyjście (ustaw_wyjscie).
+## rozmówców (dodaj_rozmowce), wydarzenia (gdy_blisko), wyjście (ustaw_wyjscie)
+## i drzwi, którymi nie da się przejść (zamkniete_drzwi).
 
 const ZASIEG := 26.0  # jak blisko trzeba podejść, żeby porozmawiać
 
@@ -18,6 +19,7 @@ var koniec := false
 var _rozmowcy: Array = []  # [węzeł, kwestie albo Callable]
 var _wydarzenia: Array = []  # [węzeł albo Vector2, odległość, Callable]
 var _wyjscie := {}
+var _zamkniete: Array = []  # [prostokąt, napis, czy Antoni już z niego wyszedł]
 var _podpowiedz: PanelContainer
 var _podpowiedz_tekst: Label
 var _zaslona: ColorRect
@@ -37,7 +39,7 @@ func przygotuj(mapa: Node) -> void:
 	styl.content_margin_right = 3
 	styl.content_margin_bottom = 0
 	_podpowiedz.add_theme_stylebox_override("panel", styl)
-	_podpowiedz_tekst = etykieta(16, Color8(40, 30, 30))
+	_podpowiedz_tekst = etykieta(20, Color8(40, 30, 30))
 	_podpowiedz.add_child(_podpowiedz_tekst)
 	_podpowiedz.visible = false
 	ui.add_child(_podpowiedz)
@@ -60,7 +62,7 @@ func etykieta(rozmiar: int, kolor: Color) -> Label:
 
 ## Czarna plansza z miejscem i godziną, potem rozjaśnienie. Antoni czeka.
 func plansza(tekst: String) -> void:
-	var miejsce := etykieta(32, Color8(236, 226, 200))
+	var miejsce := etykieta(40, Color8(236, 226, 200))
 	miejsce.text = tekst
 	miejsce.position = Vector2(0, 110)
 	miejsce.size = Vector2(480, 40)
@@ -78,7 +80,7 @@ func plansza(tekst: String) -> void:
 
 ## Na kilka sekund pokazuje na dole listę klawiszy.
 func pomoc_klawiszy() -> void:
-	var pomoc := etykieta(16, Color8(236, 226, 200))
+	var pomoc := etykieta(20, Color8(236, 226, 200))
 	pomoc.text = "WASD chodzenie  E rozmowa  Q telefon  Tab postać"
 	if Notatnik.aktywny:
 		pomoc.text += "  T notes"
@@ -117,6 +119,18 @@ func ustaw_wyjscie(obszar: Rect2, napis: String, scena: String) -> void:
 	_wyjscie = {"obszar": obszar, "napis": napis, "scena": scena}
 
 
+## Drzwi, przy których pokazuje się napis, że nie da się tam wejść.
+## Jeśli w tym samym miejscu jest wyjście (ustaw_wyjscie), wygrywa wyjście.
+## Ponowne wywołanie dla tego samego prostokąta zmienia tylko napis.
+func zamkniete_drzwi(obszar: Rect2, napis: String) -> void:
+	for z in _zamkniete:
+		if z[0] == obszar:
+			z[1] = napis
+			return
+	# gdy Antoni zaczyna scenę w drzwiach, napis pojawi się dopiero po powrocie
+	_zamkniete.append([obszar, napis, not obszar.has_point(antoni.position)])
+
+
 func odleglosc(a: Vector2, b: Vector2) -> float:
 	# z góry pod skosem pion jest skrócony, więc liczy się trochę mocniej
 	return Vector2(a.x - b.x, (a.y - b.y) * 1.4).length()
@@ -139,6 +153,12 @@ func _process(_delta: float) -> void:
 	if _w_wyjsciu():
 		_pokaz_podpowiedz("E  " + _wyjscie.napis, _wyjscie.obszar.get_center() + Vector2(0, -50))
 		return
+	for z in _zamkniete:
+		if not z[0].has_point(antoni.position):
+			z[2] = true
+		elif z[2]:
+			_pokaz_podpowiedz(z[1], antoni.position + Vector2(0, -92))
+			return
 	var r = _najblizszy()
 	if r:
 		_pokaz_podpowiedz("E", r[0].position + Vector2(0, -74))

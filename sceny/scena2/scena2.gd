@@ -24,6 +24,7 @@ func _ready() -> void:
 	_wolski = postac("wolski", Vector2(604, 192))
 	gdy_blisko(Vector2(582, 194), 130.0, _klotnia)
 	dodaj_rozmowce(_marta, _rozmowa_z_marta)
+	zamkniete_drzwi(WYJSCIE, Dialogi.DRZWI["kulisy_wyjscie"])
 	await plansza("Kulisy, 18:50")
 	antoni.sterowanie = false
 	await dialog.pokaz(Dialogi.SCENA2["poczatek"])
@@ -36,6 +37,7 @@ func _klotnia() -> void:
 	await dialog.pokaz(Dialogi.SCENA2["klotnia"])
 	Notatnik.dodaj(Dialogi.NOTES["adrian_nie_odbiera"])
 	_poznal_dyrekcje = true
+	zamkniete_drzwi(WYJSCIE, Dialogi.DRZWI["kulisy_wyjscie_2"])
 	dodaj_rozmowce(_lis, Dialogi.SCENA2["lis_potem"])
 	dodaj_rozmowce(_wolski, Dialogi.SCENA2["wolski_potem"])
 	_otworz_wyjscie()

@@ -1,6 +1,7 @@
 extends CanvasLayer
 ## Stan gry wspólny dla wszystkich scen (singleton "Gra") i okienko wyboru postaci pod Tab:
 ## zwykły Antoni albo Antoni z latarnią, który mocniej oświetla ciemne miejsca.
+## Postać można też wybrać myszką: najechać i kliknąć.
 ## F11 (albo Alt+Enter) przełącza pełny ekran i okno.
 
 signal zmieniono_postac(z_latarnia: bool)
@@ -23,7 +24,7 @@ func _ready() -> void:
 	_okno.size = Vector2(360, 190)
 	_okno.visible = false
 	add_child(_okno)
-	var tytul := _etykieta("Wybierz postać", 16, Color8(242, 212, 126))
+	var tytul := _etykieta("Wybierz postać", 20, Color8(242, 212, 126))
 	tytul.position = Vector2(0, 4)
 	tytul.size = Vector2(360, 20)
 	tytul.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -50,14 +51,14 @@ func _ready() -> void:
 		obraz.texture = klatka
 		obraz.position = Vector2(8, 4)
 		ramka.add_child(obraz)
-		var nazwa := _etykieta(opisy[i][0], 16, Color8(236, 226, 200))
+		var nazwa := _etykieta(opisy[i][0], 20, Color8(236, 226, 200))
 		nazwa.position = Vector2(54, 24)
 		ramka.add_child(nazwa)
-		var opis := _etykieta(opisy[i][1], 16, Color8(170, 160, 140))
+		var opis := _etykieta(opisy[i][1], 20, Color8(170, 160, 140))
 		opis.position = Vector2(6, 74)
 		opis.size = Vector2(130, 40)
 		ramka.add_child(opis)
-	var pomoc := _etykieta("A/D – wybór   E – zatwierdź   Tab – zamknij", 16, Color8(170, 160, 140))
+	var pomoc := _etykieta("A/D albo mysz – wybór   E – weź   Tab – zamknij", 20, Color8(170, 160, 140))
 	pomoc.position = Vector2(0, 160)
 	pomoc.size = Vector2(360, 20)
 	pomoc.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -115,3 +116,24 @@ func _unhandled_input(zdarzenie: InputEvent) -> void:
 				_okno.visible = false
 		_pokaz_wybor()
 		get_viewport().set_input_as_handled()
+
+
+func _input(zdarzenie: InputEvent) -> void:
+	if not _okno.visible or not zdarzenie is InputEventMouse:
+		return
+	get_viewport().set_input_as_handled()
+	var poz: Vector2 = (zdarzenie as InputEventMouse).position - _okno.position
+	var pod := -1
+	for i in 2:
+		if Rect2(_ramki[i].position, _ramki[i].size).has_point(poz):
+			pod = i
+	if pod >= 0:
+		_wybor = pod
+		_pokaz_wybor()
+	var m := zdarzenie as InputEventMouseButton
+	if m and m.pressed and m.button_index == MOUSE_BUTTON_LEFT:
+		if pod >= 0:
+			ustaw_latarnie(pod == 1)
+			_okno.visible = false
+		elif not Rect2(Vector2.ZERO, _okno.size).has_point(poz):
+			_okno.visible = false  # klik obok okienka

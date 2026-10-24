@@ -1,5 +1,6 @@
 extends ScenaGry
 ## Scena 1: foyer, sobota 18:30. Samouczek chodzenia i rozmów.
+## Na początku Antoniemu chce się siku i szuka toalety.
 ## Goście plotkują o zaginionym dublerze, Ania przy drzwiach służbowych dzwoni
 ## do Adriana. Po podsłuchaniu jej rozmowy w notesie pojawia się pierwszy wpis
 ## i otwierają się drzwi "PERSONEL", którymi Antoni trafia za kulisy (scena 2).
@@ -18,7 +19,10 @@ func _ready() -> void:
 	dodaj_rozmowce(postac("gosc_pani", Vector2(694, 248)), Dialogi.SCENA1["elegancka_pani"])
 	dodaj_rozmowce(postac("gosc_student", Vector2(170, 318)), Dialogi.SCENA1["student"])
 	gdy_blisko(_ania, 80.0, _podsluchaj_anie)
+	zamkniete_drzwi(Rect2(392, 108, 96, 34), Dialogi.DRZWI["foyer_widownia"])
+	zamkniete_drzwi(Rect2(396, 470, 88, 40), Dialogi.DRZWI["foyer_wyjscie"])
 	await plansza("Foyer, 18:30")
+	await rozmowa(Dialogi.SCENA1["poczatek"])
 	pomoc_klawiszy()
 
 

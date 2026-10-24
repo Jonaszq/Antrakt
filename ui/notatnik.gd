@@ -29,7 +29,7 @@ func _ready() -> void:
 	_kartka.size = Vector2(320, 238)
 	_kartka.visible = false
 	add_child(_kartka)
-	var tytul := _etykieta("Notes", 32, Color8(60, 40, 32))
+	var tytul := _etykieta("Notes", 40, Color8(60, 40, 32))
 	tytul.position = Vector2(16, 2)
 	_kartka.add_child(tytul)
 	var margines := ColorRect.new()
@@ -37,12 +37,12 @@ func _ready() -> void:
 	margines.position = Vector2(12, 36)
 	margines.size = Vector2(1, 196)
 	_kartka.add_child(margines)
-	_lista = _etykieta("", 16, Color8(40, 34, 60))
+	_lista = _etykieta("", 20, Color8(40, 34, 60))
 	_lista.position = Vector2(18, 36)
 	_lista.size = Vector2(292, 176)
 	_lista.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_kartka.add_child(_lista)
-	var podpis := _etykieta("T – zamknij", 16, Color8(150, 132, 108))
+	var podpis := _etykieta("T – zamknij", 20, Color8(150, 132, 108))
 	podpis.position = Vector2(206, 214)
 	_kartka.add_child(podpis)
 
@@ -56,7 +56,7 @@ func _ready() -> void:
 	styl.content_margin_top = -1
 	styl.content_margin_bottom = 0
 	_dymek.add_theme_stylebox_override("panel", styl)
-	_dymek_tekst = _etykieta("", 16, Color8(40, 34, 60))
+	_dymek_tekst = _etykieta("", 20, Color8(40, 34, 60))
 	_dymek.add_child(_dymek_tekst)
 	_dymek.position = Vector2(6, 6)
 	_dymek.visible = false

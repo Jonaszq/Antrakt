@@ -33,7 +33,7 @@ window/stretch/scale_mode="integer"
 
 [gui]
 
-theme/custom_font="res://fonty/PixelifySans.ttf"
+theme/custom_font="res://fonty/Jersey10.ttf"
 
 [rendering]
 
