@@ -132,10 +132,7 @@ func _film() -> void:
 	if _koniec:
 		return
 	_podpis.text = ""
-	await _dialog.pokaz([
-		["Antoni", "Bilet od siostry. Jeden wolny wieczór."],
-		["Antoni", "Żadnych trupów. Żadnych przesłuchań. Tylko teatr."],
-	])
+	await _dialog.pokaz(Dialogi.WSTEP["pod_teatrem"])
 	antoni.get_node("Sprite").play("idzie_gora")
 	var tw := create_tween().set_parallel()
 	tw.tween_property(antoni, "position", Vector2(240, 214), 2.0)

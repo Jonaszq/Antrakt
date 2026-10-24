@@ -1,6 +1,7 @@
 extends CanvasLayer
 ## Stan gry wspólny dla wszystkich scen (singleton "Gra") i okienko wyboru postaci pod Tab:
 ## zwykły Antoni albo Antoni z latarnią, który mocniej oświetla ciemne miejsca.
+## F11 (albo Alt+Enter) przełącza pełny ekran i okno.
 
 signal zmieniono_postac(z_latarnia: bool)
 
@@ -90,7 +91,11 @@ func _unhandled_input(zdarzenie: InputEvent) -> void:
 	var k := zdarzenie as InputEventKey
 	if not k or not k.pressed or k.echo:
 		return
-	if k.physical_keycode == KEY_TAB:
+	if k.physical_keycode == KEY_F11 or (k.physical_keycode == KEY_ENTER and k.alt_pressed):
+		var pelny := DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED if pelny else DisplayServer.WINDOW_MODE_FULLSCREEN)
+		get_viewport().set_input_as_handled()
+	elif k.physical_keycode == KEY_TAB:
 		if not _okno.visible and okno_otwarte():
 			return
 		_okno.visible = not _okno.visible

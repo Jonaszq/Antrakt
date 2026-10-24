@@ -5,6 +5,10 @@ extends CanvasLayer
 
 signal dodano(wpis: String)
 
+## Notes jest wyłączony, dopóki nie zacznie się akcja (wtedy scena woła Notatnik.wlacz()).
+## Wpisy zbierają się po cichu także wcześniej, więc po włączeniu nic nie przepada.
+var aktywny := false
+
 var wpisy: PackedStringArray = []
 
 var _kartka: NinePatchRect
@@ -73,11 +77,17 @@ func dodaj(wpis: String) -> void:
 		return
 	wpisy.append(wpis)
 	_odswiez()
+	dodano.emit(wpis)
+	if not aktywny:
+		return
 	_dymek_tekst.text = "Nowy wpis w notesie  [T]"
 	_dymek.reset_size()
 	_dymek.visible = true
 	_dymek_czas = 4.0
-	dodano.emit(wpis)
+
+
+func wlacz() -> void:
+	aktywny = true
 
 
 func otwarty() -> bool:
@@ -99,7 +109,7 @@ func _process(delta: float) -> void:
 
 func _unhandled_input(zdarzenie: InputEvent) -> void:
 	var k := zdarzenie as InputEventKey
-	if k and k.pressed and not k.echo and k.physical_keycode == KEY_T:
+	if k and k.pressed and not k.echo and k.physical_keycode == KEY_T and aktywny:
 		if not _kartka.visible and Gra.okno_otwarte():
 			return
 		_odswiez()

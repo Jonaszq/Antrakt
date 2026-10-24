@@ -79,7 +79,9 @@ func plansza(tekst: String) -> void:
 ## Na kilka sekund pokazuje na dole listę klawiszy.
 func pomoc_klawiszy() -> void:
 	var pomoc := etykieta(16, Color8(236, 226, 200))
-	pomoc.text = "WASD chodzenie  E rozmowa  T notes  Q telefon  Tab postać"
+	pomoc.text = "WASD chodzenie  E rozmowa  Q telefon  Tab postać"
+	if Notatnik.aktywny:
+		pomoc.text += "  T notes"
 	pomoc.position = Vector2(8, 250)
 	ui.add_child(pomoc)
 	var znik := create_tween()

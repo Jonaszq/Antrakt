@@ -8,32 +8,9 @@ const EKRAN := Rect2(10, 22, 150, 214)
 const BIALY := Color8(236, 238, 246)
 const SZARY := Color8(140, 146, 166)
 
-## Rozmowy: kontakt -> lista [godzina, tekst, czy napisał Antoni].
-var sms := {
-	"Ola (siostra)": [
-		["14:02", "Siema braciszku! Masz tu bilet na premierę \"Ostatniego aktu\". Dziś 19:00, Teatr Miejski.", false],
-		["14:03", "Tylko się nie spóźnij! Długo na niego pracowałam.", false],
-		["14:03", "Miłego spektaklu. I choć raz nie myśl o pracy :)", false],
-		["14:20", "Dzięki, Ola. Będę na czas.", true],
-	],
-	"Komisarz Nowicki": [
-		["pt 17:45", "Urlop to urlop, Antoni. Nie chcę cię widzieć na komendzie do poniedziałku.", false],
-		["pt 17:51", "Tak jest, szefie.", true],
-	],
-	"Mama": [
-		["pt 19:10", "Jadłeś coś dzisiaj?", false],
-		["pt 21:30", "Antoś?", false],
-	],
-}
-## Historia połączeń: [kto, rodzaj, kiedy].
-var polaczenia := [
-	["Ola (siostra)", "przychodzące", "dziś 14:05, 2 min"],
-	["Mama", "nieodebrane", "pt 21:31"],
-	["Pizzeria Roma", "wychodzące", "pt 20:12, 1 min"],
-	["Komisarz Nowicki", "przychodzące", "pt 17:40, 4 min"],
-	["Nieznany numer", "odrzucone", "czw 09:12"],
-	["Mama", "wychodzące", "śr 18:30, 12 min"],
-]
+## Teksty SMS-ów i połączeń są w dialogi/dialogi.gd (SMS, POLACZENIA).
+var sms: Dictionary = Dialogi.SMS.duplicate(true)
+var polaczenia: Array = Dialogi.POLACZENIA.duplicate(true)
 
 ## Godzina na pasku telefonu; sceny ustawiają ją przy starcie.
 var godzina := "18:30"

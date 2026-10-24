@@ -14,19 +14,9 @@ func _ready() -> void:
 	Telefon.godzina = "18:31"
 	_ania = obiekty.get_node("Ania")
 	antoni.stan("gora")
-	dodaj_rozmowce(postac("gosc_pan", Vector2(560, 252)), [
-		["Starszy pan", "Słyszał pan? Podobno dubler Wolskiego zniknął. Od wczoraj nikt go nie widział."],
-		["Antoni", "Może po prostu ma tremę."],
-		["Starszy pan", "Trema przed rolą, której może nawet nie zagra? Młodzi dziś są dziwni."],
-	])
-	dodaj_rozmowce(postac("gosc_pani", Vector2(694, 248)), [
-		["Elegancka pani", "Wolski grał podobno generalną w gorączce. Trzydzieści dziewięć stopni!"],
-		["Elegancka pani", "Prawdziwy zawodowiec. Dubler nawet nie musiał wchodzić na scenę."],
-	])
-	dodaj_rozmowce(postac("gosc_student", Vector2(170, 318)), [
-		["Student", "Kupiłem bilet pół roku temu. Jak Wolski dziś nie zagra, to chyba umrę."],
-		["Antoni", "Lepiej nie."],
-	])
+	dodaj_rozmowce(postac("gosc_pan", Vector2(560, 252)), Dialogi.SCENA1["starszy_pan"])
+	dodaj_rozmowce(postac("gosc_pani", Vector2(694, 248)), Dialogi.SCENA1["elegancka_pani"])
+	dodaj_rozmowce(postac("gosc_student", Vector2(170, 318)), Dialogi.SCENA1["student"])
 	gdy_blisko(_ania, 80.0, _podsluchaj_anie)
 	await plansza("Foyer, 18:30")
 	pomoc_klawiszy()
@@ -35,20 +25,14 @@ func _ready() -> void:
 func _podsluchaj_anie() -> void:
 	antoni.sterowanie = false
 	antoni.stan("gora")
-	await dialog.pokaz([
-		["Ania", "(do telefonu) Adrian, odezwij się, proszę. Cokolwiek się stało, przepraszam."],
-		["Ania", "...Och. Nie zauważyłam pana. Przepraszam, muszę wracać za kulisy."],
-	])
+	await dialog.pokaz(Dialogi.SCENA1["ania_telefon"])
 	# Ania znika za drzwiami służbowymi
 	await przesun(_ania, Vector2(214, 128), 0.8)
 	var tw := create_tween()
 	tw.tween_property(_ania, "modulate:a", 0.0, 0.4)
 	await tw.finished
 	_ania.queue_free()
-	await dialog.pokaz([
-		["Antoni", "Za co ona przeprasza? I komu?"],
-		["Antoni", "Dobra. Najpierw toaleta, potem zagadki. Może tymi drzwiami?"],
-	])
-	Notatnik.dodaj("Dubler zaginął. Ania za coś przeprasza?")
+	await dialog.pokaz(Dialogi.SCENA1["antoni_po_ani"])
+	Notatnik.dodaj(Dialogi.NOTES["ania_przeprasza"])
 	ustaw_wyjscie(DRZWI, "Drzwi służbowe", "res://sceny/scena2/scena2.tscn")
 	antoni.sterowanie = true
