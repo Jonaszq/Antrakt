@@ -144,7 +144,7 @@ func _mow(litery: int) -> void:
 
 
 func _unhandled_input(zdarzenie: InputEvent) -> void:
-	if not visible or not zdarzenie is InputEventKey:
+	if not visible or not zdarzenie is InputEventKey or Gra.okno_otwarte():
 		return
 	var k := zdarzenie as InputEventKey
 	if not k.pressed or k.echo:

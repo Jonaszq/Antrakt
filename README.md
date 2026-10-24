@@ -18,6 +18,7 @@ Nie trzeba niczego rozpakowywać ani podmieniać ręcznie.
 ## Co jest w grze
 
 - **F5** uruchamia grę od filmiku wstępnego (`wstep/wstep.tscn`). Spacja przewija ujęcie, Escape pomija filmik.
-- Po filmiku startuje scena 1 w foyer (`sceny/scena1/scena1.tscn`): WASD chodzenie, E rozmowa, Tab notes.
+- Po filmiku startuje scena 1 w foyer (`sceny/scena1/scena1.tscn`), potem scena 2 w kulisach (`sceny/scena2/scena2.tscn`).
+- Klawisze: WASD chodzenie, E rozmowa, T notes, Q telefon, Tab wybór postaci (Antoni albo Antoni z latarnią).
 - Mapy do swobodnego chodzenia: `mapy/<nazwa>/<nazwa>.tscn` (otwórz i naciśnij F6).
 - Grafiki rysują skrypty w `tools/`, czcionka to Pixelify Sans (licencja OFL, `fonty/OFL.txt`).

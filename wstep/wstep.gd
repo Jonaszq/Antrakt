@@ -116,6 +116,7 @@ func _film() -> void:
 	_sprite("res://wstep/teatr_noc.png", Vector2.ZERO, teatr)
 	var antoni: CharacterBody2D = preload("res://postacie/antoni/antoni.tscn").instantiate()
 	antoni.sterowanie = false
+	antoni.wybor_gracza = false
 	antoni.podloze = "mokry"
 	antoni.position = Vector2(-24, 238)
 	teatr.add_child(antoni)

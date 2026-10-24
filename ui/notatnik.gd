@@ -1,5 +1,5 @@
 extends CanvasLayer
-## Notes Antoniego, dostępny w całej grze pod klawiszem Tab (singleton "Notatnik").
+## Notes Antoniego, dostępny w całej grze pod klawiszem T (singleton "Notatnik").
 ## Sceny dopisują tropy przez Notatnik.dodaj("..."). Na razie to prosta lista
 ## wpisów; łączenie tropów dorobi wątek mechaniki gry.
 
@@ -38,7 +38,7 @@ func _ready() -> void:
 	_lista.size = Vector2(292, 176)
 	_lista.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_kartka.add_child(_lista)
-	var podpis := _etykieta("Tab – zamknij", 16, Color8(150, 132, 108))
+	var podpis := _etykieta("T – zamknij", 16, Color8(150, 132, 108))
 	podpis.position = Vector2(206, 214)
 	_kartka.add_child(podpis)
 
@@ -73,7 +73,7 @@ func dodaj(wpis: String) -> void:
 		return
 	wpisy.append(wpis)
 	_odswiez()
-	_dymek_tekst.text = "Nowy wpis w notesie  [Tab]"
+	_dymek_tekst.text = "Nowy wpis w notesie  [T]"
 	_dymek.reset_size()
 	_dymek.visible = true
 	_dymek_czas = 4.0
@@ -99,7 +99,9 @@ func _process(delta: float) -> void:
 
 func _unhandled_input(zdarzenie: InputEvent) -> void:
 	var k := zdarzenie as InputEventKey
-	if k and k.pressed and not k.echo and k.physical_keycode == KEY_TAB:
+	if k and k.pressed and not k.echo and k.physical_keycode == KEY_T:
+		if not _kartka.visible and Gra.okno_otwarte():
+			return
 		_odswiez()
 		_kartka.visible = not _kartka.visible
 		_dymek.visible = false

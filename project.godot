@@ -17,6 +17,8 @@ config/features=PackedStringArray("4.4")
 [autoload]
 
 Notatnik="*res://ui/notatnik.gd"
+Telefon="*res://ui/telefon.gd"
+Gra="*res://ui/gra.gd"
 
 [display]
 

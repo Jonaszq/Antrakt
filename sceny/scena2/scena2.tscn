@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://sceny/scena2/scena2.gd" id="skrypt"]
+[ext_resource type="PackedScene" path="res://mapy/kulisy/kulisy.tscn" id="kulisy"]
+
+[node name="Scena2" type="Node2D"]
+script = ExtResource("skrypt")
+
+[node name="Kulisy" parent="." instance=ExtResource("kulisy")]

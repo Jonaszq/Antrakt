@@ -19,7 +19,11 @@ extends CharacterBody2D
 ## Miejsca z innym podłożem niż reszta mapy, np. chodnik w foyer: [[Rect2, "dywan"], ...].
 @export var strefy_podloza: Array = []
 
+## Czy Antoni słucha wyboru gracza (Tab: zwykły albo z latarnią). W filmikach wyłączone.
+@export var wybor_gracza := true
+
 var kierunek := "dol"
+var _latarnia: PointLight2D
 
 var _kroki: AudioStreamPlayer
 var _odglosy := {}
@@ -32,6 +36,40 @@ func _ready() -> void:
 	_kroki.volume_db = -8.0
 	add_child(_kroki)
 	sprite.frame_changed.connect(_krok)
+	if wybor_gracza:
+		ustaw_latarnie(Gra.latarnia)
+		Gra.zmieniono_postac.connect(ustaw_latarnie)
+
+
+## Podmienia klatki na Antoniego z latarnią (albo bez) i włącza mocne, ciepłe światło.
+func ustaw_latarnie(z: bool) -> void:
+	var wzor: Node = load("res://postacie/antoni/antoni_latarnia.tscn" if z else "res://postacie/antoni/antoni.tscn").instantiate()
+	var animacja := sprite.animation
+	var klatka := sprite.frame
+	sprite.sprite_frames = wzor.get_node("Sprite").sprite_frames
+	wzor.free()
+	sprite.play(animacja)
+	sprite.frame = klatka
+	if z and not _latarnia:
+		_latarnia = PointLight2D.new()
+		var g := Gradient.new()
+		g.offsets = PackedFloat32Array([0.0, 0.5, 1.0])
+		g.colors = PackedColorArray([Color(1, 1, 1, 1), Color(1, 1, 1, 0.4), Color(1, 1, 1, 0)])
+		var t := GradientTexture2D.new()
+		t.gradient = g
+		t.width = 256
+		t.height = 256
+		t.fill = GradientTexture2D.FILL_RADIAL
+		t.fill_from = Vector2(0.5, 0.5)
+		t.fill_to = Vector2(1, 0.5)
+		_latarnia.texture = t
+		_latarnia.color = Color(1, 0.74, 0.42)
+		_latarnia.energy = 2.0
+		_latarnia.texture_scale = 3.2
+		_latarnia.position = Vector2(0, -20)
+		add_child(_latarnia)
+	if _latarnia:
+		_latarnia.visible = z
 
 
 func _odglos(nazwa: String) -> AudioStreamRandomizer:
@@ -58,7 +96,10 @@ func _krok() -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	if not sterowanie:
+	if not sterowanie or Gra.okno_otwarte():
+		velocity = Vector2.ZERO
+		if sterowanie:
+			_graj("stoi_" + kierunek)
 		return
 	var wejscie := Vector2(
 		_klawisz(KEY_D, KEY_RIGHT) - _klawisz(KEY_A, KEY_LEFT),
