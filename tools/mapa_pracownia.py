@@ -720,12 +720,13 @@ position = Vector2({px}, {py})''')
 position = Vector2({start[0]}, {start[1]})
 podloze = "{podloze}"
 strefy_podloza = [{strefy_txt}]''')
-    wezly.append('''[node name="Latarnia" type="PointLight2D" parent="Obiekty/Antoni"]
-position = Vector2(-10, -20)
-color = Color(1, 0.72, 0.4, 1)
-energy = 0.9
+    # miękkie światło "od gracza", żeby Antoni był widoczny w ciemnych miejscach
+    wezly.append('''[node name="Swiatlo" type="PointLight2D" parent="Obiekty/Antoni"]
+position = Vector2(0, -22)
+color = Color(1, 0.9, 0.78, 1)
+energy = 0.7
 texture = SubResource("swiatlo")
-texture_scale = 1.1''')
+texture_scale = 1.0''')
     wezly.append(f'''[node name="Kamera" type="Camera2D" parent="Obiekty/Antoni"]
 limit_left = 0
 limit_top = 0

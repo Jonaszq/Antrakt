@@ -1,6 +1,6 @@
 """Syntezuje dźwięki gry od zera: muzykę do filmiku wstępnego i odgłosy kroków.
 
-Użycie: python3 tools/dzwieki.py
+Użycie: python3 tools/dzwieki.py [--bez-muzyki]
 
 Bez sampli i płatnych narzędzi: wszystko powstaje z sinusów i szumu
 (numpy + scipy), a muzyka jest kodowana do OGG przez ffmpeg.
@@ -11,8 +11,11 @@ Wynik:
                                     19-30 s magazyn (napięcie, bicie serca),
                                     30-44 s kurtyna i tytuł (narastanie i akord)
   dzwieki/kroki/<podłoże>_<n>.wav   po 4 warianty: drewno, marmur, dywan, mokry
+  dzwieki/glosy/<kobieta|mezczyzna>_<n>.wav
+                                    8 sylab "blabla" na głos w okienku dialogu
 """
 import subprocess
+import sys
 import wave
 from pathlib import Path
 
@@ -268,6 +271,38 @@ def krok(podloze, n):
     return x / np.max(np.abs(x)) * 0.7
 
 
+# ---------- głosy postaci ("blablabla") ----------
+
+SAMOGLOSKI = {"a": (800, 1200, 2500), "e": (500, 1800, 2500), "o": (500, 900, 2400),
+              "i": (320, 2300, 3000), "u": (350, 800, 2300), "y": (420, 1500, 2400)}
+GLOSKI = ["ba", "la", "ble", "da", "bo", "li", "du", "me", "ny", "wa"]
+
+
+def sylaba(plec, n):
+    """Krótka mamrocząca sylaba: impulsy krtani przez formanty samogłoski, z lekkim spółgłoskowym początkiem."""
+    g = np.random.default_rng(500 + n + (0 if plec == "k" else 50))
+    gloska = GLOSKI[n % len(GLOSKI)]
+    dl = 0.085 + g.uniform(0, 0.025)
+    t = czas(dl)
+    f0 = (225 if plec == "k" else 118) * (1 + g.uniform(-0.05, 0.05))
+    f = f0 * (1 + 0.06 * np.exp(-t * 30)) * (1 - 0.05 * t / dl)  # lekki spadek intonacji
+    faza = 2 * np.pi * np.cumsum(f) / SR
+    krtan = sum(np.sin(k * faza) / k ** 1.2 for k in range(1, 30) if k * f0 < SR / 2.5)
+    f1, f2, f3 = SAMOGLOSKI[gloska[-1]]
+    skala = 1.12 if plec == "k" else 1.0
+    x = (pasmo(krtan, f1 * skala * 0.8, f1 * skala * 1.25) * 1.0
+         + pasmo(krtan, f2 * skala * 0.88, f2 * skala * 1.12) * 0.6
+         + pasmo(krtan, f3 * skala * 0.92, f3 * skala * 1.08) * 0.25)
+    obw = np.minimum(1, t / 0.012) * np.minimum(1, (dl - t) / 0.025)
+    if gloska[0] in "bd":  # zwarcie: najpierw cisza, potem plask
+        obw *= np.minimum(1, t / 0.02)
+        x += gorny(g.standard_normal(len(t)), 1500) * np.exp(-t * 200) * 0.08
+    elif gloska[0] in "lmnw":  # miękki, nosowy początek
+        x = x * np.minimum(1, t / 0.03) + np.sin(faza) * np.exp(-t * 40) * 0.3
+    x *= obw
+    return x / np.max(np.abs(x)) * 0.6
+
+
 def zapisz_wav(sciezka, x):
     dane = (np.clip(x, -1, 1) * 32767).astype(np.int16)
     with wave.open(str(sciezka), "wb") as w:
@@ -285,6 +320,13 @@ def main():
             x = krok(podloze, n)
             koniec = np.nonzero(np.abs(x) > 0.002)[0].max() + 200
             zapisz_wav(kroki / f"{podloze}_{n}.wav", x[:koniec])
+    glosy = Path("dzwieki/glosy")
+    glosy.mkdir(parents=True, exist_ok=True)
+    for plec, nazwa in (("k", "kobieta"), ("m", "mezczyzna")):
+        for n in range(1, 9):
+            zapisz_wav(glosy / f"{nazwa}_{n}.wav", sylaba(plec, n))
+    if "--bez-muzyki" in sys.argv:
+        return
     folder = Path("dzwieki/muzyka")
     folder.mkdir(parents=True, exist_ok=True)
     tymczasowy = folder / "wstep_tmp.wav"

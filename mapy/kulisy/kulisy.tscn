@@ -276,12 +276,12 @@ position = Vector2(392, 440)
 podloze = "drewno"
 strefy_podloza = []
 
-[node name="Latarnia" type="PointLight2D" parent="Obiekty/Antoni"]
-position = Vector2(-10, -20)
-color = Color(1, 0.72, 0.4, 1)
-energy = 0.9
+[node name="Swiatlo" type="PointLight2D" parent="Obiekty/Antoni"]
+position = Vector2(0, -22)
+color = Color(1, 0.9, 0.78, 1)
+energy = 0.7
 texture = SubResource("swiatlo")
-texture_scale = 1.1
+texture_scale = 1.0
 
 [node name="Kamera" type="Camera2D" parent="Obiekty/Antoni"]
 limit_left = 0

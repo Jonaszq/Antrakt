@@ -13,6 +13,15 @@ signal skonczony
 
 const LITER_NA_SEKUNDE := 40.0
 
+## Głos postaci w okienku: płeć ("k" albo "m") i wysokość (1.0 = zwykła).
+## Kogoś spoza listy rozpoznajemy po imieniu: kończy się na "a", to kobieta.
+const GLOSY := {
+	"Antoni": ["m", 0.92], "Ania": ["k", 1.06], "Wolski": ["m", 0.84], "Bogdan": ["m", 1.0],
+	"Lis": ["m", 1.0], "Irena": ["k", 0.88], "Marta": ["k", 1.12], "Halina": ["k", 0.82],
+	"Zenon": ["m", 0.78], "Starszy pan": ["m", 0.8], "Elegancka pani": ["k", 0.98], "Student": ["m", 1.14],
+}
+const CO_ILE_LITER := 3
+
 ## Większe od zera: kwestie przechodzą same po tylu sekundach (w filmikach).
 var auto := 0.0
 
@@ -27,6 +36,9 @@ var _tekst: Label
 var _imie_tlo: NinePatchRect
 var _imie: Label
 var _strzalka: TextureRect
+var _glos: AudioStreamPlayer
+var _glosy := {}
+var _ostatnia_litera := 0
 
 
 func _ready() -> void:
@@ -51,6 +63,15 @@ func _ready() -> void:
 	_imie.add_theme_font_size_override("font_size", 16)
 	_imie.add_theme_color_override("font_color", Color8(242, 212, 126))
 	_imie_tlo.add_child(_imie)
+	_glos = AudioStreamPlayer.new()
+	_glos.volume_db = -10.0
+	add_child(_glos)
+	for plec in ["k", "m"]:
+		var r := AudioStreamRandomizer.new()
+		r.random_pitch = 1.07
+		for i in range(1, 9):
+			r.add_stream(-1, load("res://dzwieki/glosy/%s_%d.wav" % ["kobieta" if plec == "k" else "mezczyzna", i]))
+		_glosy[plec] = r
 	visible = false
 
 
@@ -90,6 +111,11 @@ func _ustaw() -> void:
 	_imie_tlo.visible = kto != ""
 	_imie.text = kto
 	_imie_tlo.size.x = _imie.get_minimum_size().x + 12
+	_ostatnia_litera = -CO_ILE_LITER
+	var glos: Array = GLOSY.get(kto, ["k" if kto.ends_with("a") else "m", 1.0])
+	_glos.stream = _glosy[glos[0]]
+	_glos.pitch_scale = glos[1]
+	_glos.set_meta("milczy", kto == "")
 
 
 func _process(delta: float) -> void:
@@ -99,10 +125,22 @@ func _process(delta: float) -> void:
 	var ile := int(_czas * LITER_NA_SEKUNDE)
 	var wszystkie := _tekst.get_total_character_count()
 	_tekst.visible_characters = mini(ile, wszystkie)
+	_mow(mini(ile, wszystkie))
 	var gotowe := ile >= wszystkie
 	_strzalka.visible = gotowe and fmod(_czas, 0.8) < 0.5
 	if auto > 0.0 and gotowe and _czas > wszystkie / LITER_NA_SEKUNDE + auto:
 		_dalej()
+
+
+## Co kilka liter jedna sylaba "bla", żeby było słychać, kto mówi. Narracja milczy.
+func _mow(litery: int) -> void:
+	if _glos.get_meta("milczy", false) or litery - _ostatnia_litera < CO_ILE_LITER:
+		return
+	var znak := _tekst.text.substr(litery - 1, 1)
+	if znak.strip_edges() == "" or znak in ".,!?…()":
+		return
+	_ostatnia_litera = litery
+	_glos.play()
 
 
 func _unhandled_input(zdarzenie: InputEvent) -> void:

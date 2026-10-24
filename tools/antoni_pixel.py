@@ -21,6 +21,10 @@ SRODEK = 20
 
 KONTUR = (12, 8, 10)
 
+# Czy Antoni trzyma latarnię. Na co dzień nie; wersja z latarnią
+# (postacie/antoni/antoni_latarnia.tscn) czeka na scenę, w której będzie potrzebna.
+Z_LATARNIA = False
+
 # rampy od najciemniejszego do najjaśniejszego
 RAMPY = {
     "plaszcz": [(24, 17, 18), (40, 28, 26), (60, 42, 34), (86, 61, 45), (112, 82, 58)],
@@ -158,6 +162,7 @@ def antoni_przod(faza, chod, plomien, tyl=False):
     sway = round(s)
 
     # ręce za płaszczem: rękaw + dłoń, ręka z latarnią po stronie ekranu "lewej" od przodu
+    lat = None
     reka_lat = 1 if tyl else -1  # -1 = lewa strona ekranu
     for strona in (-1, 1):
         x_reka = SRODEK + strona * 11
@@ -168,7 +173,7 @@ def antoni_przod(faza, chod, plomien, tyl=False):
                 "plaszcz", 2)  # mankiet
         dlon_x = x_reka + 2 * strona
         p.prost(dlon_x - 1, 37 + b + machniecie, dlon_x + 1, 39 + b + machniecie, "skora")
-        if strona == reka_lat:
+        if strona == reka_lat and Z_LATARNIA:
             lat = latarnia(p, dlon_x, 40 + b + machniecie, plomien)
 
     # płaszcz
@@ -283,7 +288,7 @@ def antoni_bok(faza, chod, plomien):
     p.wielokat([(SRODEK - 2, 21 + b), (SRODEK + 2, 21 + b), (SRODEK + 2 + mach, 36 + b), (SRODEK - 1 + mach, 36 + b)],
                "plaszcz", 3)
     p.prost(SRODEK + mach, 37 + b, SRODEK + 2 + mach, 39 + b, "skora")
-    lat = latarnia(p, SRODEK + 1 + mach, 40 + b, plomien)
+    lat = latarnia(p, SRODEK + 1 + mach, 40 + b, plomien) if Z_LATARNIA else None
 
     # kapelusz z profilu
     p.elipsa(10, 6 + b, 30, 10 + b, "kapelusz")
@@ -375,6 +380,15 @@ def cien():
 
 
 def main(folder):
+    """Rysuje Antoniego bez latarni (antoni.tscn) i z latarnią (antoni_latarnia.tscn)."""
+    global Z_LATARNIA
+    for Z_LATARNIA, nazwa in ((False, "antoni"), (True, "antoni_latarnia")):
+        wiersze = zapisz(folder, nazwa)
+    Z_LATARNIA = False
+    return wiersze
+
+
+def zapisz(folder, nazwa):
     folder = Path(folder)
     folder.mkdir(parents=True, exist_ok=True)
     klatki = wszystkie_klatki()
@@ -384,11 +398,11 @@ def main(folder):
     for r, klucz in enumerate(wiersze):
         for k, img in enumerate(klatki[klucz]):
             arkusz.alpha_composite(img, (k * SZER, r * WYS))
-    arkusz.save(folder / "antoni_arkusz.png")
+    arkusz.save(folder / f"{nazwa}_arkusz.png")
     cien().save(folder / "cien.png")
     res = "res://postacie/antoni/"
-    (folder / "antoni.tscn").write_text(
-        scena(wiersze, res + "antoni_arkusz.png", res + "antoni.gd", res + "cien.png"), encoding="utf-8")
+    (folder / f"{nazwa}.tscn").write_text(
+        scena(wiersze, res + f"{nazwa}_arkusz.png", res + "antoni.gd", res + "cien.png"), encoding="utf-8")
     return wiersze
 
 
