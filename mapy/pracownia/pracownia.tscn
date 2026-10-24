@@ -1,0 +1,393 @@
+[gd_scene load_steps=48 format=3]
+
+[ext_resource type="Texture2D" path="res://mapy/pracownia/tlo.png" id="tlo"]
+[ext_resource type="PackedScene" path="res://postacie/antoni/antoni.tscn" id="antoni"]
+[ext_resource type="Texture2D" path="res://mapy/pracownia/lustro.png" id="lustro"]
+[ext_resource type="Texture2D" path="res://mapy/pracownia/stol.png" id="stol"]
+[ext_resource type="Texture2D" path="res://mapy/pracownia/taboret_1.png" id="taboret_1"]
+[ext_resource type="Texture2D" path="res://mapy/pracownia/taboret_2.png" id="taboret_2"]
+[ext_resource type="Texture2D" path="res://mapy/pracownia/manekin_1.png" id="manekin_1"]
+[ext_resource type="Texture2D" path="res://mapy/pracownia/manekin_2.png" id="manekin_2"]
+[ext_resource type="Texture2D" path="res://mapy/pracownia/manekin_wolski.png" id="manekin_wolski"]
+[ext_resource type="Texture2D" path="res://mapy/pracownia/stojak.png" id="stojak"]
+[ext_resource type="Texture2D" path="res://mapy/pracownia/parawan.png" id="parawan"]
+[ext_resource type="Texture2D" path="res://mapy/pracownia/maszyna.png" id="maszyna"]
+[ext_resource type="Texture2D" path="res://mapy/pracownia/taboret_3.png" id="taboret_3"]
+[ext_resource type="Texture2D" path="res://mapy/pracownia/kufer_1.png" id="kufer_1"]
+[ext_resource type="Texture2D" path="res://mapy/pracownia/kufer_2.png" id="kufer_2"]
+[ext_resource type="Texture2D" path="res://mapy/pracownia/kufer_3.png" id="kufer_3"]
+[ext_resource type="Texture2D" path="res://mapy/pracownia/kosz.png" id="kosz"]
+[ext_resource type="Texture2D" path="res://mapy/pracownia/deska.png" id="deska"]
+[ext_resource type="Texture2D" path="res://mapy/pracownia/bele.png" id="bele"]
+
+[sub_resource type="Gradient" id="grad"]
+offsets = PackedFloat32Array(0, 0.55, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.35, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="swiatlo"]
+gradient = SubResource("grad")
+width = 256
+height = 256
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="RectangleShape2D" id="k0"]
+size = Vector2(72, 22)
+
+[sub_resource type="RectangleShape2D" id="k1"]
+size = Vector2(60, 28)
+
+[sub_resource type="RectangleShape2D" id="k2"]
+size = Vector2(134, 18)
+
+[sub_resource type="RectangleShape2D" id="k3"]
+size = Vector2(64, 20)
+
+[sub_resource type="RectangleShape2D" id="k4"]
+size = Vector2(72, 22)
+
+[sub_resource type="RectangleShape2D" id="k5"]
+size = Vector2(24, 8)
+
+[sub_resource type="RectangleShape2D" id="k6"]
+size = Vector2(114, 22)
+
+[sub_resource type="RectangleShape2D" id="k7"]
+size = Vector2(16, 8)
+
+[sub_resource type="RectangleShape2D" id="k8"]
+size = Vector2(16, 8)
+
+[sub_resource type="RectangleShape2D" id="k9"]
+size = Vector2(32, 8)
+
+[sub_resource type="RectangleShape2D" id="k10"]
+size = Vector2(32, 8)
+
+[sub_resource type="RectangleShape2D" id="k11"]
+size = Vector2(32, 8)
+
+[sub_resource type="RectangleShape2D" id="k12"]
+size = Vector2(74, 8)
+
+[sub_resource type="RectangleShape2D" id="k13"]
+size = Vector2(68, 8)
+
+[sub_resource type="RectangleShape2D" id="k14"]
+size = Vector2(50, 12)
+
+[sub_resource type="RectangleShape2D" id="k15"]
+size = Vector2(16, 8)
+
+[sub_resource type="RectangleShape2D" id="k16"]
+size = Vector2(38, 20)
+
+[sub_resource type="RectangleShape2D" id="k17"]
+size = Vector2(38, 20)
+
+[sub_resource type="RectangleShape2D" id="k18"]
+size = Vector2(38, 20)
+
+[sub_resource type="RectangleShape2D" id="k19"]
+size = Vector2(28, 14)
+
+[sub_resource type="RectangleShape2D" id="k20"]
+size = Vector2(62, 8)
+
+[sub_resource type="RectangleShape2D" id="k21"]
+size = Vector2(52, 14)
+
+[sub_resource type="RectangleShape2D" id="g0"]
+size = Vector2(800, 108)
+
+[sub_resource type="RectangleShape2D" id="g1"]
+size = Vector2(14, 480)
+
+[sub_resource type="RectangleShape2D" id="g2"]
+size = Vector2(14, 480)
+
+[sub_resource type="RectangleShape2D" id="g3"]
+size = Vector2(800, 14)
+
+[node name="Pracownia" type="Node2D"]
+
+[node name="Mrok" type="CanvasModulate" parent="."]
+color = Color(0.42, 0.38, 0.5, 1)
+
+[node name="Tlo" type="Sprite2D" parent="."]
+texture = ExtResource("tlo")
+centered = false
+
+[node name="Kolizje" type="StaticBody2D" parent="."]
+
+[node name="K0" type="CollisionShape2D" parent="Kolizje"]
+position = Vector2(134.0, 115.0)
+shape = SubResource("k0")
+
+[node name="K1" type="CollisionShape2D" parent="Kolizje"]
+position = Vector2(212.0, 118.0)
+shape = SubResource("k1")
+
+[node name="K2" type="CollisionShape2D" parent="Kolizje"]
+position = Vector2(321.0, 113.0)
+shape = SubResource("k2")
+
+[node name="K3" type="CollisionShape2D" parent="Kolizje"]
+position = Vector2(668.0, 114.0)
+shape = SubResource("k3")
+
+[node name="K4" type="CollisionShape2D" parent="Kolizje"]
+position = Vector2(748.0, 115.0)
+shape = SubResource("k4")
+
+[node name="K5" type="CollisionShape2D" parent="Kolizje"]
+position = Vector2(603.0, 136.0)
+shape = SubResource("k5")
+
+[node name="K6" type="CollisionShape2D" parent="Kolizje"]
+position = Vector2(618.0, 245.0)
+shape = SubResource("k6")
+
+[node name="K7" type="CollisionShape2D" parent="Kolizje"]
+position = Vector2(599.0, 278.0)
+shape = SubResource("k7")
+
+[node name="K8" type="CollisionShape2D" parent="Kolizje"]
+position = Vector2(655.0, 280.0)
+shape = SubResource("k8")
+
+[node name="K9" type="CollisionShape2D" parent="Kolizje"]
+position = Vector2(435.0, 184.0)
+shape = SubResource("k9")
+
+[node name="K10" type="CollisionShape2D" parent="Kolizje"]
+position = Vector2(477.0, 192.0)
+shape = SubResource("k10")
+
+[node name="K11" type="CollisionShape2D" parent="Kolizje"]
+position = Vector2(207.0, 308.0)
+shape = SubResource("k11")
+
+[node name="K12" type="CollisionShape2D" parent="Kolizje"]
+position = Vector2(74.0, 244.0)
+shape = SubResource("k12")
+
+[node name="K13" type="CollisionShape2D" parent="Kolizje"]
+position = Vector2(739.0, 338.0)
+shape = SubResource("k13")
+
+[node name="K14" type="CollisionShape2D" parent="Kolizje"]
+position = Vector2(78.0, 358.0)
+shape = SubResource("k14")
+
+[node name="K15" type="CollisionShape2D" parent="Kolizje"]
+position = Vector2(117.0, 366.0)
+shape = SubResource("k15")
+
+[node name="K16" type="CollisionShape2D" parent="Kolizje"]
+position = Vector2(42.0, 430.0)
+shape = SubResource("k16")
+
+[node name="K17" type="CollisionShape2D" parent="Kolizje"]
+position = Vector2(84.0, 438.0)
+shape = SubResource("k17")
+
+[node name="K18" type="CollisionShape2D" parent="Kolizje"]
+position = Vector2(762.0, 432.0)
+shape = SubResource("k18")
+
+[node name="K19" type="CollisionShape2D" parent="Kolizje"]
+position = Vector2(575.0, 429.0)
+shape = SubResource("k19")
+
+[node name="K20" type="CollisionShape2D" parent="Kolizje"]
+position = Vector2(432.0, 434.0)
+shape = SubResource("k20")
+
+[node name="K21" type="CollisionShape2D" parent="Kolizje"]
+position = Vector2(667.0, 427.0)
+shape = SubResource("k21")
+
+[node name="G0" type="CollisionShape2D" parent="Kolizje"]
+position = Vector2(400.0, 54.0)
+shape = SubResource("g0")
+
+[node name="G1" type="CollisionShape2D" parent="Kolizje"]
+position = Vector2(7.0, 240.0)
+shape = SubResource("g1")
+
+[node name="G2" type="CollisionShape2D" parent="Kolizje"]
+position = Vector2(793.0, 240.0)
+shape = SubResource("g2")
+
+[node name="G3" type="CollisionShape2D" parent="Kolizje"]
+position = Vector2(400.0, 473.0)
+shape = SubResource("g3")
+
+[node name="Obiekty" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="lustro" type="Sprite2D" parent="Obiekty"]
+position = Vector2(590, 140)
+texture = ExtResource("lustro")
+centered = false
+offset = Vector2(0, -64)
+
+[node name="stol" type="Sprite2D" parent="Obiekty"]
+position = Vector2(560, 256)
+texture = ExtResource("stol")
+centered = false
+offset = Vector2(0, -60)
+
+[node name="taboret_1" type="Sprite2D" parent="Obiekty"]
+position = Vector2(590, 282)
+texture = ExtResource("taboret_1")
+centered = false
+offset = Vector2(0, -20)
+
+[node name="taboret_2" type="Sprite2D" parent="Obiekty"]
+position = Vector2(646, 284)
+texture = ExtResource("taboret_2")
+centered = false
+offset = Vector2(0, -20)
+
+[node name="manekin_1" type="Sprite2D" parent="Obiekty"]
+position = Vector2(418, 188)
+texture = ExtResource("manekin_1")
+centered = false
+offset = Vector2(0, -72)
+
+[node name="manekin_2" type="Sprite2D" parent="Obiekty"]
+position = Vector2(460, 196)
+texture = ExtResource("manekin_2")
+centered = false
+offset = Vector2(0, -72)
+
+[node name="manekin_wolski" type="Sprite2D" parent="Obiekty"]
+position = Vector2(190, 312)
+texture = ExtResource("manekin_wolski")
+centered = false
+offset = Vector2(0, -72)
+
+[node name="stojak" type="Sprite2D" parent="Obiekty"]
+position = Vector2(36, 248)
+texture = ExtResource("stojak")
+centered = false
+offset = Vector2(0, -78)
+
+[node name="parawan" type="Sprite2D" parent="Obiekty"]
+position = Vector2(704, 342)
+texture = ExtResource("parawan")
+centered = false
+offset = Vector2(0, -72)
+
+[node name="maszyna" type="Sprite2D" parent="Obiekty"]
+position = Vector2(52, 364)
+texture = ExtResource("maszyna")
+centered = false
+offset = Vector2(0, -46)
+
+[node name="taboret_3" type="Sprite2D" parent="Obiekty"]
+position = Vector2(108, 370)
+texture = ExtResource("taboret_3")
+centered = false
+offset = Vector2(0, -20)
+
+[node name="kufer_1" type="Sprite2D" parent="Obiekty"]
+position = Vector2(22, 440)
+texture = ExtResource("kufer_1")
+centered = false
+offset = Vector2(0, -30)
+
+[node name="kufer_2" type="Sprite2D" parent="Obiekty"]
+position = Vector2(64, 448)
+texture = ExtResource("kufer_2")
+centered = false
+offset = Vector2(0, -30)
+
+[node name="kufer_3" type="Sprite2D" parent="Obiekty"]
+position = Vector2(742, 442)
+texture = ExtResource("kufer_3")
+centered = false
+offset = Vector2(0, -30)
+
+[node name="kosz" type="Sprite2D" parent="Obiekty"]
+position = Vector2(560, 436)
+texture = ExtResource("kosz")
+centered = false
+offset = Vector2(0, -28)
+
+[node name="deska" type="Sprite2D" parent="Obiekty"]
+position = Vector2(400, 438)
+texture = ExtResource("deska")
+centered = false
+offset = Vector2(0, -34)
+
+[node name="bele" type="Sprite2D" parent="Obiekty"]
+position = Vector2(640, 434)
+texture = ExtResource("bele")
+centered = false
+offset = Vector2(0, -34)
+
+[node name="Antoni" parent="Obiekty" instance=ExtResource("antoni")]
+position = Vector2(390, 300)
+
+[node name="Latarnia" type="PointLight2D" parent="Obiekty/Antoni"]
+position = Vector2(-10, -20)
+color = Color(1, 0.72, 0.4, 1)
+energy = 0.9
+texture = SubResource("swiatlo")
+texture_scale = 1.1
+
+[node name="Kamera" type="Camera2D" parent="Obiekty/Antoni"]
+limit_left = 0
+limit_top = 0
+limit_right = 800
+limit_bottom = 480
+position_smoothing_enabled = true
+position_smoothing_speed = 6.0
+
+[node name="Swiatla" type="Node2D" parent="."]
+
+[node name="S0" type="PointLight2D" parent="Swiatla"]
+position = Vector2(86, 44)
+color = Color(1, 0.7, 0.38, 1)
+energy = 0.7
+texture = SubResource("swiatlo")
+texture_scale = 1.05
+
+[node name="S1" type="PointLight2D" parent="Swiatla"]
+position = Vector2(398, 44)
+color = Color(1, 0.7, 0.38, 1)
+energy = 0.7
+texture = SubResource("swiatlo")
+texture_scale = 1.05
+
+[node name="S2" type="PointLight2D" parent="Swiatla"]
+position = Vector2(612, 44)
+color = Color(1, 0.7, 0.38, 1)
+energy = 0.7
+texture = SubResource("swiatlo")
+texture_scale = 1.05
+
+[node name="S3" type="PointLight2D" parent="Swiatla"]
+position = Vector2(521, 60)
+color = Color(0.55, 0.7, 1, 1)
+energy = 0.7
+texture = SubResource("swiatlo")
+texture_scale = 1.60
+
+[node name="S4" type="PointLight2D" parent="Swiatla"]
+position = Vector2(212, 98)
+color = Color(1, 0.7, 0.38, 1)
+energy = 0.8
+texture = SubResource("swiatlo")
+texture_scale = 1.10
+
+[node name="S5" type="PointLight2D" parent="Swiatla"]
+position = Vector2(622, 208)
+color = Color(1, 0.7, 0.38, 1)
+energy = 1.0
+texture = SubResource("swiatlo")
+texture_scale = 1.20
