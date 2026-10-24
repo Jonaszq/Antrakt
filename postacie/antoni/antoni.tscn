@@ -58,20 +58,20 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="stopy"]
-radius = 22.0
-height = 70.0
+radius = 28.0
+height = 90.0
 
 [node name="Antoni" type="CharacterBody2D"]
 motion_mode = 1
 script = ExtResource("skrypt")
 
 [node name="Cien" type="Sprite2D" parent="."]
-scale = Vector2(0.7, 0.7)
+scale = Vector2(0.95, 0.95)
 texture = ExtResource("tex_cien")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 self_modulate = Color(0.85, 0.82, 0.8, 1)
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.69, 0.69)
 sprite_frames = SubResource("klatki")
 animation = &"stoi_dol"
 autoplay = "stoi_dol"

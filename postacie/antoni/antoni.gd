@@ -3,7 +3,7 @@ extends CharacterBody2D
 ## (lewo to odbicie prawej strony). Animacje nazywają się "stoi_<kierunek>"
 ## i "idzie_<kierunek>", gdzie kierunek to dol, gora albo prawo.
 
-@export var predkosc := 260.0
+@export var predkosc := 320.0
 
 ## Kamera pod skosem skraca pion, więc ruch w górę i w dół jest trochę wolniejszy.
 @export var skrot_pionu := 0.75
@@ -14,7 +14,7 @@ var kierunek := "dol"
 ## postać podskakuje i kołysze się w kodzie. Gdy dojdą prawdziwe klatki,
 ## to wyłącza się samo.
 @export var krokow_na_sekunde := 4.0
-@export var wysokosc_podskoku := 5.0
+@export var wysokosc_podskoku := 7.0
 @export var kolysanie_stopni := 2.5
 
 var _czas := 0.0
