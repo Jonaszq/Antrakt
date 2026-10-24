@@ -660,7 +660,7 @@ IRENA_PRZY_STOLE = (("Irena", "irena", (536, 262)),)
 
 
 def scena_godot(m, folder_res, korzen="Pracownia", start=(390, 300), postacie=IRENA_PRZY_STOLE,
-                mrok=(0.42, 0.38, 0.5)):
+                mrok=(0.42, 0.38, 0.5), podloze="drewno", strefy=()):
     """Składa plik .tscn z tłem, meblami, kolizjami i światłami.
 
     postacie: krotki (nazwa węzła, folder postaci, pozycja stóp).
@@ -715,8 +715,11 @@ offset = Vector2(0, {-img.height})''')
     for wezel, klucz, (px, py) in postacie:
         wezly.append(f'''[node name="{wezel}" parent="Obiekty" instance=ExtResource("{klucz}")]
 position = Vector2({px}, {py})''')
+    strefy_txt = ", ".join(f'[Rect2({x0}, {y0}, {x1 - x0}, {y1 - y0}), "{p}"]' for x0, y0, x1, y1, p in strefy)
     wezly.append(f'''[node name="Antoni" parent="Obiekty" instance=ExtResource("antoni")]
-position = Vector2({start[0]}, {start[1]})''')
+position = Vector2({start[0]}, {start[1]})
+podloze = "{podloze}"
+strefy_podloza = [{strefy_txt}]''')
     wezly.append('''[node name="Latarnia" type="PointLight2D" parent="Obiekty/Antoni"]
 position = Vector2(-10, -20)
 color = Color(1, 0.72, 0.4, 1)

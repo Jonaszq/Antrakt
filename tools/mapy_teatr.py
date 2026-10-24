@@ -349,6 +349,7 @@ def foyer():
     for wx in range(402, 478, 3):
         prost(d, wx, H - mp.SCIANA - 20, 1, 14, (46, 38, 30))
     return m, dict(korzen="Foyer", start=(440, 470), postacie=(("Ania", "ania", (230, 142)),),
+                   podloze="marmur", strefy=((396, PY, 484, H, "dywan"), (340, PY, 540, PY + 40, "dywan")),
                    mrok=(0.5, 0.45, 0.56))
 
 
@@ -677,7 +678,7 @@ def widownia():
     m.kolizje.append((120, 0, W - 120, 60))
     return m, dict(korzen="Widownia", start=(320, 610),
                    postacie=(("Wolski", "wolski", (480, 140)), ("Bogdan", "bogdan", (640, 236))),
-                   mrok=(0.4, 0.36, 0.48))
+                   mrok=(0.4, 0.36, 0.48), podloze="dywan", strefy=((0, 0, W, SCENA_Y1 + 20, "drewno"),))
 
 
 MAPY = {"foyer": foyer, "kulisy": kulisy, "widownia": widownia}

@@ -336,6 +336,8 @@ position = Vector2(536, 262)
 
 [node name="Antoni" parent="Obiekty" instance=ExtResource("antoni")]
 position = Vector2(390, 300)
+podloze = "drewno"
+strefy_podloza = []
 
 [node name="Latarnia" type="PointLight2D" parent="Obiekty/Antoni"]
 position = Vector2(-10, -20)

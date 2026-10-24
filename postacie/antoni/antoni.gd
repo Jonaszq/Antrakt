@@ -13,9 +13,48 @@ extends CharacterBody2D
 ## Wyłączone w filmikach i podczas rozmów: Antoni stoi, a animacją steruje scena.
 @export var sterowanie := true
 
+## Po czym chodzi Antoni: drewno, marmur, dywan albo mokry (dźwięki w dzwieki/kroki/).
+@export var podloze := "drewno"
+
+## Miejsca z innym podłożem niż reszta mapy, np. chodnik w foyer: [[Rect2, "dywan"], ...].
+@export var strefy_podloza: Array = []
+
 var kierunek := "dol"
 
+var _kroki: AudioStreamPlayer
+var _odglosy := {}
+
 @onready var sprite: AnimatedSprite2D = $Sprite
+
+
+func _ready() -> void:
+	_kroki = AudioStreamPlayer.new()
+	_kroki.volume_db = -8.0
+	add_child(_kroki)
+	sprite.frame_changed.connect(_krok)
+
+
+func _odglos(nazwa: String) -> AudioStreamRandomizer:
+	if not _odglosy.has(nazwa):
+		var r := AudioStreamRandomizer.new()
+		r.random_pitch = 1.08
+		r.random_volume_offset_db = 2.0
+		for i in range(1, 5):
+			r.add_stream(-1, load("res://dzwieki/kroki/%s_%d.wav" % [nazwa, i]))
+		_odglosy[nazwa] = r
+	return _odglosy[nazwa]
+
+
+## Stopa dotyka ziemi w klatkach 0 i 4 animacji chodu.
+func _krok() -> void:
+	if not sprite.animation.begins_with("idzie_") or sprite.frame % 4 != 0:
+		return
+	var nazwa := podloze
+	for s in strefy_podloza:
+		if (s[0] as Rect2).has_point(position):
+			nazwa = s[1]
+	_kroki.stream = _odglos(nazwa)
+	_kroki.play()
 
 
 func _physics_process(_delta: float) -> void:

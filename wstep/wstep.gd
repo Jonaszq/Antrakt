@@ -12,6 +12,7 @@ var _zaslona: ColorRect
 var _napis: Label
 var _podpis: Label
 var _dialog: Dialog
+var _muzyka: AudioStreamPlayer
 
 
 func _ready() -> void:
@@ -32,6 +33,11 @@ func _ready() -> void:
 	pomoc.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	pomoc.modulate = Color(1, 1, 1, 0.45)
 	ui.add_child(pomoc)
+	_muzyka = AudioStreamPlayer.new()
+	_muzyka.stream = preload("res://dzwieki/muzyka/wstep.ogg")
+	_muzyka.volume_db = -4.0
+	add_child(_muzyka)
+	_muzyka.play()
 	_dialog = Dialog.new()
 	_dialog.auto = 1.6
 	_dialog.u_gory = true
@@ -110,6 +116,7 @@ func _film() -> void:
 	_sprite("res://wstep/teatr_noc.png", Vector2.ZERO, teatr)
 	var antoni: CharacterBody2D = preload("res://postacie/antoni/antoni.tscn").instantiate()
 	antoni.sterowanie = false
+	antoni.podloze = "mokry"
 	antoni.position = Vector2(-24, 238)
 	teatr.add_child(antoni)
 	var deszcz := Node2D.new()
@@ -197,4 +204,8 @@ func _zakoncz() -> void:
 	if _koniec:
 		return
 	_koniec = true
-	get_tree().change_scene_to_file.call_deferred(NASTEPNA_SCENA)
+	var cisza := create_tween().set_parallel()
+	cisza.tween_property(_muzyka, "volume_db", -40.0, 0.6)
+	cisza.tween_property(_zaslona, "color:a", 1.0, 0.6)
+	await cisza.finished
+	get_tree().change_scene_to_file(NASTEPNA_SCENA)
