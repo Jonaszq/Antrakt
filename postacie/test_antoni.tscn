@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Texture2D" path="res://tla/pracownia_kostiumow.png" id="tlo"]
+[ext_resource type="PackedScene" path="res://postacie/antoni/antoni.tscn" id="antoni"]
+
+[node name="TestAntoni" type="Node2D"]
+y_sort_enabled = true
+
+[node name="Tlo" type="Sprite2D" parent="."]
+texture = ExtResource("tlo")
+centered = false
+
+[node name="Granice" type="StaticBody2D" parent="."]
+
+[node name="Podloga" type="CollisionPolygon2D" parent="Granice"]
+build_mode = 1
+polygon = PackedVector2Array(120, 640, 500, 470, 1350, 460, 1620, 780, 1500, 1060, 650, 1060, 330, 800)
+
+[node name="Antoni" parent="." instance=ExtResource("antoni")]
+position = Vector2(1000, 760)
