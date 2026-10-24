@@ -659,7 +659,8 @@ def zbuduj():
 def scena_godot(m, folder_res):
     """Składa plik .tscn z tłem, meblami, kolizjami i światłami."""
     ext = [f'[ext_resource type="Texture2D" path="{folder_res}tlo.png" id="tlo"]',
-           '[ext_resource type="PackedScene" path="res://postacie/antoni/antoni.tscn" id="antoni"]']
+           '[ext_resource type="PackedScene" path="res://postacie/antoni/antoni.tscn" id="antoni"]',
+           '[ext_resource type="PackedScene" path="res://postacie/irena/irena.tscn" id="irena"]']
     for nazwa, *_ in m.obiekty:
         ext.append(f'[ext_resource type="Texture2D" path="{folder_res}{nazwa}.png" id="{nazwa}"]')
     sub = ['''[sub_resource type="Gradient" id="grad"]
@@ -703,6 +704,8 @@ position = Vector2({x}, {y + img.height})
 texture = ExtResource("{nazwa}")
 centered = false
 offset = Vector2(0, {-img.height})''')
+    wezly.append('''[node name="Irena" parent="Obiekty" instance=ExtResource("irena")]
+position = Vector2(536, 262)''')
     wezly.append('''[node name="Antoni" parent="Obiekty" instance=ExtResource("antoni")]
 position = Vector2(390, 300)''')
     wezly.append('''[node name="Latarnia" type="PointLight2D" parent="Obiekty/Antoni"]

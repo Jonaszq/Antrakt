@@ -1,7 +1,8 @@
-[gd_scene load_steps=48 format=3]
+[gd_scene load_steps=49 format=3]
 
 [ext_resource type="Texture2D" path="res://mapy/pracownia/tlo.png" id="tlo"]
 [ext_resource type="PackedScene" path="res://postacie/antoni/antoni.tscn" id="antoni"]
+[ext_resource type="PackedScene" path="res://postacie/irena/irena.tscn" id="irena"]
 [ext_resource type="Texture2D" path="res://mapy/pracownia/lustro.png" id="lustro"]
 [ext_resource type="Texture2D" path="res://mapy/pracownia/stol.png" id="stol"]
 [ext_resource type="Texture2D" path="res://mapy/pracownia/taboret_1.png" id="taboret_1"]
@@ -329,6 +330,9 @@ position = Vector2(640, 434)
 texture = ExtResource("bele")
 centered = false
 offset = Vector2(0, -34)
+
+[node name="Irena" parent="Obiekty" instance=ExtResource("irena")]
+position = Vector2(536, 262)
 
 [node name="Antoni" parent="Obiekty" instance=ExtResource("antoni")]
 position = Vector2(390, 300)
