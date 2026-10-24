@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cphadxf4i6jmt"
-path="res://.godot/imported/pracownia_kostiumow.png-5523301b6adbbcbe3ed10afa54cd4662.ctex"
+uid="uid://cd6v4gl3k6e6i"
+path="res://.godot/imported/stojak.png-7c5038d388533030dc6c192d7d6c31b1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://tla/pracownia_kostiumow.png"
-dest_files=["res://.godot/imported/pracownia_kostiumow.png-5523301b6adbbcbe3ed10afa54cd4662.ctex"]
+source_file="res://mapy/pracownia/stojak.png"
+dest_files=["res://.godot/imported/stojak.png-7c5038d388533030dc6c192d7d6c31b1.ctex"]
 
 [params]
 
