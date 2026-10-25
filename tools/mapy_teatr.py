@@ -422,6 +422,16 @@ def kulisy():
     prost(d, 600, 40, 24, 32, METAL[1])
     obrys(d, 600, 40, 24, 32)
     d.line([(612, 72), (612, 96), (640, PY - 2)], fill=WELUR[0], width=2)
+    # drzwi na widownię (tędy Antoni idzie na spektakl, scena 3)
+    prost(d, 668, PY - 66, 36, 66, DREWNO_C[1])
+    obrys(d, 668, PY - 66, 36, 66)
+    prost(d, 672, PY - 62, 28, 62, DREWNO[2])
+    prost(d, 672, PY - 62, 28, 1, DREWNO[4])
+    obrys(d, 676, PY - 56, 20, 20, DREWNO[1])
+    obrys(d, 676, PY - 30, 20, 24, DREWNO[1])
+    prost(d, 694, PY - 34, 3, 2, ZLOTO[3])
+    szyld(d, 666, PY - 80, "WIDOWNIA")
+    m.swiatla.append((686, 30, 0.4))
 
     # sznurownia przy lewej ścianie: liny, kołki, worki z piaskiem
     prost(d, mp.SCIANA, 0, 40, H, DREWNO_C[1])

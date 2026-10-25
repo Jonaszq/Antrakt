@@ -92,12 +92,50 @@ const SCENA2 := {
 	"marta_pierwsza": [
 		["Marta", "Hej! Pan tu nie może być. Za dziesięć minut podnosimy kurtynę."],
 		["Antoni", "Szukam toalety."],
-		["Marta", "W foyer, po lewej od szatni. Ma pan szczęście, że to nie środek spektaklu."],
+		["Marta", "Toaleta dla personelu jest zaraz przy drzwiach na widownię. Szybko, a potem prosto na swoje miejsce."],
 		["Marta", "Marta, inspicjentka. Jak ktoś się tu gubi, to potem ja tego kogoś szukam. Proszę za mną nie łazić."],
 	],
 	"marta_potem": [
-		["Marta", "Toaleta w foyer, po lewej od szatni. Proszę już iść, za chwilę trzeci dzwonek."],
+		["Marta", "Drzwi z napisem WIDOWNIA, tam na końcu. Proszę już iść, za chwilę trzeci dzwonek."],
 	],
+}
+
+
+# ---------- SCENA 3: SPEKTAKL, SOBOTA 19:00 (FILMIK) ----------
+# Gracz tylko ogląda i klika dalej. "Wolski" i "Ania" na scenie grają role ze sztuki.
+
+const SCENA3 := {
+	# Antoni siada na swoim miejscu
+	"przed": [
+		["Antoni", "Zdążyłem. Ola byłaby dumna."],
+		["", "Gasną światła. Kurtyna idzie w górę."],
+	],
+	"akt1": [
+		["Wolski", "Trzy noce nie spałem w tym domu. Ktoś chodzi po schodach, gdy wszyscy już śpią."],
+		["Wolski", "A ja wiem, kto. Wiem i milczę, bo milczenie to też rodzaj zbrodni."],
+		["", "Widownia wstrzymuje oddech. Wolski gra, jakby naprawdę bał się o życie."],
+	],
+	"akt2": [
+		["Wolski", "Nareszcie jesteś. Powiedz mi prawdę, choć raz w życiu."],
+		["Ania", "Prawda jest taka, że ty... że ty nie powinieneś..."],
+		["", "Ania milknie w pół zdania. Patrzy na kostium Wolskiego, jakby zobaczyła ducha."],
+	],
+	"akt2_ratunek": [
+		["Wolski", "...nie powinienem żyć? Wiem. A jednak stoję przed tobą, moja droga."],
+		["Ania", "Tak. A jednak stoisz."],
+		["", "Spektakl toczy się dalej. Nikt na widowni niczego nie zauważył. Prawie nikt."],
+	],
+	"koniec": [
+		["", "Burza oklasków. Wolski kłania się trzy razy. Ania tylko raz, i szybko znika za kulisami."],
+		["Antoni", "Dobre przedstawienie. Tylko ta jedna pomyłka..."],
+	],
+}
+
+# Duże napisy na środku ekranu między aktami.
+const SCENA3_NAPISY := {
+	"akt1": "Akt pierwszy",
+	"akt2": "Akt drugi",
+	"koniec": "21:30",
 }
 
 
@@ -109,7 +147,8 @@ const DRZWI := {
 	"foyer_widownia": "Zamknięte. Widownię otwierają tuż przed spektaklem.",
 	"foyer_wyjscie": "Nie wyjdę teraz. Ola by mnie zabiła.",
 	"kulisy_wyjscie": "Zaraz wracam. Najpierw sprawdzę, kto się tak drze.",
-	"kulisy_wyjscie_2": "Nie wiem, którędy do foyer. Zapytam kogoś.",
+	"kulisy_wyjscie_2": "To chyba drzwi na widownię. Ale gdzie ta toaleta? Zapytam kogoś.",
+	"kulisy_dol": "Tędy przyszedłem. Nie ma czasu, zaraz trzeci dzwonek.",
 }
 
 
