@@ -87,7 +87,50 @@ func _etykieta(tekst: String, rozmiar: int, kolor: Color) -> Label:
 
 ## Czy jest otwarte jakieś okno (notes, telefon, wybór postaci). Antoni wtedy stoi.
 func okno_otwarte() -> bool:
-	return _okno.visible or Notatnik.otwarty() or Telefon.otwarty() or Ekwipunek.otwarty()
+	return _okno.visible or Notatnik.otwarty() or Telefon.otwarty() or Ekwipunek.otwarty() or Pauza.otwarta()
+
+
+## Czyści wszystko przed nową grą (wołane z menu głównego).
+func nowa_gra() -> void:
+	latarnia = false
+	sily = 80
+	_kawa_czas = 0.0
+	Notatnik.aktywny = false
+	Notatnik.tekst = ""
+	Ekwipunek.przedmioty.clear()
+	Telefon.sms = Dialogi.SMS.duplicate(true)
+	Telefon.polaczenia = Dialogi.POLACZENIA.duplicate(true)
+
+
+# ---------- ustawienia (te same w menu głównym i w pauzie) ----------
+
+func pelny_ekran() -> bool:
+	return DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN
+
+
+func przelacz_pelny_ekran() -> void:
+	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED if pelny_ekran() else DisplayServer.WINDOW_MODE_FULLSCREEN)
+
+
+func napis_ekranu() -> String:
+	return "Pełny ekran: " + ("tak" if pelny_ekran() else "nie")
+
+
+## Głośność całej gry w procentach, klik zmienia 100 -> 80 -> ... -> 0 -> 100.
+func glosnosc() -> int:
+	return roundi(db_to_linear(AudioServer.get_bus_volume_db(0)) * 100.0 / 20.0) * 20
+
+
+func zmien_glosnosc() -> void:
+	var nowa := glosnosc() - 20
+	if nowa < 0:
+		nowa = 100
+	AudioServer.set_bus_volume_db(0, linear_to_db(nowa / 100.0))
+	AudioServer.set_bus_mute(0, nowa == 0)
+
+
+func napis_glosnosci() -> String:
+	return "Głośność: %d%%" % glosnosc()
 
 
 func dodaj_sily(ile: int) -> void:
@@ -122,8 +165,7 @@ func _unhandled_input(zdarzenie: InputEvent) -> void:
 	if not k or not k.pressed or k.echo:
 		return
 	if k.physical_keycode == KEY_F11 or (k.physical_keycode == KEY_ENTER and k.alt_pressed):
-		var pelny := DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN
-		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED if pelny else DisplayServer.WINDOW_MODE_FULLSCREEN)
+		przelacz_pelny_ekran()
 		get_viewport().set_input_as_handled()
 	elif k.physical_keycode == KEY_TAB:
 		if not _okno.visible and okno_otwarte():

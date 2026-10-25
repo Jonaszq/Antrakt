@@ -17,8 +17,8 @@ Nie trzeba niczego rozpakowywać ani podmieniać ręcznie.
 
 ## Co jest w grze
 
-- **F5** uruchamia grę od filmiku wstępnego (`wstep/wstep.tscn`). Spacja przewija ujęcie, Escape pomija filmik.
-- Po filmiku startuje scena 1 w foyer (`sceny/scena1/scena1.tscn`), potem scena 2 w kulisach (`sceny/scena2/scena2.tscn`) i scena 3, filmik ze spektaklem na widowni (`sceny/scena3/scena3.tscn`).
+- **F5** uruchamia grę od menu głównego (`menu/menu.tscn`): Nowa gra (filmik wstępny, `wstep/wstep.tscn`), Wybierz scenę (skrót do testów), Ustawienia, Wyjdź. W filmiku Spacja przewija ujęcie, Escape pomija filmik. W grze Escape to pauza z wyjściem do menu.
+- Po filmiku startuje scena 1 w foyer (`sceny/scena1/scena1.tscn`), potem scena 2 w kulisach (`sceny/scena2/scena2.tscn`) scena 3, filmik ze spektaklem na widowni (`sceny/scena3/scena3.tscn`), i scena 4, bankiet w foyer (`sceny/scena4/scena4.tscn`).
 - Klawisze: WASD chodzenie, E rozmowa i przeszukiwanie, I ekwipunek, T notes (gracz pisze sam, Esc zamyka), Q telefon, Tab wybór postaci (Antoni albo Antoni z latarnią). Telefon, wybór postaci i dialogi działają też myszką (klik, w telefonie prawy klik cofa, kółko przewija).
 - Mapy do swobodnego chodzenia: `mapy/<nazwa>/<nazwa>.tscn` (otwórz i naciśnij F6).
 - Grafiki rysują skrypty w `tools/`, czcionka to Atkinson Hyperlegible Next (licencja OFL, `fonty/OFL.txt`); Jersey 10 zostaje tylko do napisów rysowanych na obrazkach.

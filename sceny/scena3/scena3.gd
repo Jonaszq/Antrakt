@@ -3,9 +3,9 @@ extends ScenaGry
 ## i klika dalej. Antoni siedzi wśród widzów, gasną światła, Wolski gra znakomicie.
 ## W drugim akcie Ania myli kwestię i zamiera, patrząc na kostium Wolskiego
 ## (kamera najeżdża na nią, a potem na kostium). Teksty w Dialogi.SCENA3.
-## Scena 4 (bankiet) jeszcze nie istnieje, na razie potem jest wolne foyer.
+## Potem scena 4 (bankiet w foyer).
 
-const NASTEPNA := "res://mapy/foyer/foyer.tscn"
+const NASTEPNA := "res://sceny/scena4/scena4.tscn"
 const MIEJSCE_ANTONIEGO := Vector2(488, 318)  # trzeci rząd, środkowy sektor
 const SRODEK_SCENY := Vector2(480, 136)
 

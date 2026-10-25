@@ -35,8 +35,8 @@ const SCENA1 := {
 		["Starszy pan", "Trema przed rolą, której może nawet nie zagra? Młodzi dziś są dziwni."],
 	],
 	"elegancka_pani": [
-		["Elegancka pani", "Wolski grał podobno generalną w gorączce. Trzydzieści dziewięć stopni!"],
-		["Elegancka pani", "Prawdziwy zawodowiec. Dubler nawet nie musiał wchodzić na scenę."],
+		["Elegancka pani", "Wolski był podobno chory przez cały tydzień. Trzydzieści dziewięć stopni!"],
+		["Elegancka pani", "A dziś i tak zagra. Prawdziwy zawodowiec."],
 	],
 	"student": [
 		["Student", "Kupiłem bilet pół roku temu. Jak Wolski dziś nie zagra, to chyba umrę."],
@@ -139,6 +139,83 @@ const SCENA3_NAPISY := {
 }
 
 
+# ---------- SCENA 4: BANKIET W FOYER, SOBOTA 22:00 ----------
+# Najważniejsze są rozmowy z Ireną i Martą. Po obu scena się kończy.
+
+const SCENA4 := {
+	"poczatek": [
+		["Antoni", "Bankiet. Ola mówiła, że po premierze zawsze jest wino i dużo gadania."],
+		["Antoni", "Dobrze. Posłucham, co gadają."],
+	],
+	"wolski": [
+		["Wolski", "Pan Antoni! I jak? Tylko szczerze, choć i tak usłyszę same komplementy."],
+		["Antoni", "Był pan świetny."],
+		["Wolski", "Wiem. Ale od policjanta to brzmi jak zeznanie pod przysięgą. Wino jest na stole, proszę się częstować."],
+		["Antoni", "A ta pauza w drugim akcie?"],
+		["Wolski", "Ania? Trema, każdemu się zdarza. Złapałem ją, nikt nie zauważył. No, prawie nikt."],
+	],
+	"wolski_potem": [
+		["Wolski", "Proszę się bawić! Jutro i tak wszyscy będziemy mieli kaca."],
+	],
+	"lis": [
+		["Lis", "Udało się! Bez dublera, z Adamem po gorączce, a jednak się udało!"],
+		["Antoni", "Adrian się odezwał?"],
+		["Lis", "Nie. Jak go dorwę, to... Nieważne. Dziś świętujemy."],
+	],
+	"lis_potem": [
+		["Lis", "Niech pan spróbuje tartinek. Kosztowały mnie majątek."],
+	],
+	"irena": [
+		["Irena", "Ten chłopak wszystko niszczy."],
+		["Antoni", "Kto taki?"],
+		["Irena", "Adrian, a kto! Kostium Adama od próby w pralni, a we wtorek drugi spektakl!"],
+		["Antoni", "Adrian nosił kostium Wolskiego?"],
+		["Irena", "Na czwartkowej próbie, bo Adam leżał z gorączką. Po próbie kostium zniknął z wieszaka i wylądował w pralni."],
+		["Irena", "Coś na niego wylał i nawet się nie przyznał. Dwa miesiące go szyłam."],
+		["", "Wskazówka: takie rzeczy warto zapisać w notesie (T). Gra sama tego nie zrobi."],
+	],
+	"irena_potem": [
+		["Irena", "Jak ten kostium nie wróci na wtorek, to Adam zagra w szlafroku."],
+	],
+	"marta": [
+		["Marta", "O, pan od toalety. Znalazł pan w końcu?"],
+		["Antoni", "Znalazłem. Wszystko w porządku za kulisami?"],
+		["Marta", "Teraz tak. Ale wie pan, co jest dziwne? Na próbie generalnej Adrian cały czas się drapał."],
+		["Marta", "Jakby miał mrówki pod koszulą. Blady był jak ściana."],
+		["Antoni", "Uczulenie?"],
+		["Marta", "Może. A teraz nie odbiera telefonu. Dziwny ten tydzień."],
+	],
+	"marta_potem": [
+		["Marta", "Ja już padam z nóg. Jutro sprzątanie po premierze."],
+	],
+	"ania": [
+		["Ania", "Przepraszam, nie mam dziś siły na rozmowy."],
+		["Antoni", "W drugim akcie..."],
+		["Ania", "Zapomniałam tekstu. Zdarza się. Proszę mnie zostawić."],
+	],
+	"ania_potem": [
+		["Ania", "..."],
+	],
+	"starszy_pan": [
+		["Starszy pan", "Wolski był genialny. A ta mała w drugim akcie? Zbladła jak trup."],
+	],
+	"elegancka_pani": [
+		["Elegancka pani", "Gorączka czy nie, zagrał jak bóg. Mówiłam, prawdziwy zawodowiec."],
+	],
+	"student": [
+		["Student", "Przeżyłem! Wolski zagrał. Mogę umierać spokojnie."],
+		["Antoni", "Lepiej nie."],
+	],
+	# po rozmowach z Ireną i Martą
+	"koniec": [
+		["", "Mija godzina. Wino się kończy, goście powoli zakładają płaszcze."],
+	],
+}
+
+## SMS, który przychodzi na początku bankietu: [kontakt, godzina, tekst].
+const SCENA4_SMS := ["Ola (siostra)", "21:52", "I jak?? Wolski był boski, prawda? Opowiadaj!"]
+
+
 # ---------- ZAMKNIĘTE DRZWI ----------
 # Napis, który pojawia się, gdy Antoni podejdzie do drzwi, którymi nie da się przejść.
 # Trzymaj je krótkie, żeby mieściły się w jednej linijce.
@@ -149,6 +226,9 @@ const DRZWI := {
 	"kulisy_wyjscie": "Zaraz wracam. Najpierw sprawdzę, kto się tak drze.",
 	"kulisy_wyjscie_2": "To chyba drzwi na widownię. Ale gdzie ta toaleta? Zapytam kogoś.",
 	"kulisy_dol": "Tędy przyszedłem. Nie ma czasu, zaraz trzeci dzwonek.",
+	"bankiet_widownia": "Widownia już zamknięta. Spektakl się skończył.",
+	"bankiet_wyjscie": "Jeszcze nie wychodzę. Najpierw posłucham, co ludzie mówią.",
+	"bankiet_personel": "Za kulisy już nie wejdę. Marta by mnie zabiła.",
 }
 
 
@@ -198,6 +278,7 @@ const SKRZYNKI := {
 	"bufet": ["Bufet", "Na ladzie kanapki i kawa dla widzów premiery. Biorę po jednej.", "Więcej nie wezmę, nie wypada."],
 	"apteczka": ["Apteczka", "W apteczce są tabletki przeciwbólowe. Biorę listek.", "Bandaże, plaster. Nic więcej mi nie trzeba."],
 	"szatnia": ["Szatnia", "Szatniarz: \"To pana? Wypadło komuś z płaszcza, nikt się nie przyznaje.\" Biorę drobne.", "Szatniarz kiwa głową. Nic więcej tu nie ma."],
+	"bankiet": ["Stół bankietowy", "Tartinki, pączki i wino. Biorę coś na ząb.", "Starczy. Nie chcę wyjść na łakomczucha."],
 	"bezpieczniki": ["Bezpieczniki", "Między bezpiecznikami wisi zapasowy klucz. Ktoś tu dba o wygodę.", "Same bezpieczniki."],
 }
 

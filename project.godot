@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Ostatni akt"
-run/main_scene="res://wstep/wstep.tscn"
+run/main_scene="res://menu/menu.tscn"
 config/features=PackedStringArray("4.4")
 
 [autoload]
@@ -20,6 +20,7 @@ Notatnik="*res://ui/notatnik.gd"
 Telefon="*res://ui/telefon.gd"
 Gra="*res://ui/gra.gd"
 Ekwipunek="*res://ui/ekwipunek.gd"
+Pauza="*res://ui/pauza.gd"
 
 [display]
 
