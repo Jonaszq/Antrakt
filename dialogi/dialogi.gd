@@ -688,7 +688,126 @@ const SCENA5_PYTANIA := [
 const SCENA5_NAPISY := {
 	"koniec": "Koniec rozdziału 1",
 	"licznik": "5 dni do pogrzebu",
-	"dalej": "Rozdział 2: Ciało w magazynie. Już wkrótce.",
+	"dalej": "Rozdział 2: Ciało w magazynie",
+}
+
+
+# ---------- ROZDZIAŁ 2 ----------
+
+# Scena 6: magazyn dekoracji, niedziela 0:15. Lekarz stwierdza zawał, Nowicki daje
+# Antoniemu kwadrans. Najpierw latarka ze skrzynki przy bramie, potem ślady:
+# czerwone pasy na ramionach Adriana, telefon pod manekinem, lista rekwizytów.
+const SCENA6 := {
+	"poczatek": [
+		["", "Hala magazynu tonie w ciemności. Palą się tylko dwie żarówki."],
+		["", "Deszcz bębni o blaszany dach. Gdzieś z góry kapie woda."],
+		["Lis", "Ja... ja zostanę przy bramie. Nie dam rady tam podejść."],
+	],
+	# kamera jedzie do ciała, lekarz pogotowia już tam jest
+	"lekarz_przy_ciele": [
+		["", "Między skrzyniami, pod drugą żarówką, lekarz pogotowia stoi nad ciałem."],
+		["Antoni", "Co mu się stało?"],
+		["Lekarz", "Te zaczerwienienia na ramionach? Pewnie uczulenie na proszek. Przyczyna to serce. Młody, ale zdarza się."],
+		["Lekarz", "Nie żyje od wielu godzin. Resztę powie sekcja, jak ktoś ją zleci."],
+	],
+	# Nowicki wchodzi bramą
+	"nowicki_wchodzi": [
+		["", "Przez bramę wchodzi komisarz Nowicki, otrzepując prochowiec z deszczu."],
+		["Nowicki", "No proszę. Mój urlopowicz."],
+		["Antoni", "Szefie, daj mi się rozejrzeć. Kwadrans."],
+		["Nowicki", "Antek, jesteś na urlopie. Chłopak dostał zawału wśród starych gratów, koniec historii. Masz kwadrans."],
+		["Antoni", "W tej ciemności nic nie zobaczę. Gdzieś tu musi być latarka."],
+	],
+	"latarka": [
+		["", "Skrzynka pełna rekwizytów: korony z papier-mâché, drewniane miecze, sztuczne kwiaty."],
+		["", "Na samym dnie stara, ciężka latarka. Antoni naciska włącznik. Świeci!"],
+	],
+	"latarka_potem": [["", "Same rekwizyty. Latarkę już mam."]],
+	"ciemno": [["Antoni", "Za ciemno. Bez światła nic tu nie zobaczę."]],
+	# ciało Adriana (z latarką)
+	"cialo": [
+		["", "Adrian leży na boku między skrzyniami. Koszula rozpięta, twarz szara jak papier."],
+		["Antoni", "Na ramionach i na plecach czerwone pasy. Równe, wyraźne, jak odciśnięte."],
+		["Antoni", "Uczulenie na proszek? Tylko tam, gdzie przylega ubranie, a na dłoniach nic?"],
+		["", "Antoni robi zdjęcie telefonem."],
+	],
+	"cialo_bez_latarki": [
+		["", "Adrian leży na boku między skrzyniami. Żarówka świeci mu w plecy, twarz ginie w cieniu."],
+		["Antoni", "Muszę mu się przyjrzeć z bliska. Potrzebuję światła."],
+	],
+	"cialo_potem": [["Antoni", "Taki młody. A wszyscy myśleli, że po prostu nie przyszedł na premierę."]],
+	"lekarz": [
+		["Antoni", "Pan jest pewien, że to serce?"],
+		["Lekarz", "Młody człowiek, stres przed premierą, papierosy, kawa litrami. Widziałem to setki razy."],
+		["Lekarz", "Ja swoje napiszę. Zawał."],
+	],
+	"lekarz_potem": [["Lekarz", "Proszę mi nie utrudniać. Mam jeszcze dwa wezwania tej nocy."]],
+	"policjant": [
+		["Policjant", "Proszę nie deptać. Robię zdjęcia do protokołu."],
+		["Antoni", "Ma pan tego dużo?"],
+		["Policjant", "Szef kazał zrobić pięć i zwijać się. Zawał to zawał."],
+	],
+	"policjant_potem": [["Policjant", "Jeszcze z tej strony i koniec."]],
+	"nowicki": [["Nowicki", "No i? Coś znalazłeś, Sherlocku?"]],
+	"nowicki_jeszcze": [["Nowicki", "Zegar tyka, Antek."]],
+	"lis": [
+		["Lis", "Sam go tu wysłałem. Po kielichy i koronę do drugiego aktu. Po kielichy, rozumie pan?"],
+		["Antoni", "Kiedy go pan wysłał?"],
+		["Lis", "W piątek po południu. Myślałem, że wrócił i poszedł prosto do domu."],
+	],
+	"lis_potem": [["Lis", "(patrzy w podłogę i milczy)"]],
+	# manekin przewraca się sam, gdy Antoni przechodzi obok
+	"manekin_upada": [
+		["Antoni", "Cholera jasna!"],
+		["Antoni", "Spokojnie. To tylko manekin. Wiatr albo krzywa podłoga."],
+	],
+	"telefon": [
+		["", "Tam, gdzie stał manekin, leży telefon. Ekranem w dół, z pękniętą szybką."],
+		["Antoni", "Na etui naklejka z teatralną maską. To musi być telefon Adriana."],
+		["Antoni", "Rozładowany. A gdyby nawet działał, jest zablokowany PIN-em. Potrzebuję ładowarki."],
+	],
+	"lista": [
+		["", "Na stoliku z dekoracji salonu leży kartka. Lista rekwizytów podpisana przez dyrektora Lisa."],
+		["", "\"Kielichy złote, 4 szt. Korona. Owoce. Świeczniki, 2 szt.\""],
+		["", "Na dole krzywe, rozjechane litery, długopisem:"],
+		["", "\"nie dam rady, kręci mi się w głowie\""],
+		["Antoni", "Pisał to tutaj. Usiadł na tej sofie, bo nie mógł ustać na nogach."],
+	],
+	"lista_potem": [["Antoni", "Na sofie wgniecenie. Siedział tu dłużej."]],
+	"skrzynia_przewrocona": [
+		["", "Przewrócona skrzynka z rekwizytami. Złoty kielich, korona, sztuczne owoce."],
+		["Antoni", "To, po co przyjechał. Skrzynka upadła razem z nim."],
+	],
+	"zamek": [["", "Ściana zamku ze sklejki. Farba odpryskuje, z wieżyczki zrobiło się gniazdo gołębi."]],
+	"statek": [["", "Dziób pirackiego statku. Na burcie wymalowane: \"Wyspa skarbów, 1987\"."]],
+	"regaly": [["", "Kartony z napisami: \"Wesele\", \"Dziady\", \"Kordian, nie ruszać!\". Kurz na palec."]],
+	"wiadro": [["", "Wiadro pod dziurą w dachu. Prawie pełne. Nikt go od dawna nie wylewał."]],
+	"salon": [["", "Salon z lat trzydziestych: sofa, fotel, lampa z frędzlami. Jakby ktoś zaraz miał podać herbatę."]],
+	# koniec kwadransu (albo Antoni sam mówi, że skończył)
+	"koniec": [
+		["Nowicki", "Kwadrans minął. Zabieramy go."],
+		["", "Sanitariusze kładą Adriana na nosze i wynoszą go bramą w deszcz."],
+		["Nowicki", "Idź ogrzać się do budki stróża, Antek. Ja muszę tu jeszcze spisać papiery."],
+	],
+	"koniec_sam": [
+		["Antoni", "Skończyłem, szefie."],
+		["Nowicki", "No, w końcu mówisz z sensem."],
+	],
+}
+
+const SCENA6_WYBOR := ["Jeszcze się rozejrzę", "Skończyłem"]
+
+const SCENA6_TLO := {
+	"policjant": ["Jeszcze jedno.", "Z tej strony...", "Ciemno jak w grobie."],
+	"lekarz": ["(pisze kartę)", "Godzina zgonu... nieznana."],
+	"lis": ["Boże...", "(kaszle)"],
+	"nowicki": ["(ziewa)", "Halo, komenda? Tak, zawał."],
+}
+
+const SCENA6_NAPISY := {
+	"zegar": "Kwadrans Nowickiego: %d min",
+	"latarka": "Masz latarkę. Tab: Antoni z latarką albo bez.",
+	"dalej": "Scena 7: Stróż. Już wkrótce.",
 }
 
 
@@ -715,6 +834,7 @@ const DRZWI := {
 	"bankiet_wyjscie": "Jeszcze nie wychodzę. Najpierw posłucham, co ludzie mówią.",
 	"bankiet_personel": "Za kulisy już nie wejdę. Marta by mnie zabiła.",
 	"bankiet_toalety": "Nadal awaria. Teatr na premierę, a toaleta jak w pociągu.",
+	"magazyn_brama": "Nie wyjdę, dopóki Nowicki nie skończy. Mam swój kwadrans.",
 }
 
 
@@ -749,6 +869,9 @@ const PRZEDMIOTY := {
 	"paragon": ["Paragon z hurtowni", "Hurtownia tkanin, czwartek 7:12. Na nazwisko Ireny.", "fabularny", 0],  # skrzynka z materiałami w pracowni, sc. 15
 	"grafik": ["Grafik dostaw", "Dostawy mleka do bufetu: tylko w czwartki.", "fabularny", 0],  # skrzynka na mleko przy bufecie, sc. 19
 	"spinka": ["Spinka do włosów", "Wygięta. Da się nią otworzyć prosty zamek.", "fabularny", 0],  # pudełko z charakteryzacją Ani, sc. 20
+	"telefon_adriana": ["Telefon Adriana", "Pęknięta szybka, na etui naklejka z maską. Rozładowany i zablokowany PIN-em.", "fabularny", 0],  # pod manekinem w magazynie, sc. 6
+	"lista_rekwizytow": ["Lista rekwizytów", "Lista od dyrektora Lisa. Na dole dopisek Adriana: \"nie dam rady, kręci mi się w głowie\".", "fabularny", 0],  # stolik w salonie, magazyn, sc. 6
+	"zdjecie_pasy": ["Zdjęcie: pasy na ramionach", "Zdjęcie z telefonu. Czerwone, równe pasy na ramionach i plecach Adriana.", "fabularny", 0],  # ciało Adriana, sc. 6
 	"pendrive": ["Pendrive", "Czarny pendrive z sejfu Wolskiego. Coś na nim jest.", "fabularny", 0],  # sejf w garderobie Wolskiego, sc. 18
 	# zwykłe (pasek sił)
 	"bulka": ["Bułka", "Świeża bułka z pralni pani Haliny.", "jedzenie", 10],

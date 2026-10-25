@@ -820,7 +820,284 @@ def garderoba():
     return m, dict(korzen="Garderoba", start=(320, 320), postacie=(), mrok=(0.55, 0.5, 0.6))
 
 
-MAPY = {"foyer": foyer, "kulisy": kulisy, "widownia": widownia, "garderoba": garderoba}
+# ---------- MAGAZYN DEKORACJI (rozdział 2, scena 6) ----------
+
+BETON = [(30, 30, 34), (40, 40, 44), (52, 52, 56), (66, 66, 70)]
+BLACHA = [(22, 26, 30), (34, 40, 46), (48, 56, 62), (66, 74, 80)]
+
+
+def regal_magazyn(h=70):
+    """Wysoki metalowy regał z kartonami i skrzyniami, widziany od frontu."""
+    img = nowy(96, h + 10)
+    d = ImageDraw.Draw(img)
+    for sx in (2, 90):
+        prost(d, sx, 0, 4, h + 10, METAL[1])
+        obrys(d, sx, 0, 4, h + 10)
+    for py in range(6, h + 4, 22):
+        prost(d, 2, py + 16, 92, 3, METAL[2])
+        obrys(d, 2, py + 16, 92, 3)
+        bx = 7
+        while bx < 84:
+            bw = mp.los.randint(12, 24)
+            bh = mp.los.randint(10, 16)
+            k = mp.los.choice([DREWNO, DREWNO_C, [(70, 56, 36), (100, 80, 50), (130, 106, 70), (160, 136, 96), (180, 156, 110)]])
+            if bx + bw > 88:
+                break
+            skrzynia(d, bx, py + 16 - bh, bw, 3, bh - 3, k)
+            if mp.los.random() < 0.3:
+                prost(d, bx + 3, py + 16 - bh + 5, bw - 6, 3, PAPIER[1])  # etykieta
+            bx += bw + 2
+    return img
+
+
+def zamek_dekoracja():
+    """Ściana zamku ze sklejki z blankami i wieżyczką, oparta o regał."""
+    img = nowy(120, 96)
+    d = ImageDraw.Draw(img)
+    prost(d, 0, 30, 120, 60, KAMIEN[2])
+    for x in range(0, 120, 16):
+        prost(d, x, 22, 10, 10, KAMIEN[2])
+        obrys(d, x, 22, 10, 10)
+    for j, y in enumerate(range(32, 90, 10)):
+        for x in range((j % 2) * 8, 120, 16):
+            obrys(d, x, y, 16, 10, KAMIEN[1])
+    prost(d, 80, 0, 30, 90, KAMIEN[3])  # wieżyczka
+    d.polygon([(76, 4), (95, -14), (114, 4)], fill=CZERWIEN[1], outline=O)
+    prost(d, 90, 20, 8, 14, (14, 14, 22))
+    d.arc((90, 16, 98, 24), 180, 360, fill=O)
+    obrys(d, 80, 0, 30, 90)
+    obrys(d, 0, 30, 120, 60)
+    prost(d, 20, 50, 30, 40, DREWNO[1])  # brama zamku
+    for x in range(22, 50, 6):
+        prost(d, x, 50, 2, 40, DREWNO[0])
+    # zaciek i odpryśnięta farba: dekoracja stoi tu od lat
+    prost(d, 60, 40, 8, 6, (110, 100, 80))
+    prost(d, 4, 86, 116, 4, DREWNO_C[1])
+    return img
+
+
+def statek_dekoracja():
+    """Dziób statku pirackiego z masztem i zwiniętym żaglem."""
+    img = nowy(140, 110)
+    d = ImageDraw.Draw(img)
+    prost(d, 66, 0, 6, 70, DREWNO[2])  # maszt
+    obrys(d, 66, 0, 6, 70)
+    d.polygon([(40, 10), (98, 10), (92, 18), (46, 18)], fill=PAPIER[1], outline=O)  # zwinięty żagiel
+    prost(d, 40, 8, 58, 2, DREWNO[3])
+    d.polygon([(0, 60), (110, 56), (140, 70), (110, 104), (6, 104)], fill=DREWNO[2], outline=O)
+    for y in range(64, 104, 7):
+        d.line([(4, y), (118, y - 2)], fill=DREWNO[1])
+    prost(d, 6, 56, 104, 6, DREWNO[3])
+    obrys(d, 6, 56, 104, 6)
+    for x in (24, 50, 76):
+        d.ellipse((x, 72, x + 8, 80), fill=(16, 14, 18), outline=O)  # bulaje
+    d.polygon([(120, 66), (138, 60), (134, 72)], fill=ZLOTO[1], outline=O)  # galion
+    for x in range(10, 104, 12):
+        prost(d, x, 48, 2, 10, DREWNO[3])  # reling
+    return img
+
+
+def sofa_lata30():
+    """Sofa z dekoracji salonu z lat 30., wytarta zieleń z frędzlami."""
+    img = nowy(80, 40)
+    d = ImageDraw.Draw(img)
+    zielen = [(16, 34, 24), (26, 52, 36), (38, 70, 48), (56, 92, 64), (74, 112, 80)]
+    skrzynia(d, 0, 0, 80, 6, 18, zielen)
+    skrzynia(d, 2, 16, 76, 8, 12, zielen)
+    for x in range(4, 76, 4):
+        d.point((x, 36), fill=ZLOTO[2])
+    for x in (2, 74):
+        prost(d, x, 36, 4, 4, DREWNO[1])
+    prost(d, 14, 18, 18, 5, zielen[1])  # wgniecenie, ktoś tu siedział
+    return img
+
+
+def fotel_lata30():
+    img = nowy(30, 36)
+    d = ImageDraw.Draw(img)
+    skrzynia(d, 0, 0, 30, 6, 16, CZERWIEN)
+    skrzynia(d, 2, 14, 26, 8, 10, CZERWIEN)
+    for x in (2, 24):
+        prost(d, x, 32, 4, 4, DREWNO[1])
+    return img
+
+
+def lampa_stojaca():
+    img = nowy(20, 64)
+    d = ImageDraw.Draw(img)
+    d.polygon([(2, 14), (18, 14), (14, 0), (6, 0)], fill=ZLOTO[2], outline=O)
+    prost(d, 6, 10, 8, 2, ZLOTO[1])
+    prost(d, 9, 14, 2, 46, ZLOTO[0])
+    d.ellipse((3, 58, 17, 63), fill=ZLOTO[1], outline=O)
+    return img
+
+
+def stolik_salon():
+    """Niski stolik z salonu, na nim gramofon-rekwizyt i papiery."""
+    img = nowy(40, 26)
+    d = ImageDraw.Draw(img)
+    skrzynia(d, 0, 4, 40, 10, 4, DREWNO)
+    for x in (2, 34):
+        prost(d, x, 18, 4, 8, DREWNO[1])
+    prost(d, 22, 0, 12, 8, DREWNO_C[3])  # gramofon-atrapa
+    d.ellipse((23, 1, 31, 6), fill=(20, 18, 22))
+    prost(d, 4, 5, 12, 8, PAPIER[2])  # lista rekwizytów
+    obrys(d, 4, 5, 12, 8, PAPIER[0])
+    return img
+
+
+def skrzynia_magazyn(w=40, h=28, kolor=DREWNO):
+    img = nowy(w, h)
+    d = ImageDraw.Draw(img)
+    skrzynia(d, 0, 0, w, 8, h - 8, kolor)
+    prost(d, 3, 12, w - 6, 2, kolor[1])
+    prost(d, 3, h - 8, w - 6, 2, kolor[1])
+    d.line([(4, 12), (w - 4, h - 6)], fill=kolor[1])
+    napis(d, 4, 2, "TM", kolor[4] if len(kolor) > 4 else PAPIER[1])
+    return img
+
+
+def skrzynia_przewrocona():
+    """Przewrócona skrzynka z rekwizytami obok ciała: kielichy, korona, sztuczne owoce."""
+    img = nowy(54, 30)
+    d = ImageDraw.Draw(img)
+    d.polygon([(2, 8), (30, 2), (36, 20), (8, 26)], fill=DREWNO[2], outline=O)
+    d.polygon([(30, 2), (36, 20), (40, 18), (34, 2)], fill=DREWNO[1], outline=O)
+    prost(d, 34, 20, 6, 6, ZLOTO[2])  # kielich
+    prost(d, 36, 26, 2, 3, ZLOTO[1])
+    d.polygon([(42, 14), (44, 10), (46, 13), (48, 9), (50, 13), (52, 10), (52, 17), (42, 17)], fill=ZLOTO[2], outline=O)  # korona
+    for x, y, k in ((40, 24, CZERWIEN[3]), (46, 22, ZIELEN[2]), (48, 26, (200, 160, 60))):
+        d.ellipse((x, y, x + 4, y + 4), fill=k, outline=O)
+    return img
+
+
+def zarowka_wiszaca(dl=150, nad=56):
+    """Goła żarówka na kablu. Dolna krawędź obrazka to punkt na podłodze pod żarówką (do sortowania)."""
+    img = nowy(9, dl + nad)
+    d = ImageDraw.Draw(img)
+    prost(d, 4, 0, 1, dl - 4, (14, 14, 16))
+    prost(d, 3, dl - 5, 3, 3, METAL[1])
+    d.ellipse((1, dl - 3, 7, dl + 4), fill=(255, 240, 180), outline=(120, 100, 60))
+    prost(d, 3, dl - 1, 2, 2, (255, 255, 230))
+    return img
+
+
+def wiadro():
+    img = nowy(14, 14)
+    d = ImageDraw.Draw(img)
+    d.polygon([(1, 3), (13, 3), (11, 13), (3, 13)], fill=METAL[2], outline=O)
+    d.ellipse((1, 1, 13, 5), fill=(20, 26, 36), outline=O)
+    d.arc((3, -4, 11, 6), 180, 360, fill=METAL[3])
+    return img
+
+
+def magazyn():
+    mp.SZER, mp.WYS, mp.PODLOGA_Y = 960, 600, 110
+    mp.los = random.Random(61)
+    m = mp.Mapa()
+    d = m.d
+    W, H, PY = mp.SZER, mp.WYS, mp.PODLOGA_Y
+    S = mp.SCIANA
+    prost(d, 0, 0, W, H, O)
+    # betonowa posadzka w płytach, pęknięcia, plamy oleju
+    for y in range(PY, H, 40):
+        for x in range(0, W, 60):
+            k = mp.los.choice([1, 1, 2, 2, 0])
+            prost(d, x, y, 60, 40, BETON[k])
+            prost(d, x, y, 60, 1, BETON[min(k + 1, 3)])
+            prost(d, x, y, 1, 40, BETON[0])
+            for _ in range(10):
+                d.point((x + mp.los.randint(2, 57), y + mp.los.randint(2, 37)), fill=BETON[mp.los.choice([0, 3])])
+    for _ in range(14):
+        x, y = mp.los.randint(40, W - 60), mp.los.randint(PY + 20, H - 40)
+        dl = [(x, y)]
+        for _ in range(4):
+            x += mp.los.randint(-8, 14)
+            y += mp.los.randint(-4, 8)
+            dl.append((x, y))
+        d.line(dl, fill=BETON[0])
+    for x, y, r in ((300, 420, 14), (640, 300, 10), (180, 520, 18), (860, 520, 12)):
+        d.ellipse((x - r, y - r // 2, x + r, y + r // 2), fill=(18, 16, 20))
+        d.ellipse((x - r + 4, y - r // 2 + 2, x - r + 10, y - r // 2 + 4), fill=(46, 40, 60))
+    # kałuże pod przeciekającym dachem
+    for x, y in ((520, 230), (220, 470), (740, 160)):
+        d.ellipse((x - 16, y - 6, x + 16, y + 6), fill=(28, 34, 48))
+        d.ellipse((x - 10, y - 3, x - 2, y), fill=(60, 74, 96))
+    # tylna ściana z blachy falistej, wysokie okna z deszczem
+    prost(d, 0, 0, W, PY, BLACHA[1])
+    for x in range(S, W - S, 6):
+        prost(d, x, S, 3, PY - S, BLACHA[2])
+        prost(d, x, S, 1, PY - S, BLACHA[3])
+    for x in (140, 400, 660):
+        prost(d, x, 22, 120, 34, (12, 16, 30))
+        for kx in range(x, x + 120, 30):
+            obrys(d, kx, 22, 30, 34, BLACHA[0])
+        for _ in range(16):
+            rx, ry = x + mp.los.randint(2, 116), 24 + mp.los.randint(0, 28)
+            prost(d, rx, ry, 1, 3, (70, 90, 130))
+    # zbita szyba, stąd kapie woda
+    d.polygon([(700, 26), (712, 40), (704, 52), (718, 46), (724, 54)], fill=(30, 40, 70))
+    prost(d, 0, PY - 4, W, 4, BLACHA[0])
+    prost(d, 0, PY - 1, W, 1, O)
+    szyld(d, 380, 70, "MAGAZYN DEKORACJI TM", tlo=[BLACHA[0], BLACHA[0]], kolor=PAPIER[1])
+    # ściany boczne i dolna z bramą
+    k = BLACHA
+    prost(d, 0, 0, S, H, k[2])
+    prost(d, W - S, 0, S, H, k[2])
+    prost(d, 0, H - S, W, S, k[2])
+    prost(d, S - 2, 0, 2, H, k[3])
+    prost(d, W - S, 0, 2, H, k[0])
+    obrys(d, 0, 0, W, H)
+    # brama wjazdowa na dole, uchylona: za nią deszcz i światło radiowozu
+    prost(d, 440, H - S - 2, 80, S + 2, (8, 10, 18))
+    for x in range(442, 518, 5):
+        prost(d, x, H - S, 1, S, (40, 50, 80))
+    prost(d, 436, H - S - 4, 4, S + 4, METAL[2])
+    prost(d, 520, H - S - 4, 4, S + 4, METAL[2])
+    m.swiatla.append((480, H - 10, 0.35))
+
+    # dwie żarówki, które jeszcze działają: przy bramie i nad miejscem, gdzie leży Adrian
+    for i, (zx, zy) in enumerate(((470, 470), (790, 380))):
+        img = zarowka_wiszaca()
+        m.obiekty.append((f"zarowka_{i}", img, zx - 4, zy - img.height))
+        for r, kol in ((56, BETON[1]), (42, BETON[2]), (24, BETON[3])):
+            d.ellipse((zx - r, zy - r * 4 // 9, zx + r, zy + r * 4 // 9), fill=kol)
+        m.swiatla.append((zx, zy - 40, 1.0))
+
+    # alejki ze starymi scenografiami
+    m.obiekt("zamek", zamek_dekoracja(), 40, PY + 6, 10)
+    m.obiekt("regal_1", regal_magazyn(), 180, PY + 2, 10)
+    m.obiekt("regal_2", regal_magazyn(), 290, PY + 2, 10)
+    m.obiekt("regal_3", regal_magazyn(), 540, PY + 2, 10)
+    m.obiekt("statek", statek_dekoracja(), 780, PY - 8, 30)
+    # środkowe rzędy regałów tworzą alejki
+    for i, (rx, ry) in enumerate(((330, 230), (330, 340), (560, 230), (560, 340))):
+        m.obiekt(f"regal_s{i}", regal_magazyn(56), rx, ry, 12)
+    # manekiny w kostiumach w lewej alejce (jeden się przewróci, scena dodaje go sama)
+    for i, (mx, my, kol) in enumerate(((60, 280, TKANINY[0]), (104, 290, TKANINY[4]), (190, 300, TKANINY[2]),
+                                       (60, 380, CZERWIEN[:4] + [CZERWIEN[4]]), (236, 380, TKANINY[1]))):
+        m.obiekt(f"manekin_{i}", mp.manekin(kol), mx, my, 8)
+    m.obiekt("manekin_upadek", mp.manekin(TKANINY[3]), 140, 410, 8)  # pod nim leży telefon Adriana
+    # salon z lat 30.
+    prost(d, 650, 200, 120, 70, CZERWIEN[1])
+    obrys(d, 654, 204, 112, 62, ZLOTO[1])
+    m.obiekt("sofa", sofa_lata30(), 670, 196, 20)
+    m.obiekt("fotel", fotel_lata30(), 640, 238, 14)
+    m.obiekt("stolik", stolik_salon(), 694, 242, 8)
+    m.obiekt("lampa", lampa_stojaca(), 760, 200, 6)
+    # skrzynie wokół miejsca, gdzie leży Adrian
+    for i, (sx, sy, kol) in enumerate(((700, 330, DREWNO), (720, 362, DREWNO_C), (880, 330, DREWNO),
+                                        (860, 420, DREWNO_C), (680, 440, DREWNO))):
+        m.obiekt(f"skrzynia_{i}", skrzynia_magazyn(kolor=kol), sx, sy, 16)
+    m.obiekt("skrzynia_przewrocona", skrzynia_przewrocona(), 818, 382, 10)
+    # przy bramie: stół warsztatowy i skrzynka z rekwizytami (tu leży latarka)
+    m.obiekt("skrzynia_rekwizyty", skrzynia_magazyn(46, 30, DREWNO), 330, 470, 16)
+    m.obiekt("skrzynia_lis", skrzynia_magazyn(34, 22, DREWNO_C), 580, 500, 12)
+    m.obiekt("wiadro", wiadro(), 513, 222, 6)
+    return m, dict(korzen="Magazyn", start=(480, H - 40), postacie=(), mrok=(0.13, 0.13, 0.19), podloze="marmur")
+
+
+MAPY = {"foyer": foyer, "kulisy": kulisy, "widownia": widownia, "garderoba": garderoba, "magazyn": magazyn}
 
 
 def main(folder_podgladu=None):

@@ -307,6 +307,36 @@ def noz():
     return img
 
 
+def telefon_adriana():
+    img = nowy(); d = ImageDraw.Draw(img)
+    prost(d, 6, 2, 9, 16, (24, 24, 30))
+    prost(d, 7, 4, 7, 10, (30, 40, 56))
+    d.line([(8, 5), (13, 12)], fill=(90, 100, 120))  # pęknięta szybka
+    d.line([(12, 5), (9, 9)], fill=(90, 100, 120))
+    prost(d, 9, 15, 3, 1, METAL[1])
+    return img
+
+
+def lista_rekwizytow():
+    img = nowy(); d = ImageDraw.Draw(img)
+    prost(d, 4, 2, 12, 16, PAPIER[2])
+    for y in (5, 8, 11):
+        prost(d, 6, y, 8, 1, PAPIER[0])
+    d.line([(6, 14), (9, 15), (12, 13), (14, 15)], fill=CZERWIEN[1])  # dopisek krzywym pismem
+    prost(d, 4, 2, 12, 1, PAPIER[3])
+    return img
+
+
+def zdjecie_pasy():
+    img = nowy(); d = ImageDraw.Draw(img)
+    prost(d, 3, 3, 14, 14, BIEL[2])
+    prost(d, 4, 4, 12, 10, (200, 168, 150))
+    for y in (6, 9):
+        prost(d, 5, y, 10, 1, CZERWIEN[2])
+    prost(d, 3, 16, 14, 1, BIEL[0])
+    return img
+
+
 IKONY = {
     "program": program, "klucz": klucz, "latarka": latarka, "ladowarka": ladowarka,
     "rekawiczki": rekawiczki, "lampa_uv": lampa_uv, "nozyczki": nozyczki,
@@ -314,6 +344,7 @@ IKONY = {
     "pendrive": pendrive, "bulka": bulka, "kanapka": kanapka, "paczek": paczek,
     "kawa": kawa, "herbata": herbata, "tabletki": tabletki, "papierosy": papierosy,
     "monety": monety, "bilet": bilet, "numerek": numerek, "noz": noz,
+    "telefon_adriana": telefon_adriana, "lista_rekwizytow": lista_rekwizytow, "zdjecie_pasy": zdjecie_pasy,
 }
 
 
@@ -422,9 +453,29 @@ def plama_wina():
     return img
 
 
+def szczur():
+    """Szczur przebiegający między skrzyniami w magazynie (biegnie w prawo)."""
+    img = nowy(14, 6); d = ImageDraw.Draw(img)
+    d.ellipse((3, 1, 11, 6), fill=(60, 52, 50))
+    d.ellipse((9, 1, 13, 5), fill=(70, 62, 58))
+    prost(d, 12, 2, 1, 1, (10, 8, 8))
+    prost(d, 11, 0, 2, 2, (110, 90, 90))  # ucho
+    d.line([(0, 2), (3, 4)], fill=(120, 96, 96))  # ogon
+    return kontur(img)
+
+
+def telefon_podloga():
+    """Telefon Adriana leżący ekranem w dół pod manekinem."""
+    img = nowy(8, 5); d = ImageDraw.Draw(img)
+    prost(d, 0, 0, 8, 5, (24, 24, 30))
+    prost(d, 1, 1, 2, 1, METAL[1])
+    return kontur(img)
+
+
 REKWIZYTY = {"stojak_programy": stojak_programy, "bezpieczniki": bezpieczniki, "apteczka": apteczka,
              "noz_maly": noz_maly, "koszula_stol": koszula_stol, "kosz_wiklinowy": kosz_wiklinowy,
-             "taca_kieliszki": taca_kieliszki, "gramofon": gramofon, "plama_wina": plama_wina}
+             "taca_kieliszki": taca_kieliszki, "gramofon": gramofon, "plama_wina": plama_wina,
+             "szczur": szczur, "telefon_podloga": telefon_podloga}
 
 
 def main():

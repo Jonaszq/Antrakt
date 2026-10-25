@@ -836,6 +836,85 @@ def aktorka(faza):
                     usta=_szminka(), nizej=1, dodatki=_nogi_pod_suknia(su, dodatki))
 
 
+def lekarz(faza):
+    """Lekarz pogotowia. Czerwona kurtka z odblaskami, stetoskop, siwiejące skronie, zmęczony."""
+    ku = material("kurtka_pogotowie", [(80, 14, 14), (130, 26, 24), (176, 46, 36), (214, 80, 60)])
+    odb = material("odblask", [(150, 150, 140), (210, 210, 196), (250, 250, 236)])
+    st = material("stetoskop", [(20, 20, 24), (50, 50, 56), (150, 150, 160)])
+
+    def dodatki(p, b, dl):
+        for oy in (30, 40):
+            p.prost(10, oy + b, 30, oy + b, odb, 2)
+        p.linia([(16, 19 + b), (17, 27 + b), (20, 30 + b), (23, 27 + b), (24, 19 + b)], st, 0)
+        p.prost(19, 30 + b, 21, 32 + b, st, 2)
+    return czlowiek(faza, skora=_skora(True), wlosy=material("pan_wlosy", [(110, 106, 104), (160, 156, 150), (204, 200, 192)]),
+                    fryz="krotkie", ubranie=ku, styl="sweter",
+                    dol=material("spodnie_pogotowie", [(40, 12, 14), (70, 22, 22), (100, 34, 32)]), buty=_buty(),
+                    usta=_usta(), okulary=material("okulary", [(30, 24, 22)]), dodatki=dodatki, szer_twarzy=6)
+
+
+def nowicki(faza):
+    """Komisarz Nowicki, przełożony Antoniego. Beżowy prochowiec, wąsy, podkrążone oczy."""
+    pr = material("prochowiec", [(70, 58, 36), (110, 92, 60), (150, 128, 86), (186, 164, 116), (210, 190, 140)])
+    wl = material("nowicki_wlosy", [(40, 32, 28), (66, 54, 46), (92, 78, 66)])
+
+    def dodatki(p, b, dl):
+        p.prost(17, 16 + b, 23, 16 + b, wl, 0)  # wąsy
+        p.piksel(16, 17 + b, wl, 0)
+        p.piksel(24, 17 + b, wl, 0)
+        p.prost(16, 13 + b, 17, 13 + b, "skora_starsza", 0)  # podkrążone oczy
+        p.prost(23, 13 + b, 24, 13 + b, "skora_starsza", 0)
+        p.prost(14, 30 + b, 26, 31 + b, pr, 1)  # pasek prochowca
+        p.piksel(20, 30 + b, "mosiadz", 2)
+    return czlowiek(faza, skora=_skora(True), wlosy=wl, fryz="krotkie", ubranie=pr, styl="marynarka",
+                    dol=material("pan_smoking", [(8, 8, 12), (16, 16, 22), (28, 28, 36), (44, 44, 54)]),
+                    buty=_buty(), koszula=material("koszula_ciemna", [(60, 30, 34), (90, 46, 50), (120, 66, 66)]),
+                    dodatki=dodatki, szer_twarzy=6)
+
+
+def policjant(faza):
+    """Policjant z aparatem. Granatowy mundur, czapka z daszkiem."""
+    mu = material("mundur", [(14, 20, 38), (22, 32, 58), (34, 48, 84), (52, 70, 114)])
+    ap_ = material("aparat", [(14, 14, 18), (34, 34, 40), (70, 70, 80), (200, 220, 240)])
+
+    def dodatki(p, b, dl):
+        p.prost(14, 3 + b, 26, 4 + b, mu, 3)
+        p.piksel(20, 2 + b, "mosiadz", 3)  # orzełek
+        p.prost(23, 23 + b, 26, 25 + b, "mosiadz", 2)  # odznaka
+        x, y = dl[1]
+        p.prost(x - 4, y - 6, x + 2, y - 1, ap_, 1)
+        p.prost(x - 2, y - 5, x, y - 3, ap_, 0)
+        p.piksel(x - 1, y - 4, ap_, 3)
+    return czlowiek(faza, skora=_skora(), wlosy=mu, fryz="czapka", ubranie=mu, styl="sweter", dol=mu,
+                    buty=_buty(), usta=_usta(), dodatki=dodatki)
+
+
+def _adrian(faza, martwy=False):
+    """Adrian, dubler Wolskiego. Ciemne potargane włosy, rozpięta biała koszula."""
+    skora = material("skora_blada", [(110, 96, 96), (156, 140, 136), (196, 182, 176), (220, 210, 204)]) if martwy else _skora()
+    ko = material("koszula_adriana", [(150, 146, 140), (196, 192, 184), (230, 226, 218), (246, 244, 238)])
+    wl = material("adrian_wlosy", [(16, 12, 12), (34, 24, 22), (56, 40, 34)])
+
+    def dodatki(p, b, dl):
+        p.wielokat([(18, 19 + b), (22, 19 + b), (20, 27 + b)], skora, 2)  # rozpięty kołnierz
+        p.piksel(15, 3 + b, wl, 2)
+        p.piksel(24, 2 + b, wl, 2)
+        if martwy:
+            # czerwone pasy na ramionach, tam gdzie przylegała podszewka kostiumu
+            for x0, x1 in ((9, 14), (26, 31)):
+                for py in (19, 22):
+                    p.prost(x0, py + b, x1, py + b, "pasy_czerwone", 1)
+    material("pasy_czerwone", [(110, 20, 24), (180, 40, 40), (220, 80, 70)])
+    # martwy: zawsze ta sama klatka z zamkniętymi oczami (faza mrugnięcia), bez ust
+    return czlowiek(0.7 if martwy else faza, skora=skora, wlosy=wl, fryz="krotkie", ubranie=ko, styl="sweter",
+                    dol=material("dzinsy", [(20, 28, 50), (34, 46, 78), (52, 68, 106)]), buty=_buty(),
+                    usta=None if martwy else _usta(), dodatki=dodatki)
+
+
+def adrian(faza):
+    return _adrian(faza)
+
+
 POSTACIE = {
     "ania": ("Ania", ania),
     "wolski": ("Wolski", wolski),
@@ -863,6 +942,10 @@ POSTACIE = {
     "garderobiana": ("Garderobiana", garderobiana),
     "aktor": ("Aktor", aktor),
     "aktorka": ("Aktorka", aktorka),
+    "lekarz": ("Lekarz", lekarz),
+    "nowicki": ("Nowicki", nowicki),
+    "policjant": ("Policjant", policjant),
+    "adrian": ("Adrian", adrian),
 }
 
 
@@ -922,6 +1005,10 @@ def main():
         (folder / f"{klucz}.tscn").write_text(scena(nazwa, f"res://postacie/{klucz}/{klucz}_arkusz.png"),
                                               encoding="utf-8")
         podglad.append(arkusz.crop((0, 0, ap.SZER, ap.WYS)))
+    # ciało Adriana w magazynie (scena 6): leży na boku, obrócone o 90 stopni
+    cialo = _adrian(0.0, martwy=True).rotate(90, expand=True)
+    cialo = cialo.crop(cialo.getbbox())
+    cialo.save(Path("rekwizyty") / "cialo_adriana.png")
     return podglad
 
 

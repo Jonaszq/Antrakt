@@ -14,6 +14,10 @@ Wynik (dzwieki/tlo/):
   oklaski.ogg    burza oklasków po spektaklu
   gramofon.ogg   16 s pętla: walc na pianinie z trzaskami płyty
   auto.ogg       8 s pętla: deszcz o dach, silnik, wycieraczki
+  magazyn.ogg    14 s pętla: deszcz o blaszany dach, wiatr, kapanie do wiadra (rozdział 2)
+  blacha.wav     skrzypienie i łomot blachy na wietrze
+  upadek.wav     głuchy łomot przewracającego się manekina
+  szczur.wav     szczur: drobne kroki i pisk
 """
 import subprocess
 from pathlib import Path
@@ -167,6 +171,74 @@ def auto():
     return x / np.max(np.abs(x)) * 0.6
 
 
+def kapniecie(f=1400):
+    t = czas(0.25)
+    ton = np.sin(2 * np.pi * (f + 900 * np.exp(-t * 40)) * t) * np.exp(-t * 22)
+    return ton
+
+
+def magazyn():
+    dl = 14.4
+    t = czas(dl)
+    # deszcz bębniący o blaszany dach hali: szum i gęste, metaliczne krople
+    x = pasmo(los.standard_normal(len(t)), 500, 5000) * 0.10
+    for s in los.uniform(0, dl, 2200):
+        kt = czas(0.03)
+        f = los.uniform(1800, 3800)
+        wstaw(x, np.sin(2 * np.pi * f * kt) * np.exp(-kt * 160), s, los.uniform(0.01, 0.05))
+    # wiatr: niski, falujący szum
+    wiatr = dolny(los.standard_normal(len(t)), 260) * (0.6 + 0.4 * np.sin(2 * np.pi * t / dl * 2))
+    x += wiatr * 0.5
+    # kapanie z dziury w dachu do wiadra, nierówno
+    s = 0.4
+    while s < dl - 0.4:
+        wstaw(x, kapniecie(los.uniform(1200, 1500)), s, 0.25)
+        s += los.uniform(0.9, 1.6)
+    x = dz.poglos(x, mokry=0.45)
+    x = zapetl(x)
+    return x / np.max(np.abs(x)) * 0.6
+
+
+def blacha():
+    t = czas(2.2)
+    # skrzypienie: pisk o drżącej wysokości
+    f = 380 + 60 * np.sin(2 * np.pi * 3 * t) + 120 * t
+    skrzyp = np.sign(np.sin(2 * np.pi * np.cumsum(f) / SR)) * np.sin(np.pi * np.clip(t / 1.3, 0, 1)) * 0.15
+    skrzyp = pasmo(skrzyp, 300, 2500)
+    # łomot luźnego arkusza
+    x = skrzyp
+    for s, a in ((1.35, 1.0), (1.55, 0.6), (1.7, 0.3)):
+        lt = czas(0.5)
+        lomot = sum(np.sin(2 * np.pi * fr * lt) for fr in (90, 143, 231, 387)) * np.exp(-lt * 9)
+        lomot += pasmo(los.standard_normal(len(lt)), 200, 3000) * np.exp(-lt * 30) * 0.8
+        wstaw(x, lomot * 0.3, s, a)
+    x = dz.poglos(x, mokry=0.5)
+    return x / np.max(np.abs(x)) * 0.5
+
+
+def upadek():
+    t = czas(1.2)
+    x = np.zeros(len(t))
+    for s, a in ((0.0, 1.0), (0.18, 0.4)):
+        lt = czas(0.6)
+        luk = dolny(los.standard_normal(len(lt)), 400) * np.exp(-lt * 14)
+        luk += np.sin(2 * np.pi * 70 * lt) * np.exp(-lt * 10) * 0.6
+        wstaw(x, luk, s, a)
+    x = dz.poglos(x, mokry=0.5)
+    return x / np.max(np.abs(x)) * 0.6
+
+
+def szczur():
+    x = np.zeros(int(1.0 * SR))
+    for s in np.arange(0.0, 0.6, 0.045):  # drobne kroki
+        kt = czas(0.015)
+        wstaw(x, gorny(los.standard_normal(len(kt)), 3000) * np.exp(-kt * 300), s + los.uniform(0, 0.01), 0.15)
+    pt = czas(0.12)
+    pisk = np.sin(2 * np.pi * (4200 + 800 * np.sin(2 * np.pi * 25 * pt)) * pt) * np.sin(np.pi * pt / 0.12)
+    wstaw(x, pisk, 0.65, 0.2)
+    return x / np.max(np.abs(x)) * 0.4
+
+
 def main():
     FOLDER.mkdir(parents=True, exist_ok=True)
     zapisz_wav(FOLDER / "dzwonek.wav", dzwonek())
@@ -176,6 +248,10 @@ def main():
     ogg("oklaski", oklaski())
     ogg("gramofon", gramofon())
     ogg("auto", auto())
+    ogg("magazyn", magazyn())
+    zapisz_wav(FOLDER / "blacha.wav", blacha())
+    zapisz_wav(FOLDER / "upadek.wav", upadek())
+    zapisz_wav(FOLDER / "szczur.wav", szczur())
 
 
 if __name__ == "__main__":

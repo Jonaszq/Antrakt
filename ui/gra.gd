@@ -13,6 +13,10 @@ const SKALA_UI := Vector2(4.0 / 3.0, 4.0 / 3.0)
 
 var latarnia := false
 
+## Czy Antoni ma przy sobie latarnię. W magazynie (scena 6) zaczyna bez niej
+## i musi ją znaleźć, do tego czasu Tab nie pozwala jej wybrać.
+var latarnia_dostepna := true
+
 ## Pasek sił Antoniego (0-100). Jedzenie z ekwipunku go podnosi.
 ## Spadanie z czasem dojdzie razem z licznikiem dni.
 var sily := 80
@@ -24,6 +28,7 @@ var _kawa_czas := 0.0
 
 var _okno: NinePatchRect
 var _ramki: Array[ColorRect] = []
+var _opis_latarni: Label
 var _wybor := 0
 
 
@@ -73,6 +78,8 @@ func _ready() -> void:
 		opis.position = Vector2(6, 74)
 		opis.size = Vector2(130, 40)
 		ramka.add_child(opis)
+		if i == 1:
+			_opis_latarni = opis
 	var pomoc := _etykieta("A/D albo mysz – wybór   E – weź   Tab – zamknij", 12, Color8(170, 160, 140))
 	pomoc.position = Vector2(0, 160)
 	pomoc.size = Vector2(360, 20)
@@ -96,6 +103,7 @@ func okno_otwarte() -> bool:
 ## Czyści wszystko przed nową grą (wołane z menu głównego).
 func nowa_gra() -> void:
 	latarnia = false
+	latarnia_dostepna = true
 	sily = 80
 	_kawa_czas = 0.0
 	flagi.clear()
@@ -155,13 +163,19 @@ func _process(delta: float) -> void:
 
 
 func ustaw_latarnie(z: bool) -> void:
+	if z and not latarnia_dostepna:
+		return
 	latarnia = z
 	zmieniono_postac.emit(z)
 
 
 func _pokaz_wybor() -> void:
+	if not latarnia_dostepna:
+		_wybor = 0
 	for i in 2:
 		_ramki[i].color = Color8(242, 212, 126) if i == _wybor else Color8(70, 56, 50)
+	_ramki[1].modulate.a = 1.0 if latarnia_dostepna else 0.45
+	_opis_latarni.text = "Mocno świeci\nw ciemnościach" if latarnia_dostepna else "Najpierw znajdź\nlatarkę"
 
 
 func _unhandled_input(zdarzenie: InputEvent) -> void:

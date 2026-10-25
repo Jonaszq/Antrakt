@@ -8,7 +8,7 @@ extends ScenaGry
 ## Obrazy auta i bramy rysuje tools/jazda_pixel.py, teksty w Dialogi.SCENA5.
 ## Ujęcia leżą w warstwie _kino pod warstwą ui, więc czarna zasłona ScenaGry je przykrywa.
 
-const MENU := "res://menu/menu.tscn"
+const NASTEPNA := "res://sceny/scena6/scena6.tscn"  # rozdział 2: magazyn
 const SZYBA := Rect2(12, 34, 456, 134)  # przednia szyba na obrazku wnetrze.png
 
 var _lis: Node2D
@@ -174,7 +174,7 @@ func _brama() -> void:
 	await _sciemnij(1.5)
 
 
-## Plansza końcowa rozdziału i licznik dni do pogrzebu, potem menu.
+## Plansza końcowa rozdziału i licznik dni do pogrzebu, potem rozdział 2.
 func _koniec_rozdzialu() -> void:
 	for dziecko in _kino.get_children():
 		dziecko.queue_free()
@@ -191,7 +191,7 @@ func _koniec_rozdzialu() -> void:
 	await _napis(n["licznik"], 24, Color8(220, 80, 70), 110, 3.0)
 	await _napis(n["dalej"], 12, Color8(170, 160, 140), 124, 3.0)
 	await _sciemnij(0.6)
-	get_tree().change_scene_to_file(MENU)
+	get_tree().change_scene_to_file(NASTEPNA)
 
 
 func _napis(tekst: String, rozmiar: int, kolor: Color, y: float, czas: float) -> void:
