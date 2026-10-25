@@ -8,7 +8,7 @@ extends ScenaGry
 ## plama bledsza). Gdy w sc. 9 oddał kwit Ani, Ania na początku sama oddaje kostium.
 ## Teksty w Dialogi.SCENA12.
 
-const NASTEPNA := "res://menu/menu.tscn"  # scena 13 jeszcze nie zrobiona
+const NASTEPNA := "res://sceny/scena13/scena13.tscn"
 const DRZWI := Rect2(288, 318, 64, 42)
 const WEJSCIE := Vector2(320, 350)
 const LAMPA := Vector2(511, 200)
@@ -218,21 +218,9 @@ func _ania_przychodzi() -> void:
 	antoni.sterowanie = true
 
 
-## Wyjście: jeśli Ania jeszcze nie przyszła, wchodzi w drzwiach. Scena 13 jeszcze
-## nie istnieje, więc potem napis i powrót do menu.
+## Wyjście: jeśli Ania jeszcze nie przyszła, wchodzi w drzwiach.
 func przejdz(scena: String) -> void:
 	if not _ania_bylo and not Gra.flagi.get("s12_ania_przyszla", false):
 		await _ania_przychodzi()
 		return
-	koniec = true
-	var tw := create_tween()
-	tw.tween_property(_zaslona, "color:a", 1.0, 1.0)
-	await tw.finished
-	var napis := etykieta(12, Color8(170, 160, 140))
-	napis.text = Dialogi.SCENA12_NAPISY["dalej"]
-	napis.position = Vector2(0, 124)
-	napis.size = Vector2(480, 20)
-	napis.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	ui.add_child(napis)
-	await get_tree().create_timer(3.0).timeout
-	get_tree().change_scene_to_file(scena)
+	super.przejdz(scena)

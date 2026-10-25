@@ -388,6 +388,16 @@ def opaska():
     return img
 
 
+def probka():
+    """Kawałek bordowej podszewki w strunowym woreczku."""
+    img = nowy(); d = ImageDraw.Draw(img)
+    prost(d, 4, 4, 12, 13, (220, 230, 236))
+    prost(d, 4, 4, 12, 2, (200, 60, 60))
+    d.polygon([(7, 9), (13, 8), (12, 14), (8, 15)], fill=(110, 26, 40))
+    d.point((10, 11), fill=(90, 200, 120))
+    return img
+
+
 IKONY = {
     "program": program, "klucz": klucz, "latarka": latarka, "ladowarka": ladowarka,
     "rekawiczki": rekawiczki, "lampa_uv": lampa_uv, "nozyczki": nozyczki,
@@ -397,7 +407,7 @@ IKONY = {
     "monety": monety, "bilet": bilet, "numerek": numerek, "noz": noz,
     "telefon_adriana": telefon_adriana, "lista_rekwizytow": lista_rekwizytow, "zdjecie_pasy": zdjecie_pasy,
     "kielich": kielich, "termos": termos, "kwit_odbioru": kwit_odbioru, "zdjecie_plamy": zdjecie_plamy,
-    "opaska": opaska,
+    "opaska": opaska, "probka": probka,
 }
 
 

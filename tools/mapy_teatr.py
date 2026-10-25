@@ -1657,10 +1657,189 @@ def pracownia():
 PY_PRAC = 104
 
 
-MAPY = {"foyer": foyer, "kulisy": kulisy, "widownia": widownia, "garderoba": garderoba, "magazyn": magazyn, "budka": budka, "plac": plac, "gabinet": gabinet, "pralnia": pralnia, "pracownia": pracownia}
+LAB_SCIANA = [(150, 170, 160), (178, 196, 186), (204, 220, 210)]
+LAB_PODLOGA = [(96, 100, 104), (110, 114, 118), (124, 128, 132)]
+SZKLO_LAB = [(120, 170, 180), (160, 210, 220), (210, 240, 245)]
+
+
+def stol_laboratoryjny():
+    """Długi stół z mikroskopem, probówkami, słoikami i termosem laboranta."""
+    img = nowy(220, 54)
+    d = ImageDraw.Draw(img)
+    skrzynia(d, 0, 12, 220, 12, 26, [(40, 44, 48), (70, 76, 80), (110, 116, 120), (170, 176, 178), (210, 214, 214)])
+    prost(d, 4, 14, 212, 2, (230, 232, 232))
+    for nx in (2, 214):
+        prost(d, nx, 50, 4, 4, METAL[0])
+    # mikroskop
+    prost(d, 120, 0, 6, 16, (40, 40, 46))
+    prost(d, 114, 14, 18, 4, (40, 40, 46))
+    prost(d, 126, 4, 8, 3, (60, 60, 70))
+    obrys(d, 114, 14, 18, 4)
+    # statyw z probówkami
+    prost(d, 20, 10, 34, 6, DREWNO[2])
+    for i, px in enumerate(range(22, 52, 5)):
+        prost(d, px, 2, 3, 10, [(200, 60, 60), (60, 160, 90), (220, 200, 90), SZKLO_LAB[2]][i % 4])
+    # słoiki
+    for i, sx in enumerate((66, 80, 94)):
+        prost(d, sx, 6, 10, 10, SZKLO_LAB[1])
+        prost(d, sx, 4, 10, 3, METAL[2])
+        obrys(d, sx, 6, 10, 10)
+    # termos i talerz z zupą
+    prost(d, 168, 0, 8, 16, (60, 110, 70))
+    obrys(d, 168, 0, 8, 16)
+    d.ellipse((180, 10, 200, 17), fill=PAPIER[2], outline=O)
+    d.ellipse((184, 11, 196, 15), fill=(190, 70, 40))
+    return img
+
+
+def dygestorium():
+    img = nowy(90, 96)
+    d = ImageDraw.Draw(img)
+    skrzynia(d, 0, 0, 90, 6, 90, [(60, 66, 70), (90, 96, 100), (130, 136, 140), (180, 186, 188), (210, 214, 214)])
+    prost(d, 6, 10, 78, 44, SZKLO_LAB[0])
+    obrys(d, 6, 10, 78, 44)
+    prost(d, 10, 14, 4, 30, SZKLO_LAB[2])
+    for kx in (24, 46, 64):
+        prost(d, kx, 40, 8, 12, [(200, 120, 60), (60, 120, 200), (200, 200, 220)][kx % 3])
+    prost(d, 6, 60, 78, 2, METAL[1])
+    for sx in (12, 50):
+        obrys(d, sx, 66, 28, 22, METAL[1])
+        prost(d, sx + 12, 76, 4, 2, METAL[3])
+    return img
+
+
+def lodowka():
+    img = nowy(36, 70)
+    d = ImageDraw.Draw(img)
+    skrzynia(d, 0, 0, 36, 4, 66, [(150, 154, 156), (190, 194, 196), (214, 218, 218), (230, 232, 232), (240, 242, 242)])
+    prost(d, 0, 24, 36, 1, O)
+    prost(d, 30, 10, 2, 10, METAL[1])
+    prost(d, 30, 30, 2, 14, METAL[1])
+    prost(d, 6, 32, 10, 8, (240, 230, 120))  # kartka "NIE RUSZAĆ"
+    return img
+
+
+def regal_sloiki():
+    img = nowy(70, 88)
+    d = ImageDraw.Draw(img)
+    skrzynia(d, 0, 0, 70, 6, 82, DREWNO_C)
+    for py in (10, 36, 62):
+        prost(d, 3, py + 20, 64, 2, DREWNO_C[3])
+        for i, sx in enumerate(range(6, 62, 9)):
+            prost(d, sx, py + 6, 7, 14, SZKLO_LAB[(i + py) % 3])
+            prost(d, sx, py + 4, 7, 3, METAL[2])
+            prost(d, sx + 1, py + 11, 5, 4, PAPIER[2])
+    return img
+
+
+def wieszak_fartuchy():
+    img = nowy(30, 66)
+    d = ImageDraw.Draw(img)
+    prost(d, 14, 6, 3, 56, METAL[1])
+    d.ellipse((6, 58, 24, 66), fill=METAL[0], outline=O)
+    for fx in (2, 16):
+        d.polygon([(fx + 2, 8), (fx + 12, 8), (fx + 13, 46), (fx, 46)], fill=(232, 234, 230), outline=O)
+    return img
+
+
+def laboratorium():
+    mp.SZER, mp.WYS, mp.PODLOGA_Y = 640, 360, 104
+    mp.los = random.Random(131)
+    m = mp.Mapa()
+    d = m.d
+    W, H, PY = mp.SZER, mp.WYS, mp.PODLOGA_Y
+    S = mp.SCIANA
+    prost(d, 0, 0, W, H, O)
+    for y in range(PY, H, 16):
+        for x in range(0, W, 16):
+            prost(d, x, y, 16, 16, LAB_PODLOGA[(x // 16 + y // 16) % 2 + 1])
+    prost(d, 0, 0, W, PY, LAB_SCIANA[1])
+    for y in range(44, PY, 10):
+        for x in range((y // 10) % 2 * 8, W, 16):
+            prost(d, x, y, 15, 9, LAB_SCIANA[(x // 16 + y // 10) % 2 + 1])
+    prost(d, 0, 42, W, 2, LAB_SCIANA[0])
+    prost(d, 0, PY - 1, W, 1, O)
+    # wentylatory w ścianie
+    for wx in (200, 260):
+        d.ellipse((wx, 12, wx + 26, 38), fill=METAL[1], outline=O)
+        d.line([(wx + 4, 25), (wx + 22, 25)], fill=METAL[3], width=2)
+        d.line([(wx + 13, 16), (wx + 13, 34)], fill=METAL[3], width=2)
+    # okno
+    prost(d, 520, 14, 90, 56, (120, 130, 150))
+    for ry in range(18, 68, 6):
+        prost(d, 524, ry, 82, 1, (150, 160, 176))
+    obrys(d, 520, 14, 90, 56, METAL[2])
+    prost(d, 564, 14, 2, 56, METAL[2])
+    m.swiatla.append((565, 74, 0.8))
+    # plakat BHP i tablica z kartkami
+    prost(d, 320, 18, 40, 52, PAPIER[2])
+    obrys(d, 320, 18, 40, 52)
+    prost(d, 324, 22, 32, 8, CZERWIEN[2])
+    napis(d, 327, 24, "BHP", PAPIER[2])
+    d.polygon([(340, 36), (332, 52), (348, 52)], fill=(240, 200, 40), outline=O)
+    prost(d, 380, 20, 60, 40, (150, 110, 70))
+    obrys(d, 380, 20, 60, 40, DREWNO[1])
+    for i, (kx, ky) in enumerate(((384, 24), (404, 26), (422, 22), (390, 40), (414, 42))):
+        prost(d, kx, ky, 14, 14, PAPIER[2 - i % 2])
+    # zlew przy ścianie
+    prost(d, 150, PY - 18, 40, 18, METAL[2])
+    obrys(d, 150, PY - 18, 40, 18)
+    prost(d, 154, PY - 16, 32, 8, METAL[0])
+    prost(d, 168, PY - 30, 3, 14, METAL[3])
+    prost(d, 168, PY - 30, 8, 3, METAL[3])
+    m.kolizje.append((150, PY, 190, PY + 8))
+    for kx, ky in ((120, 50), (460, 50)):
+        prost(d, kx - 10, ky - 2, 20, 3, (230, 240, 230))
+        m.swiatla.append((kx, ky + 4, 0.9))
+    m.obiekt("regal", regal_sloiki(), 30, PY - 70, 14)
+    m.obiekt("lodowka", lodowka(), 110, PY - 50, 14)
+    m.obiekt("dygestorium", dygestorium(), 440, PY - 70, 18)
+    m.obiekt("stol", stol_laboratoryjny(), 170, 150, 22)
+    m.obiekt("fartuchy", wieszak_fartuchy(), 560, 220, 8)
+    m.obiekt("taboret_lab", mp.taboret(), 300, 128, 6)
+    ramy_z_wejsciem(d, 288, 64)
+    prost(d, 0, 0, S, H, LAB_SCIANA[0])
+    prost(d, W - S, 0, S, H, LAB_SCIANA[0])
+    obrys(d, 0, 0, W, H)
+    return m, dict(korzen="Laboratorium", start=(320, 300), postacie=(), mrok=(0.82, 0.86, 0.86), podloze="drewno")
+
+
+def plan_miasta():
+    """Plan miasta w samochodzie Antoniego (480x270): ulice, rzeka i podpisane miejsca."""
+    from PIL import Image
+    img = Image.new("RGBA", (480, 270), (214, 204, 176, 255))
+    d = ImageDraw.Draw(img)
+    # bloki
+    rnd = random.Random(5)
+    for bx in range(10, 470, 46):
+        for by in range(10, 260, 40):
+            prost(d, bx, by, 40, 34, (196, 184, 156) if rnd.random() < 0.7 else (176, 196, 150))
+    # rzeka z mostem
+    d.polygon([(300, 0), (330, 0), (290, 270), (258, 270)], fill=(120, 150, 180))
+    prost(d, 250, 128, 90, 8, (150, 140, 120))
+    obrys(d, 250, 128, 90, 8)
+    obrys(d, 0, 0, 480, 270, DREWNO_C[1])
+    obrys(d, 2, 2, 476, 266, DREWNO_C[3])
+    miejsca = [("TEATR", 60, 60, CZERWIEN[2]), ("PRALNIA", 170, 190, (60, 100, 160)),
+               ("KOMENDA", 120, 130, (60, 70, 120)), ("LABORATORIUM", 380, 70, (60, 140, 120)),
+               ("SZPITAL", 410, 200, (200, 200, 210)), ("DOM", 40, 220, DREWNO[3])]
+    for nazwa, x, y, kol in miejsca:
+        prost(d, x - 4, y - 4, 9, 9, kol)
+        obrys(d, x - 4, y - 4, 9, 9)
+        szer = len(nazwa) * 4 + 4
+        prost(d, x - szer // 2, y + 7, szer, 9, PAPIER[2])
+        obrys(d, x - szer // 2, y + 7, szer, 9)
+        napis(d, x - szer // 2 + 3, y + 9, nazwa, O)
+    # samochód Antoniego przy pralni
+    prost(d, 182, 182, 10, 6, (40, 40, 44))
+    return img
+
+
+MAPY = {"foyer": foyer, "kulisy": kulisy, "widownia": widownia, "garderoba": garderoba, "magazyn": magazyn, "budka": budka, "plac": plac, "gabinet": gabinet, "pralnia": pralnia, "pracownia": pracownia, "laboratorium": laboratorium}
 
 
 def main(folder_podgladu=None):
+    plan_miasta().save("ui/plan_miasta.png")
     for klucz, buduj in MAPY.items():
         m, scena = buduj()
         pod = mp.zapisz(m, klucz, **scena)

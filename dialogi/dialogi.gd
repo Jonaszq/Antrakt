@@ -1488,8 +1488,137 @@ const SCENA12_TLO := {
 	"halina": ["(chucha w dłonie)", "Następny!", "Ojej, ojej..."],
 }
 
-const SCENA12_NAPISY := {
-	"dalej": "Scena 13: Pralnia, trzecia wizyta. Już wkrótce.",
+
+
+# Scena 13: pralnia, wtorek 9:00 -> samochód (schowek, plan miasta) -> laboratorium.
+# Nikt nie mówi, że trzeba wyciąć próbkę ani gdzie ją zawieźć.
+const SCENA13 := {
+	"poczatek": [["", "Wtorek. Pralnia jeszcze zamknięta, ale pani Halina otwiera mi od zaplecza."]],
+	"halina_start": [
+		["Halina", "Niech pan patrzy, panie Antoni. Rozprułam podszewkę, żeby zobaczyć od środka."],
+		["Halina", "To nie jest brud. To coś żre ten materiał. I mnie też, niech pan spojrzy na ręce."],
+	],
+	"kostium": [["", "Podszewka rozpruta i rozłożona pod lampą. Materiał przeżarty od środka, cienki jak bibuła."]],
+	"wytnij_bez_woreczka": [["", "Mogę wyciąć kawałek, ale w co go włożę? W kieszeń tego nie schowam."]],
+	"wytnij_rekawiczki": [["", "W rękawiczkach odcinam nożyczkami kawałek podszewki z plamą i zamykam go w woreczku."]],
+	"wytnij_bez": [
+		["", "Odcinam kawałek podszewki. Palce znowu pieką."],
+		["", "Zamykam próbkę w woreczku i długo wycieram ręce."],
+	],
+	"wytnij_potem": [["", "Próbka jest w woreczku. Reszty lepiej nie ruszać."]],
+	"uv": [["", "W UV cała podszewka świeci na zielono. Najmocniej na karku i pod pachami."]],
+	"halina_rece": [
+		["Antoni", "Pokaże mi pani dłonie?"],
+		["Halina", "(wyciąga je, czerwone i popękane)"],
+		["Halina", "Lekarz mówi, że alergia. Trzydzieści lat piorę i nagle alergia."],
+	],
+	"halina_wyciac": [
+		["Antoni", "Mogę wyciąć kawałek?"],
+		["Halina", "Niech pan tnie. I tak już tego nikt nie założy."],
+	],
+	"halina_nozyczki": [
+		["Antoni", "Pożyczy mi pani nożyczki?"],
+		["Halina", "Moje są u szlifierza, odbieram jutro rano. Niech pan przyjdzie jutro, to pan dostanie."],
+	],
+	"wybor_jutro": ["Przyjdę jutro", "Poradzę sobie inaczej"],
+	"jutro": [["", "Cały dzień w plecy. Następnego ranka pani Halina wręcza mi naostrzone nożyczki."]],
+	"halina_gdzie": [
+		["Antoni", "Wie pani, kto to może zbadać?"],
+		["Halina", "Ja? Panie, ja piorę. Od tego są mądrzejsi."],
+	],
+	"halina_nic": [["Halina", "Ja nic nie wiem, ja tylko piorę."]],
+	"halina_koniec": [["Halina", "Niech pan uważa na siebie."]],
+	"kot": [["", "Kot nie śpi na ręcznikach. Siedzi przy drzwiach na zaplecze i patrzy na kostium."]],
+	"zegar": [["", "Dziewiąta dwadzieścia."]],
+}
+
+## Samochód Antoniego: schowek z woreczkiem i plan miasta (bez zaznaczonego celu).
+const SAMOCHOD := {
+	"tytul": "Samochód",
+	"menu": ["Schowek", "Jedź", "Wysiądź"],
+	"schowek": [["", "Schowek. Mapa, skrobaczka do szyb, paczka strunowych woreczków na dowody z komendy. Biorę jeden."]],
+	"schowek_potem": [["", "Mapa, skrobaczka, woreczki."]],
+	"dokad": "Dokąd jechać?",
+	"miejsca": ["Teatr", "Komenda", "Laboratorium", "Szpital", "Dom", "Pralnia", "Zostań"],
+	"teatr": [["", "Pod teatrem ludzie z kwiatami i zniczami. Nic tu po mnie z tym."]],
+	"komenda": [["", "Komisarza Nowickiego nie ma. Dyżurny wzrusza ramionami."], ["Policjant", "Próbki? To nie do nas, panie. My tu nic nie badamy."]],
+	"szpital": [["", "Na izbie przyjęć kolejka. Pielęgniarka odsyła mnie z kwitkiem."]],
+	"dom": [["", "W domu zupa od Oli w garnku i karteczka: \"Zjedz coś wreszcie!\""], ["", "Jem. Od razu lepiej."]],
+	"dom_potem": [["", "W domu cicho. Zupy już nie ma."]],
+	"pralnia": [["", "Wracam pod pralnię."]],
+}
+
+const LAB := {
+	"plansza": "Laboratorium kryminalistyczne",
+	"poczatek": [["", "Szum wentylatorów. Przy mikroskopie siedzi laborant i je zupę z termosu."]],
+	"start": [
+		["Laborant", "Godziny przyjęć od dziesiątej. Ale skoro pan już jest... Pan z komendy?"],
+		["Antoni", "Pracuję z komisarzem Nowickim."],
+		["Laborant", "Aha. No to co pan ma?"],
+	],
+	"zupa": [
+		["Antoni", "Smaczna?"],
+		["Laborant", "Pomidorowa od żony. Pan nie dostanie, nie ma szans."],
+	],
+	"jak_dlugo": [
+		["Antoni", "Ile trwa badanie?"],
+		["Laborant", "Jak pan coś przyniesie, to do wieczora. Zadzwonię."],
+	],
+	"przez_skore": [
+		["Antoni", "Czy trucizna może przejść przez skórę?"],
+		["Laborant", "Niektóre tak. Paskudztwa. Wsiąka powoli, człowiek nic nie czuje, a po dobie, dwóch już po nim."],
+	],
+	"probka": [
+		["Laborant", "(odkłada łyżkę, ogląda woreczek pod światło)"],
+		["Laborant", "O. To mi się nie podoba. Zostawi pan, wieczorem zadzwonię."],
+	],
+	"probka_bez_woreczka": [["Laborant", "Gołe szmaty nie przyjmuję. Woreczek z komendy, opisany, inaczej nic."]],
+	"zdjecie": [["Laborant", "Zdjęcie to nie próbka. Ja muszę mieć materiał."]],
+	"uv": [["Laborant", "Świeci na zielono w UV? Ciekawe... Niektóre związki tak mają. Ale bez próbki to wróżenie z fusów."]],
+	"kostium": [["Laborant", "Cały kostium? Panie, ja tu nie mam pralni. Kawałek materiału w woreczku wystarczy."]],
+	"termos": [["Laborant", "Ładny termos. Mój lepszy."]],
+	"nic": [["Laborant", "Z tym to nie do mnie."]],
+	"koniec": [["Laborant", "Do widzenia."]],
+	"bez_probki": [["Laborant", "Bez próbki nic panu nie powiem."]],
+	"po_oddaniu": [["Laborant", "(nie podnosi głowy znad mikroskopu)"]],
+	"mikroskop": [["", "Pod szkiełkiem jakieś włókno. Nie moja sprawa."]],
+	"regal": [["", "Słoiki z etykietami: numery spraw, daty. Na jednym: \"NIE OTWIERAĆ\"."]],
+	"lodowka": [["", "Kartka na drzwiach: \"Próbki! Nie ruszać!\". W środku próbki i jogurt."]],
+	"zlew": [["", "Zlew i mydło."]],
+	"zlew_pali": [["", "Myję ręce długo, zimną wodą. Pieczenie wreszcie słabnie."]],
+	"dygestorium": [["", "Szklana szafa z wyciągiem. W środku kolby i coś, co bulgocze."]],
+	"plakat": [["", "\"Pracując z odczynnikami, zawsze zakładaj rękawiczki.\""]],
+	"tablica": [["", "Grafik dyżurów i pocztówka z Zakopanego."]],
+	"fartuchy": [["", "Białe fartuchy na wieszaku."]],
+	"okno": [["", "Szare podwórko. Na parapecie zdechła mucha."]],
+	"wieczor": "Wtorek, 19:20",
+	"telefon": [
+		["", "Telefon. Numer laboratorium."],
+		["Laborant", "Panie Antoni? Mam wynik. Trucizna kontaktowa. Przechodzi przez skórę i zabija po dobie, dwóch."],
+		["Laborant", "Kto to nosił, ten nie miał szans. I nikt by tego nie szukał."],
+	],
+	"telefon_slabszy": [["Laborant", "Stężenie małe, materiał był prany. Ale jest. Nie mam wątpliwości."]],
+	"nowicki": [
+		["", "Dzwonię do Nowickiego."],
+		["Nowicki", "Trucizna w kostiumie? Antoni..."],
+		["Nowicki", "Dobra. Masz czas do pogrzebu. Potem to idzie wyżej i już nic nie zrobimy po cichu."],
+	],
+}
+
+# Retrospekcja 2 (po scenie 13): czwartkowa próba generalna. Pokazuje tylko to,
+# co gracz ustalił. Kogo nie zna, ten jest czarną sylwetką.
+const RETRO2 := {
+	"tytul": "Czwartek, próba generalna. Tak mogło być.",
+	"adrian_kostium": "Leży jak ulał...",
+	"piecze": "Piecze mnie ta podszewka.",
+	"irena": "Nie marudź! Adam nosi to od miesiąca i żyje.",
+	"dlon": "(ktoś kładzie mu dłoń na ramieniu)",
+	"ania": "Wyglądasz jak prawdziwy król.",
+	"blady": "(blady, poci się)",
+	"sms": "22:10. \"Ten kostium mnie parzy...\"",
+	"skrzynka": "23:40. Ktoś wrzuca kostium do skrzynki nocnej pralni. Podpis: A.",
+	"koniec": "Do pogrzebu zostały trzy dni.",
+	"rozdzial": "Koniec rozdziału 3. Rozdział 4 już wkrótce.",
 }
 
 # ---------- REJESTR ŚLEDZTWA (ui/sledztwo.gd) ----------
@@ -1521,6 +1650,8 @@ const SLEDZTWO_ARGUMENTY := {
 	"sam_dotknal": [["f:s12_dotknal"], "Sam dotknąłem tej podszewki. Piekło jeszcze godzinę."],
 	"ania_spala": [["f:s12_ania_czwartek"], "Mówiłaś, że w czwartek wieczorem spałaś w domu."],
 	"ania_przypadek": [["f:s12_ania_przypadek"], "W poniedziałek \"przypadkiem\" przyszłaś do pralni po ten sam kostium."],
+	"trucizna": [["f:s13_wynik"], "Laboratorium: trucizna kontaktowa w podszewce, zabija po dobie, dwóch."],
+	"rece_haliny_alergia": [["f:s13_rece"], "Halina, która prała ten kostium, ma popękane dłonie. Lekarz mówi: alergia."],
 	"pierscionek": [["f:s11_foto"], "Na zdjęciu z próby ktoś trzyma dłoń z pierścionkiem na ramieniu Adriana."],
 }
 
@@ -1533,6 +1664,7 @@ const SLEDZTWO_EPILOG := [
 	[["f:s9_kwit_ania"], "Kostium z pralni Ania odebrała sama. Plamy nikt więcej nie zobaczył.", ""],
 	[["f:s12_ania_zabrala"], "Kostium wrócił z pralni w centrum bledszy. Część dowodu spłynęła z wodą.", ""],
 	[["f:s12_dotknal"], "Antoni jeszcze przez tydzień czuł pieczenie w palcach.", ""],
+	[["f:s13_dom"], "Ola do dziś wypomina, że zupa była dla niej, nie dla detektywa.", ""],
 	[["f:s11_opaska"], "Antoni nosił czarną opaskę Ireny aż do pogrzebu.", ""],
 	[["f:s11_podszewka"], "Irena od tamtej pory wszywa podszewki tylko w rękawiczkach.", ""],
 ]
@@ -1659,6 +1791,7 @@ const PRZEDMIOTY := {
 	"zdjecie_pasy": ["Zdjęcie: pasy na ramionach", "Zdjęcie z telefonu. Czerwone, równe pasy na ramionach i plecach Adriana.", "fabularny", 0],  # ciało Adriana, sc. 6
 	"pendrive": ["Pendrive", "Czarny pendrive z sejfu Wolskiego. Coś na nim jest.", "fabularny", 0],  # sejf w garderobie Wolskiego, sc. 18
 	# zwykłe (pasek sił)
+	"probka": ["Próbka podszewki", "Kawałek podszewki z plamą w woreczku na dowody.", "fabularny", 0],  # wycięta w pralni, sc. 13
 	"opaska": ["Czarna opaska", "Uszyła ją Irena. Dla Adriana.", "fabularny", 0],  # stół przy maszynie w pracowni, sc. 11
 	"bulka": ["Bułka", "Świeża bułka z pralni pani Haliny.", "jedzenie", 10],
 	"kanapka": ["Kanapka", "Z serem i pomidorem, z bufetu.", "jedzenie", 20],

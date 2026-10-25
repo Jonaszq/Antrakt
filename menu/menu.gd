@@ -21,6 +21,8 @@ const SCENY := [
 	["Scena 10: Pralnia", "res://sceny/scena10/scena10.tscn"],
 	["Scena 11: Pracownia kostiumów", "res://sceny/scena11/scena11.tscn"],
 	["Scena 12: Pralnia, poniedziałek", "res://sceny/scena12/scena12.tscn"],
+	["Scena 13: Pralnia, wtorek i laboratorium", "res://sceny/scena13/scena13.tscn"],
+	["Retrospekcja 2: Czwartkowa próba", "res://sceny/retrospekcje/retro2.tscn"],
 ]
 
 var _lista: MenuLista
