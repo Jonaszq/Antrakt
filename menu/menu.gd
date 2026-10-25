@@ -19,6 +19,7 @@ const SCENY := [
 	["Scena 8: Ania i Wolski", "res://sceny/scena8/scena8.tscn"],
 	["Scena 9: Prośba dyrektora", "res://sceny/scena9/scena9.tscn"],
 	["Scena 10: Pralnia", "res://sceny/scena10/scena10.tscn"],
+	["Scena 11: Pracownia kostiumów", "res://sceny/scena11/scena11.tscn"],
 ]
 
 var _lista: MenuLista

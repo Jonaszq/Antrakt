@@ -379,6 +379,15 @@ def kielich():
     return img
 
 
+def opaska():
+    """Czarna opaska żałobna na rękaw, szyta przez Irenę."""
+    img = nowy(); d = ImageDraw.Draw(img)
+    d.ellipse((3, 6, 17, 14), fill=(16, 16, 20))
+    d.ellipse((6, 8, 14, 12), fill=(0, 0, 0, 0))
+    prost(d, 8, 5, 4, 2, (40, 40, 46))
+    return img
+
+
 IKONY = {
     "program": program, "klucz": klucz, "latarka": latarka, "ladowarka": ladowarka,
     "rekawiczki": rekawiczki, "lampa_uv": lampa_uv, "nozyczki": nozyczki,
@@ -388,6 +397,7 @@ IKONY = {
     "monety": monety, "bilet": bilet, "numerek": numerek, "noz": noz,
     "telefon_adriana": telefon_adriana, "lista_rekwizytow": lista_rekwizytow, "zdjecie_pasy": zdjecie_pasy,
     "kielich": kielich, "termos": termos, "kwit_odbioru": kwit_odbioru, "zdjecie_plamy": zdjecie_plamy,
+    "opaska": opaska,
 }
 
 
@@ -567,12 +577,31 @@ def telefon_podloga():
     return kontur(img)
 
 
+def nozyczki_stol():
+    """Duże nożyczki krawieckie leżące na stole w pracowni."""
+    img = nowy(14, 7); d = ImageDraw.Draw(img)
+    d.polygon([(4, 3), (13, 1), (13, 2), (6, 4)], fill=METAL[3])
+    d.polygon([(4, 4), (13, 6), (13, 5), (6, 3)], fill=METAL[2])
+    d.ellipse((0, 0, 4, 3), outline=(30, 30, 34))
+    d.ellipse((0, 4, 4, 7), outline=(30, 30, 34))
+    return img
+
+
+def opaski_stos():
+    """Stosik uszytych czarnych opasek przy maszynie."""
+    img = nowy(14, 7); d = ImageDraw.Draw(img)
+    for i in range(3):
+        d.ellipse((i, 4 - i * 2, 12 + i, 7 - i * 2), fill=(16, 16, 20), outline=O)
+    return img
+
+
 REKWIZYTY = {"stojak_programy": stojak_programy, "bezpieczniki": bezpieczniki, "apteczka": apteczka,
              "noz_maly": noz_maly, "koszula_stol": koszula_stol, "kosz_wiklinowy": kosz_wiklinowy,
              "taca_kieliszki": taca_kieliszki, "gramofon": gramofon, "plama_wina": plama_wina,
              "szczur": szczur, "telefon_podloga": telefon_podloga,
              "kielich_podloga": kielich_podloga, "zdjecie_zalobne": zdjecie_zalobne,
-             "wstazka_czarna": wstazka_czarna, "kostium_folia": kostium_folia}
+             "wstazka_czarna": wstazka_czarna, "kostium_folia": kostium_folia,
+             "nozyczki_stol": nozyczki_stol, "opaski_stos": opaski_stos}
 
 
 def main():

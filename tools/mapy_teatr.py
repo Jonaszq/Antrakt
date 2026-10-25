@@ -1612,7 +1612,52 @@ def pralnia():
     return m, dict(korzen="Pralnia", start=(320, 320), postacie=(), mrok=(0.66, 0.66, 0.7), podloze="drewno")
 
 
-MAPY = {"foyer": foyer, "kulisy": kulisy, "widownia": widownia, "garderoba": garderoba, "magazyn": magazyn, "budka": budka, "plac": plac, "gabinet": gabinet, "pralnia": pralnia}
+def manekin_zapas():
+    """Zapasowy kostium Wolskiego na manekinie: ten sam krój, sprany, bez plamy."""
+    img = nowy(34, 72)
+    d = ImageDraw.Draw(img)
+    prost(d, 15, 50, 4, 16, DREWNO[1])
+    d.ellipse((9, 64, 25, 70), fill=DREWNO[1], outline=O)
+    k = [(40, 14, 22), (64, 26, 32), (92, 44, 48), (120, 66, 66)]
+    d.polygon([(7, 8), (27, 8), (31, 52), (3, 52)], fill=k[2], outline=O)
+    prost(d, 16, 10, 2, 40, ZLOTO[1])
+    for by in range(14, 48, 6):
+        prost(d, 13, by, 2, 2, ZLOTO[2])
+        prost(d, 19, by, 2, 2, ZLOTO[2])
+    prost(d, 4, 48, 26, 3, ZLOTO[0])
+    d.ellipse((8, 3, 26, 11), fill=PAPIER[1], outline=O)
+    prost(d, 15, 0, 4, 4, mp.SKORA_M[1])
+    return img
+
+
+def pracownia():
+    """Pracownia kostiumów Ireny (scena 11 i późniejsze): mapa z mapa_pracownia
+    plus zdjęcie zespołu z próby, radio i zapasowy kostium Wolskiego."""
+    mp.SZER, mp.WYS, mp.PODLOGA_Y = 800, 480, 104
+    mp.los = random.Random(7)
+    m = mp.zbuduj()
+    d = m.d
+    m.obiekty = [(n, manekin_zapas() if n == "manekin_wolski" else img, x, y) for n, img, x, y in m.obiekty]
+    # zdjęcie zespołu z czwartkowej próby w ramce
+    prost(d, 452, 30, 40, 28, DREWNO_C[2])
+    obrys(d, 452, 30, 40, 28)
+    prost(d, 455, 33, 34, 22, (150, 140, 120))
+    for i, fx in enumerate(range(458, 488, 6)):
+        prost(d, fx, 42 - i % 2, 4, 12, [(60, 50, 50), (110, 40, 40), (70, 70, 80)][i % 3])
+        prost(d, fx + 1, 39 - i % 2, 2, 3, (200, 170, 140))
+    # radio na toaletce
+    prost(d, 222, PY_PRAC - 22, 18, 11, DREWNO[3])
+    obrys(d, 222, PY_PRAC - 22, 18, 11)
+    prost(d, 225, PY_PRAC - 20, 7, 7, DREWNO[1])
+    prost(d, 234, PY_PRAC - 19, 3, 3, ZLOTO[2])
+    prost(d, 238, PY_PRAC - 30, 1, 8, METAL[2])
+    return m, dict(korzen="Pracownia", start=(52, 150), postacie=(), mrok=(0.46, 0.42, 0.52))
+
+
+PY_PRAC = 104
+
+
+MAPY = {"foyer": foyer, "kulisy": kulisy, "widownia": widownia, "garderoba": garderoba, "magazyn": magazyn, "budka": budka, "plac": plac, "gabinet": gabinet, "pralnia": pralnia, "pracownia": pracownia}
 
 
 def main(folder_podgladu=None):

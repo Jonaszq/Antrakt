@@ -1287,8 +1287,99 @@ const SCENA10_TLO := {
 	"klientka": ["Ślub w sobotę!", "Mama by się popłakała..."],
 }
 
-const SCENA10_NAPISY := {
-	"dalej": "Scena 11: Ania. Już wkrótce.",
+
+# Scena 11: pracownia kostiumów, niedziela 18:00. Irena zaczyna mówić dopiero,
+# gdy Antoni pokaże jej zdjęcie plamy albo pasów na skórze.
+const SCENA11 := {
+	"poczatek": [["", "Pracownia kostiumów. Stukot maszyny do szycia, radio gra cicho. Za oknem leje."]],
+	"irena_start": [
+		["Irena", "Jak pan po opaskę, to jutro. Jak po co innego, to nie mam czasu."],
+		["Irena", "(nie podnosi głowy znad maszyny)"],
+	],
+	"irena_znowu": [["Irena", "No?"]],
+	"irena_kostium": [
+		["Antoni", "Kostium pana Wolskiego. Ten z pralni."],
+		["Irena", "Moja robota. Szyłam go trzy lata temu, na \"Króla\". Leżał jak ulał. I co z tego?"],
+	],
+	"irena_klucz": [
+		["Antoni", "Kto ma klucz do pracowni?"],
+		["Irena", "Ja i dyrekcja. Aktorzy przychodzą na przymiarki, kiedy im się przypomni."],
+		["Irena", "Ania czasem siedzi tu wieczorami. Pomaga mi przy guzikach, ma cierpliwość."],
+	],
+	"irena_zapas": [
+		["Antoni", "Na manekinie wisi drugi taki sam kostium."],
+		["Irena", "Zapasowy. Pas za ciasny, nikt go nie chce nosić. Adrian się nawet nie przymierzył."],
+	],
+	"irena_foto": [
+		["Antoni", "Zdjęcie na ścianie. To z czwartku?"],
+		["Irena", "Z próby generalnej. Fotograf z gazety. Adrian w kostiumie Adama, obok niego Ania. Ja z boku, jak zawsze."],
+	],
+	"irena_nozyczki": [
+		["Antoni", "Pożyczy mi pani nożyczki?"],
+		["Irena", "Nikomu nie pożyczam nożyczek. Nikomu."],
+	],
+	"plama": [
+		["Irena", "(zdejmuje okulary, patrzy długo)"],
+		["Irena", "To nie farba. I nie pot. Pot tak nie błyszczy."],
+	],
+	"pasy": [
+		["Irena", "Jezus Maria..."],
+		["Irena", "To idzie szwami. Kark, ramiona, pod pachami. Dokładnie tak jest wszyta podszewka."],
+	],
+	"podszewka": [
+		["Irena", "Na próbie mówił, że podszewka piecze."],
+		["Irena", "Powiedziałam mu, żeby nie marudził. Że Adam nosi to od miesiąca i żyje."],
+		["Irena", "(odwraca się do okna)"],
+		["Irena", "Proszę nikomu nie mówić, że płakałam."],
+	],
+	"irena_okno": [["Irena", "(stoi przy oknie, nie odwraca się)"], ["Irena", "Niech pan robi, co ma robić."]],
+	"irena_opaska": [
+		["Antoni", "Mogę wziąć jedną opaskę?"],
+		["Irena", "Bierz pan. Dla Adriana."],
+	],
+	"irena_nic": [["Irena", "Panie, ja szyję. Na papierach się nie znam."]],
+	"irena_kwit": [["Irena", "Pralnia Perła. Halina pierze najlepiej w mieście, a i tak nie dała rady?"]],
+	"irena_koniec": [["Irena", "(wraca do maszyny)"]],
+	"nozyczki_nie": [["", "Irena podnosi wzrok znad maszyny i patrzy na moje ręce. Lepiej nie teraz."]],
+	"nozyczki": [["", "Duże nożyczki krawieckie. Ostre jak brzytwa. Irena stoi tyłem."], ["", "Biorę je."]],
+	"nozyczki_potem": [["", "Na stole skrawki materiału i kreda krawiecka."]],
+	"opaski": [["", "Stosik czarnych opasek na rękaw. Każda równiutko obszyta."]],
+	"foto": [
+		["", "Zdjęcie w ramce. Na dole długopisem: \"czwartek, próba generalna\"."],
+		["", "Adrian w kostiumie Wolskiego, z kryzą i złotymi guzikami. Z boku Irena z igłą w ustach."],
+		["", "Obok Adriana ktoś stoi, ale twarz zasłonił odblask lampy. Widać tylko dłoń na jego ramieniu, z cienkim pierścionkiem."],
+	],
+	"foto_potem": [["", "Czwartek, próba generalna. Dłoń z pierścionkiem na ramieniu Adriana."]],
+	"manekin_wolski": [
+		["", "Drugi egzemplarz kostiumu Wolskiego. Ten sam krój, kryza, złote guziki, tylko sprany."],
+		["", "Odchylam połę. Podszewka szara, stara. Nic na niej nie ma."],
+	],
+	"manekin_wolski_potem": [["", "Zapasowy kostium. Podszewka szara i czysta."]],
+	"manekiny": [["", "Suknie z falbanami na dwóch manekinach. Szpilki wbite w gorsety."]],
+	"radio": [["", "Audycja o ogrodach. \"Róże przycinamy przed pierwszymi przymrozkami...\""]],
+	"radio_potem": [["", "\"...a cebulki tulipanów sadzimy jesienią, na głębokość trzech cebulek.\""]],
+	"okno": [["", "Deszcz na podwórzu teatru. Pod daszkiem ktoś z obsługi pali papierosa."]],
+	"stojak": [["", "Kostiumy do \"Ostatniego aktu\". Na każdym wieszaku kartka z nazwiskiem. Wieszak \"Wolski\" pusty."]],
+	"regal": [
+		["", "Pudełka z guzikami, szpulki, kreda. Między nimi zeszyt \"Przymiarki\"."],
+		["", "\"Wolski: ostatnia przymiarka trzy tygodnie temu. Adrian: kostium 0412, poniedziałek, bez poprawek.\""],
+	],
+	"regal_potem": [["", "Zeszyt przymiarek. Adrian dostał kostium 0412 w poniedziałek."]],
+	"szafa": [["", "Zamknięta na klucz."]],
+	"lustro": [["", "Wyglądam, jakbym nie spał od soboty. Bo nie spałem."]],
+	"parawan": [["", "Za parawanem przebierają się aktorzy. Na haczyku wisi zapomniany krawat."]],
+	"kosz": [["", "Kosz pełen ścinków. Same kolorowe resztki, nic bordowego."]],
+	"bele": [["", "Bele materiału z metkami hurtowni. Aksamit, len, atłas."]],
+	"deska": [["", "Deska do prasowania, żelazko jeszcze ciepłe."]],
+	"kufer": [["", "Kufer na kłódkę. Klucz pewnie ma Irena."]],
+}
+
+const SCENA11_TLO := {
+	"irena": ["(stuk-stuk maszyny)", "Cholerna nitka...", "(pociąga nosem)"],
+}
+
+const SCENA11_NAPISY := {
+	"dalej": "Scena 12: Pralnia, druga wizyta. Już wkrótce.",
 }
 
 # ---------- REJESTR ŚLEDZTWA (ui/sledztwo.gd) ----------
@@ -1312,6 +1403,10 @@ const SLEDZTWO_ARGUMENTY := {
 	"zapach": [["f:s10_zapach"], "Plama pachnie tak samo jak koszula Adriana."],
 	"skrzynka_23_40": [["k:kwit"], "Kostium wrzucono do skrzynki nocnej w czwartek o 23:40, z podpisem A."],
 	"ania_odebrala": [["f:s10_ania_odebrala"], "Odebrałaś kostium mokry, zanim ktokolwiek przyjrzał się plamie."],
+	"podszewka_piekla": [["f:s11_podszewka"], "Na czwartkowej próbie Adrian skarżył się, że podszewka piecze."],
+	"pasy_szwy": [["f:s11_szwy"], "Pasy na skórze idą dokładnie tam, gdzie szwy podszewki."],
+	"ania_w_pracowni": [["f:s11_ania_bywa"], "Siedziałaś wieczorami w pracowni, przy kostiumach."],
+	"pierscionek": [["f:s11_foto"], "Na zdjęciu z próby ktoś trzyma dłoń z pierścionkiem na ramieniu Adriana."],
 }
 
 ## Epilog: [warunki, zdanie gdy spełnione, zdanie gdy nie ("" = nic)].
@@ -1321,6 +1416,8 @@ const SLEDZTWO_EPILOG := [
 	[["f:s8_kurs"], "Taksówkarz z Mokotowa zeznawał w sądzie. Pamiętał każdą godzinę.", ""],
 	[["f:s8_telefon_wolski"], "Telefon Adriana nigdy nie trafił do rodziny. Wolski twierdził, że go zgubił.", ""],
 	[["f:s9_kwit_ania"], "Kostium z pralni Ania odebrała sama. Plamy nikt więcej nie zobaczył.", ""],
+	[["f:s11_opaska"], "Antoni nosił czarną opaskę Ireny aż do pogrzebu.", ""],
+	[["f:s11_podszewka"], "Irena od tamtej pory wszywa podszewki tylko w rękawiczkach.", ""],
 ]
 
 # Retrospekcja 1 (po scenie 7): piątek w magazynie, tak jak to sobie wyobraża Antoni.
@@ -1357,6 +1454,8 @@ const KARTY := {
 		[["Kogo dotyczy", ["ania", "wrzos", "ania wrzos", "anna", "anna wrzos"]], ["Kiedy", ["czwartek", "czw"]]]],
 	"rekawiczki": ["Rękawiczki z kosza", "Kosz na śmieci", "W świetle UV świecą tak samo jak plama na kostiumie.",
 		[["Czyje", ["ania", "wrzos", "ania wrzos", "anna", "anna wrzos"]]]],
+	"podszewka": ["Zeznanie Ireny", "Pracownia kostiumów", "Ktoś skarżył się, że podszewka kostiumu piecze.",
+		[["Kto", ["adrian"]], ["Kiedy", ["czwartek", "czw", "na probie", "na próbie", "proba", "próba", "proba generalna", "próba generalna"]]]],
 	"pendrive": ["Pendrive z sejfu", "Sejf Wolskiego", "Nagranie wypadku sprzed roku.",
 		[["Kto prowadził", ["ania", "wrzos", "ania wrzos", "anna", "anna wrzos"]], ["Kto nagrywał", ["wolski", "adam", "adam wolski"]]]],
 }
@@ -1443,6 +1542,7 @@ const PRZEDMIOTY := {
 	"zdjecie_pasy": ["Zdjęcie: pasy na ramionach", "Zdjęcie z telefonu. Czerwone, równe pasy na ramionach i plecach Adriana.", "fabularny", 0],  # ciało Adriana, sc. 6
 	"pendrive": ["Pendrive", "Czarny pendrive z sejfu Wolskiego. Coś na nim jest.", "fabularny", 0],  # sejf w garderobie Wolskiego, sc. 18
 	# zwykłe (pasek sił)
+	"opaska": ["Czarna opaska", "Uszyła ją Irena. Dla Adriana.", "fabularny", 0],  # stół przy maszynie w pracowni, sc. 11
 	"bulka": ["Bułka", "Świeża bułka z pralni pani Haliny.", "jedzenie", 10],
 	"kanapka": ["Kanapka", "Z serem i pomidorem, z bufetu.", "jedzenie", 20],
 	"paczek": ["Pączek", "Z lukrem. Z budki przed magazynem.", "jedzenie", 15],

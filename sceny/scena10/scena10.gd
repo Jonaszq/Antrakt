@@ -8,7 +8,7 @@ extends ScenaGry
 ## Książka przyjęć (stempel czw. 23:40, podpis A.) dodaje kartę "kwit" do teczki.
 ## Teksty w Dialogi.SCENA10.
 
-const NASTEPNA := "res://menu/menu.tscn"  # scena 11 jeszcze nie zrobiona
+const NASTEPNA := "res://sceny/scena11/scena11.tscn"
 const DRZWI := Rect2(288, 318, 64, 42)
 const LAMPA := Vector2(511, 200)
 ## Miejsca przy stojakach (przód każdego stojaka); kostium wisi na ostatnim.
@@ -128,18 +128,3 @@ func _rozmowa_z_halina() -> void:
 		tematy.append(["Ktoś jeszcze pytał o kostium?", t["halina_pytal"]])
 	await przesluchanie(tematy, Dialogi.SCENA10_DOWODY, t["halina_nic"], t["halina_koniec"])
 
-
-## Scena 11 jeszcze nie istnieje: napis i powrót do menu.
-func przejdz(scena: String) -> void:
-	koniec = true
-	var tw := create_tween()
-	tw.tween_property(_zaslona, "color:a", 1.0, 1.0)
-	await tw.finished
-	var napis := etykieta(12, Color8(170, 160, 140))
-	napis.text = Dialogi.SCENA10_NAPISY["dalej"]
-	napis.position = Vector2(0, 124)
-	napis.size = Vector2(480, 20)
-	napis.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	ui.add_child(napis)
-	await get_tree().create_timer(3.0).timeout
-	get_tree().change_scene_to_file(scena)
