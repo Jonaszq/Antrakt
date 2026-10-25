@@ -348,6 +348,17 @@ def termos():
     return img
 
 
+def kwit_odbioru():
+    img = nowy(); d = ImageDraw.Draw(img)
+    prost(d, 5, 3, 10, 14, PAPIER[2])
+    prost(d, 5, 3, 10, 3, (60, 90, 140))
+    for y in (8, 11, 14):
+        prost(d, 7, y, 6, 1, PAPIER[0])
+    for x in range(5, 15, 2):
+        prost(d, x, 17, 1, 1, PAPIER[2])  # perforacja
+    return img
+
+
 def kielich():
     img = nowy(); d = ImageDraw.Draw(img)
     d.polygon([(5, 3), (15, 3), (13, 9), (7, 9)], fill=ZLOTO[2])
@@ -366,7 +377,7 @@ IKONY = {
     "kawa": kawa, "herbata": herbata, "tabletki": tabletki, "papierosy": papierosy,
     "monety": monety, "bilet": bilet, "numerek": numerek, "noz": noz,
     "telefon_adriana": telefon_adriana, "lista_rekwizytow": lista_rekwizytow, "zdjecie_pasy": zdjecie_pasy,
-    "kielich": kielich, "termos": termos,
+    "kielich": kielich, "termos": termos, "kwit_odbioru": kwit_odbioru,
 }
 
 
@@ -486,6 +497,36 @@ def szczur():
     return kontur(img)
 
 
+def zdjecie_zalobne():
+    """Zdjęcie Adriana z czarną wstążką na stoliku, świeczka, kwiaty i kartki kondolencyjne."""
+    img = nowy(44, 46); d = ImageDraw.Draw(img)
+    prost(d, 2, 30, 40, 6, DREWNO[2])
+    prost(d, 2, 36, 40, 8, DREWNO[0])
+    prost(d, 14, 4, 16, 22, ZLOTO[1])
+    d.rectangle((14, 4, 14+16-1, 4+22-1), outline=O)
+    prost(d, 16, 6, 12, 18, (120, 116, 110))
+    d.ellipse((18, 8, 26, 16), fill=(196, 170, 150))
+    prost(d, 18, 16, 8, 8, (60, 60, 70))
+    prost(d, 6, 0, 2, 1, O)
+    d.line([(14, 4), (20, 12)], fill=(10, 10, 12), width=2)  # czarna wstążka przez róg
+    prost(d, 34, 22, 3, 8, PAPIER[2])  # świeczka
+    prost(d, 35, 19, 1, 3, (255, 210, 110))
+    for fx, kol in ((6, CZERWIEN[2]), (9, (240, 240, 230)), (4, CZERWIEN[3])):
+        d.ellipse((fx, 22, fx + 5, 27), fill=kol, outline=O)
+    prost(d, 8, 27, 1, 4, ZIELEN[1])
+    for kx in (12, 24):
+        prost(d, kx, 32, 8, 5, PAPIER[2])  # kartki
+        d.rectangle((kx, 32, kx + 7, 36), outline=PAPIER[0])
+    return img
+
+
+def wstazka_czarna():
+    img = nowy(14, 18); d = ImageDraw.Draw(img)
+    d.polygon([(7, 6), (2, 17), (5, 17), (7, 10), (9, 17), (12, 17)], fill=(14, 14, 18), outline=O)
+    d.ellipse((3, 1, 11, 8), fill=(20, 20, 24), outline=O)
+    return img
+
+
 def kielich_podloga():
     """Czwarty kielich leżący na boku pod skrzynią w magazynie."""
     img = nowy(10, 5); d = ImageDraw.Draw(img)
@@ -508,7 +549,8 @@ REKWIZYTY = {"stojak_programy": stojak_programy, "bezpieczniki": bezpieczniki, "
              "noz_maly": noz_maly, "koszula_stol": koszula_stol, "kosz_wiklinowy": kosz_wiklinowy,
              "taca_kieliszki": taca_kieliszki, "gramofon": gramofon, "plama_wina": plama_wina,
              "szczur": szczur, "telefon_podloga": telefon_podloga,
-             "kielich_podloga": kielich_podloga}
+             "kielich_podloga": kielich_podloga, "zdjecie_zalobne": zdjecie_zalobne,
+             "wstazka_czarna": wstazka_czarna}
 
 
 def main():

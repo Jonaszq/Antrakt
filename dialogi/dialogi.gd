@@ -1052,7 +1052,148 @@ const SCENA8_TLO := {
 const SCENA8_NAPISY := {
 	"koniec": "Koniec rozdziału 2",
 	"godzina": "Antoni wraca do domu o drugiej w nocy.",
-	"dalej": "Rozdział 3: Plama. Już wkrótce.",
+	"dalej": "Rozdział 3: Plama",
+}
+
+# ---------- ROZDZIAŁ 3 ----------
+
+# Scena 9: niedziela 11:00, foyer w żałobie, gabinet Lisa i bufet.
+const SCENA9 := {
+	"poczatek": [["", "Na drzwiach teatru czarna wstążka. W foyer pachnie płynem do podłóg i zwiędłymi kwiatami."]],
+	"zdjecie": [
+		["", "Zdjęcie Adriana w czarnej ramce. Świeczka, kilka goździków, kartki kondolencyjne."],
+		["", "\"Zawsze w drugim rzędzie, a grałeś jak w pierwszym. Zespół.\""],
+		["", "\"Adriankowi, od pani Stasi z czwartego rzędu.\""],
+		["", "\"Do zobaczenia za kulisami. M.\""],
+	],
+	"zdjecie_potem": [["", "Świeczka dopala się. Ktoś dołożył jeszcze jeden goździk."]],
+	"wstazka": [["", "Czarna wstążka przypięta pinezką. Pod spodem kartka: \"Spektakl we wtorek odbędzie się zgodnie z planem\"."]],
+	"aktor": [["Aktor", "(cicho) Nie mogę uwierzyć. W czwartek jeszcze z nim grałem scenę z kielichem."]],
+	"aktor_potem": [["Aktor", "Dajmy mu dziś spokój. Wszystkim dajmy."]],
+	"aktorka": [["Aktorka", "Był taki blady na próbie. Mówiłam mu, idź do lekarza. Śmiał się, że to trema."]],
+	"aktorka_potem": [["Aktorka", "(wyciera oczy chusteczką)"]],
+	"sprzataczka": [["Sprzątaczka", "Po bankiecie wino aż do szatni. Trzy razy myję i dalej się klei."]],
+	"sprzataczka_potem": [["Sprzątaczka", "Niech pan uważa, mokre."]],
+	"personel_zamkniete": [["Antoni", "Lis prosił, żebym przyszedł do gabinetu. Najpierw on."]],
+	"wyjscie_bez_kwitu": [["Antoni", "Lis prosił, żebym przyszedł. Nie wyjdę, zanim z nim nie pogadam."]],
+	"gabinet_wejscie": [["", "Gabinet dyrektora. Zasłony do połowy, na biurku papiery do sufitu."]],
+	"lis_prosba": [
+		["Lis", "Panie Antoni. Dziękuję, że pan przyszedł. Nie spałem całą noc."],
+		["Lis", "We wtorek gramy drugi spektakl. Musimy. Bilety sprzedane, kasa pusta."],
+		["Lis", "A kostium Wolskiego jest w pralni. Ktoś go oddał w czwartek, a teraz nikt nie ma głowy, żeby odebrać."],
+		["Lis", "Czy pan by mógł? Kwit gdzieś tu leży. Na biurku. Gdzieś."],
+	],
+	"lis_kto": [
+		["Antoni", "Kto oddał kostium do pralni?"],
+		["Lis", "Nie wiem. W piątek rano kwit leżał w mojej przegródce z dopiskiem \"do odbioru\". Ktoś z garderoby, pewnie."],
+	],
+	"lis_kostium": [
+		["Antoni", "Adrian grał w kostiumie Wolskiego?"],
+		["Lis", "Od wtorku do czwartku, na próbach, kiedy Wolski leżał z gorączką. Jeden kostium, szyty na Wolskiego."],
+		["Lis", "Na Adriana trochę za szeroki w ramionach. Irena chciała zwęzić, nie zdążyła."],
+	],
+	"lis_pogrzeb": [
+		["Antoni", "Kiedy pogrzeb?"],
+		["Lis", "W piątek w południe. Wolski wszystko załatwia. Złoty człowiek."],
+	],
+	"lis_nic": [["Lis", "Panie Antoni, ja nie mam do tego głowy. Kostium, wtorek. Tylko tyle."]],
+	"lis_koniec": [["Lis", "Kwit, kwit... gdzie ja go położyłem."]],
+	"lis_po_kwicie": [["Lis", "Pralnia jest na Kopernika. Dziękuję panu. Naprawdę."]],
+	"papiery": [["", "Rachunki za prąd, faktury za farbę, wezwanie do zapłaty z ZUS-u. Kwitu nie ma."]],
+	"papiery_potem": [["", "Same rachunki."]],
+	"teczki": [["", "Teczki z umowami aktorów. Na wierzchu umowa Adriana, niepodpisana do końca. Kwitu nie ma."]],
+	"teczki_potem": [["", "Umowy. Nic więcej."]],
+	"popielniczka": [
+		["", "Popielniczka pełna petów. Pod nią przyciśnięty mały niebieski kwit."],
+		["", "\"Pralnia Perła. Odbiór: kostium sceniczny, 1 szt. Nr 0412.\""],
+	],
+	"popielniczka_potem": [["", "Same pety."]],
+	"telefon_lisa": [["", "Stary telefon z tarczą. Słuchawka jeszcze ciepła."]],
+	"szuflada_lisa": [["", "Szuflada zamknięta na kluczyk. Nie moja sprawa."]],
+	"obsada": [
+		["", "Na tablicy korkowej obsada \"Ostatniego aktu\". Przy nazwisku Wolskiego dopisane długopisem:"],
+		["", "\"dubler: Adrian (wt–czw)\""],
+	],
+	"kalendarz_lisa": [["", "Kalendarz ścienny. Wtorek zakreślony na czerwono: \"SPEKTAKL II, 19:00\"."]],
+	"okno_lisa": [["", "Podwórze teatru. Kontenery z dekoracjami i mokre kocie ślady na dachu szopy."]],
+	"regal_lisa": [["", "Segregatory: \"Sezon 1998\", \"Sezon 1999\"... aż do dziś. Lis niczego nie wyrzuca."]],
+	"kanapa_lisa": [["", "Kanapa z pogniecionym kocem. Lis tu spał."]],
+	"ania_wchodzi": [
+		["Ania", "Panie dyrektorze... Słyszałam, że ktoś musi odebrać kostium."],
+		["Ania", "Ja to załatwię. I tak muszę wyjść, nie mogę tu siedzieć."],
+		["Lis", "Nie, Aniu, ty odpocznij. Pan Antoni pojedzie."],
+		["", "Ania patrzy na kwit w ręku Antoniego."],
+	],
+	"ania_czemu": [
+		["Antoni", "Czemu chce pani jechać sama?"],
+		["Ania", "Bo tu się duszę. Wszędzie jego zdjęcia, jego kubek w bufecie. Muszę coś robić."],
+	],
+	"ania_kostium": [
+		["Antoni", "Adrian mówił coś o kostiumie?"],
+		["", "Ania milknie na chwilę."],
+		["Ania", "Nie. Nic nie mówił."],
+	],
+	"ania_piatek": [
+		["Antoni", "Gdzie pani była w piątek wieczorem?"],
+		["Ania", "W domu. Sama. Myślałam, że on jest obrażony i dlatego nie dzwoni."],
+	],
+	"ania_nic": [["Ania", "Nie wiem. Przepraszam."]],
+	"ania_koniec": [["Ania", "Proszę uważać na ten kostium. To... dużo kosztował."]],
+	"ania_kanapa": [["Ania", "(siedzi na kanapie Lisa, patrzy w okno)"]],
+	"bufetowa_start": [
+		["Bufetowa", "Panie Antoni... Proszę, kanapka. Na koszt firmy."],
+		["Bufetowa", "Proszę jeść. Adrian zawsze brał z serem. Zawsze z serem..."],
+	],
+	"bufetowa_czwartek": [
+		["Antoni", "Był tu w czwartek?"],
+		["Bufetowa", "Na próbie był. Blady jak papier. Nic nie zjadł, tylko kawę wypił i drapał się po karku."],
+	],
+	"bufetowa_rano": [
+		["Antoni", "Kto bywa w teatrze rano?"],
+		["Bufetowa", "Rano? Ja przychodzę na dziesiątą. Wcześniej to tylko mleczarz, w czwartki przywozi mleko. I portier."],
+	],
+	"bufetowa_jak": [
+		["Antoni", "Jak się pani trzyma?"],
+		["Bufetowa", "Jakoś. Ktoś musi tę kawę parzyć."],
+	],
+	"bufetowa_nic": [["Bufetowa", "Nie wiem, panie Antoni. Ja tu tylko kawę."]],
+	"bufetowa_koniec": [["Bufetowa", "Jakby pan był głodny, to ja tu jestem."]],
+	"stasia": [["Pani Stasia", "Przyniosłam mu goździki. Na premierze się do mnie uśmiechnął. Do mnie, z czwartego rzędu."]],
+	"stasia_idzie": "Pani Stasia kładzie goździki pod zdjęciem.",
+}
+
+const SCENA9_DOWODY := {
+	"lis": {
+		"zdjecie_pasy": [["Lis", "Lekarz mówił, uczulenie. Panie Antoni, niech pan mi tego nie pokazuje."]],
+		"telefon_adriana": [["Lis", "Niech pan odda rodzinie. Albo policji. Ja nie mam do tego głowy."]],
+		"lista_rekwizytow": [["Lis", "Moja lista. Gdybym go tam nie wysłał..."]],
+		"kielich": [["Lis", "Czwarty kielich. Dobrze, że się znalazł, we wtorek będzie potrzebny."]],
+		"kwit_odbioru": [["Lis", "O, jest. Gdzie on był? Pralnia na Kopernika, pan trafi."]],
+	},
+	"ania": {
+		"kwit_odbioru": [["", "Ania wyciąga rękę."], ["Ania", "Daj mi go. Ja i tak idę w tamtą stronę."], ["Antoni", "Pojadę sam."], ["", "Ania cofa rękę."]],
+		"telefon_adriana": [["Ania", "(odwraca wzrok) Mówiłam już. Schowaj to."]],
+		"zdjecie_pasy": [["Ania", "Przestań mi to pokazywać. Proszę."]],
+		"termos": [["Ania", "Jego termos. Oddasz mi go potem?"]],
+		"kielich": [["Ania", "Z drugiego aktu. Pamiętam."]],
+	},
+	"bufetowa": {
+		"zdjecie_pasy": [["Bufetowa", "Jezus Maria. Tak się właśnie drapał. Tu, przy ladzie."]],
+		"termos": [["Bufetowa", "Jego termos! Zawsze mu nalewałam wrzątku. Herbata z cytryną."]],
+		"kielich": [["Bufetowa", "To z rekwizytorni, nie ode mnie."]],
+	},
+}
+
+const SCENA9_TLO := {
+	"aktor": ["(milczy)", "(kręci głową)"],
+	"aktorka": ["(pociąga nosem)", "Taki młody..."],
+	"sprzataczka": ["(chlup, chlup)", "Klei się i klei..."],
+	"bufetowa": ["(wyciera ladę)", "(radio gra cicho Chopina)"],
+	"lis": ["(przerzuca papiery)", "Gdzie to jest..."],
+}
+
+const SCENA9_NAPISY := {
+	"dalej": "Scena 10: Pralnia. Już wkrótce.",
 }
 
 # Retrospekcja 1 (po scenie 7): piątek w magazynie, tak jak to sobie wyobraża Antoni.
@@ -1168,6 +1309,7 @@ const PRZEDMIOTY := {
 	"spinka": ["Spinka do włosów", "Wygięta. Da się nią otworzyć prosty zamek.", "fabularny", 0],  # pudełko z charakteryzacją Ani, sc. 20
 	"telefon_adriana": ["Telefon Adriana", "Pęknięta szybka, na etui naklejka z maską. Rozładowany i zablokowany PIN-em.", "fabularny", 0],  # pod manekinem w magazynie, sc. 6
 	"termos": ["Termos", "Termos Adriana w kratkę, na zakrętce wydrapane \"A.\". Resztka herbaty z cytryną.", "fabularny", 0],  # na sofie w magazynie, sc. 6
+	"kwit_odbioru": ["Kwit z pralni", "\"Pralnia Perła. Odbiór: kostium sceniczny, 1 szt. Nr 0412.\" Leżał pod popielniczką u Lisa.", "fabularny", 0],  # biurko Lisa, sc. 9
 	"kielich": ["Złoty kielich", "Czwarty kielich z listy rekwizytów. Leżał pod skrzynią obok ciała, nóżka wgnieciona.", "fabularny", 0],  # pod skrzynią w magazynie, sc. 6
 	"lista_rekwizytow": ["Lista rekwizytów", "Lista od dyrektora Lisa. Na dole dopisek Adriana: \"nie dam rady, kręci mi się w głowie\".", "fabularny", 0],  # stolik w salonie, magazyn, sc. 6
 	"zdjecie_pasy": ["Zdjęcie: pasy na ramionach", "Zdjęcie z telefonu. Czerwone, równe pasy na ramionach i plecach Adriana.", "fabularny", 0],  # ciało Adriana, sc. 6
@@ -1187,6 +1329,7 @@ const PRZEDMIOTY := {
 const SKRZYNKI := {
 	"stojak_programy": ["Stojak z programami", "Program premiery. Jeden wezmę. A pod stojakiem... numerek z szatni! Czterdzieści siedem. To mój!", "Jeden program wystarczy."],
 	"bufet": ["Bufet", "Na ladzie kanapki i kawa dla widzów premiery. Biorę po jednej.", "Więcej nie wezmę, nie wypada."],
+	"apteczka_s9": ["Apteczka", "Bandaże, plaster, tabletki. Na dnie paczka lateksowych rękawiczek. Biorę parę.", "Bandaże i plaster."],
 	"apteczka": ["Apteczka", "W apteczce są tabletki przeciwbólowe. Biorę listek.", "Bandaże, plaster. Nic więcej mi nie trzeba."],
 	"bankiet": ["Stół bankietowy", "Tartinki, pączki i wino. Biorę coś na ząb.", "Starczy. Nie chcę wyjść na łakomczucha."],
 	"bezpieczniki": ["Bezpieczniki", "Między bezpiecznikami wisi zapasowy klucz z zawieszką \"PRACOWNIA / GARDEROBY\". Ktoś tu dba o wygodę.", "Same bezpieczniki."],

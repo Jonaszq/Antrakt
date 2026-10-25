@@ -7,7 +7,7 @@ extends ScenaGry
 ## i odjeżdża, kiedy gracz uzna, że skończył; potem Antoni wsiada do swojego auta.
 ## Teksty w Dialogi.SCENA8.
 
-const NASTEPNA := "res://menu/menu.tscn"  # rozdział 3 jeszcze nie zrobiony
+const NASTEPNA := "res://sceny/scena9/scena9.tscn"
 const POSTOJ := Vector2(470, 384)  # gdzie staje taksówka (środek dołu obrazka)
 
 var _ania: Node2D

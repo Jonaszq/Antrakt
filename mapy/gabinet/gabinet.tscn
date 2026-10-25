@@ -1,0 +1,206 @@
+[gd_scene load_steps=23 format=3]
+
+[ext_resource type="Texture2D" path="res://mapy/gabinet/tlo.png" id="tlo"]
+[ext_resource type="PackedScene" path="res://postacie/antoni/antoni.tscn" id="antoni"]
+[ext_resource type="Texture2D" path="res://mapy/gabinet/regal.png" id="regal"]
+[ext_resource type="Texture2D" path="res://mapy/gabinet/fotel_lisa.png" id="fotel_lisa"]
+[ext_resource type="Texture2D" path="res://mapy/gabinet/biurko.png" id="biurko"]
+[ext_resource type="Texture2D" path="res://mapy/gabinet/krzeslo_1.png" id="krzeslo_1"]
+[ext_resource type="Texture2D" path="res://mapy/gabinet/krzeslo_2.png" id="krzeslo_2"]
+[ext_resource type="Texture2D" path="res://mapy/gabinet/kanapa.png" id="kanapa"]
+[ext_resource type="Texture2D" path="res://mapy/gabinet/kwiaty.png" id="kwiaty"]
+
+[sub_resource type="Gradient" id="grad"]
+offsets = PackedFloat32Array(0, 0.55, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.35, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="swiatlo"]
+gradient = SubResource("grad")
+width = 256
+height = 256
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="RectangleShape2D" id="k0"]
+size = Vector2(68, 14)
+
+[sub_resource type="RectangleShape2D" id="k1"]
+size = Vector2(38, 10)
+
+[sub_resource type="RectangleShape2D" id="k2"]
+size = Vector2(148, 20)
+
+[sub_resource type="RectangleShape2D" id="k3"]
+size = Vector2(20, 6)
+
+[sub_resource type="RectangleShape2D" id="k4"]
+size = Vector2(20, 6)
+
+[sub_resource type="RectangleShape2D" id="k5"]
+size = Vector2(82, 22)
+
+[sub_resource type="RectangleShape2D" id="k6"]
+size = Vector2(28, 8)
+
+[sub_resource type="RectangleShape2D" id="g0"]
+size = Vector2(640, 108)
+
+[sub_resource type="RectangleShape2D" id="g1"]
+size = Vector2(14, 360)
+
+[sub_resource type="RectangleShape2D" id="g2"]
+size = Vector2(14, 360)
+
+[sub_resource type="RectangleShape2D" id="g3"]
+size = Vector2(640, 14)
+
+[node name="Gabinet" type="Node2D"]
+
+[node name="Mrok" type="CanvasModulate" parent="."]
+color = Color(0.6, 0.58, 0.62, 1)
+
+[node name="Tlo" type="Sprite2D" parent="."]
+texture = ExtResource("tlo")
+centered = false
+
+[node name="Kolizje" type="StaticBody2D" parent="."]
+
+[node name="K0" type="CollisionShape2D" parent="Kolizje"]
+position = Vector2(595.0, 113.0)
+shape = SubResource("k0")
+
+[node name="K1" type="CollisionShape2D" parent="Kolizje"]
+position = Vector2(320.0, 167.0)
+shape = SubResource("k1")
+
+[node name="K2" type="CollisionShape2D" parent="Kolizje"]
+position = Vector2(325.0, 196.0)
+shape = SubResource("k2")
+
+[node name="K3" type="CollisionShape2D" parent="Kolizje"]
+position = Vector2(281.0, 253.0)
+shape = SubResource("k3")
+
+[node name="K4" type="CollisionShape2D" parent="Kolizje"]
+position = Vector2(371.0, 253.0)
+shape = SubResource("k4")
+
+[node name="K5" type="CollisionShape2D" parent="Kolizje"]
+position = Vector2(82.0, 253.0)
+shape = SubResource("k5")
+
+[node name="K6" type="CollisionShape2D" parent="Kolizje"]
+position = Vector2(155.0, 276.0)
+shape = SubResource("k6")
+
+[node name="G0" type="CollisionShape2D" parent="Kolizje"]
+position = Vector2(320.0, 54.0)
+shape = SubResource("g0")
+
+[node name="G1" type="CollisionShape2D" parent="Kolizje"]
+position = Vector2(7.0, 180.0)
+shape = SubResource("g1")
+
+[node name="G2" type="CollisionShape2D" parent="Kolizje"]
+position = Vector2(633.0, 180.0)
+shape = SubResource("g2")
+
+[node name="G3" type="CollisionShape2D" parent="Kolizje"]
+position = Vector2(320.0, 353.0)
+shape = SubResource("g3")
+
+[node name="Obiekty" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="regal" type="Sprite2D" parent="Obiekty"]
+position = Vector2(560, 120)
+texture = ExtResource("regal")
+centered = false
+offset = Vector2(0, -86)
+
+[node name="fotel_lisa" type="Sprite2D" parent="Obiekty"]
+position = Vector2(300, 172)
+texture = ExtResource("fotel_lisa")
+centered = false
+offset = Vector2(0, -46)
+
+[node name="biurko" type="Sprite2D" parent="Obiekty"]
+position = Vector2(250, 206)
+texture = ExtResource("biurko")
+centered = false
+offset = Vector2(0, -56)
+
+[node name="krzeslo_1" type="Sprite2D" parent="Obiekty"]
+position = Vector2(270, 256)
+texture = ExtResource("krzeslo_1")
+centered = false
+offset = Vector2(0, -34)
+
+[node name="krzeslo_2" type="Sprite2D" parent="Obiekty"]
+position = Vector2(360, 256)
+texture = ExtResource("krzeslo_2")
+centered = false
+offset = Vector2(0, -34)
+
+[node name="kanapa" type="Sprite2D" parent="Obiekty"]
+position = Vector2(40, 264)
+texture = ExtResource("kanapa")
+centered = false
+offset = Vector2(0, -44)
+
+[node name="kwiaty" type="Sprite2D" parent="Obiekty"]
+position = Vector2(140, 280)
+texture = ExtResource("kwiaty")
+centered = false
+offset = Vector2(0, -50)
+
+[node name="Antoni" parent="Obiekty" instance=ExtResource("antoni")]
+position = Vector2(320, 320)
+podloze = "drewno"
+strefy_podloza = []
+
+[node name="Swiatlo" type="PointLight2D" parent="Obiekty/Antoni"]
+position = Vector2(0, -22)
+color = Color(1, 0.9, 0.78, 1)
+energy = 0.7
+texture = SubResource("swiatlo")
+texture_scale = 1.0
+
+[node name="Kamera" type="Camera2D" parent="Obiekty/Antoni"]
+limit_left = 0
+limit_top = 0
+limit_right = 640
+limit_bottom = 360
+position_smoothing_enabled = true
+position_smoothing_speed = 6.0
+
+[node name="Swiatla" type="Node2D" parent="."]
+
+[node name="S0" type="PointLight2D" parent="Swiatla"]
+position = Vector2(325, 80)
+color = Color(1, 0.7, 0.38, 1)
+energy = 0.9
+texture = SubResource("swiatlo")
+texture_scale = 1.15
+
+[node name="S1" type="PointLight2D" parent="Swiatla"]
+position = Vector2(250, 44)
+color = Color(1, 0.7, 0.38, 1)
+energy = 0.6
+texture = SubResource("swiatlo")
+texture_scale = 1.00
+
+[node name="S2" type="PointLight2D" parent="Swiatla"]
+position = Vector2(400, 44)
+color = Color(1, 0.7, 0.38, 1)
+energy = 0.6
+texture = SubResource("swiatlo")
+texture_scale = 1.00
+
+[node name="S3" type="PointLight2D" parent="Swiatla"]
+position = Vector2(390, 150)
+color = Color(1, 0.7, 0.38, 1)
+energy = 0.6
+texture = SubResource("swiatlo")
+texture_scale = 1.00

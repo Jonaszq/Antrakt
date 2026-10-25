@@ -1352,7 +1352,125 @@ def plac():
                    strefy=((0, PY, W, H, "mokry"),))
 
 
-MAPY = {"foyer": foyer, "kulisy": kulisy, "widownia": widownia, "garderoba": garderoba, "magazyn": magazyn, "budka": budka, "plac": plac}
+def biurko_dyrektora():
+    """Duże biurko Lisa zawalone papierami: stosy, teczki, popielniczka, telefon, lampka."""
+    img = nowy(150, 56)
+    d = ImageDraw.Draw(img)
+    skrzynia(d, 0, 4, 150, 26, 24, DREWNO)
+    for dx in (8, 112):  # szuflady
+        obrys(d, dx, 34, 30, 10, DREWNO[1])
+        prost(d, dx + 13, 38, 4, 2, ZLOTO[2])
+    for nx in (2, 144):
+        prost(d, nx, 52, 4, 4, DREWNO[1])
+    # stos papierów (lewo)
+    for i in range(5):
+        prost(d, 10 + i % 2, 12 - i * 2, 26, 12, PAPIER[2 - i % 2])
+        obrys(d, 10 + i % 2, 12 - i * 2, 26, 12, PAPIER[0])
+    # teczki (środek)
+    for i, kol in enumerate(((60, 90, 140), (150, 60, 50), (70, 110, 70))):
+        prost(d, 50 + i * 3, 14 - i * 2, 30, 10, kol)
+        obrys(d, 50 + i * 3, 14 - i * 2, 30, 10)
+    # popielniczka z petami (prawo)
+    d.ellipse((96, 14, 112, 22), fill=SZKLO[3], outline=O)
+    d.ellipse((99, 16, 109, 20), fill=KAMIEN[1])
+    for px in (101, 105):
+        prost(d, px, 16, 3, 1, PAPIER[2])
+    # telefon i lampka
+    prost(d, 118, 12, 14, 8, (30, 30, 34))
+    obrys(d, 118, 12, 14, 8)
+    prost(d, 120, 9, 10, 3, (44, 44, 50))
+    prost(d, 140, 2, 2, 16, METAL[2])
+    d.polygon([(134, 2), (146, 2), (144, -2), (136, -2)], fill=ZIELEN[1])
+    prost(d, 134, 0, 12, 3, ZIELEN[1])
+    obrys(d, 134, 0, 12, 3)
+    return img
+
+
+def fotel_skorzany():
+    img = nowy(40, 46)
+    d = ImageDraw.Draw(img)
+    skrzynia(d, 2, 0, 36, 6, 26, DREWNO_C)
+    skrzynia(d, 0, 22, 40, 8, 12, DREWNO_C)
+    prost(d, 18, 42, 4, 4, METAL[1])
+    return img
+
+
+def krzeslo():
+    img = nowy(22, 34)
+    d = ImageDraw.Draw(img)
+    skrzynia(d, 2, 0, 18, 4, 16, DREWNO)
+    skrzynia(d, 0, 16, 22, 6, 6, DREWNO)
+    for nx in (1, 19):
+        prost(d, nx, 28, 2, 6, DREWNO[1])
+    return img
+
+
+def regal_segregatory():
+    img = nowy(70, 86)
+    d = ImageDraw.Draw(img)
+    skrzynia(d, 0, 0, 70, 6, 80, DREWNO_C)
+    for py in (10, 36, 62):
+        prost(d, 3, py + 22, 64, 2, DREWNO_C[3])
+        for i, sx in enumerate(range(5, 64, 7)):
+            kol = [(60, 90, 140), (150, 60, 50), (70, 110, 70), PAPIER[1]][(i + py) % 4]
+            prost(d, sx, py + 2, 6, 20, kol)
+            prost(d, sx + 2, py + 6, 2, 4, PAPIER[2])
+    return img
+
+
+def gabinet():
+    mp.SZER, mp.WYS, mp.PODLOGA_Y = 640, 360, 104
+    mp.los = random.Random(91)
+    m = mp.Mapa()
+    d = m.d
+    W, H, PY = mp.SZER, mp.WYS, mp.PODLOGA_Y
+    prost(d, 0, 0, W, H, O)
+    mp.podloga(d)
+    mp.sciana_tylna(d)
+    # dywan pod biurkiem
+    prost(d, 200, 150, 250, 110, CZERWIEN[0])
+    obrys(d, 204, 154, 242, 102, ZLOTO[1])
+    obrys(d, 210, 160, 230, 90, CZERWIEN[2])
+    # okno na podwórze, szare niedzielne światło
+    prost(d, 280, 18, 90, 60, (110, 120, 136))
+    for ry in range(22, 74, 6):
+        prost(d, 284, ry, 82, 1, (140, 150, 164))
+    obrys(d, 280, 18, 90, 60, DREWNO[2])
+    prost(d, 324, 18, 2, 60, DREWNO[2])
+    m.swiatla.append((325, 80, 0.9))
+    # plakaty dawnych premier
+    plakat(d, 60, 24, ["HAMLET"], "korona")
+    plakat(d, 150, 24, ["ROMEO"], "roza")
+    # tablica korkowa z obsadą i kalendarz
+    prost(d, 420, 24, 70, 50, (150, 110, 70))
+    obrys(d, 420, 24, 70, 50, DREWNO[1])
+    for i, (kx, ky) in enumerate(((426, 30), (452, 28), (470, 44), (430, 52))):
+        prost(d, kx, ky, 16, 18, PAPIER[2 - i % 2])
+        prost(d, kx + 7, ky + 1, 2, 2, CZERWIEN[2])
+    prost(d, 510, 26, 30, 40, PAPIER[2])
+    obrys(d, 510, 26, 30, 40)
+    prost(d, 510, 26, 30, 8, CZERWIEN[1])
+    for ky in range(38, 64, 6):
+        for kx in range(513, 538, 5):
+            prost(d, kx, ky, 3, 3, PAPIER[0])
+    prost(d, 523, 56, 4, 4, CZERWIEN[2])  # zakreślony wtorek
+    mp.kinkiet(d, 250, 50)
+    m.swiatla.append((250, 44, 0.6))
+    mp.kinkiet(d, 400, 50)
+    m.swiatla.append((400, 44, 0.6))
+    m.obiekt("regal", regal_segregatory(), 560, PY - 70, 14)
+    m.obiekt("fotel_lisa", fotel_skorzany(), 300, 126, 10)
+    m.obiekt("biurko", biurko_dyrektora(), 250, 150, 20)
+    m.obiekt("krzeslo_1", krzeslo(), 270, 222, 6)
+    m.obiekt("krzeslo_2", krzeslo(), 360, 222, 6)
+    m.obiekt("kanapa", kanapa(), 40, 220, 22)
+    m.obiekt("kwiaty", stolik_kwiaty(), 140, 230, 8)
+    m.swiatla.append((390, 150, 0.6))  # lampka na biurku
+    ramy_z_wejsciem(d, 288, 64)
+    return m, dict(korzen="Gabinet", start=(320, 320), postacie=(), mrok=(0.6, 0.58, 0.62))
+
+
+MAPY = {"foyer": foyer, "kulisy": kulisy, "widownia": widownia, "garderoba": garderoba, "magazyn": magazyn, "budka": budka, "plac": plac, "gabinet": gabinet}
 
 
 def main(folder_podgladu=None):

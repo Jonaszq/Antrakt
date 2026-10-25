@@ -836,6 +836,27 @@ def aktorka(faza):
                     usta=_szminka(), nizej=1, dodatki=_nogi_pod_suknia(su, dodatki))
 
 
+def sprzataczka(faza):
+    """Sprzątaczka w teatrze. Niebieski fartuch, chustka na głowie, mop w ręku."""
+    su = material("sprzataczka_sukienka", [(40, 40, 46), (66, 66, 74), (92, 92, 100)])
+    fa = material("fartuch_niebieski", [(30, 60, 110), (50, 90, 150), (90, 130, 190)])
+    ch = material("chustka", [(110, 30, 40), (160, 50, 60), (200, 90, 90)])
+
+    def dodatki(p, b, dl):
+        p.wielokat([(13, 24 + b), (27, 24 + b), (28, 50), (12, 50)], fa)
+        p.prost(16, 32 + b, 24, 37 + b, fa, 2)  # kieszeń
+        p.wielokat([(12, 6 + b), (28, 6 + b), (27, 11 + b), (13, 11 + b)], ch, 1)  # chustka
+        p.prost(14, 5 + b, 26, 6 + b, ch, 2)
+        x, y = dl[1]
+        kij = material("kij_mopa", [(70, 50, 30), (110, 80, 50)])
+        p.prost(x, y - 18, x, y + 14, kij, 1)
+        mop = material("mop", [(150, 146, 130), (190, 186, 170)])
+        p.prost(x - 3, y + 14, x + 3, y + 18, mop, 1)
+    return czlowiek(faza, skora=_skora(True), wlosy=material("pani_wlosy_siwe", [(90, 86, 84), (140, 136, 130), (180, 176, 170)]),
+                    fryz="krotkie", ubranie=su, styl="sukienka", dol=None, buty=None, usta=_usta(), nizej=3,
+                    dodatki=_nogi_pod_suknia(su, dodatki))
+
+
 def lekarz(faza):
     """Lekarz pogotowia. Czerwona kurtka z odblaskami, stetoskop, siwiejące skronie, zmęczony."""
     ku = material("kurtka_pogotowie", [(80, 14, 14), (130, 26, 24), (176, 46, 36), (214, 80, 60)])
@@ -943,6 +964,7 @@ POSTACIE = {
     "aktor": ("Aktor", aktor),
     "aktorka": ("Aktorka", aktorka),
     "lekarz": ("Lekarz", lekarz),
+    "sprzataczka": ("Sprzataczka", sprzataczka),
     "nowicki": ("Nowicki", nowicki),
     "policjant": ("Policjant", policjant),
     "adrian": ("Adrian", adrian),
