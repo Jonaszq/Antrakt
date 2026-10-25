@@ -1135,7 +1135,7 @@ const SCENA9 := {
 		["", "Na tablicy korkowej obsada \"Ostatniego aktu\". Przy nazwisku Wolskiego dopisane długopisem:"],
 		["", "\"dubler: Adrian (wt–czw)\""],
 	],
-	"kalendarz_lisa": [["", "Kalendarz ścienny. Wtorek zakreślony na czerwono: \"SPEKTAKL II, 19:00\"."]],
+	"kalendarz_lisa": [["", "Kalendarz ścienny. Wtorek zakreślony na czerwono: \"SPEKTAKL II, 20:00\"."]],
 	"okno_lisa": [["", "Podwórze teatru. Kontenery z dekoracjami i mokre kocie ślady na dachu szopy."]],
 	"regal_lisa": [["", "Segregatory: \"Sezon 1998\", \"Sezon 1999\"... aż do dziś. Lis niczego nie wyrzuca."]],
 	"kanapa_lisa": [["", "Kanapa z pogniecionym kocem. Lis tu spał."]],
@@ -1905,6 +1905,226 @@ const SCENA15_TLO := {
 	"proba": ["Ta-ra-ram... nie, jeszcze raz!", "(fortepian zaczyna od nowa)", "Od taktu dwunastego!"],
 }
 
+# Scena 16 (opcjonalna): gabinet Lisa, środa 13:00. Lis jest na dole u księgowej.
+# Szuflada otwiera się zapasowym kluczem albo kluczykiem zza kalendarza: polisa na Wolskiego.
+# Po polisie wraca Lis. Potwierdzenie z banku leży w teczkach, ale Antoni wie, czego
+# szukać, dopiero gdy Lis powie o banku.
+const SCENA16 := {
+	"poczatek": [
+		["", "Sekretariat pusty, drzwi gabinetu uchylone. Lis jest piętro niżej, u księgowej. Sekretarka mówi, że to potrwa."],
+		["", "Za ścianą sekretarka odbiera telefon za telefonem."],
+	],
+	"papiery": [
+		["", "Stos kopert. Wezwania do zapłaty: prąd, ogrzewanie, ZUS, drukarnia."],
+		["", "Na jednym czerwona pieczątka: \"WEZWANIE OSTATECZNE\". Teatr tonie."],
+	],
+	"papiery_potem": [["", "Rachunki. Same rachunki."]],
+	"teczki": [["", "Teczki: budżet, umowy, sponsorzy, bank, ZAiKS. Mógłbym tu siedzieć do jutra, gdybym nie wiedział, czego szukam."]],
+	"teczki_bank": [
+		["", "Zielona teczka \"BANK\". Na wierzchu potwierdzenie wizyty: oddział na Placu Wolności, czwartek, 8:05. Klient: Bogdan Lis. Wniosek o kredyt."],
+		["", "Odrzucony."],
+	],
+	"teczki_bank_potem": [["", "Potwierdzenie z banku: czwartek 8:05. Wniosek odrzucony."]],
+	"szuflada_zamknieta": [["", "Szuflada biurka zamknięta na mały kluczyk. Szarpnięcie nic nie daje."]],
+	"szuflada_klucz": [["", "Zapasowy klucz z bezpieczników jest za duży. Ale dziurka... Nie, nie pasuje."]],
+	"szuflada_otwieram": [["", "Kluczyk pasuje. Szuflada wyjeżdża ze zgrzytem."]],
+	"polisa": [
+		["", "Pod paczką papierosów i fiolką tabletek na nadciśnienie: polisa na życie."],
+		["", "Ubezpieczony: Adam Wolski. Uposażony: Teatr Miejski. Suma: dwa miliony złotych."],
+		["", "Podpisana trzy miesiące temu. B. Lis. Biorę ją."],
+	],
+	"szuflada_potem": [["", "Papierosy i tabletki na nadciśnienie."]],
+	"kalendarz": [
+		["", "Kalendarz ścienny. Środa: \"13:00 księgowa\", podkreślone trzy razy."],
+		["", "Kalendarz odstaje od ściany. Za nim, na gwoździku, wisi mały kluczyk. Biorę go."],
+	],
+	"kalendarz_potem": [["", "Kalendarz. Za nim pusty gwoździk."]],
+	"telefon_dzwoni": "(telefon na biurku Lisa dzwoni)",
+	"telefon_odbieram": [
+		["", "Podnoszę słuchawkę. Nic nie mówię."],
+		["Głos", "Panie dyrektorze, nie ma co się chować. Do piątku albo idziemy do komornika."],
+		["Głos", "Mówił pan, że będą pieniądze. Z ubezpieczenia, tak pan mówił. No to gdzie są?"],
+		["", "Rozłącza się, zanim zdążę odpowiedzieć."],
+	],
+	"telefon_cicho": [["", "Stary telefon z tarczą. Milczy."]],
+	"okno": [["", "Pod teatrem znicze. Ktoś przykleił do drzwi zdjęcie Adriana."]],
+	"tablica": [["", "Obsada \"Ostatniego aktu\". Nazwisko Adriana przekreślone, nad nim długopisem: \"J. Adamczyk\"."]],
+	"regal": [["", "Segregatory od 1990 roku. Nagrody, dyplomy. Na najwyższej półce kurz gruby na palec."]],
+	"kroki": [["", "Kroki na korytarzu. Ciężkie, szybkie. Zamykam szufladę, ale za późno."]],
+	"lis_wchodzi": [
+		["Lis", "A pan co tu robi? W moim biurku?!"],
+		["Lis", "To jest napad, panie. Zadzwonię na policję. Chociaż... pan jest z policji. No to cudownie."],
+	],
+	"lis_znowu": [["Lis", "(ociera czoło chustką) Słucham. Skoro już pan tu jest."]],
+	"lis_bankrut": [
+		["Antoni", "Teatr bankrutuje?"],
+		["Lis", "Teatr umiera, panie. Od dwóch lat. Ja tylko trzymam go za rękę."],
+	],
+	"lis_polisa": [
+		["Antoni", "Polisa na życie Wolskiego. Dwa miliony. Uposażony: teatr."],
+		["Lis", "(siada ciężko w fotelu, długo milczy)"],
+		["Lis", "Gdyby Adam umarł, pieniądze z polisy uratowałyby teatr. Myśli pan, że o tym nie myślałem? Myślałem."],
+		["Lis", "Ale tego nie zrobiłem."],
+	],
+	"lis_czwartek_zly": [
+		["Antoni", "Gdzie był pan w czwartek rano?"],
+		["Lis", "W pracy. Jak zawsze. A teraz, jeśli pan pozwoli, mam teatr do ratowania."],
+	],
+	"lis_czwartek": [
+		["Antoni", "Gdzie był pan w czwartek rano?"],
+		["Lis", "W banku. O ósmej, zanim otworzyli, już stałem pod drzwiami. Błagałem o kredyt."],
+		["Lis", "Odmówili. Potwierdzenie mam w teczkach, w tej zielonej. Niech pan sobie szuka, skoro i tak pan grzebie."],
+	],
+	"lis_wolski": [
+		["Antoni", "Wolski mówi, że pan liczy pieniądze."],
+		["Lis", "Adam? Adam niech liczy swoje butelki koniaku. Kto mu je kupuje, jak myśli? Teatr."],
+	],
+	"lis_wierzyciel": [
+		["Antoni", "Dzwonił ktoś. Mówił o pieniądzach z ubezpieczenia."],
+		["Lis", "(blednie) Mówię wierzycielom różne rzeczy, żeby dali mi jeszcze tydzień. To nie przestępstwo."],
+	],
+	"lis_kuba": [
+		["Antoni", "Kuba Adamczyk dostał rolę dublera."],
+		["Lis", "A kogo miałem wziąć? Zadzwoniłem do niego w sobotę rano. Chłopak zna rolę na pamięć."],
+	],
+	"lis_nic": [["Lis", "Nie wiem, co to jest. Ja się zajmuję pieniędzmi, których nie ma."]],
+	"lis_koniec": [["Lis", "A teraz wynocha z mojego gabinetu. I kluczyk na biurko."]],
+	"wyjscie_przed": [["", "Wychodzę, zanim Lis wróci. Sekretarka nawet nie podnosi głowy."]],
+}
+
+const SCENA16_TLO := {
+	"sekretarka": ["Pana dyrektora nie ma.", "Przelew wyszedł, naprawdę.", "Proszę zadzwonić jutro.", "(telefon dzwoni)", "Nie, nie wiem, kiedy wróci."],
+	"lis": ["Dwa miliony...", "(sapie)", "Księgowa mnie wykończy."],
+}
+
+# Scena 17: mieszkanie Adriana i klatka, środa 17:00. Ania z kluczem na klatce.
+# W środku: zdjęcie "14.03" (PIN 1403), telefon trzeba naładować (ładowarka od Zenona
+# albo od sąsiadki), trzy złe PIN-y blokują telefon na godzinę gry. Gdy Antoni wyjdzie
+# z mieszkania, po schodach wchodzi Kuba z kluczem i ucieka.
+const SCENA17 := {
+	"poczatek": [
+		["", "Blok na Woli, trzecie piętro. Na klatce pachnie kapustą, z dołu ktoś klnie, wnosząc rower."],
+		["", "Ania stoi pod drzwiami z kluczem w dłoni i nie podnosi wzroku."],
+	],
+	"ania_start": [["Ania", "Przyszłam, bo obiecałam. Ale do środka nie wejdę."]],
+	"ania_znowu": [["Ania", "(patrzy w okno na półpiętrze)"]],
+	"ania_klucz_nie": [
+		["Antoni", "Dasz mi klucz?"],
+		["Ania", "(zaciska dłoń na kluczu) Nie wiem... To jego rzeczy. Jakby ktoś obcy grzebał w jego życiu."],
+	],
+	"ania_klucz_tak": [
+		["Antoni", "Dasz mi klucz?"],
+		["Ania", "(długo patrzy na klucz, potem wkłada mi go w rękę)"],
+		["Ania", "Masz. Tylko niczego nie przestawiaj. On nie lubił, jak się przestawia."],
+	],
+	"ania_czwartek": [
+		["Antoni", "Kiedy ostatnio rozmawiałaś z Adrianem?"],
+		["Ania", "W czwartek rano. Mówiłam ci już. Przed próbą."],
+	],
+	"ania_choroba": [
+		["Antoni", "Adrian był chory w ostatnich dniach?"],
+		["Ania", "Zmęczony. Wszyscy byli zmęczeni przed premierą."],
+	],
+	"ania_kuba": [
+		["Antoni", "Skąd Kuba ma klucz do mieszkania?"],
+		["Ania", "Adrian mu dał. Pożyczał mu scenariusze, uczył go. Za dobre serce miał."],
+		["Ania", "Ale czego on tu szukał? Teraz?"],
+	],
+	"ania_opaska": [
+		["Ania", "(dotyka opaski palcami) Irena uszyła?"],
+		["Ania", "(płacze cicho, potem wciska mi klucz w dłoń) Weź. Ja nie dam rady."],
+	],
+	"ania_sms": [
+		["Antoni", "Czwartek, 22:10. \"Ten kostium mnie parzy, chyba jestem chory. Przyjedziesz?\" Odczytana."],
+		["Ania", "(blednie)"],
+		["Ania", "Ja... spałam. Musiałam spać. Telefon sam... nie wiem."],
+		["Ania", "Muszę iść. Przepraszam."],
+	],
+	"ania_nic": [["Ania", "Nie wiem, Antoni. Nic już nie wiem."]],
+	"ania_koniec": [["Ania", "Poczekam tu."]],
+	"drzwi_zamkniete": [["", "Drzwi numer 12. Zamknięte. Klucz ma Ania."]],
+	"drzwi_otwieram": [["", "Przekręcam klucz. Drzwi skrzypią. W środku zimno i cicho."]],
+	"plakaty": [
+		["", "Plakaty: \"Wesele\", \"Makbet\", \"Ostatni akt\". Na każdym ołówkiem dopisana jego rola."],
+		["", "\"Gość weselny\". \"Drugi zabójca\". \"Dubler\". Żadnej głównej."],
+	],
+	"zdjecie": [
+		["", "Na półce zdjęcie w ramce. Adrian i Ania na schodach teatru, oboje młodsi, roześmiani."],
+		["", "Na dole jego pismem: \"14.03, nasz pierwszy raz w teatrze\"."],
+	],
+	"zdjecie_potem": [["", "\"14.03, nasz pierwszy raz w teatrze\"."]],
+	"scenariusze": [
+		["", "Sterta scenariuszy. \"Ostatni akt\" na wierzchu, cały w notatkach na marginesach."],
+		["", "\"Adam gra to za głośno. Ja bym ciszej.\" \"Tu pauza.\" \"Tu ona na niego nie patrzy.\""],
+	],
+	"scenariusze_kuba": [["", "Sterta scenariuszy. Wierzchni egzemplarz \"Ostatniego aktu\" jest wymięty, jakby go ktoś czytał w tramwaju."]],
+	"leki": [
+		["", "Leki przeciwbólowe. Trzy puste opakowania i jedno prawie pełne. Wszystkie kupione w ostatnim tygodniu."],
+		["", "Biorę to pełne. Może się przydać."],
+	],
+	"leki_potem": [["", "Puste opakowania po lekach przeciwbólowych."]],
+	"lodowka": [["", "Na lodówce kartka pod magnesem, pismo rozjechane: \"od próby wszystko piecze, kupić maść\"."]],
+	"lodowka_potem": [["", "\"Od próby wszystko piecze, kupić maść\"."]],
+	"zlew": [["", "Kran kapie. Kap. Kap. Zakręcam go mocniej. Dalej kapie."]],
+	"roslina": [["", "Zwiędła bazylia na parapecie. Nikt jej nie podlał od tygodnia."]],
+	"lozko": [
+		["", "Pościel skotłowana, prześcieradło zmięte w kłębek. Na poduszce plamy potu."],
+		["", "Ktoś tu się rzucał całą noc."],
+	],
+	"szafa": [["", "Dwie koszule, sweter, jeden garnitur. Na dnie buty do tańca, zdarte do dziury."]],
+	"gniazdko": [["", "Gniazdko przy stole."]],
+	"brak_telefonu": [["", "Gniazdko. Szkoda, że telefon Adriana oddałem Wolskiemu. Teraz pewnie leży u niego."]],
+	"bez_ladowarki": [["", "Telefon Adriana jest rozładowany do zera. Ładowarki Adriana nigdzie nie widać, a moja nie pasuje do tak starego modelu."]],
+	"podlaczam": [["", "Podłączam telefon Adriana. Ekran budzi się po chwili: bateria jeden procent. Musi trochę postać."]],
+	"laduje": [["", "Ładuje się. Jeszcze chwila."]],
+	"pin_pytanie": [["", "Telefon włączony. \"Wpisz PIN\". Cztery cyfry."]],
+	"pin_zly": "Zły PIN. Zostało prób: %d",
+	"pin_blokada": [["", "\"Telefon zablokowany. Spróbuj ponownie za 60 minut.\""], ["", "Siedzę i patrzę w ścianę. Godzina w plecy."]],
+	"pin_dobry": [
+		["", "Telefon się odblokowuje. Tapeta: Adrian i Ania na schodach teatru."],
+		["", "Wiadomości. Ostatnia wysłana: czwartek, 22:10. Do: Ania."],
+		["", "\"Ten kostium mnie parzy, chyba jestem chory. Przyjedziesz?\""],
+		["", "Odczytana. Bez odpowiedzi."],
+	],
+	"pin_potem": [["", "Czwartek, 22:10, do Ani. \"Ten kostium mnie parzy...\" Odczytana."]],
+	"sasiadka_puka": [["", "Pukam do jedenastki. Szuranie kapci, łańcuch, szpara w drzwiach."]],
+	"sasiadka_start": [["Sąsiadka", "Pan z policji? Do Adriana? Jezus Maria, to prawda, co mówią?"]],
+	"sasiadka_znowu": [["Sąsiadka", "No?"]],
+	"sasiadka_adrian": [
+		["Antoni", "Jaki był Adrian?"],
+		["Sąsiadka", "Taki grzeczny chłopak. Zakupy mi wnosił. W czwartek w nocy słyszałam, jak kaszle i płacze."],
+		["Sąsiadka", "Ściany tu jak z papieru. Chciałam zapukać, ale późno było."],
+	],
+	"sasiadka_goscie": [
+		["Antoni", "Ktoś do niego przychodził?"],
+		["Sąsiadka", "Ta jego dziewczyna, ładna, ruda. Ostatnio rzadziej. I ten młody, okularnik, po książki."],
+		["Sąsiadka", "W czwartek w nocy nikt nie przyszedł. A on chyba czekał, bo co chwilę otwierał drzwi na klatkę."],
+	],
+	"sasiadka_piatek": [
+		["Antoni", "A w piątek?"],
+		["Sąsiadka", "Wyszedł rano, blady jak ściana, w kurtce, chociaż ciepło było. I już nie wrócił."],
+	],
+	"sasiadka_ladowarka": [
+		["Antoni", "Ma pani ładowarkę do starego telefonu?"],
+		["Sąsiadka", "(znika na chwilę w mieszkaniu) Do takiej starej cegły jak moja? Proszę. Tylko oddać!"],
+	],
+	"sasiadka_nic": [["Sąsiadka", "Ja tam nic nie wiem, ja tylko słyszę przez ścianę."]],
+	"sasiadka_koniec": [["Sąsiadka", "(zamyka drzwi na łańcuch)"]],
+	"kuba_wbiega": "O cholera...",
+	"kuba_ucieka": [["", "Po schodach wbiega Kuba. W ręku klucz z breloczkiem. Na mój widok zamiera, a potem zbiega na dół, przeskakując po trzy stopnie."]],
+	"ania_po_kubie": [["Ania", "To był Kuba? Skąd on ma klucz?"]],
+	"wyjscie_bez_ani": [["", "Schodzę na dół. Ani już nie ma na klatce."]],
+	"wyjscie": [["", "Schodzę po schodach. Za ścianą u sąsiadów gra telewizor, teleturniej."]],
+	"tv": "(przez ścianę telewizor sąsiadów: oklaski z teleturnieju)",
+}
+
+const SCENA17_TLO := {
+	"ania": ["(patrzy w okno)", "(obraca klucz w palcach)", "(pociąga nosem)"],
+}
+
+## Wybór po scenie 15: dokąd teraz.
+const SCENA15_DOKAD := ["Zajrzę do gabinetu Lisa", "Jadę do mieszkania Adriana"]
+
 
 const FALSZYWE_TROPY := ["termos"]
 
@@ -1945,6 +2165,14 @@ const SLEDZTWO_ARGUMENTY := {
 	"irena_kradnie": [["f:s15_przyznala"], "Irena kradnie materiały z pracowni, bo teatr nie płaci jej od pół roku."],
 	"irena_alibi": [["k:paragon"], "Irena w czwartek o 7:15 była w hurtowni na Fabrycznej."],
 	"klucz_ania": [["f:s15_klucz_ania"], "Klucz do pracowni ma Irena, Marta i główna obsada. Także Ania."],
+	"lis_polisa": [["p:polisa"], "Teatr ubezpieczył Wolskiego na dwa miliony. Uposażony: teatr, który bankrutuje."],
+	"lis_wierzyciel": [["f:s16_wierzyciel"], "Lis obiecywał wierzycielom pieniądze z ubezpieczenia."],
+	"lis_alibi": [["k:bank"], "Lis w czwartek o 8:05 był w banku."],
+	"ania_sms": [["k:sms"], "W czwartek o 22:10 Adrian napisał do ciebie, że kostium go parzy. Odczytałaś to."],
+	"ania_unika": [["f:s17_ania_sms"], "Kiedy powiedziałem ci o SMS-ie, uciekłaś z klatki."],
+	"notatka_lodowka": [["f:s17_notatka"], "Na lodówce Adriana: \"od próby wszystko piecze, kupić maść\"."],
+	"sasiadka_kaszel": [["f:s17_sasiadka"], "Sąsiadka słyszała w czwartek w nocy, jak Adrian kaszle i płacze. Nikt do niego nie przyszedł."],
+	"kuba_klucz_mieszkanie": [["f:s17_kuba"], "Kuba miał klucz do mieszkania Adriana i uciekł na mój widok."],
 	"pierscionek": [["f:s11_foto"], "Na zdjęciu z próby ktoś trzyma dłoń z pierścionkiem na ramieniu Adriana."],
 }
 
@@ -1961,6 +2189,8 @@ const SLEDZTWO_EPILOG := [
 	[["f:s14_ostrzezony"], "Wolski od tamtego wieczoru nie założył żadnego kostiumu, zanim garderobiana go nie wyprała.", ""],
 	[["f:s14_peruka"], "Garderobiana Wolskiego co premierę przysyła Antoniemu kartkę z podziękowaniem.", ""],
 	[["f:s15_przyznala"], "Irena oddała teatrowi bele jedwabiu. Lis udał, że nic nie wie.", ""],
+	[["f:s17_kran"], "Kran w mieszkaniu Adriana kapał jeszcze miesiąc, aż właściciel wymienił uszczelkę.", ""],
+	[["f:s17_ladowarka_sasiadki"], "Sąsiadka z jedenastki do dziś czeka na swoją ładowarkę.", ""],
 	[["f:s11_podszewka"], "Irena od tamtej pory wszywa podszewki tylko w rękawiczkach.", ""],
 ]
 
@@ -2087,6 +2317,8 @@ const PRZEDMIOTY := {
 	"pendrive": ["Pendrive", "Czarny pendrive z sejfu Wolskiego. Coś na nim jest.", "fabularny", 0],  # sejf w garderobie Wolskiego, sc. 18
 	# zwykłe (pasek sił)
 	"probka": ["Próbka podszewki", "Kawałek podszewki z plamą w woreczku na dowody.", "fabularny", 0],  # wycięta w pralni, sc. 13
+	"polisa": ["Polisa na życie", "Ubezpieczony: Adam Wolski. Uposażony: Teatr Miejski. Dwa miliony złotych. Podpis: B. Lis.", "fabularny", 0],  # szuflada Lisa, sc. 16
+	"klucz_adriana": ["Klucz do mieszkania Adriana", "Klucz z breloczkiem w kształcie serca. Od Ani.", "fabularny", 0],  # Ania na klatce, sc. 17
 	"opaska": ["Czarna opaska", "Uszyła ją Irena. Dla Adriana.", "fabularny", 0],  # stół przy maszynie w pracowni, sc. 11
 	"bulka": ["Bułka", "Świeża bułka z pralni pani Haliny.", "jedzenie", 10],
 	"kanapka": ["Kanapka", "Z serem i pomidorem, z bufetu.", "jedzenie", 20],

@@ -398,6 +398,28 @@ def probka():
     return img
 
 
+def polisa():
+    img = nowy(); d = ImageDraw.Draw(img)
+    prost(d, 4, 2, 12, 16, PAPIER[2])
+    prost(d, 4, 2, 12, 3, (40, 70, 120))
+    for y in (7, 9, 11):
+        prost(d, 6, y, 8, 1, PAPIER[0])
+    d.ellipse((10, 12, 15, 17), fill=(170, 40, 40))  # pieczęć
+    prost(d, 6, 15, 3, 1, O)
+    return img
+
+
+def klucz_adriana():
+    img = nowy(); d = ImageDraw.Draw(img)
+    d.ellipse((2, 3, 9, 10), fill=(170, 170, 176))
+    d.ellipse((4, 5, 7, 8), fill=(0, 0, 0, 0))
+    prost(d, 8, 6, 9, 2, (170, 170, 176))
+    prost(d, 14, 8, 2, 3, (170, 170, 176)); prost(d, 11, 8, 2, 2, (170, 170, 176))
+    prost(d, 9, 6, 7, 1, (220, 220, 226))
+    d.ellipse((3, 11, 10, 17), fill=(150, 40, 60))  # breloczek-serce
+    return img
+
+
 IKONY = {
     "program": program, "klucz": klucz, "latarka": latarka, "ladowarka": ladowarka,
     "rekawiczki": rekawiczki, "lampa_uv": lampa_uv, "nozyczki": nozyczki,
@@ -407,7 +429,7 @@ IKONY = {
     "monety": monety, "bilet": bilet, "numerek": numerek, "noz": noz,
     "telefon_adriana": telefon_adriana, "lista_rekwizytow": lista_rekwizytow, "zdjecie_pasy": zdjecie_pasy,
     "kielich": kielich, "termos": termos, "kwit_odbioru": kwit_odbioru, "zdjecie_plamy": zdjecie_plamy,
-    "opaska": opaska, "probka": probka,
+    "opaska": opaska, "probka": probka, "polisa": polisa, "klucz_adriana": klucz_adriana,
 }
 
 

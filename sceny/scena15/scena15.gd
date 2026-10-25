@@ -6,9 +6,11 @@ extends ScenaGry
 ## tkanin na regale (s15_spis) jedwabiu nie ma. Dopiero bele i spis razem łamią Irenę
 ## (s15_przyznala): kradnie materiały, w czwartek rano była w hurtowni. Paragon (karta
 ## "paragon") leży w skrzynce pod stołem, ale Antoni go tam zauważy dopiero, kiedy wie,
-## czego szuka. Gracz sam decyduje, czy skreślić Irenę. Teksty w Dialogi.SCENA15.
+## czego szuka. Gracz sam decyduje, czy skreślić Irenę. Przy wyjściu wybór: gabinet Lisa
+## (opcjonalna sc. 16) albo od razu mieszkanie Adriana. Teksty w Dialogi.SCENA15.
 
-const NASTEPNA := "res://menu/menu.tscn"  # scena 16 jeszcze nie zrobiona
+const NASTEPNA := "res://sceny/scena17/scena17.tscn"
+const GABINET := "res://sceny/scena16/scena16.tscn"
 const DRZWI := Rect2(26, 104, 52, 36)
 const MIEJSCE_IRENY := Vector2(132, 372)
 const PRZY_DRZWIACH := Vector2(52, 170)
@@ -215,3 +217,10 @@ func _bele() -> void:
 func _paragon() -> void:
 	await rozmowa(Dialogi.SCENA15["irena_paragon"])
 	Gra.flagi["s15_alibi"] = true
+
+
+## Wyjście: opcjonalnie gabinet Lisa (sc. 16), inaczej prosto do mieszkania Adriana.
+func przejdz(scena: String) -> void:
+	antoni.sterowanie = false
+	var w := await wybor(Dialogi.SCENA15_DOKAD)
+	super.przejdz(GABINET if w == 0 else scena)

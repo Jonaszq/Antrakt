@@ -7,8 +7,9 @@ const WSTEP := "res://wstep/wstep.tscn"
 ## Scena, w której Antoni znajduje latarkę; w późniejszych już ją ma.
 const SCENA_LATARKI := ["Scena 6: Magazyn (rozdz. 2)", "res://sceny/scena6/scena6.tscn"]
 ## Przy starcie od rozdziału 4 z menu Antoni dostaje dowody z poprzednich rozdziałów.
-const DOWODY_ROZDZ4 := ["program", "zdjecie_pasy", "zdjecie_plamy", "papierosy", "rekawiczki", "lampa_uv"]
-const SCENY_ROZDZ4 := ["res://sceny/scena14/scena14.tscn", "res://sceny/scena15/scena15.tscn"]
+const DOWODY_ROZDZ4 := ["program", "zdjecie_pasy", "zdjecie_plamy", "papierosy", "rekawiczki", "lampa_uv", "telefon_adriana", "ladowarka", "opaska", "klucz"]
+const SCENY_ROZDZ4 := ["res://sceny/scena14/scena14.tscn", "res://sceny/scena15/scena15.tscn",
+	"res://sceny/scena16/scena16.tscn", "res://sceny/scena17/scena17.tscn"]
 
 const SCENY := [
 	["Scena 1: Foyer", "res://sceny/scena1/scena1.tscn"],
@@ -29,6 +30,8 @@ const SCENY := [
 	["Retrospekcja 2: Czwartkowa próba", "res://sceny/retrospekcje/retro2.tscn"],
 	["Scena 14: Garderoba Wolskiego (rozdz. 4)", "res://sceny/scena14/scena14.tscn"],
 	["Scena 15: Irena, środa", "res://sceny/scena15/scena15.tscn"],
+	["Scena 16: Gabinet Lisa", "res://sceny/scena16/scena16.tscn"],
+	["Scena 17: Mieszkanie Adriana", "res://sceny/scena17/scena17.tscn"],
 ]
 
 var _lista: MenuLista

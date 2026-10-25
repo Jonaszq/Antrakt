@@ -944,6 +944,223 @@ def garderoba_wolskiego():
     return m, dict(korzen="GarderobaWolskiego", start=(320, 300), postacie=(), mrok=(0.55, 0.5, 0.6))
 
 
+# ---------- MIESZKANIE ADRIANA I KLATKA (rozdział 4, scena 17) ----------
+
+FARBA = [(120, 112, 92), (146, 138, 114), (170, 162, 136)]  # ściany w bloku
+OLIWKA = [(52, 62, 46), (70, 82, 60), (92, 104, 78)]  # lamperia na klatce
+LASTRYKO = [(84, 82, 80), (104, 102, 98), (124, 120, 116)]
+KLATKA_Y = 232  # górna krawędź ściany między mieszkaniem a klatką
+KLATKA_FRONT = 242  # lico ściany od strony klatki
+KLATKA_PODLOGA = 282
+
+
+def lozko_adriana():
+    img = nowy(70, 52)
+    d = ImageDraw.Draw(img)
+    skrzynia(d, 0, 0, 70, 6, 16, DREWNO)  # zagłówek
+    skrzynia(d, 0, 14, 70, 26, 10, [(40, 50, 70), (56, 70, 96), (80, 96, 124), (110, 126, 150), (140, 156, 176)])
+    prost(d, 6, 16, 22, 10, PAPIER[2])  # poduszka
+    obrys(d, 6, 16, 22, 10)
+    d.polygon([(30, 18), (66, 20), (64, 38), (34, 40)], fill=(70, 86, 112), outline=O)  # skotłowana kołdra
+    for nx in (2, 64):
+        prost(d, nx, 48, 4, 4, DREWNO[1])
+    return img
+
+
+def stol_adriana():
+    """Stół z lekami, scenariuszami i kubkiem."""
+    img = nowy(64, 40)
+    d = ImageDraw.Draw(img)
+    skrzynia(d, 0, 4, 64, 12, 8, DREWNO)
+    for lx in (3, 57):
+        prost(d, lx, 24, 4, 16, DREWNO[1])
+    # sterta scenariuszy
+    for i in range(4):
+        prost(d, 6 + i, 2 + i * 2, 20, 4, PAPIER[2 - i % 2])
+        obrys(d, 6 + i, 2 + i * 2, 20, 4, PAPIER[0])
+    # leki: blistry i buteleczka
+    prost(d, 36, 6, 8, 5, (200, 200, 210))
+    prost(d, 37, 7, 6, 3, (230, 120, 120))
+    prost(d, 48, 2, 5, 9, (150, 90, 40))
+    prost(d, 48, 1, 5, 2, PAPIER[2])
+    d.ellipse((54, 6, 61, 12), fill=PAPIER[2], outline=O)  # kubek
+    return img
+
+
+def krzeslo_proste():
+    img = nowy(18, 30)
+    d = ImageDraw.Draw(img)
+    skrzynia(d, 1, 0, 16, 3, 12, DREWNO)
+    skrzynia(d, 0, 12, 18, 6, 4, DREWNO)
+    for lx in (1, 14):
+        prost(d, lx, 22, 3, 8, DREWNO[1])
+    return img
+
+
+def blat_kuchenny():
+    """Szafka ze zlewem i kapiącym kranem, kuchenka dwupalnikowa."""
+    img = nowy(90, 44)
+    d = ImageDraw.Draw(img)
+    skrzynia(d, 0, 6, 90, 8, 28, [(150, 150, 150), (180, 180, 176), (206, 204, 198), (226, 224, 218), (240, 238, 232)])
+    for sx in (4, 34, 64):
+        obrys(d, sx, 18, 24, 20, (150, 150, 146))
+        prost(d, sx + 18, 26, 3, 2, METAL[1])
+    prost(d, 8, 7, 24, 6, METAL[2])  # zlew
+    obrys(d, 8, 7, 24, 6)
+    prost(d, 18, 0, 2, 8, METAL[3])  # kran
+    prost(d, 18, 0, 6, 2, METAL[3])
+    prost(d, 23, 4, 1, 1, SZKLO[4])  # kropla
+    for px in (52, 70):
+        d.ellipse((px, 8, px + 12, 12), fill=(30, 30, 34), outline=O)
+    prost(d, 40, 6, 6, 4, (170, 60, 40))  # garnuszek
+    return img
+
+
+def lodowka_notatka():
+    img = lodowka()
+    d = ImageDraw.Draw(img)
+    prost(d, 6, 32, 12, 9, PAPIER[2])
+    for ry in (34, 36, 38):
+        prost(d, 7, ry, 9, 1, (60, 60, 120))
+    prost(d, 11, 31, 2, 2, (200, 40, 40))  # magnes
+    return img
+
+
+def rower():
+    img = nowy(44, 26)
+    d = ImageDraw.Draw(img)
+    for kx in (2, 28):
+        d.ellipse((kx, 10, kx + 14, 24), outline=(30, 30, 34), width=2)
+    d.line([(9, 17), (20, 8), (35, 17)], fill=(150, 40, 40), width=2)
+    d.line([(20, 8), (22, 17), (9, 17)], fill=(150, 40, 40), width=2)
+    prost(d, 18, 5, 6, 2, (30, 30, 34))
+    d.line([(33, 4), (35, 17)], fill=(150, 40, 40), width=2)
+    prost(d, 30, 3, 7, 2, (30, 30, 34))
+    return img
+
+
+def drzwi_klatka(d, x, y, numer=None):
+    """Drzwi mieszkania w lamperii klatki (32x38), z wizjerem i numerem."""
+    prost(d, x - 2, y - 2, 36, 40, (40, 34, 30))
+    prost(d, x, y, 32, 38, (96, 62, 40))
+    obrys(d, x, y, 32, 38)
+    obrys(d, x + 4, y + 4, 24, 14, (70, 44, 30))
+    obrys(d, x + 4, y + 21, 24, 13, (70, 44, 30))
+    prost(d, x + 25, y + 19, 4, 2, ZLOTO[2])
+    d.point((x + 16, y + 9), fill=(20, 20, 24))
+    if numer:
+        napis(d, x + 16 - len(numer) * 2, y - 8, numer, ZLOTO[3])
+
+
+def mieszkanie_adriana():
+    mp.SZER, mp.WYS, mp.PODLOGA_Y = 640, 360, 104
+    mp.los = random.Random(17)
+    m = mp.Mapa()
+    d = m.d
+    W, H, PY = mp.SZER, mp.WYS, mp.PODLOGA_Y
+    prost(d, 0, 0, W, H, O)
+    # podłoga mieszkania: panele
+    for rzad, y in enumerate(range(PY, KLATKA_Y, 8)):
+        x = 14 - (rzad * 29) % 60
+        while x < W - 14:
+            dl = mp.los.randint(60, 110)
+            k = [(110, 84, 58), (124, 96, 66), (100, 76, 52)][mp.los.randint(0, 2)]
+            prost(d, x, y, dl, 8, k)
+            prost(d, x, y + 7, dl, 1, (80, 60, 42))
+            prost(d, x, y, 1, 8, (80, 60, 42))
+            x += dl
+    # chodnik przy łóżku
+    prost(d, 44, 196, 80, 26, (120, 60, 50))
+    obrys(d, 44, 196, 80, 26, (80, 40, 36))
+    # tylna ściana: farba, lamperia, gniazdko
+    prost(d, 0, 0, W, PY, FARBA[1])
+    for x in range(14, W - 14, 3):
+        if mp.los.random() < 0.3:
+            prost(d, x, 20, 1, PY - 40, FARBA[2])
+    prost(d, 0, PY - 26, W, 26, FARBA[0])
+    prost(d, 0, PY - 26, W, 2, FARBA[2])
+    prost(d, 0, PY - 1, W, 1, O)
+    prost(d, 14, PY, W - 28, 3, (60, 46, 34))
+    prost(d, 232, PY - 16, 8, 8, PAPIER[2])  # gniazdko
+    obrys(d, 232, PY - 16, 8, 8)
+    prost(d, 234, PY - 13, 1, 2, O)
+    prost(d, 237, PY - 13, 1, 2, O)
+    # plakaty sztuk (role drugoplanowe)
+    plakat(d, 40, 22, ["WESELE", "2019"], "roza")
+    plakat(d, 86, 22, ["MAKBET", "2021"], "korona")
+    plakat(d, 132, 22, ["OSTATNI", "AKT"], "maska")
+    # półka ze zdjęciem i książkami
+    prost(d, 276, 46, 70, 4, DREWNO[3])
+    obrys(d, 276, 46, 70, 4)
+    for i, bx in enumerate(range(280, 306, 5)):
+        prost(d, bx, 32 + i % 2, 4, 14 - i % 2, [CZERWIEN[2], (50, 70, 110), ZLOTO[1], (60, 90, 60)][i % 4])
+    prost(d, 316, 30, 16, 16, ZLOTO[1])  # zdjęcie z Anią
+    obrys(d, 316, 30, 16, 16)
+    prost(d, 318, 32, 12, 12, NIEBO[2])
+    prost(d, 320, 37, 3, 7, (60, 40, 30))
+    prost(d, 325, 37, 3, 7, (150, 70, 50))
+    prost(d, 316, 47, 16, 3, PAPIER[2])  # podpis
+    # okno z parapetem i zwiędłą roślinką
+    prost(d, 400, 18, 70, 56, (60, 50, 40))
+    prost(d, 404, 22, 62, 48, (40, 50, 80))
+    prost(d, 434, 22, 2, 48, (60, 50, 40))
+    for bx, bh in ((406, 24), (418, 34), (444, 20), (454, 30)):
+        prost(d, bx, 70 - bh, 9, bh, (26, 30, 50))
+        d.point((bx + 3, 70 - bh + 5), fill=ZLOTO[3])
+    prost(d, 396, 72, 78, 5, PAPIER[1])
+    obrys(d, 396, 72, 78, 5)
+    prost(d, 446, 62, 10, 10, (150, 70, 40))
+    d.line([(451, 62), (447, 54), (444, 58)], fill=(110, 100, 50))
+    d.line([(451, 62), (456, 56)], fill=(110, 100, 50))
+    m.swiatla.append((435, 40, 0.3))
+    # lampa sufitowa
+    m.swiatla.append((300, 150, 0.8))
+    # meble
+    m.obiekt("lozko", lozko_adriana(), 40, 128, 30)
+    m.obiekt("stol", stol_adriana(), 216, 150, 14)
+    m.obiekt("krzeslo", krzeslo_proste(), 250, 168, 6)
+    m.obiekt("blat", blat_kuchenny(), 486, PY - 34, 12)
+    m.obiekt("lodowka", lodowka_notatka(), 584, PY - 54, 12)
+    szafa_mala = nowy(40, 70)
+    mp.szafa(ImageDraw.Draw(szafa_mala), 0, 0, 40, 70)
+    m.obiekt("szafa", szafa_mala, 340, PY - 52, 12)
+    # ściana między mieszkaniem a klatką
+    prost(d, 0, KLATKA_Y, W, KLATKA_FRONT - KLATKA_Y, (40, 36, 34))
+    prost(d, 0, KLATKA_Y, W, 2, (70, 64, 60))
+    prost(d, 0, KLATKA_FRONT, W, KLATKA_PODLOGA - KLATKA_FRONT, FARBA[1])
+    prost(d, 0, KLATKA_FRONT + 16, W, KLATKA_PODLOGA - KLATKA_FRONT - 16, OLIWKA[1])
+    prost(d, 0, KLATKA_FRONT + 16, W, 1, OLIWKA[2])
+    prost(d, 0, KLATKA_PODLOGA - 1, W, 1, O)
+    # otwór drzwi Adriana (drzwi rysuje skrypt: otwarte/zamknięte) i drzwi sąsiadki
+    prost(d, 300, KLATKA_Y, 40, KLATKA_PODLOGA - KLATKA_Y, (30, 26, 24))
+    drzwi_klatka(d, 304, KLATKA_FRONT + 2, "12")
+    drzwi_klatka(d, 110, KLATKA_FRONT + 2, "11")
+    # skrzynki pocztowe i włącznik światła
+    for i in range(4):
+        prost(d, 190 + i * 14, KLATKA_FRONT + 4, 12, 9, METAL[2])
+        obrys(d, 190 + i * 14, KLATKA_FRONT + 4, 12, 9)
+        prost(d, 192 + i * 14, KLATKA_FRONT + 6, 8, 1, O)
+    prost(d, 376, KLATKA_FRONT + 10, 5, 6, (220, 200, 120))
+    # podłoga klatki: lastryko
+    prost(d, 0, KLATKA_PODLOGA, W, H - KLATKA_PODLOGA, LASTRYKO[1])
+    for _ in range(500):
+        d.point((mp.los.randint(0, W - 1), mp.los.randint(KLATKA_PODLOGA, H - 1)), fill=LASTRYKO[mp.los.choice((0, 2))])
+    # schody w dół po prawej
+    for i in range(6):
+        prost(d, 520, KLATKA_PODLOGA + 4 + i * 10, 106, 10, [(98, 96, 92), (84, 82, 80), (72, 70, 68), (60, 58, 56), (48, 46, 46), (36, 34, 34)][i])
+        prost(d, 520, KLATKA_PODLOGA + 4 + i * 10, 106, 1, (120, 118, 112))
+    prost(d, 512, KLATKA_PODLOGA, 4, 70, (60, 40, 30))  # poręcz
+    prost(d, 512, KLATKA_PODLOGA, 4, 2, (100, 70, 50))
+    m.obiekt("rower", rower(), 440, 300, 6)
+    m.kolizje.append((14, KLATKA_Y, 300, KLATKA_PODLOGA))
+    m.kolizje.append((340, KLATKA_Y, W - 14, KLATKA_PODLOGA))
+    m.kolizje.append((508, KLATKA_PODLOGA, 518, H - 14))
+    # ramy bez wyjścia w dolnej ścianie
+    mp.ramy_scian(d)
+    return m, dict(korzen="Mieszkanie", start=(250, 320), postacie=(), mrok=(0.62, 0.6, 0.68),
+                   podloze="drewno", strefy=((0, KLATKA_PODLOGA, W, H, "marmur"),))
+
+
 # ---------- MAGAZYN DEKORACJI (rozdział 2, scena 6) ----------
 
 BETON = [(30, 30, 34), (40, 40, 44), (52, 52, 56), (66, 66, 70)]
@@ -1959,7 +2176,7 @@ def plan_miasta():
     return img
 
 
-MAPY = {"foyer": foyer, "kulisy": kulisy, "widownia": widownia, "garderoba": garderoba, "magazyn": magazyn, "budka": budka, "plac": plac, "gabinet": gabinet, "pralnia": pralnia, "pracownia": pracownia, "laboratorium": laboratorium, "garderoba_wolskiego": garderoba_wolskiego}
+MAPY = {"foyer": foyer, "kulisy": kulisy, "widownia": widownia, "garderoba": garderoba, "magazyn": magazyn, "budka": budka, "plac": plac, "gabinet": gabinet, "pralnia": pralnia, "pracownia": pracownia, "laboratorium": laboratorium, "garderoba_wolskiego": garderoba_wolskiego, "mieszkanie_adriana": mieszkanie_adriana}
 
 
 def main(folder_podgladu=None):
