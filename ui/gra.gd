@@ -13,9 +13,9 @@ const SKALA_UI := Vector2(4.0 / 3.0, 4.0 / 3.0)
 
 var latarnia := false
 
-## Czy Antoni ma przy sobie latarnię. W magazynie (scena 6) zaczyna bez niej
-## i musi ją znaleźć, do tego czasu Tab nie pozwala jej wybrać.
-var latarnia_dostepna := true
+## Czy Antoni ma przy sobie latarnię. Gra zaczyna się bez niej, Antoni znajduje
+## ją dopiero w magazynie (scena 6), do tego czasu Tab nie pozwala jej wybrać.
+var latarnia_dostepna := false
 
 ## Pasek sił Antoniego (0-100). Jedzenie z ekwipunku go podnosi.
 ## Spadanie z czasem dojdzie razem z licznikiem dni.
@@ -103,7 +103,7 @@ func okno_otwarte() -> bool:
 ## Czyści wszystko przed nową grą (wołane z menu głównego).
 func nowa_gra() -> void:
 	latarnia = false
-	latarnia_dostepna = true
+	latarnia_dostepna = false
 	sily = 80
 	_kawa_czas = 0.0
 	flagi.clear()

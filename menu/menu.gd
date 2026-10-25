@@ -4,6 +4,8 @@ extends Node
 ## "Wybierz scenę" to skrót do testowania: od razu skacze do danej sceny.
 
 const WSTEP := "res://wstep/wstep.tscn"
+## Scena, w której Antoni znajduje latarkę; w późniejszych już ją ma.
+const SCENA_LATARKI := ["Scena 6: Magazyn (rozdz. 2)", "res://sceny/scena6/scena6.tscn"]
 const SCENY := [
 	["Scena 1: Foyer", "res://sceny/scena1/scena1.tscn"],
 	["Scena 2: Kulisy", "res://sceny/scena2/scena2.tscn"],
@@ -90,7 +92,7 @@ func _glowne() -> void:
 func _sceny() -> void:
 	var pozycje := []
 	for i in SCENY.size():
-		pozycje.append([SCENY[i][0], _start.bind(SCENY[i][1], i > 0)])
+		pozycje.append([SCENY[i][0], _start.bind(SCENY[i][1], i > 0, i > SCENY.find(SCENA_LATARKI))])
 	pozycje.append(["Wróć", _glowne])
 	_pokaz_naglowek(false)
 	_lista.ustaw(pozycje)
@@ -120,11 +122,16 @@ func _nowa_gra() -> void:
 	_start(WSTEP, false)
 
 
-## Ściemnia ekran i uruchamia scenę od zera. Od sceny 2 notes jest już włączony.
-func _start(scena: String, z_notesem: bool) -> void:
+## Ściemnia ekran i uruchamia scenę od zera. Od sceny 2 notes jest już włączony,
+## a po magazynie (scena 6) Antoni ma już latarkę.
+func _start(scena: String, z_notesem: bool, z_latarka := false) -> void:
 	Gra.nowa_gra()
 	if z_notesem:
 		Notatnik.wlacz()
+	if z_latarka:
+		Gra.latarnia_dostepna = true
+		if not Ekwipunek.ma("latarka"):
+			Ekwipunek.dodaj("latarka")
 	_lista.visible = false
 	var tw := create_tween()
 	tw.tween_property(_zaslona, "color:a", 1.0, 0.6)
