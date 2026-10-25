@@ -1378,8 +1378,118 @@ const SCENA11_TLO := {
 	"irena": ["(stuk-stuk maszyny)", "Cholerna nitka...", "(pociąga nosem)"],
 }
 
-const SCENA11_NAPISY := {
-	"dalej": "Scena 12: Pralnia, druga wizyta. Już wkrótce.",
+
+
+# Scena 12: pralnia, poniedziałek 10:00. Lampa UV leży w szafce pod ladą: da się ją
+# wziąć tylko wtedy, gdy Halina jest zajęta klientem albo kurierem.
+const SCENA12 := {
+	"poczatek": [["", "Dzwonek nad drzwiami. W pralni kolejka. Pani Halina ma czerwone, spuchnięte dłonie i chowa je w fartuch."]],
+	"halina_start": [
+		["Halina", "Pan Antoni! Kostium leży na stole, pod lampą. Niech pan sam zobaczy, ja już nie mam siły na to patrzeć."],
+	],
+	"ania_oddaje": [
+		["Ania", "Pani Halino, niech pani jeszcze raz spróbuje. U mnie nie zeszło."],
+		["Halina", "A mówiłam! Mokry zabrała, teraz przynosi. Leżał w ciepłym, to i wsiąkło."],
+		["Ania", "(widzi Antoniego, blednie)"],
+		["Ania", "Antoni... Ja tylko oddaję. Muszę lecieć, próba."],
+	],
+	"kostium": [["", "Kostium leży rozłożony pod lampą prasowalnicy."]],
+	"plama_ciemniejsza": [["", "Plama jest ciemniejsza niż wczoraj. Rozlała się wzdłuż szwów, jak atrament po bibule."]],
+	"plama_bledsza": [["", "Plama zbladła po praniu, ale dalej ją widać. Idzie wzdłuż szwów na karku i ramionach."]],
+	"podszewka_rekawiczki": [
+		["", "Zakładam rękawiczki i odchylam podszewkę."],
+		["", "Materiał jest sztywny, jakby coś w niego wsiąkło od środka, nie z wierzchu."],
+	],
+	"podszewka_bez": [
+		["", "Odchylam podszewkę gołymi palcami."],
+		["", "Po chwili zaczyna piec. Opuszki czerwienieją. Wycieram rękę w płaszcz, ale pali dalej."],
+	],
+	"podszewka_potem": [["", "Materiał sztywny od środka. Lepiej już go nie dotykać."]],
+	"uv": [
+		["", "Gaszę lampę prasowalnicy i świecę UV."],
+		["", "Plama świeci na zielono. Jasno, równo, wzdłuż każdego szwu. Wino tak nie świeci. Pot też nie."],
+	],
+	"uv_potem": [["", "W UV plama świeci na zielono, wzdłuż szwów."]],
+	"szafka_halina": [["Halina", "Panie Antoni, tam pan nie ma czego szukać. Tam moje szpargały."]],
+	"szafka": [["", "Szafka pod ladą. Proszki, szczotki, kłębek sznurka. Z tyłu mała lampa z fioletową żarówką."], ["", "Biorę ją, zanim pani Halina się odwróci."]],
+	"szafka_potem": [["", "Proszki i szczotki."]],
+	"halina_plama": [
+		["Antoni", "Plama jest ciemniejsza niż wczoraj."],
+		["Halina", "Trzy razy prałam. Za każdym razem gorzej. Pierwszy raz mi się coś takiego trafia."],
+	],
+	"halina_rece": [
+		["Antoni", "Co pani jest w ręce?"],
+		["Halina", "E tam, od proszku."],
+		["Halina", "(milczy chwilę)"],
+		["Halina", "Od soboty mnie pieką. Od kiedy prałam ten kostium. Ale to pewnie przypadek."],
+	],
+	"halina_jak": [
+		["Antoni", "Czym pani sprawdza plamy?"],
+		["Halina", "Na oko, panie. Trzydzieści lat na oko."],
+	],
+	"halina_uv": [["Halina", "No... to moja lampa. Do wina. Niech pan ją weźmie, ja się już tego kostiumu boję."]],
+	"halina_zdjecie": [["Halina", "Wczoraj była jaśniejsza. Słowo daję."]],
+	"halina_nozyczki": [["Halina", "Nożyczki Ireny? Niech pan je schowa, bo ona panu głowę urwie."]],
+	"halina_nic": [["Halina", "Panie, ja się na tym nie znam. Ja tylko piorę."]],
+	"halina_koniec": [["Halina", "Następny proszę!"]],
+	"ania_wchodzi": [
+		["", "Dzwonek nad drzwiami. Wchodzi Ania. Mokre włosy, płaszcz narzucony byle jak."],
+		["Ania", "Antoni? Co ty tu robisz?"],
+	],
+	"ania_po_co": [
+		["Antoni", "A ty?"],
+		["Ania", "Przechodziłam. Pomyślałam, że sprawdzę, czy kostium gotowy. Adam pytał."],
+	],
+	"ania_czwartek": [
+		["Antoni", "Gdzie byłaś w czwartek wieczorem?"],
+		["Ania", "W domu. Spałam. Czemu pytasz?"],
+	],
+	"ania_pierscionek": [
+		["Antoni", "Ładny pierścionek."],
+		["Ania", "(chowa dłoń do kieszeni)"],
+		["Ania", "Prezent. Od Adriana."],
+	],
+	"ania_zdjecie": [["Ania", "Nie pokazuj mi tego. Proszę."]],
+	"ania_kwit": [["Ania", "\"A.\"? Pół teatru ma imię na A."]],
+	"ania_podszewka": [["Ania", "Irena zawsze przesadza. Adrian marudził na każdy kostium."]],
+	"ania_nic": [["Ania", "Nie wiem, Antoni. Naprawdę."]],
+	"ania_prosi": [
+		["Ania", "Daj mi go, Antoni. Znam miejsce w centrum, tam wszystko spiorą."],
+		["Halina", "Nikt mi nie będzie mówił, że nie umiem prać! Zostaje u mnie!"],
+	],
+	"wybor": ["Kostium zostaje u pani Haliny", "Niech Ania go zawiezie"],
+	"wybor_halina": [
+		["Antoni", "Zostaje tutaj."],
+		["Ania", "Jak chcesz."],
+		["", "Ania wychodzi. Dzwonek nad drzwiami dzwoni długo."],
+	],
+	"wybor_ania": [
+		["Antoni", "Weź go."],
+		["Halina", "No to proszę bardzo! Ale jak go zniszczą, to nie do mnie!"],
+		["", "Ania zabiera kostium i wychodzi."],
+	],
+	"ania_wraca": [
+		["Ania", "Proszę. Po pierwszym praniu. Mówili, że więcej się nie da."],
+		["Halina", "(bierze kostium dwoma palcami)"],
+		["", "Ania wychodzi, nie patrząc na mnie."],
+	],
+	"godzine_pozniej": "Godzinę później",
+	"klient_lada": ["Garnitur na pogrzeb. Na jutro.", "Na jutro? Zrobi się, zrobi."],
+	"kurier": ["Paczka dla pralni Perła!", "Już, już, idę."],
+	"kot": [["", "Kot śpi na ręcznikach. Dziś nawet nie otwiera oka."]],
+	"skrzynka_nocna": [["", "Skrzynka nocna. Pusta."]],
+	"zegar": [["", "Zegar. Dziesiąta z minutami."]],
+	"zaplecze": [["", "Za drzwiami dudni pralka. Pani Halina nie wpuszcza tam klientów."]],
+	"stojaki": [["", "Zawieszki z numerami. Dziś więcej żałobnych garniturów niż wczoraj."]],
+	"ksiazka": [["", "Książka przyjęć. Pod 0412 dopisane czerwonym: \"plama, NIE WYDAWAĆ\"."]],
+}
+
+const SCENA12_TLO := {
+	"halina": ["(chucha w dłonie)", "Następny!", "Ojej, ojej..."],
+}
+
+const SCENA12_NAPISY := {
+	"dalej": "Scena 13: Pralnia, trzecia wizyta. Już wkrótce.",
 }
 
 # ---------- REJESTR ŚLEDZTWA (ui/sledztwo.gd) ----------
@@ -1406,6 +1516,11 @@ const SLEDZTWO_ARGUMENTY := {
 	"podszewka_piekla": [["f:s11_podszewka"], "Na czwartkowej próbie Adrian skarżył się, że podszewka piecze."],
 	"pasy_szwy": [["f:s11_szwy"], "Pasy na skórze idą dokładnie tam, gdzie szwy podszewki."],
 	"ania_w_pracowni": [["f:s11_ania_bywa"], "Siedziałaś wieczorami w pracowni, przy kostiumach."],
+	"rece_haliny": [["f:s12_rece"], "Halina ma poparzone dłonie od soboty, od kiedy prała ten kostium."],
+	"uv_zielona": [["f:s12_uv"], "W świetle UV plama świeci na zielono, wzdłuż szwów podszewki."],
+	"sam_dotknal": [["f:s12_dotknal"], "Sam dotknąłem tej podszewki. Piekło jeszcze godzinę."],
+	"ania_spala": [["f:s12_ania_czwartek"], "Mówiłaś, że w czwartek wieczorem spałaś w domu."],
+	"ania_przypadek": [["f:s12_ania_przypadek"], "W poniedziałek \"przypadkiem\" przyszłaś do pralni po ten sam kostium."],
 	"pierscionek": [["f:s11_foto"], "Na zdjęciu z próby ktoś trzyma dłoń z pierścionkiem na ramieniu Adriana."],
 }
 
@@ -1416,6 +1531,8 @@ const SLEDZTWO_EPILOG := [
 	[["f:s8_kurs"], "Taksówkarz z Mokotowa zeznawał w sądzie. Pamiętał każdą godzinę.", ""],
 	[["f:s8_telefon_wolski"], "Telefon Adriana nigdy nie trafił do rodziny. Wolski twierdził, że go zgubił.", ""],
 	[["f:s9_kwit_ania"], "Kostium z pralni Ania odebrała sama. Plamy nikt więcej nie zobaczył.", ""],
+	[["f:s12_ania_zabrala"], "Kostium wrócił z pralni w centrum bledszy. Część dowodu spłynęła z wodą.", ""],
+	[["f:s12_dotknal"], "Antoni jeszcze przez tydzień czuł pieczenie w palcach.", ""],
 	[["f:s11_opaska"], "Antoni nosił czarną opaskę Ireny aż do pogrzebu.", ""],
 	[["f:s11_podszewka"], "Irena od tamtej pory wszywa podszewki tylko w rękawiczkach.", ""],
 ]

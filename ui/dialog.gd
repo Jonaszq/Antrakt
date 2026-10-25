@@ -22,7 +22,7 @@ const LITER_NA_SEKUNDE := 40.0
 const GLOSY := {
 	"Antoni": ["m", 0.92], "Ania": ["k", 1.06], "Wolski": ["m", 0.84], "Bogdan": ["m", 1.0],
 	"Lis": ["m", 1.0], "Irena": ["k", 0.88], "Marta": ["k", 1.12], "Halina": ["k", 0.82],
-	"Zenon": ["m", 0.78], "Lekarz": ["m", 0.86], "Nowicki": ["m", 0.8], "Policjant": ["m", 1.04], "Sprzedawca": ["m", 0.94], "Taksówkarz": ["m", 0.76], "Sprzątaczka": ["k", 0.84], "Klientka": ["k", 1.12], "Adrian": ["m", 1.02], "Starszy pan": ["m", 0.8], "Elegancka pani": ["k", 0.98], "Kuba": ["m", 1.14],
+	"Zenon": ["m", 0.78], "Lekarz": ["m", 0.86], "Nowicki": ["m", 0.8], "Policjant": ["m", 1.04], "Sprzedawca": ["m", 0.94], "Taksówkarz": ["m", 0.76], "Sprzątaczka": ["k", 0.84], "Klientka": ["k", 1.12],  "Klient": ["m", 0.9], "Kurier": ["m", 1.0], "Adrian": ["m", 1.02], "Starszy pan": ["m", 0.8], "Elegancka pani": ["k", 0.98], "Kuba": ["m", 1.14],
 	"Zawada": ["m", 0.9], "Pani Stasia": ["k", 0.86], "Bileterka": ["k", 1.0], "Szatniarz": ["m", 0.82],
 	"Bufetowa": ["k", 0.92], "Kelner": ["m", 1.04], "Kelnerka": ["k", 1.1], "Fotograf": ["m", 1.08],
 	"Mąż": ["m", 0.96], "Żona": ["k", 1.04], "Chłopiec": ["k", 1.3], "Maszynista": ["m", 0.86],

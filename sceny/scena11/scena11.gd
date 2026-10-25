@@ -6,7 +6,7 @@ extends ScenaGry
 ## kartę "podszewka" do teczki. Zdjęcie z próby (s11_foto) pokaże się w retrospekcji 2.
 ## Teksty w Dialogi.SCENA11.
 
-const NASTEPNA := "res://menu/menu.tscn"  # scena 12 jeszcze nie zrobiona
+const NASTEPNA := "res://sceny/scena12/scena12.tscn"
 const DRZWI := Rect2(26, 104, 52, 36)
 const OKNO := Vector2(521, 132)
 const NOZYCZKI := Vector2(600, 254)
@@ -119,18 +119,3 @@ func _wez_opaske() -> void:
 	Ekwipunek.dodaj("opaska")
 	Gra.flagi["s11_opaska"] = true
 
-
-## Scena 12 jeszcze nie istnieje: napis i powrót do menu.
-func przejdz(scena: String) -> void:
-	koniec = true
-	var tw := create_tween()
-	tw.tween_property(_zaslona, "color:a", 1.0, 1.0)
-	await tw.finished
-	var napis := etykieta(12, Color8(170, 160, 140))
-	napis.text = Dialogi.SCENA11_NAPISY["dalej"]
-	napis.position = Vector2(0, 124)
-	napis.size = Vector2(480, 20)
-	napis.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	ui.add_child(napis)
-	await get_tree().create_timer(3.0).timeout
-	get_tree().change_scene_to_file(scena)
