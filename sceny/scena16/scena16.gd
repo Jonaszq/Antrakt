@@ -160,8 +160,9 @@ func _czwartek() -> void:
 		await rozmowa(t["lis_czwartek_zly"])
 
 
-func przejdz(scena: String) -> void:
+func przejdz(_scena: String) -> void:
 	if not is_instance_valid(_lis):
 		antoni.sterowanie = false
 		await rozmowa(Dialogi.SCENA16["wyjscie_przed"])
-	super.przejdz(scena)
+	antoni.sterowanie = false
+	super.przejdz(await Rozdzial4.sroda(self, true))

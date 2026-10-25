@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://sceny/retrospekcje/retro5.gd" id="skrypt"]
+[ext_resource type="PackedScene" path="res://mapy/pracownia/pracownia.tscn" id="pracownia"]
+
+[node name="Retro5" type="Node2D"]
+script = ExtResource("skrypt")
+
+[node name="Pracownia" parent="." instance=ExtResource("pracownia")]

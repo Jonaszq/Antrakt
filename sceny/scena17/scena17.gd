@@ -8,7 +8,7 @@ extends ScenaGry
 ## SMS z czwartku 22:10 (karta "sms"). Kiedy Antoni wyjdzie z mieszkania, po schodach
 ## wbiega Kuba z kluczem i ucieka (s17_kuba). Teksty w Dialogi.SCENA17.
 
-const NASTEPNA := "res://menu/menu.tscn"  # scena 18 jeszcze nie zrobiona
+const NASTEPNA := "res://sceny/retrospekcje/retro3.tscn"
 const SCHODY := Rect2(526, 300, 100, 46)
 const DRZWI_12 := Rect2(300, 232, 40, 50)
 const ANIA := Vector2(236, 312)
@@ -242,34 +242,8 @@ func _gniazdko() -> void:
 			await sprawdz_pin(kod)
 
 
-## Okienko z polem na cztery cyfry. Pusty Enter albo Esc = rezygnacja.
 func _wpisz_pin() -> String:
-	antoni.sterowanie = false
-	var tlo := ColorRect.new()
-	tlo.color = Color(0.05, 0.05, 0.07, 0.92)
-	tlo.position = Vector2(170, 90)
-	tlo.size = Vector2(140, 70)
-	ui.add_child(tlo)
-	var opis := etykieta(12, Color(0.85, 0.9, 0.85))
-	opis.text = "PIN (Enter)"
-	opis.position = Vector2(10, 6)
-	tlo.add_child(opis)
-	var pole := LineEdit.new()
-	pole.max_length = 4
-	pole.secret = false
-	pole.position = Vector2(10, 30)
-	pole.size = Vector2(120, 30)
-	tlo.add_child(pole)
-	pole.grab_focus()
-	var wynik := {"kod": null}
-	pole.text_submitted.connect(func(tekst: String) -> void: wynik.kod = tekst.strip_edges())
-	while wynik.kod == null:
-		if Input.is_key_pressed(KEY_ESCAPE):
-			wynik.kod = ""
-		await get_tree().process_frame
-	tlo.queue_free()
-	antoni.sterowanie = true
-	return wynik.kod
+	return await wpisz("PIN (Enter)", 4)
 
 
 func sprawdz_pin(kod: String) -> void:

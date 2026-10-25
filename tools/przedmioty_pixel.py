@@ -420,6 +420,15 @@ def klucz_adriana():
     return img
 
 
+def zupa():
+    img = nowy(); d = ImageDraw.Draw(img)
+    prost(d, 5, 5, 10, 13, (200, 220, 230))
+    prost(d, 6, 9, 8, 8, (220, 170, 60))
+    prost(d, 4, 3, 12, 3, (170, 40, 40))  # zakrętka
+    prost(d, 7, 11, 2, 1, (240, 220, 140))
+    return img
+
+
 IKONY = {
     "program": program, "klucz": klucz, "latarka": latarka, "ladowarka": ladowarka,
     "rekawiczki": rekawiczki, "lampa_uv": lampa_uv, "nozyczki": nozyczki,
@@ -429,7 +438,7 @@ IKONY = {
     "monety": monety, "bilet": bilet, "numerek": numerek, "noz": noz,
     "telefon_adriana": telefon_adriana, "lista_rekwizytow": lista_rekwizytow, "zdjecie_pasy": zdjecie_pasy,
     "kielich": kielich, "termos": termos, "kwit_odbioru": kwit_odbioru, "zdjecie_plamy": zdjecie_plamy,
-    "opaska": opaska, "probka": probka, "polisa": polisa, "klucz_adriana": klucz_adriana,
+    "opaska": opaska, "probka": probka, "polisa": polisa, "klucz_adriana": klucz_adriana, "zupa": zupa,
 }
 
 
@@ -638,6 +647,19 @@ def opaski_stos():
     return img
 
 
+def skrzynki_mleko():
+    """Trzy puste plastikowe skrzynki po mleku, jedna na drugiej."""
+    img = nowy(30, 34); d = ImageDraw.Draw(img)
+    for i, y in enumerate((22, 11, 0)):
+        x = (1, 3, 0)[i]
+        prost(d, x, y, 28, 11, (40, 110, 170))
+        prost(d, x, y, 28, 2, (90, 160, 210))
+        for kx in range(x + 3, x + 26, 5):
+            prost(d, kx, y + 4, 3, 5, (20, 60, 100))
+        d.rectangle((x, y, x + 27, y + 10), outline=(10, 20, 30))
+    return img
+
+
 REKWIZYTY = {"stojak_programy": stojak_programy, "bezpieczniki": bezpieczniki, "apteczka": apteczka,
              "noz_maly": noz_maly, "koszula_stol": koszula_stol, "kosz_wiklinowy": kosz_wiklinowy,
              "taca_kieliszki": taca_kieliszki, "gramofon": gramofon, "plama_wina": plama_wina,
@@ -645,7 +667,7 @@ REKWIZYTY = {"stojak_programy": stojak_programy, "bezpieczniki": bezpieczniki, "
              "kielich_podloga": kielich_podloga, "zdjecie_zalobne": zdjecie_zalobne,
              "wstazka_czarna": wstazka_czarna, "kostium_folia": kostium_folia,
              "nozyczki_stol": nozyczki_stol, "opaski_stos": opaski_stos,
-             "torba_sportowa": torba_sportowa}
+             "torba_sportowa": torba_sportowa, "skrzynki_mleko": skrzynki_mleko}
 
 
 def main():

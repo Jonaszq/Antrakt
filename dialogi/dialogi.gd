@@ -2125,6 +2125,348 @@ const SCENA17_TLO := {
 ## Wybór po scenie 15: dokąd teraz.
 const SCENA15_DOKAD := ["Zajrzę do gabinetu Lisa", "Jadę do mieszkania Adriana"]
 
+# Retrospekcja 3 (po scenie 17): czwartek 22:10 w mieszkaniu Adriana.
+const RETRO3 := {
+	"tytul": "Czwartek, 22:10. Tak mogło być.",
+	"kaszel": "(kaszle, nie może złapać tchu)",
+	"piecze": "Wszystko piecze...",
+	"tabletki": "(łyka tabletki, jedną po drugiej)",
+	"maść": "Trzeba kupić maść...",
+	"sms": "\"Ten kostium mnie parzy, chyba jestem chory. Przyjedziesz?\"",
+	"telefon_bez": "(sięga po telefon, pisze coś długo)",
+	"sciana": "(zza ściany) Panie Adrianie? Wszystko dobrze?",
+	"drzwi": "(otwiera drzwi na klatkę, nasłuchuje, zamyka)",
+	"czeka": "Przyjedź...",
+	"ekran": "Gdzieś w mieście świeci ekran telefonu. Ktoś czyta: \"Przyjedziesz?\". Odczytano.",
+	"pierscionek": "Na palcu tej dłoni cienki pierścionek. Już go gdzieś widziałem.",
+	"koniec": "Nikt nie przyjechał.",
+	"koniec_bez_sms": "Komu napisał? Bez jego telefonu się nie dowiem.",
+}
+
+# Retrospekcja 4 (po scenie 18): rok temu, nocna droga. Tylko jeśli Antoni słyszał o nagraniu.
+const RETRO4 := {
+	"tytul": "Rok temu, nocna droga. Tak mogło być.",
+	"rower": "(dzwonek roweru)",
+	"hamulce": "(pisk opon)",
+	"uderzenie": "(głuche uderzenie)",
+	"odjezdza": "(auto odjeżdża bez świateł)",
+	"kamera": "(za drugim autem miga czerwona lampka kamery)",
+	"wolski": "Mam cię, kochanie.",
+	"pendrive": "Na nagraniu z pendrive'a widać numer rejestracyjny i twarz kierowcy w świetle latarni.",
+	"koniec": "Rowerzysta przeżył. Kierowca nigdy się nie zgłosił.",
+}
+
+const RETRO_PRZYMIERZANIE := {
+	"przymierz": "Przymierz: kto to był?",
+	"zostaw": "Zostaw tak, jak jest",
+	"kto": "Kto to był? (imię, Enter)",
+	"nie_znam": "Nikogo takiego nie mam na tablicy.",
+	"moze": "%s? Może...",
+	"bez_karty": "Nie mam karty, która temu przeczy",
+	"nic_nie_dowodzi": "To niczego nie dowodzi.",
+}
+
+## Przymierzanie w retrospekcjach: kontekst -> imię -> [karta, która temu przeczy, co mówi Antoni].
+const PRZYMIERZANIE := {
+	"pracownia": {
+		"Irena": ["paragon", "Nie. Irena o tej porze była w hurtowni na Fabrycznej."],
+		"Lis": ["bank", "Nie. Lis stał wtedy pod bankiem i błagał o kredyt."],
+		"Wolski": ["recepta", "Nie. Do Wolskiego przyszedł wtedy lekarz z wizytą domową."],
+		"Kuba": ["casting", "Nie. Kuba był o ósmej na castingu, ma zdjęcie z numerem."],
+		"Marta": ["marta_grafik", "Nie. Marta była na korytarzu i potknęła się o skrzynki. To ona widziała."],
+		"Halina": ["kwit", "Nie. Halina zobaczyła kostium dopiero w skrzynce nocnej, o 23:40."],
+	},
+	"sms": {
+		"Wolski": ["sms", "Nie. SMS poszedł do Ani."],
+		"Irena": ["sms", "Nie. SMS poszedł do Ani."],
+		"Lis": ["sms", "Nie. SMS poszedł do Ani."],
+		"Marta": ["sms", "Nie. SMS poszedł do Ani."],
+		"Halina": ["sms", "Nie. SMS poszedł do Ani."],
+		"Kuba": ["sms", "Nie. SMS poszedł do Ani."],
+	},
+	"droga": {
+		"Wolski": ["pendrive", "Nie. Wolski jechał za nią i nagrywał."],
+		"Irena": ["pendrive", "Nie. Na nagraniu za kierownicą siedzi ktoś inny."],
+		"Lis": ["pendrive", "Nie. Na nagraniu za kierownicą siedzi ktoś inny."],
+		"Marta": ["pendrive", "Nie. Na nagraniu za kierownicą siedzi ktoś inny."],
+		"Halina": ["pendrive", "Nie. Na nagraniu za kierownicą siedzi ktoś inny."],
+		"Kuba": ["pendrive", "Nie. Na nagraniu za kierownicą siedzi ktoś inny."],
+	},
+	"skrzynka": {
+		"Kuba": ["garnitur", "Nie. Kuba był przy pralni o 23:10 i podpisał się pełnym nazwiskiem."],
+		"Halina": ["kwit", "Nie. Halina rano wyjęła kostium ze skrzynki, nie wrzucała go."],
+		"Wolski": ["recepta", "Nie wiem... Wolski leżał chory. Recepta to potwierdza."],
+	},
+}
+
+## Imiona z tablicy i jak gracz może je wpisać (po uproszczeniu jak w teczce).
+const PODEJRZANI_ALIASY := {
+	"Ania": ["ania", "anna", "wrzos", "ania wrzos", "anna wrzos"],
+	"Wolski": ["wolski", "adam", "adam wolski"],
+	"Irena": ["irena", "mroz", "irena mroz"],
+	"Lis": ["lis", "bogdan", "bogdan lis", "dyrektor"],
+	"Marta": ["marta"],
+	"Halina": ["halina", "pani halina"],
+	"Kuba": ["kuba", "jakub", "adamczyk", "jakub adamczyk", "kuba adamczyk"],
+}
+
+# Scena 18: garderoba Wolskiego, środa 21:00. Teatr pusty. Antoni szuka czegoś na Wolskiego,
+# słyszy kroki i musi schować się za stojakiem. Podsłuch rozmowy z Anią. Potem zeszyt,
+# recepta w koszu i sejf (szyfr: rok pierwszej roli, 1998). Przyłapany: sejf dopiero jutro.
+const SCENA18 := {
+	"plansza": "Garderoba Wolskiego, środa 21:00",
+	"plansza_jutro": "Garderoba Wolskiego, czwartek 15:00",
+	"poczatek_klucz": [
+		["", "Teatr pusty po próbie. Zapasowy klucz z bezpieczników pasuje i do garderób."],
+		["", "Na korytarzu brzęczy świetlówka. Gdzieś daleko gwiżdże stróż."],
+	],
+	"poczatek_bez_klucza": [
+		["", "Drzwi garderoby zamknięte. Czekam w ciemnym korytarzu prawie godzinę, aż sprzątaczka przyjdzie z wiadrem."],
+		["", "Zostawia uchylone drzwi i idzie po nową szmatę. Wchodzę."],
+	],
+	"poczatek_jutro": [
+		["", "Czwartek po południu. Wolski jest na próbie, garderobiana poszła po obiad. Drzwi otwarte."],
+	],
+	"kroki": "Kroki na korytarzu! Ktoś idzie prosto tutaj.",
+	"przylapany_przed": [
+		["Wolski", "Detektyw? W mojej garderobie? O tej porze?"],
+		["Wolski", "(uśmiecha się szeroko) Rozumiem, rozumiem. Pan mnie pilnuje. Jakie to wzruszające."],
+		["Wolski", "Ale teraz proszę mnie zostawić. Muszę się wyspać przed jutrzejszą próbą. Dobranoc, detektywie."],
+		["", "Odprowadza mnie do drzwi i przekręca klucz od środka. Do sejfu dziś już się nie dobiorę."],
+	],
+	"skrzyp": "(podłoga skrzypi pod butem)",
+	"kto_tu": "Kto tu jest?!",
+	"przylapany_w_trakcie": [
+		["Wolski", "(odsuwa kostiumy na stojaku) No proszę. Detektyw w szafie. Jak w farsie."],
+		["Wolski", "Długo pan tu stoi? Nieważne. Proszę wyjść. Natychmiast. Uprzejmie proszę."],
+		["", "Wypycha mnie na korytarz i zamyka drzwi na klucz."],
+	],
+	"wolski_koniak": "(nalewa koniaku, nuci)",
+	"rozmowa": [
+		"Aniu? To ja. Nie, nie przeszkadzasz.",
+		"Aniu, nie płacz mi tu. Dubler zawsze się znajdzie. Ale ty nie.",
+		"Słucham? Policja? Chłopak umarł na serce, kochanie. Tak powiedział lekarz.",
+		"I jeszcze jedno. Od tego miesiąca płacisz podwójnie.",
+		"Bo inaczej nagranie z twoim samochodzikiem i tym rowerzystą ląduje na komendzie.",
+		"Rozumiemy się? No. Grzeczna dziewczynka. Dobranoc.",
+	],
+	"do_lustra": "Brawo, Adamie. Najlepsza rola sezonu.",
+	"wolski_wychodzi": "(gasi lampę przy lustrze i wychodzi, gwiżdżąc)",
+	"po_podsluchu": [
+		["", "Stoję za kostiumami jeszcze długo po tym, jak ucichły kroki."],
+		["", "Ciepły Wolski z wtorku. \"Biedny Adrian, zginął za mnie.\" Najlepsza rola sezonu."],
+	],
+	"szuflada": [
+		["", "W szufladzie toaletki zeszyt w kratkę. Daty, kwoty, inicjały."],
+		["", "\"A.W., pierwszego każdego miesiąca, 2000 zł\". Ciągnie się od roku. Ostatnia rubryka: \"od listopada x2\"."],
+	],
+	"szuflada_potem": [["", "Zeszyt z wpłatami \"A.W.\". Od roku, co miesiąc."]],
+	"szuflada_wolski": [["", "Szuflada toaletki. Wolski siedzi tuż obok, nie ma mowy."]],
+	"kosz": [
+		["", "W koszu zmięta karteczka. Recepta: \"Adam Wolski. Wizyta domowa, czwartek 7:30. Gorączka 39,2\"."],
+		["", "Podpis i pieczątka lekarza rodzinnego. Wolski naprawdę był chory."],
+	],
+	"kosz_popiol": [["", "Pod receptą trochę popiołu i nadpalony róg kartki: \"...rzelew 2000...\". To, co spalił we wtorek."]],
+	"kosz_potem": [["", "Kosz. Popiół i zmięte chusteczki."]],
+	"sejf": [["", "Mały sejf. Pokrętło z czterema cyframi."]],
+	"sejf_wolski": [["", "Sejf przy szafie. Przy Wolskim nawet nie patrzę w tamtą stronę."]],
+	"sejf_opis": "Szyfr sejfu (4 cyfry, Enter)",
+	"sejf_zly": "Nie otwiera się. Pokrętło zgrzyta.",
+	"sejf_otwarty": [
+		["", "Klik. Drzwiczki się uchylają."],
+		["", "W środku plik banknotów, zegarek i czarny pendrive w woreczku. Na woreczku flamastrem: \"A.\"."],
+		["", "Pieniędzy nie ruszam. Biorę pendrive."],
+	],
+	"sejf_telefon": [["", "Pod banknotami telefon z pękniętą szybką i naklejką z maską. Telefon Adriana. \"Zgubiony\". Biorę go."]],
+	"sejf_potem": [["", "Pieniądze i zegarek. Niech sobie leżą."]],
+	"toaletka": [["", "Koniak, puder, szminki. Za ramą lustra recenzja: \"Wolski w formie życia\"."]],
+	"stojak": [["", "Kostiumy z dawnych spektakli. Gęsto wiszą. Ktoś by się tu zmieścił."]],
+	"plakat": [["", "\"HAMLET 1998\". Młody Wolski z czaszką."]],
+	"szafa": [["", "Garnitury, szlafrok z monogramem. Listów z pogróżkami ani śladu."]],
+	"kanapa": [["", "Kanapa. Pod poduszką nic. Tylko zapach wody kolońskiej."]],
+	"bukiety": [["", "Zwiędłe bukiety. Nikt ich nie wyrzucił."]],
+	"wyjscie_noc": [["", "Wychodzę cicho. Świetlówka na korytarzu brzęczy dalej."]],
+}
+
+const SCENA18_TLO := {
+	"stroz": ["(gwizdanie gdzieś daleko)", "(brzęczenie świetlówki)"],
+}
+
+# Scena 19: foyer i bufet, czwartek 10:00. Marta pamięta Anię w pracowni o ósmej, ale nie dzień.
+# Skrzynki na mleko przy drzwiach PERSONEL, grafik dostaw w jednej z nich, bufetowa o mleku.
+# Kuba próbuje roli w kącie: otworzy się dopiero, gdy Antoni widział go na klatce.
+const SCENA19 := {
+	"plansza": "Teatr, czwartek 10:00",
+	"poczatek": [
+		["", "Czwartek rano. W foyer pachnie świeżym chlebem: dostawca wnosi pieczywo do bufetu."],
+		["", "Aktorzy jedzą śniadanie przy stolikach i cicho żartują. Pierwszy raz od soboty ktoś się śmieje."],
+	],
+	"marta_start": [["Marta", "(wkłada baterie do krótkofalówek) Detektyw. Szybko, mam próbę techniczną za dwadzieścia minut."]],
+	"marta_znowu": [["Marta", "(stuka krótkofalówką o dłoń) No?"]],
+	"marta_pracownia": [
+		["Antoni", "Kto przychodzi rano do pracowni kostiumów?"],
+		["Marta", "Rano? Nikt. Irena przychodzi na dziewiątą, a wcześniej to tylko ja z kluczami."],
+		["Marta", "(zatrzymuje się) Chociaż... Raz widziałam tam Anię. O ósmej. Chyba w piątek. Albo w czwartek? Nie, w piątek."],
+	],
+	"marta_szczegoly": [
+		["Antoni", "Pamiętasz coś jeszcze z tamtego rana?"],
+		["Marta", "Potknęłam się o jakieś skrzynki w korytarzu, ktoś je zostawił pod drzwiami. Prawie się zabiłam."],
+		["Marta", "Ania miała coś w rękach, jakąś butelkę. Pomyślałam, że woda albo rozpuszczalnik do szminki."],
+	],
+	"marta_klucz": [
+		["Antoni", "Kto ma klucz do pracowni?"],
+		["Marta", "Ja, Irena, dyrekcja i główna obsada. Tak zawsze było."],
+	],
+	"marta_grafik": [
+		["Marta", "(patrzy na grafik, potem na skrzynki pod drzwiami)"],
+		["Marta", "Mleko w czwartki... To były te skrzynki. Pod drzwiami PERSONEL."],
+		["Marta", "To był czwartek. Czwartek rano, przed próbą generalną. Jezu."],
+	],
+	"marta_grafik_bez": [["Marta", "Grafik dostaw? Co mnie obchodzi mleko? Ja pytam o nic, ja mam próbę."]],
+	"marta_nic": [["Marta", "Nie mam pojęcia. Ja tu tylko pilnuję, żeby wszystko działało."]],
+	"marta_koniec": [["Marta", "(wraca do krótkofalówek)"]],
+	"skrzynki": [
+		["", "Pod drzwiami PERSONEL stoją puste plastikowe skrzynki po mleku. Trzy, jedna na drugiej."],
+		["", "Ktoś je zawsze zostawia w przejściu. Łatwo się potknąć."],
+	],
+	"grafik": [["", "W dolnej skrzynce, przyklejona taśmą, kartka: \"Mleczarnia Łąka. Dostawy: CZWARTKI, 7:30\". Odklejam ją."]],
+	"skrzynki_potem": [["", "Puste skrzynki po mleku."]],
+	"bufetowa_mleko": [
+		["Antoni", "Kiedy przychodzi mleko?"],
+		["Bufetowa", "Mleko? Tylko w czwartki, panie. W inne dni piją czarną."],
+		["Bufetowa", "Skrzynki zostawiają pod drzwiami do kulis, bo do mnie im się nie chce nosić."],
+	],
+	"bufetowa_start": [["Bufetowa", "Kawy? Dziś jest z mlekiem. Czwartek."]],
+	"bufetowa_kawa": [["Bufetowa", "Proszę. Na koszt firmy, pan tu prawie mieszka."]],
+	"bufetowa_nic": [["Bufetowa", "Ja tu tylko nalewam."]],
+	"bufetowa_koniec": [["Bufetowa", "Smacznego."]],
+	"kuba_ucieka": [["Kuba", "(na mój widok odwraca się do ściany i powtarza rolę głośniej) \"...i nie ma już powrotu, panie...\""]],
+	"kuba_start": [["Kuba", "(blednie) To pan... z klatki. Ja wszystko wytłumaczę."]],
+	"kuba_znowu": [["Kuba", "No co jeszcze?"]],
+	"kuba_mieszkanie": [
+		["Antoni", "Co robiłeś w mieszkaniu Adriana?"],
+		["Kuba", "Szedłem po scenariusz. Ten z jego notatkami. Adrian dał mi klucz, żebym brał, kiedy chcę."],
+		["Kuba", "Uciekłem, bo... bo głupio wyszło. Jakbym okradał trupa. Ja tylko chciałem zagrać to tak, jak on by zagrał."],
+	],
+	"kuba_czwartek_zly": [
+		["Antoni", "Gdzie byłeś w czwartek rano?"],
+		["Kuba", "Na zajęciach. Mówiłem już. Mam próbę, przepraszam."],
+	],
+	"kuba_czwartek": [
+		["Antoni", "Gdzie byłeś w czwartek rano? Na liście obecności cię nie ma."],
+		["Kuba", "(wzdycha) Na castingu w Teatrze Nowym. Wagarowałem. Jak uczelnia się dowie, wylecę."],
+		["Kuba", "(pokazuje telefon) Proszę. Ja z numerem 14 na piersi. Czwartek, 8:02."],
+	],
+	"kuba_kwit": [
+		["Kuba", "Skrzynka w pralni? Byłem tam w czwartek, ale o 23:10. Oddałem garnitur na casting."],
+		["Kuba", "(grzebie w portfelu) Mam swój kwit. Podpisałem się całym nazwiskiem, Adamczyk. Nie żadne \"A.\"."],
+	],
+	"kuba_wolski": [
+		["Antoni", "Znasz całą rolę Wolskiego na pamięć."],
+		["Kuba", "Od roku. Każdy statysta marzy. Ale nie tak. Nie przez to."],
+	],
+	"kuba_nic": [["Kuba", "Nie wiem, co to jest."]],
+	"kuba_koniec": [["Kuba", "(wraca do roli, ciszej)"]],
+	"dostawca": [["Dostawca", "Z drogi, panie, chleb jedzie!"]],
+	"aktor": [["Aktor", "Kuba gra za Adriana. Dzieciak, ale zdolny."]],
+	"aktorka": [["Aktorka", "Ania nie przyszła na śniadanie. Od soboty nic nie je."]],
+	"zdjecie": [["", "Zdjęcie Adriana pod świeczką. Ktoś dołożył świeże goździki."]],
+}
+
+const SCENA19_TLO := {
+	"marta": ["Kanał dwa, próba...", "(krótkofalówka trzeszczy)", "Kto znowu wziął baterie?"],
+	"kuba": ["\"...i nie ma już powrotu...\"", "\"...panie, to nie ja...\"", "(mamrocze rolę)"],
+	"dostawca": ["Chleb jedzie!", "(sapie)"],
+	"aktorzy": ["(śmiech przy stoliku)", "Podaj sól.", "Wczoraj Kuba zapomniał tekstu."],
+}
+
+# Retrospekcja 5 (po scenie 19): czwartek rano, pracownia, i noc przy skrzynce pralni.
+const RETRO5 := {
+	"tytul_czwartek": "Czwartek, 8:00. Tak mogło być.",
+	"tytul_niewiadomo": "Czwartek? Piątek? 8:00. Tak mogło być.",
+	"sylwetka": "(ktoś pochyla się nad kostiumem z butelką w dłoni)",
+	"marta": "Kto tu zostawia te skrzynki?!",
+	"marta_widzi": "(Marta przystaje w drzwiach, potem idzie dalej)",
+	"rekawiczki": "(gumowe rękawiczki skrzypią na palcach)",
+	"podszewka": "(pędzelkiem wzdłuż szwów podszewki)",
+	"noc": "Czwartek, 23:10 i 23:40. Pralnia \"Perła\".",
+	"kuba": "(wrzuca garnitur do skrzynki, podpisuje kwit: Adamczyk)",
+	"kostium": "(wrzuca kostium do skrzynki, podpisuje kwit: A.)",
+	"koniec": "Do pogrzebu została jedna noc.",
+}
+
+# Czwartek po scenie 19: dokąd teraz (lista budowana w Rozdzial4.czwartek).
+const CZWARTEK := {
+	"pytanie": "Czwartek po południu. Co teraz?",
+	"ania": "Garderoba Ani (Ania jest na próbie)",
+	"wolski": "Garderoba Wolskiego (sejf)",
+	"ola": "Obiad u Oli",
+	"dom": "Wracam do domu",
+}
+
+# Obiad u Oli: raz na dzień, +40 sił, godzina w plecy.
+const OLA := {
+	"start": [["Ola", "No wreszcie! Siadaj. Rosół, ziemniaki, kotlet. I nie gadaj mi, że nie jesteś głodny."]],
+	"slaby": [["Ola", "Antek, ty wyglądasz jak trup. Kiedy ostatnio spałeś? Jedz. Powoli."]],
+	"palce": [["Ola", "Co ty masz z palcami? Czerwone jak od pokrzyw. Pokaż... Tylko nie mów, że to od pracy."]],
+	"bilet": [["Ola", "Wiesz, że ja ci ten bilet dałam, żebyś odpoczął? A ty mi z premiery zrobiłeś śledztwo."]],
+	"ania": [["Ola", "Ta dziewczyna od tego chłopaka... Biedna. Widziałam ją w telewizji. Taka chuda."]],
+	"koniec": [["Ola", "Masz, słoik zupy na jutro. I zadzwoń do mamy, bo mnie męczy."], ["", "Najedzony. Od razu lepiej się myśli."]],
+	"potem": [["Ola", "Dzisiaj już jadłeś. Idź łapać tych swoich morderców."]],
+}
+
+# Scena 20: garderoba Ani, czwartek 16:00. Ania na próbie. Rękawiczki w koszu (UV),
+# spinka w pudełku z charakteryzacją, szuflada z wydrukami przelewów, kartka od Adriana.
+const SCENA20 := {
+	"plansza": "Garderoba Ani, czwartek 16:00",
+	"poczatek_klucz": [["", "Zapasowy klucz pasuje. Ze sceny słychać próbę i głos Ani. Gra, jakby nic się nie stało."]],
+	"poczatek_bez_klucza": [
+		["", "Zamknięte. Czekam pod drzwiami prawie godzinę, aż garderobiana przyniesie Ani wyprasowaną suknię."],
+		["", "Zostawia drzwi otwarte. Wchodzę, zanim wróci."],
+	],
+	"proba": ["(ze sceny) \"...nie zostawiaj mnie samej...\"", "(ze sceny) \"Jeszcze raz od wejścia!\"", "(ze sceny, głos Ani) \"...kochałam cię, wiesz?\""],
+	"kroki": "Kroki na korytarzu. Ktoś idzie w stronę garderoby...",
+	"kroki_mijaja": "Kroki mijają drzwi i cichną. Mało brakowało.",
+	"ania_wchodzi": [
+		["Ania", "Antoni?! Co ty tu robisz?"],
+		["Ania", "(patrzy na otwartą szufladę, potem na mnie, długo)"],
+		["Ania", "Wyjdź. Proszę cię, po prostu wyjdź."],
+	],
+	"kosz": [["", "Kosz pod toaletką. Pełno zużytych chusteczek z resztkami szminki."], ["", "Na dnie, pod chusteczkami, para gumowych rękawiczek. Zwinięte w kulkę."]],
+	"kosz_uv": [["", "Świecę na nie lampą UV."], ["", "Świecą. Tym samym zielonym światłem co plama na podszewce. Zwłaszcza palce."]],
+	"kosz_bez_uv": [["", "Zwykłe gumowe rękawiczki. Do czego aktorce gumowe rękawiczki?"]],
+	"kosz_reka": [["", "Dotykam ich gołymi palcami. Po chwili zaczynają szczypać. Wycieram dłonie w spodnie."]],
+	"kosz_rekawiczki": [["", "Wyjmuję je przez swoje lateksowe. Ostrożnie."]],
+	"kosz_potem": [["", "Chusteczki z resztkami szminki."]],
+	"pudelko": [["", "Pudełko z charakteryzacją: pudry, kredki, pędzelki. Między nimi wygięta spinka do włosów. Biorę ją."]],
+	"pudelko_potem": [["", "Pudry, kredki, pędzelki."]],
+	"szuflada_zamknieta": [["", "Dolna szuflada toaletki zamknięta na mały zamek. Prosty, tani."]],
+	"szuflada_otwieram": [
+		["", "Wkładam spinkę w zamek. Kręcę, naciskam... Klik."],
+		["", "W szufladzie wydruki przelewów z banku. Co miesiąc, pierwszego. Odbiorca: Adam Wolski. Tytuł: \"darowizna\"."],
+		["", "Od roku. Ostatni z listopada: podwójny."],
+	],
+	"szuflada_potem": [["", "Wydruki przelewów do Wolskiego."]],
+	"lustro": [
+		["", "Do lustra przyklejona kartka, pismo Adriana:"],
+		["", "\"Złamania karku, kochanie. Zawsze w ciebie wierzę.\""],
+	],
+	"zdjecie": [["", "Zdjęcie: Ania i Adrian na plaży. To samo, co w sobotę. Tylko ramka jest teraz odwrócona do ściany."]],
+	"wieszak": [["", "Kostiumy Ani. Czarna suknia na finał. Obok, w folii, czarna sukienka na pogrzeb."]],
+	"kanapa": [["", "Kanapa. Koc i poduszka. Wygląda, jakby tu nocowała."]],
+	"szafa": [["", "Płaszcz, kozaki, parasol. Kluczyki do samochodu z breloczkiem w kształcie maski."]],
+	"kwiaty": [["", "Zwiędłe róże. Bilecik: \"Dla mojej Julii. A.\""]],
+	"parawan": [["", "Za parawanem sukienka z próby, rzucona na podłogę."]],
+	"wyjscie": [["", "Wychodzę na korytarz. Ze sceny wciąż słychać jej głos."]],
+	"koniec_dnia": [
+		["", "Czwartek wieczorem. Siedzę w samochodzie pod teatrem i patrzę na zapalone okno garderoby Ani."],
+		["", "Jutro w południe pogrzeb. Do pogrzebu została jedna noc."],
+	],
+	"rozdzial": "Koniec rozdziału 4.",
+}
+
+const SCENA15_DOKAD_OLA := "Obiad u Oli"
+
 
 const FALSZYWE_TROPY := ["termos"]
 
@@ -2173,6 +2515,18 @@ const SLEDZTWO_ARGUMENTY := {
 	"notatka_lodowka": [["f:s17_notatka"], "Na lodówce Adriana: \"od próby wszystko piecze, kupić maść\"."],
 	"sasiadka_kaszel": [["f:s17_sasiadka"], "Sąsiadka słyszała w czwartek w nocy, jak Adrian kaszle i płacze. Nikt do niego nie przyszedł."],
 	"kuba_klucz_mieszkanie": [["f:s17_kuba"], "Kuba miał klucz do mieszkania Adriana i uciekł na mój widok."],
+	"podsluch": [["f:s18_podsluch"], "Słyszałem, jak Wolski szantażuje Anię nagraniem wypadku z rowerzystą."],
+	"podsluch_czesc": [["f:s18_podsluch_czesc", "!f:s18_podsluch"], "Słyszałem początek rozmowy Wolskiego z Anią. Mówił do niej czule, jak do kogoś, kto mu coś winien."],
+	"zeszyt": [["k:zeszyt"], "Wolski od roku dostaje od ciebie co miesiąc 2000 złotych."],
+	"recepta": [["k:recepta"], "Wolski w czwartek rano leżał z gorączką. Był u niego lekarz."],
+	"pendrive": [["k:pendrive"], "Mam nagranie wypadku. Za kierownicą siedzisz ty, nagrywał Wolski."],
+	"marta_czwartek": [["k:marta_grafik"], "Marta widziała cię w pracowni w czwartek o ósmej. Z butelką w ręku."],
+	"marta_bez_dnia": [["f:s19_marta", "!k:marta_grafik"], "Marta widziała cię w pracowni o ósmej rano. Nie pamięta dnia."],
+	"kuba_casting": [["k:casting"], "Kuba w czwartek o ósmej był na castingu w Teatrze Nowym."],
+	"kuba_garnitur": [["k:garnitur"], "Kuba był przy pralni o 23:10 i podpisał się pełnym nazwiskiem. Kostium wrzucił ktoś inny."],
+	"rekawiczki_uv": [["k:rekawiczki"], "Rękawiczki z twojego kosza świecą w UV tak samo jak plama na podszewce."],
+	"przelewy": [["k:przelewy"], "W twojej szufladzie leżą wydruki przelewów do Wolskiego."],
+	"kartka_adriana": [["f:s20_lustro"], "\"Złamania karku, kochanie. Zawsze w ciebie wierzę.\" Kartka od Adriana na twoim lustrze."],
 	"pierscionek": [["f:s11_foto"], "Na zdjęciu z próby ktoś trzyma dłoń z pierścionkiem na ramieniu Adriana."],
 }
 
@@ -2191,6 +2545,11 @@ const SLEDZTWO_EPILOG := [
 	[["f:s15_przyznala"], "Irena oddała teatrowi bele jedwabiu. Lis udał, że nic nie wie.", ""],
 	[["f:s17_kran"], "Kran w mieszkaniu Adriana kapał jeszcze miesiąc, aż właściciel wymienił uszczelkę.", ""],
 	[["f:s17_ladowarka_sasiadki"], "Sąsiadka z jedenastki do dziś czeka na swoją ładowarkę.", ""],
+	[["f:s18_przylapany"], "Wolski do końca sezonu zamykał garderobę na dwa zamki.", ""],
+	[["f:s18_telefon"], "Telefon Adriana wrócił do jego matki. Z sejfu Wolskiego.", ""],
+	[["f:s19_kawa"], "Bufetowa od tamtej pory każdemu policjantowi nalewa kawę z mlekiem. Nawet w poniedziałki.", ""],
+	[["f:s20_przylapany"], "Ania do pogrzebu nie odezwała się do Antoniego ani słowem.", ""],
+	[["f:obiad_sr", "f:obiad_czw"], "Ola mówi, że w tamtym tygodniu Antoni pierwszy raz od lat jadł u niej dwa dni z rzędu.", ""],
 	[["f:s11_podszewka"], "Irena od tamtej pory wszywa podszewki tylko w rękawiczkach.", ""],
 ]
 
@@ -2230,6 +2589,16 @@ const KARTY := {
 		[["Czyje", ["ania", "wrzos", "ania wrzos", "anna", "anna wrzos"]]]],
 	"podszewka": ["Zeznanie Ireny", "Pracownia kostiumów", "Ktoś skarżył się, że podszewka kostiumu piecze.",
 		[["Kto", ["adrian"]], ["Kiedy", ["czwartek", "czw", "na probie", "na próbie", "proba", "próba", "proba generalna", "próba generalna"]]]],
+	"recepta": ["Recepta z kosza", "Garderoba Wolskiego", "Wizyta domowa lekarza, czwartek 7:30–9:00. Gorączka 39,2.",
+		[["Kogo dotyczy", ["wolski", "adam", "adam wolski"]]]],
+	"zeszyt": ["Zeszyt z wpłatami", "Szuflada Wolskiego", "Co miesiąc 2000 zł od roku, od listopada podwójnie.",
+		[["Kto płaci", ["ania", "wrzos", "ania wrzos", "anna", "anna wrzos"]], ["Kto bierze", ["wolski", "adam", "adam wolski"]]]],
+	"casting": ["Zdjęcie z castingu", "Telefon Kuby", "Chłopak z numerem 14 na piersi, Teatr Nowy, czwartek 8:02.",
+		[["Kogo dotyczy", ["kuba", "jakub", "adamczyk", "jakub adamczyk", "kuba adamczyk"]]]],
+	"garnitur": ["Kwit na garnitur", "Portfel Kuby", "Garnitur oddany do skrzynki nocnej pralni, pełny podpis.",
+		[["Kogo dotyczy", ["kuba", "jakub", "adamczyk", "jakub adamczyk", "kuba adamczyk"]], ["Kiedy", ["czwartek 23:10", "czwartek 2310", "czw 23:10", "czw 2310"]]]],
+	"przelewy": ["Wydruki przelewów", "Szuflada Ani", "Przelewy co miesiąc, tytuł \"darowizna\", ostatni podwójny.",
+		[["Kto płaci", ["ania", "wrzos", "ania wrzos", "anna", "anna wrzos"]], ["Komu", ["wolski", "adam", "adam wolski"]]]],
 	"pendrive": ["Pendrive z sejfu", "Sejf Wolskiego", "Nagranie wypadku sprzed roku.",
 		[["Kto prowadził", ["ania", "wrzos", "ania wrzos", "anna", "anna wrzos"]], ["Kto nagrywał", ["wolski", "adam", "adam wolski"]]]],
 }
@@ -2305,8 +2674,9 @@ const PRZEDMIOTY := {
 	"nozyczki": ["Nożyczki krawieckie", "Ostre jak brzytwa. Irena by mnie za nie zabiła.", "fabularny", 0],  # kosz z przyborami w pracowni, sc. 11
 	"woreczek": ["Woreczek na dowody", "Strunowy woreczek z komendy. Bez niego laboratorium nic nie przyjmie.", "fabularny", 0],  # schowek w samochodzie, sc. 13
 	"paragon": ["Paragon z hurtowni", "Hurtownia tkanin \"Atlas\", czwartek 7:15. Na nazwisko Ireny.", "fabularny", 0],  # skrzynka z materiałami w pracowni, sc. 15
-	"grafik": ["Grafik dostaw", "Dostawy mleka do bufetu: tylko w czwartki.", "fabularny", 0],  # skrzynka na mleko przy bufecie, sc. 19
-	"spinka": ["Spinka do włosów", "Wygięta. Da się nią otworzyć prosty zamek.", "fabularny", 0],  # pudełko z charakteryzacją Ani, sc. 20
+	"grafik": ["Grafik dostaw", "\"Mleczarnia Łąka. Dostawy: CZWARTKI, 7:30\". Była w skrzynce po mleku pod drzwiami PERSONEL.", "fabularny", 0],  # skrzynka na mleko przy bufecie, sc. 19
+	"spinka": ["Spinka do włosów", "Wygięta. Da się nią otworzyć prosty zamek.", "fabularny", 0],
+	"zupa": ["Słoik zupy od Oli", "Rosół. Zimny, ale domowy.", "jedzenie", 20],  # pudełko z charakteryzacją Ani, sc. 20
 	"telefon_adriana": ["Telefon Adriana", "Pęknięta szybka, na etui naklejka z maską. Rozładowany i zablokowany PIN-em.", "fabularny", 0],  # pod manekinem w magazynie, sc. 6
 	"termos": ["Termos", "Termos Adriana w kratkę, na zakrętce wydrapane \"A.\". Resztka herbaty z cytryną.", "fabularny", 0],  # na sofie w magazynie, sc. 6
 	"kwit_odbioru": ["Kwit z pralni", "\"Pralnia Perła. Odbiór: kostium sceniczny, 1 szt. Nr 0412.\" Leżał pod popielniczką u Lisa.", "fabularny", 0],  # biurko Lisa, sc. 9

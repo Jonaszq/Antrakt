@@ -29,6 +29,13 @@ Nie trzeba niczego rozpakowywać ani podmieniać ręcznie.
 - Scena 15 (`sceny/scena15`): Irena w pracowni w środę. Papierosy ją uspokajają, telefon na korytarzu wyciąga ją z pracowni (wtedy klucze do szafy z belami), spis tkanin na regale, paragon w skrzynce pod stołem. Na tablicy podejrzanych jest teraz też Kuba.
 - Scena 16 (`sceny/scena16`, opcjonalna, wybór przy wyjściu ze sceny 15): gabinet Lisa pod jego nieobecność. Kluczyk za kalendarzem, polisa w szufladzie, telefon od wierzyciela, Lis wraca. Potwierdzenie z banku w teczkach dopiero, gdy Lis o nim powie.
 - Scena 17 (`sceny/scena17`, nowa mapa `mapy/mieszkanie_adriana` z klatką): klucz od Ani, ładowanie telefonu (ładowarka od Zenona albo od sąsiadki), PIN do odgadnięcia (3 złe próby = godzina straty), SMS z czwartku, sąsiadka, Kuba ucieka po schodach.
+- Retrospekcja 3 (`sceny/retrospekcje/retro3`): czwartek 22:10 u Adriana, potem ktoś czyta SMS. Wspólna baza retrospekcji z przymierzaniem: `sceny/retrospekcje/retro_baza.gd` (gracz wpisuje imię w czarną sylwetkę i obala je kartą z teczki, dane w `Dialogi.PRZYMIERZANIE`).
+- Scena 18 (`sceny/scena18`): garderoba Wolskiego w środę w nocy. Kroki, chowanie się za stojakiem, podsłuch (ruch = skrzypnięcie i wpadka), zeszyt, recepta, sejf (szyfr do odgadnięcia). Przyłapany: sejf w czwartek po południu.
+- Retrospekcja 4 (`retro4`, mapa placu): nocna droga sprzed roku, tylko gdy Antoni słyszał o nagraniu.
+- Scena 19 (`sceny/scena19`, foyer): Marta, skrzynki po mleku z grafikiem, bufetowa, Kuba (casting, kwit na garnitur).
+- Retrospekcja 5 (`retro5`, pracownia): czwartek 8:00, sylwetka przy kostiumie, potem wybór na czwartkowe popołudnie (`sceny/rozdzial4.gd`: garderoba Ani, sejf Wolskiego, obiad u Oli, dom).
+- Scena 20 (`sceny/scena20`, mapa garderoby): garderoba Ani w czwartek. Rękawiczki w koszu (UV), spinka, szuflada z przelewami, kartka od Adriana. Koniec rozdziału 4: `koniec4.tscn`.
+- "Wybierz scenę" w menu jest teraz podzielone na rozdziały.
 - Teczka dowodów i tablica podejrzanych pod F (`ui/teczka.gd`, karty w `Dialogi.KARTY`). Rozmowy jak przesłuchanie: `ScenaGry.przesluchanie()` (tematy i pokazywanie dowodów).
 - Ludzie w tle i odgłosy: postacie rysuje `tools/postacie_pixel.py`, dźwięki tła (gwar, dzwonek, telefon, flesz, oklaski, gramofon, auto) `tools/dzwieki_tla.py`, ujęcia auta i bramy `tools/jazda_pixel.py`.
 - Klawisze: WASD chodzenie, E rozmowa i przeszukiwanie, I ekwipunek, T notes (gracz pisze sam, Esc zamyka), Q telefon, Tab wybór postaci (Antoni albo Antoni z latarnią). Telefon, wybór postaci i dialogi działają też myszką (klik, w telefonie prawy klik cofa, kółko przewija).

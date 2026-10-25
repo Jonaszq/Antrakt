@@ -460,6 +460,36 @@ func wybor(opcje: Array) -> int:
 	return stan.nr
 
 
+## Okienko z polem tekstowym (PIN, szyfr, imię w retrospekcji). Zwraca wpisany tekst;
+## pusty Enter albo Esc = rezygnacja ("").
+func wpisz(opis: String, dlugosc := 20) -> String:
+	antoni.sterowanie = false
+	var tlo := ColorRect.new()
+	tlo.color = Color(0.05, 0.05, 0.07, 0.92)
+	tlo.position = Vector2(150, 90)
+	tlo.size = Vector2(180, 70)
+	ui.add_child(tlo)
+	var napis := etykieta(12, Color(0.85, 0.9, 0.85))
+	napis.text = opis
+	napis.position = Vector2(10, 6)
+	tlo.add_child(napis)
+	var pole := LineEdit.new()
+	pole.max_length = dlugosc
+	pole.position = Vector2(10, 30)
+	pole.size = Vector2(160, 30)
+	tlo.add_child(pole)
+	pole.grab_focus()
+	var wynik := {"tekst": null}
+	pole.text_submitted.connect(func(tekst: String) -> void: wynik.tekst = tekst.strip_edges())
+	while wynik.tekst == null:
+		if Input.is_key_pressed(KEY_ESCAPE):
+			wynik.tekst = ""
+		await get_tree().process_frame
+	tlo.queue_free()
+	antoni.sterowanie = true
+	return wynik.tekst
+
+
 ## Temat rozmowy, który zapamiętuje, że gracz o to zapytał (flaga dla Sledztwo).
 func temat(flaga: String, kwestie: Array) -> Callable:
 	return func() -> void:

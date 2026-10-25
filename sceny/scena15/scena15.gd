@@ -10,7 +10,6 @@ extends ScenaGry
 ## (opcjonalna sc. 16) albo od razu mieszkanie Adriana. Teksty w Dialogi.SCENA15.
 
 const NASTEPNA := "res://sceny/scena17/scena17.tscn"
-const GABINET := "res://sceny/scena16/scena16.tscn"
 const DRZWI := Rect2(26, 104, 52, 36)
 const MIEJSCE_IRENY := Vector2(132, 372)
 const PRZY_DRZWIACH := Vector2(52, 170)
@@ -26,6 +25,7 @@ var _klucze := false  # Antoni trzyma klucze Ireny
 func _ready() -> void:
 	przygotuj($Pracownia)
 	Telefon.godzina = "9:00"
+	Gra.flagi["dni_do_pogrzebu"] = 2
 	Notatnik.wlacz()
 	var t: Dictionary = Dialogi.SCENA15
 	antoni.position = Vector2(52, 156)
@@ -219,8 +219,7 @@ func _paragon() -> void:
 	Gra.flagi["s15_alibi"] = true
 
 
-## Wyjście: opcjonalnie gabinet Lisa (sc. 16), inaczej prosto do mieszkania Adriana.
+## Wyjście: opcjonalnie gabinet Lisa (sc. 16) i obiad u Oli, potem mieszkanie Adriana.
 func przejdz(scena: String) -> void:
 	antoni.sterowanie = false
-	var w := await wybor(Dialogi.SCENA15_DOKAD)
-	super.przejdz(GABINET if w == 0 else scena)
+	super.przejdz(await Rozdzial4.sroda(self, false))
