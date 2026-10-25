@@ -40,7 +40,7 @@ FONT = {
     "P": ["110", "101", "110", "100", "100"], "R": ["110", "101", "110", "101", "101"],
     "S": ["011", "100", "010", "001", "110"], "T": ["111", "010", "010", "010", "010"],
     "U": ["101", "101", "101", "101", "111"], "W": ["101", "101", "111", "111", "101"],
-    "Y": ["101", "101", "010", "010", "010"], "Z": ["111", "001", "010", "100", "111"],
+    "Y": ["101", "101", "010", "010", "010"], "X": ["101", "101", "010", "101", "101"], "Z": ["111", "001", "010", "100", "111"],
     "Ś": ["011", "100", "010", "001", "110"], "Ł": ["100", "110", "100", "100", "111"],
     " ": ["000"] * 5,
 }
@@ -1249,7 +1249,110 @@ def budka():
                    strefy=((SC, 0, W, H, "mokry"),))
 
 
-MAPY = {"foyer": foyer, "kulisy": kulisy, "widownia": widownia, "garderoba": garderoba, "magazyn": magazyn, "budka": budka}
+def auto_bok(nadwozie, napis_dach=None, kogut=False):
+    """Samochód z boku pod skosem (ok. 104x48): nadwozie, szyby, koła, opcjonalnie
+    podświetlany napis na dachu (taksówka) albo kogut (radiowóz)."""
+    img = nowy(104, 50)
+    d = ImageDraw.Draw(img)
+    c0, c1, c2, c3 = nadwozie
+    d.polygon([(4, 24), (22, 22), (34, 10), (72, 10), (86, 22), (100, 26), (100, 40), (4, 40)], fill=c1, outline=O)
+    prost(d, 5, 26, 94, 4, c2)
+    prost(d, 5, 34, 94, 6, c0)
+    d.polygon([(26, 22), (37, 12), (52, 12), (52, 22)], fill=(30, 40, 60))
+    d.polygon([(55, 22), (55, 12), (70, 12), (80, 22)], fill=(30, 40, 60))
+    d.line([(38, 13), (44, 13)], fill=(80, 100, 130))
+    prost(d, 96, 27, 4, 3, (255, 230, 150))  # przedni reflektor
+    prost(d, 4, 27, 3, 3, (180, 30, 30))      # tylne światło
+    for kx in (14, 74):
+        d.ellipse((kx, 33, kx + 16, 49), fill=(14, 14, 16), outline=O)
+        d.ellipse((kx + 5, 38, kx + 11, 44), fill=METAL[2])
+    prost(d, 52, 24, 2, 1, c3)  # klamki
+    prost(d, 84, 24, 2, 1, c3)
+    if napis_dach:
+        prost(d, 42, 3, 22, 8, (240, 200, 60))
+        obrys(d, 42, 3, 22, 8)
+        napis(d, 45, 5, napis_dach, O)
+    if kogut:
+        prost(d, 46, 5, 6, 5, (60, 90, 220))
+        prost(d, 52, 5, 6, 5, (220, 40, 40))
+        obrys(d, 46, 5, 12, 5)
+    return img
+
+
+def latarnia_uliczna():
+    img = nowy(24, 130)
+    d = ImageDraw.Draw(img)
+    prost(d, 10, 10, 4, 118, (36, 36, 42))
+    prost(d, 8, 124, 8, 6, (28, 28, 34))
+    prost(d, 4, 4, 16, 8, (50, 50, 56))
+    prost(d, 6, 11, 12, 3, (255, 230, 160))
+    return img
+
+
+def plac():
+    mp.SZER, mp.WYS, mp.PODLOGA_Y = 800, 450, 110
+    mp.los = random.Random(81)
+    m = mp.Mapa()
+    d = m.d
+    W, H, PY = mp.SZER, mp.WYS, mp.PODLOGA_Y
+    S = mp.SCIANA
+    prost(d, 0, 0, W, H, O)
+    # mokry asfalt z kałużami, w których odbija się latarnia
+    prost(d, 0, PY, W, H - PY, ASFALT_B[1])
+    for y in range(PY, H, 4):
+        for _ in range(6):
+            prost(d, mp.los.randint(0, W), y, mp.los.randint(4, 14), 1, ASFALT_B[2])
+    for kx, ky, kr in ((300, 250, 40), (470, 380, 30), (130, 220, 26), (640, 250, 34), (560, 420, 22)):
+        d.ellipse((kx - kr, ky - kr // 3, kx + kr, ky + kr // 3), fill=(24, 30, 48))
+        d.ellipse((kx - kr // 2, ky - kr // 8, kx + kr // 3, ky + kr // 10), fill=(44, 52, 76))
+    # pasy parkingowe i krawężnik ulicy na dole
+    for x in range(40, W - 40, 120):
+        prost(d, x, 320, 3, 50, (70, 70, 80))
+    prost(d, 0, H - 40, W, 4, KAMIEN[1])
+    prost(d, 0, H - 36, W, 36 - S, (12, 12, 18))
+    # fasada magazynu (blacha falista) z zaplombowaną bramą
+    prost(d, 0, 0, 540, PY, BLACHA[1])
+    for x in range(0, 540, 6):
+        prost(d, x, 0, 2, PY, BLACHA[2])
+        prost(d, x + 2, 0, 1, PY, BLACHA[0])
+    prost(d, 0, PY - 4, 540, 4, BLACHA[0])
+    szyld(d, 300, 12, "MAGAZYN DEKORACJI TM", tlo=[BLACHA[0], BLACHA[0]], kolor=PAPIER[1])
+    prost(d, 200, 28, 90, PY - 28, (16, 18, 22))
+    obrys(d, 200, 28, 90, PY - 28, METAL[2])
+    prost(d, 244, 28, 2, PY - 28, METAL[2])
+    d.line([(204, 60), (286, 90)], fill=(220, 200, 40), width=2)  # taśma policyjna
+    d.line([(204, 90), (286, 60)], fill=(220, 200, 40), width=2)
+    m.kolizje.append((0, 0, 540, PY))
+    # budka stróża od frontu: oświetlone okno i drzwi
+    prost(d, 540, 0, W - 540, PY, FARBA[1])
+    prost(d, 540, 0, W - 540, 10, FARBA[0])
+    prost(d, 560, 36, 60, 40, (240, 210, 140))
+    obrys(d, 560, 36, 60, 40, DREWNO[1])
+    prost(d, 589, 36, 2, 40, DREWNO[1])
+    prost(d, 650, 40, 30, PY - 40, DREWNO[1])
+    obrys(d, 650, 40, 30, PY - 40)
+    prost(d, 674, 74, 3, 3, ZLOTO[2])
+    m.swiatla.append((590, 90, 0.8))
+    m.kolizje.append((540, 0, W, PY))
+    m.obiekt("kiosk", kiosk_paczki(), 700, PY - 60, 20)
+    m.swiatla.append((745, PY + 10, 0.6))
+    # latarnia uliczna na środku placu (miga, skrypt sceny steruje światłem S3)
+    m.obiekt("latarnia", latarnia_uliczna(), 408, 160, 6)
+    m.swiatla.append((420, 190, 1.0))
+    # samochody: radiowóz Nowickiego, taksówka (podjeżdża w scenie), auto Antoniego
+    m.obiekt("radiowoz", auto_bok([(150, 160, 170), (210, 216, 222), (40, 70, 160), (250, 250, 250)], kogut=True), 80, 300, 16)
+    m.obiekt("auto_antoniego", auto_bok([(30, 34, 50), (50, 56, 80), (70, 78, 106), (140, 150, 170)]), 640, 330, 16)
+    # taksówka podjeżdża w trakcie sceny, więc jest osobnym rekwizytem
+    auto_bok([(150, 120, 30), (220, 180, 50), (240, 210, 90), (60, 40, 10)], napis_dach="TAXI").save("rekwizyty/taksowka.png")
+    # krawędzie
+    prost(d, 0, 0, S, H, BLACHA[2])
+    prost(d, W - S, 0, S, H, BLACHA[2])
+    obrys(d, 0, 0, W, H)
+    return m, dict(korzen="Plac", start=(260, 200), postacie=(), mrok=(0.38, 0.38, 0.5), podloze="mokry",
+                   strefy=((0, PY, W, H, "mokry"),))
+
+
+MAPY = {"foyer": foyer, "kulisy": kulisy, "widownia": widownia, "garderoba": garderoba, "magazyn": magazyn, "budka": budka, "plac": plac}
 
 
 def main(folder_podgladu=None):

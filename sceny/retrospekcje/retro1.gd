@@ -7,7 +7,7 @@ extends ScenaGry
 ## Wyjście po wodę, jeśli pytał sprzedawcę; termos i kielich, jeśli je znalazł.
 ## Adrian chodzi alejkami (ScenaGry.idz). Nikogo więcej tu nie ma. Teksty w Dialogi.RETRO1.
 
-const NASTEPNA := "res://menu/menu.tscn"  # scena 8 jeszcze nie zrobiona
+const NASTEPNA := "res://sceny/scena8/scena8.tscn"
 
 var _adrian: Node2D
 var _kamera: Camera2D
@@ -148,19 +148,3 @@ func _drapie() -> void:
 
 func _postoj(czas: float) -> void:
 	await get_tree().create_timer(czas).timeout
-
-
-## Scena 8 jeszcze nie istnieje: plansza i powrót do menu.
-func przejdz(scena: String) -> void:
-	koniec = true
-	var tw := create_tween()
-	tw.tween_property(_zaslona, "color:a", 1.0, 1.0)
-	await tw.finished
-	var napis := etykieta(12, Color8(170, 160, 140))
-	napis.text = Dialogi.RETRO1["dalej"]
-	napis.position = Vector2(0, 124)
-	napis.size = Vector2(480, 20)
-	napis.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	ui.add_child(napis)
-	await get_tree().create_timer(3.0).timeout
-	get_tree().change_scene_to_file(scena)

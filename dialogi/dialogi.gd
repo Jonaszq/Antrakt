@@ -938,6 +938,123 @@ const SCENA7_TLO := {
 	"sprzedawca": ["(ziewa)", "Pączki, pączki...", "(liczy drobne)"],
 }
 
+# Scena 8: plac przed magazynem, 1:10. Przyjeżdża taksówka z Anią i Wolskim.
+const SCENA8 := {
+	"start": [["", "Mżawka. Pod latarnią Nowicki pisze coś w notesie, oparty o radiowóz."]],
+	"taksowka": "Na plac wjeżdża taksówka.",
+	"ania_start": [
+		["Ania", "Gdzie on jest? Chcę go zobaczyć."],
+		["Antoni", "Karetka już go zabrała."],
+		["Ania", "(cicho) Czy on... bardzo cierpiał?"],
+		["Antoni", "Nie wiem."],
+	],
+	"ania_kiedy": [
+		["Antoni", "Kiedy ostatnio rozmawiała pani z Adrianem?"],
+		["Ania", "W czwartek rano. Potem już się nie odzywał."],
+	],
+	"ania_magazyn": [
+		["Antoni", "Wiedziała pani, że pojechał do magazynu?"],
+		["Ania", "Nie. Wiedziałam, że Lis go gdzieś wysłał. Nie pytałam gdzie."],
+	],
+	"ania_jak": [
+		["Antoni", "Jak się pani trzyma?"],
+		["Ania", "Nie wiem. Jakby to się działo komuś innemu."],
+	],
+	"ania_nic": [["Ania", "(kręci głową) Nie wiem. Nie wiem, co to jest."]],
+	"ania_koniec": [["Ania", "Przepraszam. Nie mogę teraz."]],
+	"wolski_start": [
+		["Wolski", "Panie Antoni. Dobrze, że pan tu był. I pan Zenon też."],
+		["Wolski", "Proszę, herbata z termosu. Gorąca, z sokiem malinowym. Niech pan pije, zimno jak w psiarni."],
+		["", "Antoni pije. Herbata parzy w gardło i rozgrzewa. (+10 sił)"],
+		["Wolski", "Pan jest dobrym człowiekiem. Teatr ma u pana dług."],
+	],
+	"wolski_tu": [
+		["Antoni", "Skąd pan wiedział, co się stało?"],
+		["Wolski", "Ania zadzwoniła. Nie mogłem jej puścić samej, w nocy, w takim stanie."],
+	],
+	"wolski_adrian": [
+		["Antoni", "Dobrze pan znał Adriana?"],
+		["Wolski", "To był mój dubler. Zdolny chłopak, za skromny na ten zawód."],
+		["Wolski", "Przez cały tydzień grał za mnie. Mówią, że dobrze. Ja leżałem z gorączką."],
+	],
+	"wolski_ania": [
+		["Antoni", "Co teraz z Anią?"],
+		["Wolski", "Ania, chodź. (do Antoniego) Zajmę się wszystkim, pogrzeb, papiery. Ona musi odpocząć."],
+	],
+	"wolski_nic": [["Wolski", "Panie Antoni, to sprawa dla policji. Niech pan odpocznie."]],
+	"wolski_koniec": [["Wolski", "Jeszcze raz dziękuję. Za wszystko."]],
+	"taksowkarz_start": [["Taksówkarz", "(stuka w licznik) Ja nic, panie, ja tylko czekam. Licznik bije."]],
+	"taksowkarz_skad": [
+		["Antoni", "Skąd ich pan wiózł?"],
+		["Taksówkarz", "Z Mokotowa, spod bloku tej pani. Zamówili na wpół do pierwszej."],
+		["Taksówkarz", "Śmieszna rzecz, tego pana wiozłem pod ten sam blok już wcześniej. Koło wpół do dwunastej, spod teatru."],
+	],
+	"taksowkarz_czeka": [
+		["Antoni", "Długo pan będzie czekał?"],
+		["Taksówkarz", "Ile trzeba. Pan aktor płaci, pan aktor wymaga."],
+	],
+	"taksowkarz_nic": [["Taksówkarz", "Panie, ja wożę ludzi, nie zagadki."]],
+	"taksowkarz_koniec": [["Taksówkarz", "Jakby co, stoję tu."]],
+	"gniazdko": [
+		["Antoni", "Ma pan w aucie gniazdko? Telefon jest rozładowany."],
+		["Taksówkarz", "Mam, w zapalniczce. Niech pan podepnie, byle szybko."],
+		["", "Antoni podpina telefon Adriana. Po chwili ekran się zapala."],
+		["", "Blokada PIN. Na górze ekranu: \"1 nowa wiadomość\". Nadawcy nie widać."],
+		["", "Bez kodu nic więcej się nie da."],
+	],
+	"gniazdko_bez": [
+		["Antoni", "Ma pan ładowarkę do telefonu?"],
+		["Taksówkarz", "Gniazdko mam, kabla nie mam. Kto dziś woził ze sobą kable."],
+	],
+	"gniazdko_potem": [["", "Telefon ma trochę baterii. Blokada PIN, \"1 nowa wiadomość\"."]],
+	"nowicki": [["Nowicki", "Antek, spiszę ich i jadę. Ty też jedź do domu, jutro też jest dzień."]],
+	"nowicki_jedziemy": [
+		["Nowicki", "Państwo pozwolą. Imię, nazwisko, adres. Formalność."],
+		["", "Nowicki spisuje Anię i Wolskiego. Wolski dyktuje za Anię."],
+		["Nowicki", "To wszystko. Dobranoc państwu."],
+	],
+	"brama": [["", "Brama magazynu zaklejona taśmą. Na kłódce świeża plomba."]],
+	"radiowoz": [["", "Na siedzeniu radiowozu leży otwarty notes Nowickiego."], ["", "\"Dubler z teatru. Przyczyna: serce? (lekarz). Zgłosił: stróż.\""]],
+	"kaluza": [["", "W kałuży odbija się latarnia. Miga, jakby zaraz miała zgasnąć."]],
+	"latarnia": [["", "Latarnia brzęczy i mruga. Ktoś przykleił do niej ogłoszenie: \"Zaginął kot, rudy\"."]],
+	"kiosk": [["", "Okienko z pączkami zamknięte na noc. Kartka: \"Zaraz wracam\"."]],
+	"auto": [["", "Twoje auto. Nowicki jeszcze tu jest, wypada się pożegnać."]],
+	"auto_jedz": [["Antoni", "Na dziś wystarczy."]],
+}
+
+const SCENA8_WYBOR := ["Możemy kończyć", "Jeszcze chwilę"]
+
+const SCENA8_DOWODY := {
+	"ania": {
+		"telefon_adriana": [["", "Ania odwraca wzrok."], ["Ania", "Schowaj to. Proszę."]],
+		"zdjecie_pasy": [["", "Ania zakrywa usta dłonią."], ["Ania", "Nie chcę tego oglądać."]],
+		"kielich": [["Ania", "Z drugiego aktu. On je zawsze polerował przed spektaklem."]],
+		"termos": [["Ania", "To jego. Herbata z cytryną. Zawsze z cytryną."]],
+		"lista_rekwizytow": [["", "Ania czyta dopisek na dole. Kartka drży jej w palcach."], ["Ania", "To jego pismo."]],
+	},
+	"wolski": {
+		"telefon_adriana": [["Wolski", "Jego telefon? Niech mi pan go da, przekażę rodzinie. Po co ma pan się z tym nosić."]],
+		"zdjecie_pasy": [["Wolski", "Biedak. Pewnie od kurzu w tym magazynie, tam nikt nie sprząta od lat."]],
+		"kielich": [["Wolski", "Rekwizyty. Niech pan to zostawi, Lis się zajmie."]],
+		"termos": [["Wolski", "Ma pan dobre oko. Ja swój noszę od dwudziestu lat."]],
+	},
+	"taksowkarz": {},
+}
+
+const SCENA8_TLO := {
+	"zenon": ["Panie Antoni, może parasol?", "(kaszle)", "Taki młody chłopak..."],
+	"nowicki": ["(pisze w notesie)", "Cholerna mżawka..."],
+	"ania": ["(płacze cicho)", "Adrian..."],
+	"wolski": ["Już, już, Aniu.", "(obejmuje Anię)"],
+	"taksowkarz": ["(stuka w licznik)", "(ziewa)"],
+}
+
+const SCENA8_NAPISY := {
+	"koniec": "Koniec rozdziału 2",
+	"godzina": "Antoni wraca do domu o drugiej w nocy.",
+	"dalej": "Rozdział 3: Plama. Już wkrótce.",
+}
+
 # Retrospekcja 1 (po scenie 7): piątek w magazynie, tak jak to sobie wyobraża Antoni.
 const RETRO1 := {
 	"tytul": "Piątek, 21:00. Tak mogło być.",
@@ -950,7 +1067,6 @@ const RETRO1 := {
 	"kielich_upada": "Zostaw... potem...",
 	"siada": "Tylko chwilę posiedzę.",
 	"koniec": "Tak mogło być. Na pewno?",
-	"dalej": "Scena 8: Ania i Wolski. Już wkrótce.",
 }
 
 
