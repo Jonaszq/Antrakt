@@ -2,7 +2,7 @@ extends ScenaGry
 ## Scena 3: widownia, sobota 19:00 do 21:30. Przerywniki filmowe, gracz tylko ogląda
 ## i klika dalej. Ta sama scena gra oba akty (zmienna akt):
 ##  akt 1 (scena3.tscn): Antoni siada, gasną światła, Wolski gra znakomicie,
-##    Ania myli kwestię i zamiera, patrząc na kostium Wolskiego (najazd kamery).
+##    Ania gra pewnie, tylko raz szuka kogoś wzrokiem za kulisami.
 ##    Potem antrakt w foyer (antrakt.tscn).
 ##  akt 2 (scena3_akt2.tscn): finał z nożem, oklaski, potem bankiet (scena 4).
 ## Teksty w Dialogi.SCENA3.
@@ -82,17 +82,12 @@ func _akt_pierwszy() -> void:
 	await _napis(Dialogi.SCENA3_NAPISY["akt1"])
 	przesun(_wolski, Vector2(470, 146), 2.0)
 	await dialog.pokaz(Dialogi.SCENA3["akt1"])
-	# wchodzi Ania i zamiera, patrząc na kostium Wolskiego
+	# wchodzi Ania, gra pewnie, tylko raz zerka w stronę kulis
 	var wejscie := create_tween().set_parallel()
 	wejscie.tween_property(_ania, "modulate:a", 1.0, 0.6)
 	wejscie.tween_property(_ania, "position", Vector2(530, 150), 1.6)
 	await wejscie.finished
 	await dialog.pokaz(Dialogi.SCENA3["akt1_ania"])
-	await _najazd(_ania.position + Vector2(0, -44), 3.0, 1.2)
-	await get_tree().create_timer(0.8).timeout
-	await _najazd(_wolski.position + Vector2(0, -34), 4.0, 1.4)
-	await get_tree().create_timer(1.4).timeout
-	await _najazd(SRODEK_SCENY, 2.0, 1.0)
 	await dialog.pokaz(Dialogi.SCENA3["akt1_ratunek"])
 
 	# antrakt: światła wracają, ludzie idą do bufetu

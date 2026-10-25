@@ -3,7 +3,7 @@ extends ScenaGry
 ## sobie wyobraża Antoni. Pokazuje tylko to, co gracz ustalił; kogo nie zna, ten jest
 ## czarną sylwetką. Irena tylko, jeśli z nią rozmawiał (s11_*), "piecze" i jej
 ## odpowiedź tylko po zeznaniu o podszewce, dłoń na ramieniu po zdjęciu z próby
-## (s11_foto), a Ania zamiast sylwetki dopiero po pytaniu o pierścionek (s12_pierscionek).
+## (s11_foto); kto to był, na razie nie wiadomo, więc to zawsze czarna sylwetka.
 ## Na koniec SMS 22:10 (sprawdzona karta "sms") i skrzynka nocna 23:40 (książka przyjęć
 ## albo karta "kwit"). Teksty w Dialogi.RETRO2.
 
@@ -63,18 +63,13 @@ func _ready() -> void:
 	await idz(_adrian, [Vector2(330, 320), Vector2(450, 330)], 24.0)
 	if f.get("s11_foto", false):
 		# ktoś staje obok i kładzie mu dłoń na ramieniu; fotograf robi zdjęcie
-		var zna_anie: bool = f.get("s12_pierscionek", false)
 		var obok := postac("ania", Vector2(330, 330))
-		if not zna_anie:
-			obok.modulate = SYLWETKA
-		var fotograf := postac("fotograf", Vector2(520, 400))
+		obok.modulate = SYLWETKA
+		postac("fotograf", Vector2(520, 400))
 		await idz(obok, [Vector2(472, 330)], 34.0)
 		await dymek(obok, r["dlon"], 2.5)
-		if zna_anie:
-			await dymek(obok, r["ania"], 2.5)
 		await get_tree().create_timer(0.6).timeout
 		await blysk()
-		fotograf.visible = true
 	await _drapie()
 	await idz(_adrian, [Vector2(600, 320), Vector2(720, 300)], 22.0)
 	await get_tree().create_timer(1.0).timeout

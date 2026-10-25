@@ -45,7 +45,7 @@ func _ready() -> void:
 	_bufet()
 	skrzynka(Vector2(600, 126), "apteczka_s9", ["rekawiczki"], "apteczka", 46.0)
 	ustaw_wyjscie(PERSONEL, "Do gabinetu dyrektora", GABINET)
-	if Ekwipunek.ma("kwit_odbioru") or f.get("s9_kwit_ania", false):
+	if Ekwipunek.ma("kwit_odbioru") or f.get("s9_kwit_kuba", false):
 		ustaw_wyjscie(WYJSCIE, "Do pralni", NASTEPNA)
 	else:
 		zamkniete_drzwi(WYJSCIE, t["wyjscie_bez_kwitu"][0][1])

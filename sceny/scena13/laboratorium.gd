@@ -100,7 +100,7 @@ func przejdz(_scena: String) -> void:
 	dzwiek("telefon.wav", -6.0)
 	await get_tree().create_timer(1.5).timeout
 	await rozmowa(t["telefon"])
-	if Gra.flagi.get("s9_kwit_ania", false) or Gra.flagi.get("s12_ania_zabrala", false):
+	if Gra.flagi.get("s9_kwit_kuba", false):
 		await rozmowa(t["telefon_slabszy"])
 	Gra.flagi["s13_wynik"] = true
 	Telefon.polaczenia.push_front(["Laboratorium", "przychodzące", "wt 19:20, 3 min"])

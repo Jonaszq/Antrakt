@@ -597,6 +597,17 @@ def nozyczki_stol():
     return img
 
 
+def torba_sportowa():
+    """Sportowa torba statysty (Kuba) z naszywką J.A. i wystającą rękojeścią noża."""
+    img = nowy(24, 14); d = ImageDraw.Draw(img)
+    d.rounded_rectangle((1, 4, 22, 13), radius=3, fill=(40, 60, 110), outline=O)
+    d.arc((7, 0, 16, 8), 180, 360, fill=O)
+    prost(d, 3, 8, 18, 1, (230, 230, 230))
+    prost(d, 9, 9, 5, 3, (220, 200, 90))
+    prost(d, 18, 2, 2, 4, DREWNO[1])
+    return img
+
+
 def opaski_stos():
     """Stosik uszytych czarnych opasek przy maszynie."""
     img = nowy(14, 7); d = ImageDraw.Draw(img)
@@ -611,7 +622,8 @@ REKWIZYTY = {"stojak_programy": stojak_programy, "bezpieczniki": bezpieczniki, "
              "szczur": szczur, "telefon_podloga": telefon_podloga,
              "kielich_podloga": kielich_podloga, "zdjecie_zalobne": zdjecie_zalobne,
              "wstazka_czarna": wstazka_czarna, "kostium_folia": kostium_folia,
-             "nozyczki_stol": nozyczki_stol, "opaski_stos": opaski_stos}
+             "nozyczki_stol": nozyczki_stol, "opaski_stos": opaski_stos,
+             "torba_sportowa": torba_sportowa}
 
 
 def main():

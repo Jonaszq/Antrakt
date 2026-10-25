@@ -4,7 +4,7 @@ extends ScenaGry
 ## uspokaja (pierwsze wrażenie: ciepły, zabawny). Zaraz potem inspicjentka Marta
 ## łapie Antoniego: zginął rekwizytowy nóż z finału. Antoni szuka na stole
 ## z rekwizytami i w skrzyniach, w skrzynce z bezpiecznikami znajduje zapasowy klucz
-## do garderób, a nóż leży w garderobie Ani (osobna scena, garderoba.tscn).
+## do garderób, a nóż leży w torbie Kuby w garderobie (osobna scena, garderoba.tscn).
 ## Po oddaniu noża drzwi "WIDOWNIA" prowadzą do sceny 3. W tle maszyniści,
 ## garderobiana z żelazkiem, aktorzy rozgrzewają głos, głośnik odlicza czas.
 ## Stan zadania trzyma Gra.flagi, bo wyjście do garderoby przeładowuje scenę.

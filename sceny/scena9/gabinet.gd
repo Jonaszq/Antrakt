@@ -1,14 +1,17 @@
 extends ScenaGry
 ## Scena 9, gabinet Lisa. Lis prosi o odebranie kostiumu z pralni, ale kwitu nie podaje:
 ## gracz szuka go sam na zawalonym biurku (leży pod popielniczką). Gdy Antoni ma kwit,
-## wchodzi Ania i chce iść sama; Lis się nie zgadza. Ania zostaje na kanapie i można
-## ją przesłuchać. Gracz może oddać Ani kwit (Sledztwo: kostium odbierze ona). Dolne drzwi wracają do foyer (scena9.tscn czyta Gra.flagi).
+## wchodzi Kuba (nowy dubler, mieszka obok pralni) i chce sam odebrać kostium; Lis się
+## nie zgadza. Ania siedzi na kanapie od początku. Gracz może oddać Kubie kwit
+## (s9_kwit_kuba: kostium odbierze on, mokry). Dolne drzwi wracają do foyer (scena9.tscn czyta Gra.flagi).
 
+const KUBA := Vector2(440, 270)
 const FOYER := "res://sceny/scena9/scena9.tscn"
 const DRZWI := Rect2(288, 318, 64, 42)
 
 var _lis: Node2D
 var _ania: Node2D
+var _kuba: Node2D
 
 
 func _ready() -> void:
@@ -31,12 +34,11 @@ func _ready() -> void:
 	miejsce(Vector2(525, 110), "Kalendarz", t["kalendarz_lisa"], 50.0)
 	miejsce(Vector2(325, 110), "Okno", t["okno_lisa"], 50.0)
 	miejsce(Vector2(595, 130), "Regał", t["regal_lisa"], 60.0)
-	if f.get("s9_kwit_ania", false):
-		miejsce(Vector2(82, 262), "Kanapa", t["kanapa_lisa"])  # Ania pojechała z kwitem
-	elif f.get("s9_ania", false):
-		_posadz_anie()
-	else:
-		miejsce(Vector2(82, 262), "Kanapa", t["kanapa_lisa"])
+	# Ania siedzi na kanapie Lisa od początku, Kuba wchodzi dopiero po znalezieniu kwitu
+	_posadz_anie()
+	if f.get("s9_kuba", false) and not f.get("s9_kwit_kuba", false):
+		_kuba = postac("gosc_student", KUBA)
+		dodaj_rozmowce(_kuba, _rozmowa_z_kuba)
 	ustaw_wyjscie(DRZWI, "Do foyer", FOYER)
 	Gra.flagi["s9_z_gabinetu"] = true
 	await rozjasnij()
@@ -62,8 +64,8 @@ func _rozmowa_z_lisem() -> void:
 		["Kiedy pogrzeb?", t["lis_pogrzeb"]],
 	]
 	var koniec_rozmowy: Array = t["lis_koniec"]
-	if Gra.flagi.get("s9_kwit_ania", false):
-		koniec_rozmowy = t["lis_kwit_ania"]
+	if Gra.flagi.get("s9_kwit_kuba", false):
+		koniec_rozmowy = t["lis_kwit_kuba"]
 	elif Ekwipunek.ma("kwit_odbioru"):
 		koniec_rozmowy = t["lis_po_kwicie"]
 	await przesluchanie(tematy, Dialogi.SCENA9_DOWODY["lis"], t["lis_nic"], koniec_rozmowy)
@@ -72,60 +74,71 @@ func _rozmowa_z_lisem() -> void:
 ## Kwit leży pod popielniczką. Po jego znalezieniu wchodzi Ania.
 func _popielniczka() -> void:
 	var t: Dictionary = Dialogi.SCENA9
-	if Ekwipunek.ma("kwit_odbioru") or Gra.flagi.get("s9_kwit_ania", false):
+	if Ekwipunek.ma("kwit_odbioru") or Gra.flagi.get("s9_kwit_kuba", false):
 		await rozmowa(t["popielniczka_potem"])
 		return
 	await rozmowa(t["popielniczka"])
 	Ekwipunek.dodaj("kwit_odbioru")
-	await _ania_wchodzi()
+	await _kuba_wchodzi()
 
 
-func _ania_wchodzi() -> void:
+## Po znalezieniu kwitu wchodzi Kuba: idzie do Ireny do miary na nowego dublera
+## i sam zgłasza się po kostium (mieszka obok pralni).
+func _kuba_wchodzi() -> void:
 	antoni.sterowanie = false
-	Gra.flagi["s9_ania"] = true
-	_ania = postac("ania", Vector2(320, 370))
-	await idz(_ania, [Vector2(320, 270)], 34.0)
-	zwroc_sie(_ania)
-	await rozmowa(Dialogi.SCENA9["ania_wchodzi"])
-	antoni.sterowanie = false
-	await idz(_ania, [Vector2(200, 290), Vector2(96, 276)], 30.0)
+	Gra.flagi["s9_kuba"] = true
+	_kuba = postac("gosc_student", Vector2(320, 370))
+	await idz(_kuba, [KUBA], 34.0)
+	zwroc_sie(_kuba)
+	await rozmowa(Dialogi.SCENA9["kuba_wchodzi"])
+	Gra.flagi["s9_kuba_prosil"] = true
 	antoni.sterowanie = true
-	dodaj_rozmowce(_ania, _rozmowa_z_ania)
-	gada_w_tle(_ania, [Dialogi.SCENA9["ania_kanapa"][0][1]], 15.0)
+	dodaj_rozmowce(_kuba, _rozmowa_z_kuba)
 
 
 func _posadz_anie() -> void:
+	Gra.flagi["s9_ania"] = true
 	_ania = postac("ania", Vector2(96, 276))
 	dodaj_rozmowce(_ania, _rozmowa_z_ania)
+	gada_w_tle(_ania, [Dialogi.SCENA9["ania_kanapa"][0][1]], 15.0)
 
 
 func _rozmowa_z_ania() -> void:
 	var t: Dictionary = Dialogi.SCENA9
 	var tematy := [
-		["Czemu chce pani jechać sama?", temat("s9_ania_prosila", t["ania_czemu"])],
 		["Adrian mówił coś o kostiumie?", temat("s9_ania_kostium", t["ania_kostium"])],
 		["Gdzie pani była w piątek wieczorem?", t["ania_piatek"]],
+		["Jak się pani trzyma?", t["ania_jak"]],
 	]
-	var dowody: Dictionary = Dialogi.SCENA9_DOWODY["ania"].duplicate()
-	dowody["kwit_odbioru"] = _ania_chce_kwit
-	await przesluchanie(tematy, dowody, t["ania_nic"], t["ania_koniec"])
+	await przesluchanie(tematy, Dialogi.SCENA9_DOWODY["ania"], t["ania_nic"], t["ania_koniec"])
 
 
-## Ania prosi o kwit. Oddany: Ania odbierze kostium pierwsza (plama zniknie, rozdz. 3).
-## Zwraca true, gdy Ania wychodzi, żeby przesłuchanie się skończyło.
-func _ania_chce_kwit() -> bool:
+func _rozmowa_z_kuba() -> void:
 	var t: Dictionary = Dialogi.SCENA9
-	Gra.flagi["s9_ania_prosila"] = true
-	await rozmowa(t["ania_kwit"])
+	var tematy := [
+		["Jesteś nowym dublerem?", temat("s9_kuba_dubler", t["kuba_dubler"])],
+		["Gdzie byłeś w czwartek rano?", temat("s9_kuba_czwartek", t["kuba_czwartek"])],
+		["Mieszkasz obok pralni?", t["kuba_pralnia"]],
+	]
+	var dowody: Dictionary = Dialogi.SCENA9_DOWODY["kuba"].duplicate()
+	dowody["kwit_odbioru"] = _kuba_chce_kwit
+	await przesluchanie(tematy, dowody, t["kuba_nic"], t["kuba_koniec"])
+
+
+## Kuba prosi o kwit. Oddany: Kuba odbierze kostium mokry (plama zblednie, rozdz. 3).
+## Zwraca true, gdy Kuba wychodzi, żeby przesłuchanie się skończyło.
+func _kuba_chce_kwit() -> bool:
+	var t: Dictionary = Dialogi.SCENA9
+	await rozmowa(t["kuba_kwit"])
 	var w := await wybor(Dialogi.SCENA9_KWIT_WYBOR)
 	if w != 0:
-		await rozmowa(t["ania_kwit_nie"])
+		await rozmowa(t["kuba_kwit_nie"])
 		return false
-	await rozmowa(t["ania_kwit_dal"])
+	await rozmowa(t["kuba_kwit_dal"])
 	Ekwipunek.usun("kwit_odbioru")
-	Gra.flagi["s9_kwit_ania"] = true
+	Gra.flagi["s9_kwit_kuba"] = true
 	antoni.sterowanie = false
-	await idz(_ania, [Vector2(200, 300), Vector2(320, 380)], 40.0)
-	_ania.queue_free()
+	await idz(_kuba, [Vector2(320, 380)], 40.0)
+	_kuba.queue_free()
 	antoni.sterowanie = true
 	return true

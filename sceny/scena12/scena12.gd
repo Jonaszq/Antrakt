@@ -3,9 +3,10 @@ extends ScenaGry
 ## poparzone dłonie. Lampa UV leży w szafce pod ladą i da się ją wziąć tylko, gdy
 ## Halina obsługuje klienta albo odbiera paczkę od kuriera (nikt tego nie podpowiada).
 ## Podszewkę można odchylić: bez rękawiczek ze sceny 9 Antoni traci siły (s12_dotknal).
-## Po UV albo przy próbie wyjścia wchodzi Ania i trzeba wybrać: kostium zostaje u Haliny
-## (s12_halina) albo jedzie z Anią do centrum (s12_ania_zabrala: pół dnia straty,
-## plama bledsza). Gdy w sc. 9 oddał kwit Ani, Ania na początku sama oddaje kostium.
+## Halina mówi, że rano dzwoniła "jakaś pani" i chciała odebrać kostium bez kwitu; numer
+## leży przy książce przyjęć (s12_numer, porówna się go z kontaktami Adriana w sc. 17).
+## Gdy w sc. 9 oddał kwit Kubie, Kuba na początku oddaje kostium (pół dnia straty,
+## plama bledsza).
 ## Teksty w Dialogi.SCENA12.
 
 const NASTEPNA := "res://sceny/scena13/scena13.tscn"
@@ -20,7 +21,7 @@ const POL_DNIA := 360
 var _halina: Node2D
 var _kostium: Sprite2D
 var _zajeta := false
-var _ania_bylo := false  # wersja z kwitem: kostium już po praniu w domu Ani
+var _kuba_bylo := false  # wersja z kwitem u Kuby: kostium mokry, plama bledsza
 
 
 func _ready() -> void:
@@ -28,7 +29,7 @@ func _ready() -> void:
 	Telefon.godzina = "10:00"
 	Notatnik.wlacz()
 	var t: Dictionary = Dialogi.SCENA12
-	_ania_bylo = Gra.flagi.get("s9_kwit_ania", false)
+	_kuba_bylo = Gra.flagi.get("s9_kwit_kuba", false)
 	antoni.position = Vector2(320, 300)
 	antoni.stan("gora")
 	_halina = postac("halina", HALINA)
@@ -37,7 +38,7 @@ func _ready() -> void:
 	_kostium = rekwizyt("kostium_folia", Vector2(497, 166), 10.0)
 	miejsce(LAMPA, "Kostium", _ogledziny, 50.0)
 	miejsce(SZAFKA, "Szafka pod ladą", _szafka, 30.0)
-	miejsce(Vector2(207, 156), "Książka przyjęć", t["ksiazka"], 46.0)
+	miejsce(Vector2(207, 156), "Książka przyjęć", _ksiazka, 46.0)
 	miejsce(Vector2(357, 128), "Kot", t["kot"], 76.0)
 	miejsce(Vector2(540, 334), "Skrzynka nocna", t["skrzynka_nocna"], 40.0)
 	miejsce(Vector2(78, 112), "Zaplecze", t["zaplecze"], 60.0)
@@ -48,8 +49,8 @@ func _ready() -> void:
 	dzwiek("gramofon.ogg", -26.0, true)
 	await plansza("Pralnia \"Perła\", poniedziałek 10:00")
 	await rozmowa(t["poczatek"])
-	if _ania_bylo:
-		await _ania_oddaje()
+	if _kuba_bylo:
+		await _kuba_oddaje()
 	else:
 		await rozmowa(t["halina_start"])
 	_kolejka()
@@ -108,9 +109,6 @@ func _szafka() -> void:
 
 func _ogledziny() -> void:
 	var t: Dictionary = Dialogi.SCENA12
-	if not _kostium.visible:
-		await rozmowa([["", "Pusty stół. Kostium pojechał z Anią."]])
-		return
 	await rozmowa(t["kostium"])
 	while true:
 		var opcje := ["Obejrzyj plamę", "Odchyl podszewkę"]
@@ -122,7 +120,7 @@ func _ogledziny() -> void:
 			break
 		match opcje[w]:
 			"Obejrzyj plamę":
-				var bledsza: bool = _ania_bylo or Gra.flagi.get("s12_ania_zabrala", false)
+				var bledsza: bool = _kuba_bylo
 				await rozmowa(t["plama_bledsza" if bledsza else "plama_ciemniejsza"])
 				Gra.flagi["s12_plama"] = true
 			"Odchyl podszewkę":
@@ -142,9 +140,14 @@ func _ogledziny() -> void:
 					await rozmowa(t["uv"])
 					Gra.flagi["s12_uv"] = true
 	antoni.sterowanie = true
-	# po odkryciu w UV do pralni "przypadkiem" wchodzi Ania
-	if Gra.flagi.get("s12_uv", false) and not _ania_bylo and not Gra.flagi.get("s12_ania_przyszla", false):
-		await _ania_przychodzi()
+
+
+func _ksiazka() -> void:
+	var t: Dictionary = Dialogi.SCENA12
+	await rozmowa(t["ksiazka"])
+	if Gra.flagi.get("s12_pani", false):
+		await rozmowa(t["ksiazka_numer"])
+		Gra.flagi["s12_numer"] = true
 
 
 func _rozmowa_z_halina() -> void:
@@ -153,6 +156,7 @@ func _rozmowa_z_halina() -> void:
 		["Plama jest ciemniejsza", temat("s12_ciemniejsza", t["halina_plama"]), func() -> bool: return Gra.flagi.get("s12_plama", false)],
 		["Co pani jest w ręce?", temat("s12_rece", t["halina_rece"])],
 		["Czym pani sprawdza plamy?", t["halina_jak"]],
+		["Ktoś jeszcze pytał o ten kostium?", temat("s12_pani", t["halina_pani"])],
 	]
 	var dowody := {
 		"lampa_uv": t["halina_uv"],
@@ -162,65 +166,12 @@ func _rozmowa_z_halina() -> void:
 	await przesluchanie(tematy, dowody, t["halina_nic"], t["halina_koniec"])
 
 
-## Wersja z kwitem u Ani: Ania przynosi kostium z powrotem i ucieka.
-func _ania_oddaje() -> void:
-	var ania := postac("ania", PRZY_LADZIE + Vector2(30, 0))
-	await rozmowa(Dialogi.SCENA12["ania_oddaje"])
+## Wersja z kwitem u Kuby: Kuba przynosi kostium z powrotem i ucieka na próbę.
+func _kuba_oddaje() -> void:
+	var kuba := postac("gosc_student", PRZY_LADZIE + Vector2(30, 0))
+	await rozmowa(Dialogi.SCENA12["kuba_oddaje"])
 	Sledztwo.strata(POL_DNIA)
-	Gra.flagi["s12_ania_oddala"] = true
-	await idz(ania, [WEJSCIE], 70.0)
-	ania.queue_free()
+	Gra.flagi["s12_kuba_oddal"] = true
+	await idz(kuba, [WEJSCIE], 70.0)
+	kuba.queue_free()
 	antoni.sterowanie = true
-
-
-## Ania wchodzi i chce zabrać kostium. Najpierw można ją wypytać, potem wybór.
-func _ania_przychodzi() -> void:
-	var t: Dictionary = Dialogi.SCENA12
-	Gra.flagi["s12_ania_przyszla"] = true
-	antoni.sterowanie = false
-	var ania := postac("ania", WEJSCIE)
-	dzwiek("dzwonek.wav", -12.0)
-	await idz(ania, [Vector2(420, 260)], 50.0)
-	zwroc_sie(ania)
-	await rozmowa(t["ania_wchodzi"])
-	var tematy := [
-		["Co tu robisz?", temat("s12_ania_przypadek", t["ania_po_co"])],
-		["Gdzie byłaś w czwartek wieczorem?", temat("s12_ania_czwartek", t["ania_czwartek"])],
-		["Ładny pierścionek", temat("s12_pierscionek", t["ania_pierscionek"]), func() -> bool: return Gra.flagi.get("s11_foto", false)],
-	]
-	var dowody := {
-		"zdjecie_plamy": t["ania_zdjecie"],
-		"karta_kwit": t["ania_kwit"],
-		"karta_podszewka": t["ania_podszewka"],
-	}
-	await przesluchanie(tematy, dowody, t["ania_nic"])
-	await rozmowa(t["ania_prosi"])
-	var w := await wybor(t["wybor"])
-	if w == 0:
-		await rozmowa(t["wybor_halina"])
-		Gra.flagi["s12_halina"] = true
-		await idz(ania, [WEJSCIE], 70.0)
-		ania.queue_free()
-	else:
-		await rozmowa(t["wybor_ania"])
-		Gra.flagi["s12_ania_zabrala"] = true
-		_kostium.visible = false
-		await idz(ania, [WEJSCIE], 70.0)
-		ania.visible = false
-		await plansza(t["godzine_pozniej"])
-		Sledztwo.strata(POL_DNIA)
-		ania.visible = true
-		await idz(ania, [Vector2(420, 260)], 70.0)
-		await rozmowa(t["ania_wraca"])
-		_kostium.visible = true
-		await idz(ania, [WEJSCIE], 70.0)
-		ania.queue_free()
-	antoni.sterowanie = true
-
-
-## Wyjście: jeśli Ania jeszcze nie przyszła, wchodzi w drzwiach.
-func przejdz(scena: String) -> void:
-	if not _ania_bylo and not Gra.flagi.get("s12_ania_przyszla", false):
-		await _ania_przychodzi()
-		return
-	super.przejdz(scena)

@@ -110,6 +110,9 @@ const SCENA1 := {
 		["Pani Stasia", "Podobno ten młody dubler przepadł. Pan Adam nigdy by nikogo nie zostawił w potrzebie."],
 	],
 	"kuba": [
+		["Kuba", "(rozgląda się nerwowo) Przepraszam... pan jest z policji? Tak pan patrzy po ludziach."],
+		["Antoni", "Dziś tylko widz. A co, masz coś na sumieniu?"],
+		["Kuba", "Ja? Nie! Nic. Tak tylko pytam."],
 		["Kuba", "Kuba, trzeci rok aktorskiego. Wie pan, kto dziś miał siedzieć w pogotowiu? Adrian, dubler Wolskiego."],
 		["Kuba", "Dubler to najgorsza robota świata. Czekasz, aż ktoś zachoruje."],
 		["Kuba", "Uczysz się roli na pamięć, a potem siedzisz w garderobie i słuchasz oklasków dla kogoś innego."],
@@ -118,6 +121,7 @@ const SCENA1 := {
 	],
 	"kuba_potem": [
 		["Kuba", "Jak Adrian się nie znajdzie, to może mnie wezmą. Żartuję. Chyba."],
+		["Kuba", "I proszę... jakby ktoś pytał, to mnie tu nie było. Dobrze?"],
 	],
 	"starszy_pan": [
 		["Starszy pan", "Słyszał pan? Podobno dubler Wolskiego zniknął. Od wczoraj nikt go nie widział."],
@@ -157,7 +161,7 @@ const SCENA1 := {
 	],
 	# Antoni podchodzi do Ani przy drzwiach służbowych (uruchamia się samo)
 	"ania_telefon": [
-		["Ania", "(do telefonu) Adrian, odezwij się, proszę. Cokolwiek się stało, przepraszam."],
+		["Ania", "(do telefonu) Adrian, odezwij się, proszę. Martwię się o ciebie."],
 		["Ania", "...Och. Nie zauważyłam pana. Przepraszam, muszę wracać za kulisy."],
 	],
 	# po wyjściu Ani
@@ -196,6 +200,8 @@ const SCENA2 := {
 		["Lis", "Dwadzieścia lat prowadzę ten teatr i jeszcze nigdy dubler nie zniknął w dzień premiery!"],
 		["Lis", "Adam, jeśli ty mi dziś padniesz na scenie, to premiera wisi na włosku. Nie mam nikogo!"],
 		["Wolski", "Bogdan, spokojnie. Zagram za dwóch, a Adrian pewnie odsypia stres."],
+		["", "Garderobiana chce poprawić Wolskiemu kołnierz. Wolski odsuwa jej rękę. Ma na dłoniach białe rękawiczki."],
+		["Wolski", "Nie dotykać! Nikt nie dotyka mojego kostiumu przed premierą. Nikt."],
 		["Lis", "Odsypia! Od wczoraj nie odbiera telefonu!"],
 		["Wolski", "(z uśmiechem, do Antoniego) Zgubił się pan? Proszę, oto moje królestwo."],
 		["Antoni", "Szukałem toalety. Chyba zaszedłem trochę za daleko."],
@@ -221,8 +227,8 @@ const SCENA2 := {
 	"marta_oddaje": [
 		["Antoni", "Ten?"],
 		["Marta", "Tak! Gdzie był?"],
-		["Antoni", "W garderobie Ani. Na toaletce, obok zdjęcia."],
-		["Marta", "U Ani? Dziwne. Ona go w ogóle nie dotyka aż do finału."],
+		["Antoni", "W garderobie, w torbie jakiegoś statysty. Naszywka \"J.A.\"."],
+		["Marta", "J.A.? To ten student, Kuba. Statystuje w drugim akcie. Po co mu nóż z finału?"],
 		["Marta", "Nieważne. Ratuje mi pan życie. A teraz toaleta przy drzwiach na widownię i prosto na swoje miejsce."],
 	],
 	"marta_potem": [
@@ -301,21 +307,27 @@ const SCENA2_TLO := {
 # Garderoba Ani (za drzwiami GARDEROBY w kulisach).
 const GARDEROBA := {
 	"wejscie": [
-		["Antoni", "Garderoba Ani. Pachnie pudrem i kwiatami."],
-	],
-	"toaletka_przed": [
-		["", "Toaletka Ani. Lustro w żarówkach, puder, szminka. Obok zdjęcia w ramce leży nóż."],
-		["Antoni", "Pewnie jakiś rekwizyt. Nie mój interes."],
+		["Antoni", "Garderoba. Toaletka Ani, a w kącie rzeczy statystów. Pachnie pudrem i kwiatami."],
 	],
 	"toaletka": [
 		["", "Toaletka Ani. Lustro w żarówkach, puder, szminka."],
-		["", "Obok zdjęcia w ramce leży nóż. Rekwizytowy, ostrze chowa się w rękojeść."],
-		["", "Na zdjęciu Ania z jakimś chłopakiem. Śmieją się, za nimi morze."],
-		["Antoni", "To pewnie Adrian. Tylko co nóż z finału robi u Ani?"],
-		["", "Wskazówka: to może się przydać później. Notes masz pod T."],
+		["", "Zdjęcie w ramce: Ania z jakimś chłopakiem. Śmieją się, za nimi morze."],
+		["Antoni", "To pewnie Adrian."],
 	],
 	"toaletka_potem": [
 		["", "Zdjęcie Ani i Adriana nad morzem. Na odwrocie nic nie ma."],
+	],
+	"torba_przed": [
+		["", "Sportowa torba statysty na kanapie. Naszywka \"J.A.\". Wystaje z niej rękojeść noża."],
+		["Antoni", "Pewnie jakiś rekwizyt. Nie mój interes."],
+	],
+	"torba": [
+		["", "Sportowa torba statysty. Naszywka \"J.A.\", w środku podręcznik dykcji i scenariusz pełen notatek."],
+		["", "Między nimi rekwizytowy nóż z finału. Ostrze chowa się w rękojeść."],
+		["Antoni", "Co nóż z finału robi w torbie statysty?"],
+	],
+	"torba_potem": [
+		["", "Torba \"J.A.\". Scenariusz \"Ostatniego aktu\", rola Wolskiego podkreślona na żółto."],
 	],
 	"kwiaty": [
 		["", "Bukiet czerwonych róż. Bilecik: \"Połamania nóg, córeczko. Mama.\""],
@@ -324,7 +336,7 @@ const GARDEROBA := {
 		["", "Kostiumy Ani na drążku. Każdy podpisany numerem sceny."],
 	],
 	"kanapa": [
-		["", "Kanapa, na niej kremowy szal Ani. Jeszcze ciepły."],
+		["", "Kanapa, na niej kremowy szal Ani i czyjaś sportowa torba."],
 	],
 	"parawan": [
 		["", "Parawan do przebierania. Przewieszona przez niego koszula nocna z pierwszego aktu."],
@@ -350,16 +362,15 @@ const SCENA3 := {
 		["Wolski", "A ja wiem, kto. Wiem i milczę, bo milczenie to też rodzaj zbrodni."],
 		["", "Widownia wstrzymuje oddech. Wolski gra, jakby naprawdę bał się o życie."],
 	],
-	# Ania wchodzi na scenę, myli kwestię i zamiera
+	# Ania wchodzi na scenę
 	"akt1_ania": [
 		["Wolski", "Nareszcie jesteś. Powiedz mi prawdę, choć raz w życiu."],
-		["Ania", "Prawda jest taka, że ty... że ty nie powinieneś..."],
-		["", "Ania milknie w pół zdania. Patrzy na kostium Wolskiego, jakby zobaczyła ducha."],
+		["Ania", "Prawda jest taka, że ty nie powinieneś był tu wracać."],
 	],
 	"akt1_ratunek": [
-		["Wolski", "...nie powinienem żyć? Wiem. A jednak stoję przed tobą, moja droga."],
+		["Wolski", "A jednak wróciłem. I stoję przed tobą, moja droga."],
 		["Ania", "Tak. A jednak stoisz."],
-		["", "Spektakl toczy się dalej. Nikt na widowni niczego nie zauważył. Prawie nikt."],
+		["", "Ania gra pewnie, tylko oczy ma zaczerwienione. Pod koniec aktu raz zerka w stronę kulis, jakby kogoś szukała."],
 	],
 	"antrakt": [
 		["", "Kurtyna opada. Zapalają się światła. Antrakt."],
@@ -372,17 +383,17 @@ const SCENA3 := {
 	"akt2": [
 		["Wolski", "Wszyscy myślą, że zbrodnia to jedna chwila. Błysk ostrza i po wszystkim."],
 		["Wolski", "Nieprawda. Zbrodnia to lata czekania. Ktoś musi bardzo długo cię nienawidzić."],
-		["", "Ania wchodzi na scenę. Tym razem nie myli ani słowa."],
+		["", "Ania wchodzi na scenę."],
 		["Ania", "Czekałam dwadzieścia lat. Możesz mi wierzyć, że umiem czekać."],
 	],
 	"final": [
-		["", "Finał. Ania podnosi nóż. Ten sam, który leżał na jej toaletce."],
+		["", "Finał. Ania podnosi nóż. Ten sam, którego szukała Marta."],
 		["", "Światło gaśnie na sekundę. Kiedy wraca, Wolski leży na deskach."],
 		["", "Cisza. A potem cała widownia wstaje."],
 	],
 	"koniec": [
 		["", "Burza oklasków. Wolski kłania się trzy razy. Ania tylko raz, i szybko znika za kulisami."],
-		["Antoni", "Dobre przedstawienie. Tylko ta jedna pomyłka..."],
+		["Antoni", "Dobre przedstawienie. Szkoda, że Adrian tego nie widział."],
 	],
 }
 
@@ -419,9 +430,9 @@ const ANTRAKT := {
 	],
 	"zawada": [
 		["Zawada", "Pierwszy akt: Wolski gra Wolskiego. Bez niespodzianek."],
-		["Antoni", "A ta pauza Ani?"],
-		["Zawada", "Pauza? Najlepszy moment wieczoru. Pierwszy raz od lat ktoś na tej scenie wyglądał na naprawdę przerażonego."],
-		["Zawada", "Zapiszę to sobie: \"Wrzos, strach prawdziwszy niż sztuka.\" Ładne, prawda?"],
+		["Antoni", "A Ania?"],
+		["Zawada", "Wrzos? Poprawna. Ale grała, jakby myślami była gdzie indziej. Szukała kogoś wzrokiem za kulisami."],
+		["Zawada", "Zapiszę to sobie: \"Wrzos, nieobecna.\" Ładne, prawda?"],
 	],
 	"zawada_potem": [
 		["Zawada", "Proszę mi nie zaglądać do notesu. To nieetyczne."],
@@ -435,11 +446,13 @@ const ANTRAKT := {
 		["Pani Stasia", "Strona trzydziesta pierwsza. Z serduszkiem."],
 	],
 	"kuba": [
-		["Kuba", "Widział pan, jak Ania zamarła? Na egzaminie by za to oblała."],
-		["Kuba", "Adrian by się tak nie zawiesił. Znał ten tekst lepiej niż Wolski. Grał go przecież na próbie generalnej."],
+		["Kuba", "(podskakuje) O! To pan. Ja tu nic, tylko... powtarzałem sobie tekst."],
+		["Antoni", "Czyj tekst?"],
+		["Kuba", "Wolskiego. Całą rolę umiem. Od miesięcy. Tak na wszelki wypadek, wie pan."],
+		["Kuba", "Adrian znał ją lepiej, grał ją na próbie generalnej. Ale Adriana nie ma."],
 	],
 	"kuba_potem": [
-		["Kuba", "Ciekawe, czy Adrian w ogóle wie, że premiera się udała."],
+		["Kuba", "\"Trzy noce nie spałem w tym domu...\" (mamrocze dalej pod nosem)"],
 	],
 	"wino": [
 		["Żona", "Cała sukienka! Mówiłam, żebyś nie machał rękami!"],
@@ -466,17 +479,16 @@ const ANTRAKT := {
 	"ania_placze": [
 		["", "Przy drzwiach do toalet stoi Ania, wciąż w kostiumie. Płacze nad telefonem."],
 		["Antoni", "Wszystko w porządku?"],
-		["", "Ania szybko chowa telefon do kieszeni kostiumu i ociera oczy."],
-		["Ania", "Przepraszam, to nerwy. Premiera."],
-		["Antoni", "W pierwszym akcie..."],
-		["Ania", "Muszę wracać. Zaraz drugi dzwonek."],
+		["Ania", "Adrian. Dalej nie odbiera. Dzwonię i dzwonię."],
+		["Ania", "Przepraszam. Muszę wracać, zaraz drugi dzwonek."],
 	],
 	"po_ani": [
-		["Antoni", "Za każdym razem, jak ją spotykam, za coś przeprasza."],
+		["Antoni", "Martwi się o niego. Tylko ona jedna szuka go naprawdę."],
 	],
 }
 
 const ANTRAKT_TLO := {
+	"kuba": ["Trzy noce nie spałem w tym domu...", "...bo milczenie to też rodzaj zbrodni.", "Zbrodnia to lata czekania..."],
 	"dzwonek": "Drugi dzwonek. Proszę zająć miejsca.",
 	"zawada": ["(skrobie w notesie)", "Hm. Banał."],
 	"stasia": ["Cudowny!", "Jak w Hamlecie!"],
@@ -567,7 +579,7 @@ const SCENA4 := {
 		["Ania", "..."],
 	],
 	"starszy_pan": [
-		["Starszy pan", "Wolski był genialny. A ta mała w pierwszym akcie? Zbladła jak trup."],
+		["Starszy pan", "Wolski był genialny. A ten student, co tak szybko uciekł? Nawet tortu nie spróbował."],
 	],
 	"elegancka_pani": [
 		["Elegancka pani", "Gorączka czy nie, zagrał jak bóg. Mówiłam, prawdziwy zawodowiec."],
@@ -575,7 +587,9 @@ const SCENA4 := {
 	"kuba": [
 		["Kuba", "Przeżyłem! Wolski zagrał. Mogę umierać spokojnie."],
 		["Antoni", "Lepiej nie."],
+		["Kuba", "(patrzy na zegarek) Muszę lecieć. Proszę nikomu nie mówić, że wyszedłem tak wcześnie."],
 	],
+	"kuba_wychodzi": "Ostatni tramwaj! Do widzenia!",
 	"stasia": [
 		["Pani Stasia", "Trzydziesty pierwszy autograf! Z serduszkiem, jak zawsze."],
 	],
@@ -963,6 +977,9 @@ const SCENA8 := {
 	"ania_nic": [["Ania", "(kręci głową) Nie wiem. Nie wiem, co to jest."]],
 	"ania_koniec": [["Ania", "Przepraszam. Nie mogę teraz."]],
 	"wolski_start": [
+		["Wolski", "Co stwierdził lekarz?"],
+		["Antoni", "Zawał."],
+		["Wolski", "(wypuszcza powietrze, jakby długo je wstrzymywał) Zawał... Biedny chłopak."],
 		["Wolski", "Panie Antoni. Dobrze, że pan tu był. I pan Zenon też."],
 		["Wolski", "Proszę, herbata z termosu. Gorąca, z sokiem malinowym. Niech pan pije, zimno jak w psiarni."],
 		["", "Antoni pije. Herbata parzy w gardło i rozgrzewa. (+10 sił)"],
@@ -1122,16 +1139,36 @@ const SCENA9 := {
 	"okno_lisa": [["", "Podwórze teatru. Kontenery z dekoracjami i mokre kocie ślady na dachu szopy."]],
 	"regal_lisa": [["", "Segregatory: \"Sezon 1998\", \"Sezon 1999\"... aż do dziś. Lis niczego nie wyrzuca."]],
 	"kanapa_lisa": [["", "Kanapa z pogniecionym kocem. Lis tu spał."]],
-	"ania_wchodzi": [
-		["Ania", "Panie dyrektorze... Słyszałam, że ktoś musi odebrać kostium."],
-		["Ania", "Ja to załatwię. I tak muszę wyjść, nie mogę tu siedzieć."],
-		["Lis", "Nie, Aniu, ty odpocznij. Pan Antoni pojedzie."],
-		["", "Ania patrzy na kwit w ręku Antoniego."],
+	"kuba_wchodzi": [
+		["Kuba", "Panie dyrektorze... Pani Irena mówi, że mam przyjść do miary. Na dublera."],
+		["Kuba", "I słyszałem o kostiumie. Mieszkam obok pralni, mogę odebrać."],
+		["Lis", "Nie, Kuba, ty się ucz roli. Pan Antoni pojedzie."],
+		["", "Kuba patrzy na kwit w ręku Antoniego."],
 	],
-	"ania_czemu": [
-		["Antoni", "Czemu chce pani jechać sama?"],
-		["Ania", "Bo tu się duszę. Wszędzie jego zdjęcia, jego kubek w bufecie. Muszę coś robić."],
+	"kuba_dubler": [
+		["Antoni", "Jesteś nowym dublerem?"],
+		["Kuba", "Pan dyrektor zadzwonił do mnie rano. Nie ma nikogo innego. Ja... wiem, jak to wygląda."],
 	],
+	"kuba_czwartek": [
+		["Antoni", "Gdzie byłeś w czwartek rano?"],
+		["Kuba", "Na zajęciach. Na uczelni. Gdzie miałbym być?"],
+		["", "Kuba odpowiada za szybko."],
+	],
+	"kuba_pralnia": [
+		["Antoni", "Mieszkasz obok pralni?"],
+		["Kuba", "Pod siódemką, na Kopernika. Pani Halina mnie zna."],
+	],
+	"kuba_nic": [["Kuba", "Nie wiem, proszę pana. Naprawdę."]],
+	"kuba_koniec": [["Kuba", "To ja... idę do pani Ireny."]],
+	"kuba_kwit": [["", "Kuba wyciąga rękę."], ["Kuba", "Niech pan da. Ja i tak idę do domu, to po drodze."]],
+	"kuba_kwit_dal": [
+		["", "Antoni oddaje kwit. Kuba chowa go do kieszeni."],
+		["Kuba", "Dziękuję! Przyniosę jutro, słowo."],
+		["Lis", "Kuba... No dobrze. Tylko ostrożnie z tym kostiumem."],
+		["", "Kuba wychodzi szybkim krokiem."],
+	],
+	"kuba_kwit_nie": [["Antoni", "Pojadę sam."], ["", "Kuba cofa rękę."]],
+	"lis_kwit_kuba": [["Lis", "Kuba pojechał z kwitem. Mieszka obok, to i lepiej."]],
 	"ania_kostium": [
 		["Antoni", "Adrian mówił coś o kostiumie?"],
 		["", "Ania milknie na chwilę."],
@@ -1141,17 +1178,12 @@ const SCENA9 := {
 		["Antoni", "Gdzie pani była w piątek wieczorem?"],
 		["Ania", "W domu. Sama. Myślałam, że on jest obrażony i dlatego nie dzwoni."],
 	],
-	"ania_nic": [["Ania", "Nie wiem. Przepraszam."]],
-	"ania_koniec": [["Ania", "Proszę uważać na ten kostium. To... dużo kosztował."]],
-	"ania_kwit": [["", "Ania wyciąga rękę."], ["Ania", "Daj mi go. Ja i tak idę w tamtą stronę."]],
-	"ania_kwit_dal": [
-		["", "Antoni oddaje kwit. Ania ściska go w dłoni."],
-		["Ania", "Dziękuję. Naprawdę."],
-		["Lis", "Aniu... No dobrze. Tylko ostrożnie z tym kostiumem."],
-		["", "Ania wychodzi szybkim krokiem."],
+	"ania_jak": [
+		["Antoni", "Jak się pani trzyma?"],
+		["Ania", "Nie wiem. Wszędzie jego zdjęcia, jego kubek w bufecie. Lis pozwolił mi tu posiedzieć."],
 	],
-	"ania_kwit_nie": [["Antoni", "Pojadę sam."], ["", "Ania cofa rękę."]],
-	"lis_kwit_ania": [["Lis", "Ania pojechała z kwitem. Może i lepiej, niech się czymś zajmie."]],
+	"ania_nic": [["Ania", "Nie wiem. Przepraszam."]],
+	"ania_koniec": [["Ania", "(odwraca się do okna)"]],
 	"ania_kanapa": [["Ania", "(siedzi na kanapie Lisa, patrzy w okno)"]],
 	"bufetowa_start": [
 		["Bufetowa", "Panie Antoni... Proszę, kanapka. Na koszt firmy."],
@@ -1183,6 +1215,11 @@ const SCENA9_DOWODY := {
 		"kielich": [["Lis", "Czwarty kielich. Dobrze, że się znalazł, we wtorek będzie potrzebny."]],
 		"kwit_odbioru": [["Lis", "O, jest. Gdzie on był? Pralnia na Kopernika, pan trafi."]],
 	},
+	"kuba": {
+		"telefon_adriana": [["Kuba", "Telefon Adriana? Ja... ja nic do niego nie pisałem."]],
+		"zdjecie_pasy": [["Kuba", "O Boże. Co to jest?"]],
+		"kielich": [["Kuba", "Z drugiego aktu. Ja w nim podaję wino. Jako statysta."]],
+	},
 	"ania": {
 		"telefon_adriana": [["Ania", "(odwraca wzrok) Mówiłam już. Schowaj to."]],
 		"zdjecie_pasy": [["Ania", "Przestań mi to pokazywać. Proszę."]],
@@ -1196,7 +1233,7 @@ const SCENA9_DOWODY := {
 	},
 }
 
-const SCENA9_KWIT_WYBOR := ["Daj jej kwit", "Pojadę sam"]
+const SCENA9_KWIT_WYBOR := ["Daj mu kwit", "Pojadę sam"]
 
 const SCENA9_TLO := {
 	"aktor": ["(milczy)", "(kręci głową)"],
@@ -1206,8 +1243,8 @@ const SCENA9_TLO := {
 	"lis": ["(przerzuca papiery)", "Gdzie to jest..."],
 }
 
-# Scena 10: pralnia pani Haliny, niedziela 15:00. Wersja zwykła albo (s9_kwit_ania)
-# taka, w której Ania odebrała kostium przed południem.
+# Scena 10: pralnia pani Haliny, niedziela 15:00. Wersja zwykła albo (s9_kwit_kuba)
+# taka, w której Kuba odebrał kostium przed południem.
 const SCENA10 := {
 	"poczatek": [["", "Dzwonek nad drzwiami. Ciepło, para i zapach krochmalu. Za ścianą dudni pralka."]],
 	"halina_start": [
@@ -1215,9 +1252,9 @@ const SCENA10 := {
 		["Antoni", "Tak. Kwit numer 0412."],
 		["Halina", "Zaraz, zaraz... Był tu gdzieś. Ja już ślepa jestem, panie. Niech pan sam poszuka na stojakach, numery są na zawieszkach."],
 	],
-	"halina_start_ania": [
+	"halina_start_kuba": [
 		["Halina", "Dzień dobry! Pan z teatru? Jeśli po kostium pana Wolskiego, to już nie ma."],
-		["Halina", "Pani Ania odebrała przed dwunastą. Mokry jeszcze, nie chciała czekać na prasowanie."],
+		["Halina", "Ten młody spod siódemki odebrał przed dwunastą. Mokry jeszcze, nie chciał czekać na prasowanie."],
 	],
 	"stojak": [
 		["", "Zawieszki: 0388, 0415, 0402, 0397. Płaszcz, garnitur, dwie sukienki."],
@@ -1264,11 +1301,20 @@ const SCENA10 := {
 	],
 	"halina_pytal": [
 		["Antoni", "Ktoś jeszcze pytał o ten kostium?"],
-		["Halina", "Nikt. Pan pierwszy."],
+		["Halina", "Pan pierwszy, który przyszedł. Ale telefonów było..."],
 	],
-	"halina_pytal_ania": [
-		["Antoni", "Pani Ania coś mówiła?"],
-		["Halina", "Mówiłam jej o plamie, że nie schodzi i że trzeba jeszcze raz. A ona, że to nic, że sama spierze. I poszła z mokrym."],
+	"halina_pytal_kuba": [
+		["Antoni", "Ten młody coś mówił?"],
+		["Halina", "Mówiłam mu o plamie, że nie schodzi. A on, że teatr się zajmie, i poleciał z mokrym."],
+	],
+	"halina_telefon": [
+		["Antoni", "Ktoś dzwonił w sprawie kostiumu?"],
+		["Halina", "Dzwonił! W sobotę jakiś pan. Głos taki... aktorski. Pytał, czy ten kostium można po prostu wyrzucić."],
+		["Halina", "Wyrzucić! Kostium za tyle pieniędzy! Nie przedstawił się."],
+	],
+	"halina_mlody": [
+		["Antoni", "Kto jeszcze tu bywa z teatru?"],
+		["Halina", "Ten młody spod siódemki, student. W czwartek pytał o kostium z teatru, czy już przyszedł. Nerwowy taki."],
 	],
 	"halina_nic": [["Halina", "Panie, ja się na tym nie znam. Ja tylko piorę."]],
 	"halina_koniec": [["Halina", "Do widzenia, do widzenia! Niech pan uważa, ślisko."]],
@@ -1304,7 +1350,7 @@ const SCENA11 := {
 	"irena_klucz": [
 		["Antoni", "Kto ma klucz do pracowni?"],
 		["Irena", "Ja i dyrekcja. Aktorzy przychodzą na przymiarki, kiedy im się przypomni."],
-		["Irena", "Ania czasem siedzi tu wieczorami. Pomaga mi przy guzikach, ma cierpliwość."],
+		["Irena", "Adrian pożyczał klucz temu studentowi, Kubie. Myślą, że nie wiem. Wszystko wiem."],
 	],
 	"irena_zapas": [
 		["Antoni", "Na manekinie wisi drugi taki sam kostium."],
@@ -1312,7 +1358,8 @@ const SCENA11 := {
 	],
 	"irena_foto": [
 		["Antoni", "Zdjęcie na ścianie. To z czwartku?"],
-		["Irena", "Z próby generalnej. Fotograf z gazety. Adrian w kostiumie Adama, obok niego Ania. Ja z boku, jak zawsze."],
+		["Irena", "Z próby generalnej. Fotograf z gazety. Adrian w kostiumie Adama, ja z boku, jak zawsze."],
+		["Irena", "Kto obok? Nie pamiętam. Kręciło się tam pół zespołu i ten student z kluczem."],
 	],
 	"irena_nozyczki": [
 		["Antoni", "Pożyczy mi pani nożyczki?"],
@@ -1387,11 +1434,10 @@ const SCENA12 := {
 	"halina_start": [
 		["Halina", "Pan Antoni! Kostium leży na stole, pod lampą. Niech pan sam zobaczy, ja już nie mam siły na to patrzeć."],
 	],
-	"ania_oddaje": [
-		["Ania", "Pani Halino, niech pani jeszcze raz spróbuje. U mnie nie zeszło."],
-		["Halina", "A mówiłam! Mokry zabrała, teraz przynosi. Leżał w ciepłym, to i wsiąkło."],
-		["Ania", "(widzi Antoniego, blednie)"],
-		["Ania", "Antoni... Ja tylko oddaję. Muszę lecieć, próba."],
+	"kuba_oddaje": [
+		["Kuba", "Pani Halino, ja oddaję. W teatrze powiedzieli, że z taką plamą nie da się grać."],
+		["Halina", "A mówiłam! Mokry zabrał, teraz przynosi. Leżał w ciepłym, to i wsiąkło."],
+		["Kuba", "(widzi Antoniego) Dzień dobry... Ja tylko oddaję. Muszę lecieć na próbę."],
 	],
 	"kostium": [["", "Kostium leży rozłożony pod lampą prasowalnicy."]],
 	"plama_ciemniejsza": [["", "Plama jest ciemniejsza niż wczoraj. Rozlała się wzdłuż szwów, jak atrament po bibule."]],
@@ -1432,48 +1478,12 @@ const SCENA12 := {
 	"halina_nozyczki": [["Halina", "Nożyczki Ireny? Niech pan je schowa, bo ona panu głowę urwie."]],
 	"halina_nic": [["Halina", "Panie, ja się na tym nie znam. Ja tylko piorę."]],
 	"halina_koniec": [["Halina", "Następny proszę!"]],
-	"ania_wchodzi": [
-		["", "Dzwonek nad drzwiami. Wchodzi Ania. Mokre włosy, płaszcz narzucony byle jak."],
-		["Ania", "Antoni? Co ty tu robisz?"],
+	"halina_pani": [
+		["Antoni", "Ktoś jeszcze pytał o ten kostium?"],
+		["Halina", "Dziś rano dzwoniła jakaś pani. Pytała, czy można odebrać bez kwitu."],
+		["Halina", "Powiedziałam, że bez kwitu nic nie wydam. Numer zapisałam, przy książce leży, jakby co."],
 	],
-	"ania_po_co": [
-		["Antoni", "A ty?"],
-		["Ania", "Przechodziłam. Pomyślałam, że sprawdzę, czy kostium gotowy. Adam pytał."],
-	],
-	"ania_czwartek": [
-		["Antoni", "Gdzie byłaś w czwartek wieczorem?"],
-		["Ania", "W domu. Spałam. Czemu pytasz?"],
-	],
-	"ania_pierscionek": [
-		["Antoni", "Ładny pierścionek."],
-		["Ania", "(chowa dłoń do kieszeni)"],
-		["Ania", "Prezent. Od Adriana."],
-	],
-	"ania_zdjecie": [["Ania", "Nie pokazuj mi tego. Proszę."]],
-	"ania_kwit": [["Ania", "\"A.\"? Pół teatru ma imię na A."]],
-	"ania_podszewka": [["Ania", "Irena zawsze przesadza. Adrian marudził na każdy kostium."]],
-	"ania_nic": [["Ania", "Nie wiem, Antoni. Naprawdę."]],
-	"ania_prosi": [
-		["Ania", "Daj mi go, Antoni. Znam miejsce w centrum, tam wszystko spiorą."],
-		["Halina", "Nikt mi nie będzie mówił, że nie umiem prać! Zostaje u mnie!"],
-	],
-	"wybor": ["Kostium zostaje u pani Haliny", "Niech Ania go zawiezie"],
-	"wybor_halina": [
-		["Antoni", "Zostaje tutaj."],
-		["Ania", "Jak chcesz."],
-		["", "Ania wychodzi. Dzwonek nad drzwiami dzwoni długo."],
-	],
-	"wybor_ania": [
-		["Antoni", "Weź go."],
-		["Halina", "No to proszę bardzo! Ale jak go zniszczą, to nie do mnie!"],
-		["", "Ania zabiera kostium i wychodzi."],
-	],
-	"ania_wraca": [
-		["Ania", "Proszę. Po pierwszym praniu. Mówili, że więcej się nie da."],
-		["Halina", "(bierze kostium dwoma palcami)"],
-		["", "Ania wychodzi, nie patrząc na mnie."],
-	],
-	"godzine_pozniej": "Godzinę później",
+	"ksiazka_numer": [["", "Obok, na skrawku kwitu, ołówkiem: \"pani, bez kwitu, 601 314 220\"."]],
 	"klient_lada": ["Garnitur na pogrzeb. Na jutro.", "Na jutro? Zrobi się, zrobi."],
 	"kurier": ["Paczka dla pralni Perła!", "Już, już, idę."],
 	"kot": [["", "Kot śpi na ręcznikach. Dziś nawet nie otwiera oka."]],
@@ -1613,7 +1623,6 @@ const RETRO2 := {
 	"piecze": "Piecze mnie ta podszewka.",
 	"irena": "Nie marudź! Adam nosi to od miesiąca i żyje.",
 	"dlon": "(ktoś kładzie mu dłoń na ramieniu)",
-	"ania": "Wyglądasz jak prawdziwy król.",
 	"blady": "(blady, poci się)",
 	"sms": "22:10. \"Ten kostium mnie parzy...\"",
 	"skrzynka": "23:40. Ktoś wrzuca kostium do skrzynki nocnej pralni. Podpis: A.",
@@ -1635,21 +1644,25 @@ const SLEDZTWO_ARGUMENTY := {
 	"kostium_wolskiego": [["f:s9_obsada"], "Przez cały tydzień grał w kostiumie Wolskiego."],
 	"klamstwo_czwartek": [["f:s8_czwartek"], "Mówiłaś, że ostatni raz rozmawialiście w czwartek rano."],
 	"nic_nie_mowil": [["f:s9_ania_kostium"], "Mówiłaś, że Adrian nic nie mówił o kostiumie."],
-	"chciala_kostium": [["f:s9_ania_prosila"], "Chciałaś sama odebrać kostium z pralni."],
+	"kuba_chcial_kostium": [["f:s9_kuba_prosil"], "Kuba sam się zgłosił, żeby odebrać kostium z pralni."],
+	"kuba_dubler": [["f:s9_kuba_dubler"], "Kuba po śmierci Adriana od razu dostał rolę dublera."],
+	"kuba_alibi": [["f:s9_kuba_czwartek"], "Kuba twierdzi, że w czwartek rano był na zajęciach."],
+	"kuba_recytuje": [["f:s3_kuba"], "Kuba umie na pamięć całą rolę Wolskiego."],
+	"kuba_pytal": [["f:s10_kuba_pytal"], "W czwartek Kuba pytał w pralni o kostium z teatru."],
+	"kuba_klucz": [["f:s11_kuba_klucz"], "Kuba pożyczał od Adriana klucz do pracowni."],
+	"wolski_wyrzucic": [["f:s10_telefon"], "Ktoś z aktorskim głosem pytał, czy kostium można po prostu wyrzucić."],
+	"pani_bez_kwitu": [["f:s12_numer"], "Jakaś pani dzwoniła do pralni, chciała odebrać kostium bez kwitu. Numer: 601 314 220."],
 	"wolski_u_ani": [["f:s8_kurs"], "Wolski był u ciebie w sobotę jeszcze przed północą."],
 	"telefon": [["p:telefon_adriana"], "Mam telefon Adriana."],
 	"plama": [["p:zdjecie_plamy"], "Na podszewce kostiumu Wolskiego jest plama, która nie schodzi w praniu."],
 	"zapach": [["f:s10_zapach"], "Plama pachnie tak samo jak koszula Adriana."],
 	"skrzynka_23_40": [["k:kwit"], "Kostium wrzucono do skrzynki nocnej w czwartek o 23:40, z podpisem A."],
-	"ania_odebrala": [["f:s10_ania_odebrala"], "Odebrałaś kostium mokry, zanim ktokolwiek przyjrzał się plamie."],
+	"kuba_odebral": [["f:s10_kuba_odebral"], "Kuba odebrał kostium mokry, zanim ktokolwiek przyjrzał się plamie."],
 	"podszewka_piekla": [["f:s11_podszewka"], "Na czwartkowej próbie Adrian skarżył się, że podszewka piecze."],
 	"pasy_szwy": [["f:s11_szwy"], "Pasy na skórze idą dokładnie tam, gdzie szwy podszewki."],
-	"ania_w_pracowni": [["f:s11_ania_bywa"], "Siedziałaś wieczorami w pracowni, przy kostiumach."],
 	"rece_haliny": [["f:s12_rece"], "Halina ma poparzone dłonie od soboty, od kiedy prała ten kostium."],
 	"uv_zielona": [["f:s12_uv"], "W świetle UV plama świeci na zielono, wzdłuż szwów podszewki."],
 	"sam_dotknal": [["f:s12_dotknal"], "Sam dotknąłem tej podszewki. Piekło jeszcze godzinę."],
-	"ania_spala": [["f:s12_ania_czwartek"], "Mówiłaś, że w czwartek wieczorem spałaś w domu."],
-	"ania_przypadek": [["f:s12_ania_przypadek"], "W poniedziałek \"przypadkiem\" przyszłaś do pralni po ten sam kostium."],
 	"trucizna": [["f:s13_wynik"], "Laboratorium: trucizna kontaktowa w podszewce, zabija po dobie, dwóch."],
 	"rece_haliny_alergia": [["f:s13_rece"], "Halina, która prała ten kostium, ma popękane dłonie. Lekarz mówi: alergia."],
 	"pierscionek": [["f:s11_foto"], "Na zdjęciu z próby ktoś trzyma dłoń z pierścionkiem na ramieniu Adriana."],
@@ -1661,8 +1674,7 @@ const SLEDZTWO_EPILOG := [
 	[["f:s7_woda"], "Sprzedawca z kiosku do dziś opowiada, że to on ostatni widział Adriana żywego.", ""],
 	[["f:s8_kurs"], "Taksówkarz z Mokotowa zeznawał w sądzie. Pamiętał każdą godzinę.", ""],
 	[["f:s8_telefon_wolski"], "Telefon Adriana nigdy nie trafił do rodziny. Wolski twierdził, że go zgubił.", ""],
-	[["f:s9_kwit_ania"], "Kostium z pralni Ania odebrała sama. Plamy nikt więcej nie zobaczył.", ""],
-	[["f:s12_ania_zabrala"], "Kostium wrócił z pralni w centrum bledszy. Część dowodu spłynęła z wodą.", ""],
+	[["f:s9_kwit_kuba"], "Kuba odebrał kostium z pralni za wcześnie. Część plamy spłynęła z wodą.", ""],
 	[["f:s12_dotknal"], "Antoni jeszcze przez tydzień czuł pieczenie w palcach.", ""],
 	[["f:s13_dom"], "Ola do dziś wypomina, że zupa była dla niej, nie dla detektywa.", ""],
 	[["f:s11_opaska"], "Antoni nosił czarną opaskę Ireny aż do pogrzebu.", ""],
@@ -1771,7 +1783,7 @@ const PRZEDMIOTY := {
 	"program": ["Program premiery", "Biografia Wolskiego: zadebiutował w 1998 roku jako Hamlet. Na okładce jego zdjęcie.", "fabularny", 0],  # stojak w foyer, sc. 1
 	"bilet": ["Bilet", "Premiera \"Ostatniego aktu\", rząd 3, miejsce 14. Prezent od Oli.", "fabularny", 0],  # kieszeń płaszcza w szatni, sc. 1
 	"numerek": ["Numerek z szatni", "Mosiężny numerek 47. Bez niego szatniarz nie wyda płaszcza.", "fabularny", 0],  # pod stojakiem z programami, sc. 1
-	"noz": ["Rekwizytowy nóż", "Nóż z finału spektaklu. Ostrze chowa się w rękojeść. Leżał na toaletce Ani.", "fabularny", 0],  # garderoba Ani, sc. 2
+	"noz": ["Rekwizytowy nóż", "Nóż z finału spektaklu. Ostrze chowa się w rękojeść. Leżał w torbie statysty \"J.A.\".", "fabularny", 0],  # torba Kuby w garderobie, sc. 2
 	"klucz": ["Zapasowy klucz", "Klucz z zawieszką \"PRACOWNIA / GARDEROBY\". Otwiera drzwi także po godzinach.", "fabularny", 0],  # bezpieczniki w kulisach, sc. 2
 	"latarka": ["Latarka", "Stara, ciężka, ale świeci jak trzeba.", "fabularny", 0],  # skrzynka z rekwizytami w magazynie, sc. 6
 	"ladowarka": ["Ładowarka", "Ładowarka do telefonu. Pasuje do starszych modeli.", "fabularny", 0],  # szuflada w budce stróża, sc. 7

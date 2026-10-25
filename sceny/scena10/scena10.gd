@@ -3,8 +3,9 @@ extends ScenaGry
 ## Zwykle: Halina nie może znaleźć kostiumu, gracz sam szuka numeru 0412 na stojakach,
 ## kładzie kostium pod lampą prasowalnicy i fotografuje plamę na podszewce. Jeśli
 ## w scenie 4 wąchał koszulę Adriana (s4_koszula), czuje ten sam zapach (s10_zapach).
-## Gdy w scenie 9 oddał kwit Ani (s9_kwit_ania), kostiumu już nie ma: Ania odebrała go
-## mokry, zostaje tylko relacja Haliny (s10_ania_odebrala).
+## Gdy w scenie 9 oddał kwit Kubie (s9_kwit_kuba), kostiumu już nie ma: Kuba odebrał go
+## mokry, zostaje tylko relacja Haliny (s10_kuba_odebral). Halina wspomina też telefon
+## "aktorskiego" pana (Wolski) i studenta spod siódemki (Kuba).
 ## Książka przyjęć (stempel czw. 23:40, podpis A.) dodaje kartę "kwit" do teczki.
 ## Teksty w Dialogi.SCENA10.
 
@@ -14,7 +15,7 @@ const LAMPA := Vector2(511, 200)
 ## Miejsca przy stojakach (przód każdego stojaka); kostium wisi na ostatnim.
 const STOJAKI := [Vector2(215, 232), Vector2(375, 232), Vector2(215, 310), Vector2(375, 310)]
 
-var _ania_ma := false
+var _kuba_ma := false
 var _kostium: Sprite2D
 
 
@@ -24,7 +25,7 @@ func _ready() -> void:
 	Notatnik.wlacz()
 	var t: Dictionary = Dialogi.SCENA10
 	var tlo: Dictionary = Dialogi.SCENA10_TLO
-	_ania_ma = Gra.flagi.get("s9_kwit_ania", false)
+	_kuba_ma = Gra.flagi.get("s9_kwit_kuba", false)
 	antoni.position = Vector2(320, 300)
 	antoni.stan("gora")
 	var halina := postac("halina", Vector2(205, 112))
@@ -46,9 +47,9 @@ func _ready() -> void:
 	dzwiek("gramofon.ogg", -26.0, true)  # stara piosenka w radiu
 	await plansza("Pralnia \"Perła\", niedziela 15:00")
 	await rozmowa(t["poczatek"])
-	await rozmowa(t["halina_start_ania" if _ania_ma else "halina_start"])
-	if _ania_ma:
-		Gra.flagi["s10_ania_odebrala"] = true
+	await rozmowa(t["halina_start_kuba" if _kuba_ma else "halina_start"])
+	if _kuba_ma:
+		Gra.flagi["s10_kuba_odebral"] = true
 
 
 func _kolejne(kto: String) -> Callable:
@@ -65,7 +66,7 @@ func _stojak(nr: int) -> void:
 	if nr != 3:
 		await rozmowa([t["stojak"][nr]])
 		return
-	if _ania_ma:
+	if _kuba_ma:
 		await rozmowa(t["stojak_pusto"])
 		return
 	if Gra.flagi.get("s10_kostium", false):
@@ -120,11 +121,13 @@ func _rozmowa_z_halina() -> void:
 	var tematy := [
 		["Kto oddał ten kostium?", temat("s10_skrzynka", t["halina_kto"])],
 		["Co to za plama?", temat("s10_plama_halina", t["halina_co"]),
-			func() -> bool: return _ania_ma or Ekwipunek.ma("zdjecie_plamy")],
+			func() -> bool: return _kuba_ma or Ekwipunek.ma("zdjecie_plamy")],
 	]
-	if _ania_ma:
-		tematy.append(["Pani Ania coś mówiła?", temat("s10_ania_odebrala", t["halina_pytal_ania"])])
+	if _kuba_ma:
+		tematy.append(["Ten młody coś mówił?", temat("s10_kuba_odebral", t["halina_pytal_kuba"])])
 	else:
 		tematy.append(["Ktoś jeszcze pytał o kostium?", t["halina_pytal"]])
+	tematy.append(["Ktoś dzwonił w sprawie kostiumu?", temat("s10_telefon", t["halina_telefon"])])
+	tematy.append(["Kto jeszcze tu bywa z teatru?", temat("s10_kuba_pytal", t["halina_mlody"])])
 	await przesluchanie(tematy, Dialogi.SCENA10_DOWODY, t["halina_nic"], t["halina_koniec"])
 

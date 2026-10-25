@@ -100,7 +100,7 @@ func _rozmowa_z_irena() -> void:
 	var otwarta := func() -> bool: return Gra.flagi.get("s11_otwarta", false)
 	var tematy := [
 		["Kostium Wolskiego", temat("s11_kostium", t["irena_kostium"])],
-		["Kto ma klucz do pracowni?", temat("s11_ania_bywa", t["irena_klucz"])],
+		["Kto ma klucz do pracowni?", temat("s11_kuba_klucz", t["irena_klucz"])],
 		["Zapasowy kostium", t["irena_zapas"], func() -> bool: return Gra.flagi.get("s11_zapas", false)],
 		["Zdjęcie z próby", temat("s11_foto_irena", t["irena_foto"]), func() -> bool: return Gra.flagi.get("s11_foto", false)],
 		["Pożyczy mi pani nożyczki?", t["irena_nozyczki"], func() -> bool: return not otwarta.call() and not Ekwipunek.ma("nozyczki")],

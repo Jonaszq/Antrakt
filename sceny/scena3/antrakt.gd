@@ -3,7 +3,7 @@ extends ScenaGry
 ## Kolejka do bufetu, bufetowa sprzedaje kawę i kanapkę (pierwsza okazja, żeby
 ## coś zjeść albo wypić), widzowie komentują pierwszy akt, ktoś rozlał wino,
 ## szatniarz drzemie. Przy drzwiach do toalet Antoni widzi płaczącą Anię, która
-## chowa telefon. Po chwili drugi dzwonek i drzwiami WIDOWNIA wraca na drugi akt.
+## dzwoni do Adriana, a obok Kuba recytuje pod nosem całą rolę Wolskiego. Po chwili drugi dzwonek i drzwiami WIDOWNIA wraca na drugi akt.
 ## Teksty w Dialogi.ANTRAKT.
 
 const WIDOWNIA := Rect2(392, 108, 96, 34)
@@ -36,7 +36,13 @@ func _ready() -> void:
 	var stasia := postac("stasia", Vector2(196, 252))
 	dodaj_rozmowce(stasia, _kolejne("stasia"))
 	gada_w_tle(stasia, tlo["stasia"], 7.0)
-	dodaj_rozmowce(postac("gosc_student", Vector2(170, 330)), _kolejne("kuba"))
+	# Kuba przy nieczynnych toaletach recytuje pod nosem całą rolę Wolskiego
+	var kuba := postac("gosc_student", Vector2(334, 158))
+	var kuba_rozmowa := _kolejne("kuba")
+	dodaj_rozmowce(kuba, func() -> void:
+		await kuba_rozmowa.call()
+		Gra.flagi["s3_kuba"] = true)
+	gada_w_tle(kuba, Dialogi.ANTRAKT_TLO["kuba"], 6.0)
 	# rozlane wino
 	rekwizyt("plama_wina", Vector2(600, 336))
 	var maz := postac("para_pan", Vector2(578, 326))

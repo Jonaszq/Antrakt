@@ -15,6 +15,7 @@ const STOLIK := Vector2(655, 197)  # stolik_1, tu Irena rzuca koszulę
 
 
 var _toast := false
+var _kuba: Node2D
 var _irena := false  # awantura już była
 var _marta := false
 var _konczy := false
@@ -48,7 +49,8 @@ func _ready() -> void:
 	var stasia := postac("stasia", Vector2(470, 322))
 	dodaj_rozmowce(stasia, t["stasia"])
 	gada_w_tle(stasia, tlo["stasia"], 7.0)
-	dodaj_rozmowce(postac("gosc_student", Vector2(300, 410)), t["kuba"])
+	_kuba = postac("gosc_student", Vector2(300, 410))
+	dodaj_rozmowce(_kuba, t["kuba"])
 	_lis = postac("bogdan", Vector2(560, 186))
 	dodaj_rozmowce(_lis, _kolejne("lis"))
 	dodaj_rozmowce(postac("marta", Vector2(262, 172)), _rozmowa_z_marta)
@@ -117,6 +119,18 @@ func _wznies_toast() -> void:
 	await blysk()
 	antoni.sterowanie = true
 	gdy_blisko(_lis, 70.0, _irena_wpada)
+	_kuba_wychodzi()
+
+
+## Chwilę po toaście Kuba wymyka się z bankietu (spieszy się na ostatni tramwaj).
+func _kuba_wychodzi() -> void:
+	await get_tree().create_timer(25.0).timeout
+	if koniec or not is_instance_valid(_kuba):
+		return
+	dymek(_kuba, Dialogi.SCENA4["kuba_wychodzi"], 2.5)
+	await idz(_kuba, [Vector2(440, 440), Vector2(440, 500)], 60.0)
+	Gra.flagi["s4_kuba_wyszedl"] = true
+	_kuba.queue_free()
 
 
 ## Irena wypada z drzwi PERSONEL z koszem, robi awanturę dyrektorowi,
