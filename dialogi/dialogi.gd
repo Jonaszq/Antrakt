@@ -1627,12 +1627,285 @@ const RETRO2 := {
 	"sms": "22:10. \"Ten kostium mnie parzy...\"",
 	"skrzynka": "23:40. Ktoś wrzuca kostium do skrzynki nocnej pralni. Podpis: A.",
 	"koniec": "Do pogrzebu zostały trzy dni.",
-	"rozdzial": "Koniec rozdziału 3. Rozdział 4 już wkrótce.",
+	"rozdzial": "Koniec rozdziału 3.",
 }
 
 # ---------- REJESTR ŚLEDZTWA (ui/sledztwo.gd) ----------
 
 ## Dowody, które prowadzą donikąd: pokazanie ich komukolwiek zabiera dodatkowy czas.
+# Scena 14 (rozdział 4): garderoba Wolskiego, wtorek 19:40, przed drugim spektaklem.
+# Wolski nie rozmawia, dopóki nie ma peruki (leży pod szalem na kanapie). O tym, że to on
+# miał zginąć, uwierzy dopiero na widok dowodu. Pani Stasia przynosi bukiet i wygaduje
+# się o aptece w czwartek. Przy wyjściu Antoni widzi przez szparę, jak Wolski coś pali.
+const SCENA14 := {
+	"poczatek": [
+		["", "Garderoba gwiazdy. Lustro w żarówkach, bukiety od wielbicieli, zapach pudru i koniaku."],
+		["Głośnik", "Dwadzieścia minut do spektaklu. Dwadzieścia minut."],
+	],
+	"wolski_bez_peruki": [
+		["Wolski", "Detektyw! Akurat. Niech pan mi lepiej powie, gdzie jest moja peruka."],
+		["Wolski", "Bez peruki nie wyjdę na scenę, a bez sceny nie mam głowy do rozmów. Proszę wybaczyć."],
+	],
+	"wolski_bez_peruki_znowu": [["Wolski", "Peruka, panie detektywie. Najpierw peruka."]],
+	"garderobiana_szuka": [
+		["Garderobiana", "Wszędzie szukałam! W szafie, za parawanem, w pudłach. Jak kamień w wodę."],
+		["Garderobiana", "Pan Adam ją zdjął wczoraj po spektaklu, rzucił gdzieś i poszedł. Jak zawsze."],
+	],
+	"garderobiana_szuka_znowu": [["Garderobiana", "Jak nie znajdę, to mnie zwolni. Znowu."]],
+	"kanapa": [
+		["", "Na kanapie rzucony jedwabny szal. Coś pod nim jest. Coś miękkiego i siwego."],
+		["", "Peruka. Siwe loki, trochę zmierzwione. Ktoś na niej siedział."],
+	],
+	"kanapa_potem": [["", "Kanapa. Pachnie koniakiem i wodą kolońską."]],
+	"peruka_oddana": [
+		["Garderobiana", "Pod szalem! Mój Boże, pod szalem. Dziękuję panu, dziękuję."],
+		["Garderobiana", "(ciszej, czesząc perukę) On w ogóle ostatnio jakiś nieswój. W czwartek o siódmej rano dzwoni, że chory, że go nie będzie na próbie."],
+		["Garderobiana", "A w środę wieczorem zdrów jak ryba, koniak pił i śpiewał. Ja tam nic nie mówię."],
+	],
+	"garderobiana_potem": [["Garderobiana", "(układa loki na główce, nuci pod nosem)"]],
+	"garderobiana_czwartek": [
+		["Antoni", "Pan Wolski był w czwartek chory?"],
+		["Garderobiana", "Tak powiedział. Przez telefon kaszlał, aż słuchawka skakała. Teatralnie, jak to on."],
+	],
+	"garderobiana_adrian": [
+		["Antoni", "Adrian tu przychodził?"],
+		["Garderobiana", "Codziennie. Pan Adam mu pozwalał tu się przebierać, kiedy grał za niego. Dobre serce, mówili."],
+		["Garderobiana", "Ja tam wiem swoje. Pan Adam nikomu nic za darmo nie daje."],
+	],
+	"garderobiana_nic": [["Garderobiana", "Ja się znam na perukach, proszę pana. Na papierach nie."]],
+	"wolski_start": [
+		["Wolski", "Moja peruka! Detektywie, jest pan skarbem. Siadaj pan, mów pan, mam piętnaście minut."],
+	],
+	"wolski_znowu": [["Wolski", "(maluje brwi) Słucham, słucham."]],
+	"wolski_adrian": [
+		["Antoni", "Jak się pan trzyma po śmierci Adriana?"],
+		["Wolski", "Jak aktor. Gram dalej, bo co mam robić? Spektakl to spektakl."],
+		["Wolski", "Chłopak był zdolny. Za miękki na ten zawód, ale zdolny."],
+	],
+	"wolski_czwartek": [
+		["Antoni", "Gdzie pan był w czwartek rano?"],
+		["Wolski", "W łóżku. Grypa, gorączka, dreszcze. Dlatego Adrian grał za mnie próbę generalną."],
+		["Wolski", "Po co pan pyta? Przecież to był zawał."],
+	],
+	"wolski_kostium": [
+		["Antoni", "Pański kostium trafił do pralni z plamą na podszewce."],
+		["Wolski", "Kostiumy się brudzą, panie detektywie. Od tego jest Irena i pralnia."],
+	],
+	"wolski_zginac": [
+		["Antoni", "Myślę, że to pan miał zginąć."],
+		["Wolski", "(odkłada pędzel, patrzy na mnie w lustrze, potem wybucha śmiechem)"],
+		["Wolski", "Panie detektywie, ja gram w kryminałach, nie żyję w nich. Ma pan na to coś więcej niż przeczucie?"],
+	],
+	"wolski_zginac_znowu": [["Wolski", "Przeczucia zostawmy krytykom. Fakty, panie detektywie."]],
+	"dowod_trucizny": [
+		["Wolski", "(patrzy długo, pędzel drży mu w ręce)"],
+		["Antoni", "Trucizna była w podszewce pańskiego kostiumu. Adrian grał w nim cały tydzień. Za pana."],
+		["Wolski", "(blednie pod pudrem, a potem się śmieje, za głośno)"],
+		["Wolski", "Krytycy jeszcze nigdy tak się nie starali, żeby mnie zabić."],
+		["Wolski", "(nalewa sobie koniaku, wypija jednym haustem)"],
+		["Wolski", "Biedny Adrian. Zginął za mnie, rozumie pan? Znajdź tego, kto to zrobił. Dam panu wszystko, czego potrzeba."],
+	],
+	"wolski_kto": [
+		["Antoni", "Kto mógłby chcieć pana śmierci?"],
+		["Wolski", "Irena mnie nienawidzi od lat, a Bogdan... Bogdan liczy pieniądze. Niech pan sam oceni."],
+		["Wolski", "I proszę nikomu nie mówić, że byłem tu taki blady. Mam reputację."],
+	],
+	"wolski_ubezpieczenie": [
+		["Antoni", "Co Bogdan Lis ma do pieniędzy?"],
+		["Wolski", "Teatr ledwo zipie, a ja jestem jedynym nazwiskiem, które sprzedaje bilety. Żywy albo martwy."],
+		["Wolski", "Proszę zapytać, na ile mnie ubezpieczył. Ja tylko mówię."],
+	],
+	"wolski_telefon": [
+		["Wolski", "(sięga po telefon za szybko, potem cofa rękę)"],
+		["Wolski", "Chłopak wszędzie go zostawiał. Proszę go oddać rodzinie, oczywiście."],
+	],
+	"wolski_kwit": [["Wolski", "Pralnia, pralnia. Ja się nie zajmuję praniem, mam od tego ludzi."]],
+	"wolski_noz": [["Wolski", "Rekwizyt z finału. Proszę oddać Marcie, zanim dostanie zawału. Pardon."]],
+	"wolski_nic": [["Wolski", "Nie wiem, co to jest, i nie mam czasu się dowiadywać."]],
+	"wolski_dowod_bez": [["Wolski", "Obrzydliwe. Po co mi pan to pokazuje przed spektaklem? Co to ma wspólnego ze mną?"]],
+	"wolski_dowod_potem": [["Wolski", "Proszę to schować. Już raz to widziałem, wystarczy."]],
+	"wolski_peruka": [
+		["Wolski", "Moja peruka! Pod szalem? Ja ją tam rzuciłem? Niemożliwe."],
+		["Wolski", "Halinko, czesać, szybko! Detektywie, jest pan skarbem."],
+	],
+	"wolski_koniec": [["Wolski", "Do roboty, detektywie. I proszę zamknąć drzwi, przeciąga."]],
+	"glosnik": [
+		"Kwadrans do spektaklu. Kwadrans.",
+		"Dziesięć minut. Pan Wolski proszony do charakteryzacji.",
+		"Pięć minut. Proszę o ciszę za kulisami.",
+	],
+	"za_sciana": "(za ścianą wybuch śmiechu aktorów)",
+	"stasia_puka": [
+		["", "Pukanie. W drzwiach starsza pani z ogromnym bukietem różaneczników."],
+		["Stasia", "Panie Adamie, to od nas, od klubu wielbicieli! Ja tylko na sekundkę, nie przeszkadzam!"],
+	],
+	"stasia_wolski": [["Wolski", "Pani Stasiu, aniele. Proszę postawić na stoliku, przy reszcie."]],
+	"stasia_start": [["Stasia", "Pan detektyw! Ten od soboty. Ja pana pamiętam z foyer."]],
+	"stasia_bukiet": [
+		["Antoni", "Często pani przynosi kwiaty?"],
+		["Stasia", "Na każdy spektakl. Pan Adam tak pięknie dziękuje. Trzydzieści lat go oglądam."],
+	],
+	"stasia_czwartek": [
+		["Antoni", "Kiedy ostatnio widziała pani pana Wolskiego poza teatrem?"],
+		["Stasia", "W czwartek! Przed dziesiątą, pod apteką na Kościuszki. Taki elegancki, w kapeluszu."],
+		["Stasia", "Pomachałam, ale nie zauważył. Spieszył się z jakąś torebeczką."],
+	],
+	"wolski_przerywa": "Pani Stasiu, pomyliła pani. Leżałem z gorączką.",
+	"stasia_potem": [["Stasia", "(poprawia kwiaty w wazonie, żeby róże były z przodu)"]],
+	"stasia_nic": [["Stasia", "Ja się nie znam, panie detektywie. Ja tylko kwiaty."]],
+	"stasia_koniec": [["Stasia", "Połamania nóg, panie Adamie!"]],
+	"stasia_wychodzi": "Już mnie nie ma! Połamania nóg!",
+	"plakat_hamlet": [["", "Plakat: \"HAMLET 1998\". Młody Wolski z czaszką w dłoni. Pierwsza wielka rola."]],
+	"plakat_hamlet_program": [
+		["", "Plakat: \"HAMLET 1998\". Młody Wolski z czaszką w dłoni."],
+		["", "W programie premiery to samo: debiut w 1998, jako Hamlet. Ten rok musi być dla niego ważny."],
+	],
+	"plakat_romeo": [["", "\"ROMEO 1994\". Szkoła teatralna. Wolski jako Romeo, chudy jak patyk."]],
+	"plakat_akt": [["", "\"Ostatni akt\". Ten sam plakat co w foyer, tylko z autografem: \"Dla siebie samego, A.W.\""]],
+	"sejf": [["", "Mały stalowy sejf przy szafie. Pokrętło z czterema cyframi. Przy Wolskim nawet nie dotykam."]],
+	"szafa": [["", "Garnitury, szlafrok z monogramem, trzy pary lakierków. Peruki tu nie ma."]],
+	"parawan": [["", "Za parawanem lustro i stołek. Na podłodze rozsypany puder. Peruki nie ma."]],
+	"stojak": [["", "Kostiumy z dawnych spektakli, każdy w folii. Na kartkach: \"Hamlet\", \"Król\", \"Ryszard\". Gęsto wiszą."]],
+	"stojak_potem": [["", "Kostiumy wiszą tak gęsto, że za stojakiem schowałby się dorosły człowiek."]],
+	"bukiety": [["", "Bukiety z bilecikami: \"Dla mistrza\", \"Od wiernych widzów\", \"Adamowi, Stasia i klub\"."]],
+	"kosz": [["", "Kosz na śmieci. Pusty, ktoś go dziś wyniósł."]],
+	"toaletka": [["", "Szminki, pudry, kredki. Koniak do połowy. Za ramą lustra wycinek z recenzją: \"Wolski w formie życia\"."]],
+	"fotel": [["", "Fotel dla gości. Siedzisko jeszcze ciepłe."]],
+	"wyjscie_szpara": [
+		["", "Zamykam za sobą drzwi. Zostaje szpara."],
+		["", "Wolski zdejmuje coś z dna szuflady. Kartki. Zapalniczką podpala je nad koszem."],
+	],
+	"szpara_wybor": ["Wejdź", "Odejdź"],
+	"wchodzi": [
+		["Antoni", "Pali pan coś?"],
+		["Wolski", "(drgnął, potem uśmiech) Stare recenzje. Przesąd. Przed spektaklem palę te najgorsze."],
+		["Wolski", "Proszę mi nie zabierać tradycji, detektywie. Dobranoc."],
+		["", "W koszu dogasa papier. Zdążyłem zobaczyć rubryki, kolumny cyfr i słowo \"przelew\". To nie są recenzje."],
+	],
+	"odchodzi": [["", "Odchodzę korytarzem. Za plecami czuć dym. Cokolwiek palił, już tego nie ma."]],
+	"wyjscie_bez": [["", "Zostawiam Wolskiego z jego peruką. Przez głośnik: \"Pięć minut\"."]],
+}
+
+const SCENA14_TLO := {
+	"wolski": ["(nuci arię)", "Mi-mi-mi-mi...", "Gdzie ta przeklęta kredka?"],
+	"garderobiana": ["Gdzie ona może być...", "Pod łóżkiem? Nie ma tu łóżka...", "(przekłada pudła)"],
+}
+
+# Scena 15: pracownia kostiumów, środa 9:00. Irena wroga. Gdy dzwoni telefon na
+# korytarzu, wychodzi i zostawia klucze przy maszynie: szafa z belami bez spisu.
+# Przyznaje się do kradzieży dopiero przy belach i spisie tkanin naraz.
+const SCENA15 := {
+	"poczatek": [
+		["", "Środa, dziewiąta. Maszyna do szycia stoi. Irena siedzi przy niej i zwija taśmę krawiecką."],
+		["", "Z korytarza dochodzi próba muzyczna. Ktoś fałszuje to samo miejsce piąty raz."],
+	],
+	"irena_start": [
+		["Irena", "Znowu pan. Nie mam o czym z panem rozmawiać."],
+		["Irena", "Wszystko powiedziałam w niedzielę. Do widzenia."],
+	],
+	"irena_start_wolski": [
+		["Irena", "Znowu pan. Słyszałam, że był pan wczoraj u Adama. Że Adam panu o mnie naopowiadał."],
+		["Irena", "Nie mam o czym z panem rozmawiać."],
+	],
+	"irena_znowu": [["Irena", "(zwija taśmę, nie patrzy)"]],
+	"irena_papieros": [
+		["Antoni", "Zapali pani?"],
+		["Irena", "(patrzy na paczkę, potem na mnie) Zenon panu powiedział, co?"],
+		["Irena", "(zapala, zaciąga się długo) Dobra. Jedno. Ale przy oknie."],
+		["Irena", "Pan pyta, ja odpowiadam. Krótko."],
+	],
+	"irena_nienawidzi": [
+		["Antoni", "Wolski mówi, że pani go nienawidzi."],
+		["Irena", "Bo nienawidzę. Dwadzieścia lat szyję mu kostiumy i ani razu nie powiedział dziękuję."],
+		["Irena", "Ale nienawidzić a zabić to dwie różne rzeczy, panie władzo."],
+	],
+	"irena_nienawidzi_zla": [
+		["Antoni", "Wolski mówi, że pani go nienawidzi."],
+		["Irena", "Wolski mówi dużo. Niech pan idzie z nim pogadać, ma więcej czasu."],
+	],
+	"irena_czwartek": [
+		["Antoni", "Gdzie pani była w czwartek rano?"],
+		["Irena", "Tutaj. Gdzie mam być? Szyłam."],
+	],
+	"irena_czwartek_zla": [
+		["Antoni", "Gdzie pani była w czwartek rano?"],
+		["Irena", "A co to pana obchodzi? Niech pan przyjdzie z nakazem."],
+	],
+	"irena_wolna": [
+		["Antoni", "Maszyna stoi. Nie szyje pani dzisiaj?"],
+		["Irena", "Nie szyję za darmo. Teatr nie płaci mi od pół roku. Niech sobie Bogdan sam szyje."],
+	],
+	"irena_bele_bez": [
+		["Antoni", "W szafie leżą bele jedwabiu i brokatu."],
+		["Irena", "(taśma zatrzymuje się w jej rękach)"],
+		["Irena", "Dary. Od sponsorów. Ma pan jakiś papier, że nie? Nie ma pan. To proszę nie grzebać w moich szafach."],
+	],
+	"irena_bele_przyznanie": [
+		["Antoni", "W szafie leżą bele jedwabiu i brokatu. W spisie tkanin ich nie ma."],
+		["Irena", "(długo milczy, taśma rozwija się na podłogę)"],
+		["Irena", "Pół roku bez pensji. Pół roku. Bogdan obiecuje, Adam pije koniak za trzysta złotych, a ja mam z czego żyć?"],
+		["Irena", "Tak, kradnę szmaty. Kupuję w hurtowni na teatr, część oddaję na lewo. Ale truciciel?"],
+		["Irena", "Ja bym Adama zabiła nożyczkami, w twarz, nie po cichu."],
+	],
+	"irena_hurtownia": [
+		["Antoni", "Gdzie pani była w czwartek rano?"],
+		["Irena", "W hurtowni. Na Fabrycznej, od siódmej. Wróciłam przed dziewiątą, na próbę."],
+		["Irena", "Paragon? A kto paragony trzyma. Gdzieś tu leży, w ścinkach. Niech pan szuka, jak pan taki dokładny."],
+	],
+	"irena_klucz": [
+		["Antoni", "Kto jeszcze ma klucz do pracowni?"],
+		["Irena", "Klucz do pracowni mają tylko trzy osoby: ja, Marta i główna obsada. Czyli też Ania."],
+		["Irena", "No i ten student, Kuba, co go Adrian pożyczał. Mówiłam panu."],
+	],
+	"irena_klucz_zla": [
+		["Antoni", "Kto jeszcze ma klucz do pracowni?"],
+		["Irena", "Mówiłam w niedzielę. Pół teatru."],
+	],
+	"irena_paragon": [
+		["Irena", "No i proszę. Hurtownia \"Atlas\", siódma piętnaście. Mówiłam."],
+		["Irena", "A teraz niech pan idzie donieść Bogdanowi. Mnie już wszystko jedno."],
+	],
+	"irena_podszewka": [["Irena", "Nie chcę już o tym mówić. Nie chcę."]],
+	"irena_nic": [["Irena", "Nie wiem. Nie znam się. Proszę wyjść."]],
+	"irena_koniec": [["Irena", "(wraca do zwijania taśmy)"]],
+	"irena_koniec_papieros": [["Irena", "(gasi papierosa w doniczce) Koniec przerwy."]],
+	"telefon_dzwoni": "(na korytarzu dzwoni telefon)",
+	"irena_idzie": "Cholera, znowu ten telefon...",
+	"irena_wraca": "(wraca z korytarza) Pomyłka. Trzeci raz.",
+	"klucze": [["", "Pęk kluczy przy maszynie. Jeden mały, mosiężny, z nitką na kółku. Biorę cały pęk."]],
+	"klucze_przy_irenie": [["", "Pęk kluczy przy maszynie. Irena siedzi pół metra dalej. Nie teraz."]],
+	"klucze_odkladam": [["", "Kroki na korytarzu. Odkładam klucze przy maszynie, zanim Irena wejdzie."]],
+	"szafa_zamknieta": [["", "Szafa zamknięta na klucz. Mały zamek, mosiężny."]],
+	"szafa_otwieram": [
+		["", "Mały klucz pasuje. Szafa otwiera się ze skrzypnięciem."],
+		["", "Bele jedwabiu, brokatu, aksamitu w kolorze wina. Z metkami hurtowni \"Atlas\". Na każdej metce cena, której teatr nigdy by nie zapłacił."],
+		["", "Zamykam szafę i odkładam klucze. Lepiej, żeby nie wiedziała."],
+	],
+	"szafa_potem": [["", "Szafa z belami. Jedwab, brokat, metki \"Atlas\"."]],
+	"regal": [
+		["", "Na regale segregator: \"Spis tkanin pracowni\". Podpisany przez Lisa."],
+		["", "Aksamit, len, atłas, bawełna, filc. Jedwabiu i brokatu nie ma w ogóle."],
+	],
+	"regal_potem": [["", "Spis tkanin: jedwabiu i brokatu nie ma."]],
+	"skrzynka_bez": [["", "Skrzynka z materiałami pod stołem. Ścinki, szpulki, zwinięte metki. Szukam w tym jak w stogu siana."], ["", "Nic. Gdybym wiedział, czego szukać..."]],
+	"skrzynka_paragon": [
+		["", "Grzebię w skrzynce pod stołem. Ścinki, szpulki, metki."],
+		["", "Na samym dnie zmięty paragon. Hurtownia \"Atlas\", Fabryczna 4. Czwartek, 7:15. Jedwab, brokat."],
+	],
+	"skrzynka_potem": [["", "Same ścinki i szpulki."]],
+	"maszyna": [["", "Maszyna do szycia. Igła stoi w połowie ściegu. Irena dziś nic nie szyje."]],
+	"okno": [["", "Podwórze. Zenon zamiata liście przy bramie."]],
+	"radio": [["", "Radio wyłączone. Z korytarza słychać fortepian."]],
+	"bele_podloga": [["", "Bele na podłodze: len, bawełna, filc. Tanie, wszystkie są w spisie."]],
+	"irena_nie_ma": [["", "Taboret Ireny pusty. Na korytarzu słychać jej głos: \"Halo? Halo!\""]],
+}
+
+const SCENA15_TLO := {
+	"irena": ["(zwija taśmę)", "Pół roku...", "(cmoka z irytacją)"],
+	"proba": ["Ta-ra-ram... nie, jeszcze raz!", "(fortepian zaczyna od nowa)", "Od taktu dwunastego!"],
+}
+
+
 const FALSZYWE_TROPY := ["termos"]
 
 ## Argumenty do konfrontacji w finale: id -> [warunki, co mówi Antoni].
@@ -1665,6 +1938,13 @@ const SLEDZTWO_ARGUMENTY := {
 	"sam_dotknal": [["f:s12_dotknal"], "Sam dotknąłem tej podszewki. Piekło jeszcze godzinę."],
 	"trucizna": [["f:s13_wynik"], "Laboratorium: trucizna kontaktowa w podszewce, zabija po dobie, dwóch."],
 	"rece_haliny_alergia": [["f:s13_rece"], "Halina, która prała ten kostium, ma popękane dłonie. Lekarz mówi: alergia."],
+	"wolski_chory": [["f:s14_chory"], "Wolski w czwartek o siódmej rano zgłosił chorobę, a w środę wieczorem był zdrowy."],
+	"wolski_apteka": [["f:s14_apteka"], "Pani Stasia widziała Wolskiego w czwartek przed dziesiątą pod apteką. Miał leżeć z gorączką."],
+	"wolski_palil": [["f:s14_spalil"], "Wolski spalił przed spektaklem kartki z przelewami i nazwał je recenzjami."],
+	"wolski_hamlet": [["f:s14_rok"], "Wolski zadebiutował jako Hamlet w 1998 roku. To dla niego ważna data."],
+	"irena_kradnie": [["f:s15_przyznala"], "Irena kradnie materiały z pracowni, bo teatr nie płaci jej od pół roku."],
+	"irena_alibi": [["k:paragon"], "Irena w czwartek o 7:15 była w hurtowni na Fabrycznej."],
+	"klucz_ania": [["f:s15_klucz_ania"], "Klucz do pracowni ma Irena, Marta i główna obsada. Także Ania."],
 	"pierscionek": [["f:s11_foto"], "Na zdjęciu z próby ktoś trzyma dłoń z pierścionkiem na ramieniu Adriana."],
 }
 
@@ -1678,6 +1958,9 @@ const SLEDZTWO_EPILOG := [
 	[["f:s12_dotknal"], "Antoni jeszcze przez tydzień czuł pieczenie w palcach.", ""],
 	[["f:s13_dom"], "Ola do dziś wypomina, że zupa była dla niej, nie dla detektywa.", ""],
 	[["f:s11_opaska"], "Antoni nosił czarną opaskę Ireny aż do pogrzebu.", ""],
+	[["f:s14_ostrzezony"], "Wolski od tamtego wieczoru nie założył żadnego kostiumu, zanim garderobiana go nie wyprała.", ""],
+	[["f:s14_peruka"], "Garderobiana Wolskiego co premierę przysyła Antoniemu kartkę z podziękowaniem.", ""],
+	[["f:s15_przyznala"], "Irena oddała teatrowi bele jedwabiu. Lis udał, że nic nie wie.", ""],
 	[["f:s11_podszewka"], "Irena od tamtej pory wszywa podszewki tylko w rękawiczkach.", ""],
 ]
 
@@ -1732,7 +2015,7 @@ const TECZKA_NAPISY := {
 ## Podejrzani na tablicy: [imię na tablicy, folder postaci].
 const PODEJRZANI := [
 	["Ania", "ania"], ["Wolski", "wolski"], ["Irena", "irena"],
-	["Lis", "bogdan"], ["Marta", "marta"], ["Halina", "halina"],
+	["Lis", "bogdan"], ["Marta", "marta"], ["Halina", "halina"], ["Kuba", "gosc_student"],
 ]
 
 
@@ -1791,7 +2074,7 @@ const PRZEDMIOTY := {
 	"lampa_uv": ["Lampa UV", "W jej świetle niektóre plamy świecą.", "fabularny", 0],  # szafka pod ladą w pralni, sc. 12
 	"nozyczki": ["Nożyczki krawieckie", "Ostre jak brzytwa. Irena by mnie za nie zabiła.", "fabularny", 0],  # kosz z przyborami w pracowni, sc. 11
 	"woreczek": ["Woreczek na dowody", "Strunowy woreczek z komendy. Bez niego laboratorium nic nie przyjmie.", "fabularny", 0],  # schowek w samochodzie, sc. 13
-	"paragon": ["Paragon z hurtowni", "Hurtownia tkanin, czwartek 7:12. Na nazwisko Ireny.", "fabularny", 0],  # skrzynka z materiałami w pracowni, sc. 15
+	"paragon": ["Paragon z hurtowni", "Hurtownia tkanin \"Atlas\", czwartek 7:15. Na nazwisko Ireny.", "fabularny", 0],  # skrzynka z materiałami w pracowni, sc. 15
 	"grafik": ["Grafik dostaw", "Dostawy mleka do bufetu: tylko w czwartki.", "fabularny", 0],  # skrzynka na mleko przy bufecie, sc. 19
 	"spinka": ["Spinka do włosów", "Wygięta. Da się nią otworzyć prosty zamek.", "fabularny", 0],  # pudełko z charakteryzacją Ani, sc. 20
 	"telefon_adriana": ["Telefon Adriana", "Pęknięta szybka, na etui naklejka z maską. Rozładowany i zablokowany PIN-em.", "fabularny", 0],  # pod manekinem w magazynie, sc. 6

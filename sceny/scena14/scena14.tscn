@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://sceny/scena14/scena14.gd" id="skrypt"]
+[ext_resource type="PackedScene" path="res://mapy/garderoba_wolskiego/garderoba_wolskiego.tscn" id="garderoba"]
+
+[node name="Scena14" type="Node2D"]
+script = ExtResource("skrypt")
+
+[node name="GarderobaWolskiego" parent="." instance=ExtResource("garderoba")]

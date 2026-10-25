@@ -254,15 +254,15 @@ func _odswiez_tablice() -> void:
 	var lista: Array = Dialogi.PODEJRZANI
 	for i in lista.size():
 		var imie: String = lista[i][0]
-		var poz := Vector2(10 + (i % 3) * 140, 22 + (i / 3) * 92)
+		var poz := Vector2(4 + (i % 4) * 104, 22 + (i / 4) * 92)
 		var b := Button.new()
 		b.flat = true
 		b.position = poz
-		b.size = Vector2(120, 86)
+		b.size = Vector2(98, 86)
 		b.pressed.connect(_skresl.bind(imie))
 		var tlo := ColorRect.new()
 		tlo.color = Color8(120, 88, 50)  # korek
-		tlo.size = Vector2(120, 86)
+		tlo.size = Vector2(98, 86)
 		tlo.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		b.add_child(tlo)
 		var klatka := AtlasTexture.new()
@@ -270,17 +270,19 @@ func _odswiez_tablice() -> void:
 		klatka.region = Rect2(0, 0, 40, 40)
 		var foto := TextureRect.new()
 		foto.texture = klatka
-		foto.position = Vector2(8, 8)
+		foto.position = Vector2(29, 6)
 		foto.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		b.add_child(foto)
 		var l := _etykieta(imie, PAPIER)
-		l.position = Vector2(56, 20)
+		l.position = Vector2(8, 54)
+		l.size.x = 82
+		l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		l.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		b.add_child(l)
 		if skresleni.has(imie):
 			for kier in [1, -1]:
 				var kreska := Line2D.new()
-				kreska.points = PackedVector2Array([Vector2(6, 43 - 36 * kier), Vector2(114, 43 + 36 * kier)])
+				kreska.points = PackedVector2Array([Vector2(6, 43 - 36 * kier), Vector2(92, 43 + 36 * kier)])
 				kreska.width = 3.0
 				kreska.default_color = Color8(190, 30, 30)
 				b.add_child(kreska)

@@ -7,7 +7,7 @@ extends ScenaGry
 ## Na koniec SMS 22:10 (sprawdzona karta "sms") i skrzynka nocna 23:40 (książka przyjęć
 ## albo karta "kwit"). Teksty w Dialogi.RETRO2.
 
-const NASTEPNA := "res://menu/menu.tscn"  # rozdział 4 jeszcze nie zrobiony
+const NASTEPNA := "res://sceny/scena14/scena14.tscn"
 const SYLWETKA := Color(0.02, 0.02, 0.03)
 
 var _adrian: Node2D

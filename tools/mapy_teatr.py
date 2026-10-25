@@ -43,6 +43,11 @@ FONT = {
     "Y": ["101", "101", "010", "010", "010"], "Ę": ["111", "100", "110", "100", "111"], "X": ["101", "101", "010", "101", "101"], "Z": ["111", "001", "010", "100", "111"],
     "Ś": ["011", "100", "010", "001", "110"], "Ł": ["100", "110", "100", "100", "111"],
     " ": ["000"] * 5,
+    "0": ["111", "101", "101", "101", "111"], "1": ["010", "110", "010", "010", "111"],
+    "2": ["110", "001", "010", "100", "111"], "3": ["110", "001", "010", "001", "110"],
+    "4": ["101", "101", "111", "001", "001"], "5": ["111", "100", "110", "001", "110"],
+    "6": ["011", "100", "111", "101", "111"], "7": ["111", "001", "010", "010", "010"],
+    "8": ["111", "101", "111", "101", "111"], "9": ["111", "101", "111", "001", "110"],
 }
 
 
@@ -818,6 +823,125 @@ def garderoba():
     m.obiekt("kosz", kosz, 352, PY + 4, 6)
     ramy_z_wejsciem(d, 288, 64)
     return m, dict(korzen="Garderoba", start=(320, 320), postacie=(), mrok=(0.55, 0.5, 0.6))
+
+
+# ---------- GARDEROBA WOLSKIEGO (rozdział 4, sceny 14 i 18) ----------
+
+def koniak_toaletka(d, x, y):
+    """Butelka koniaku i kieliszek na blacie toaletki."""
+    prost(d, x, y - 14, 6, 14, (90, 44, 14))
+    prost(d, x + 2, y - 18, 2, 4, (60, 30, 10))
+    prost(d, x + 1, y - 10, 4, 4, ZLOTO[2])
+    obrys(d, x, y - 14, 6, 14)
+    d.polygon([(x + 9, y - 8), (x + 13, y - 8), (x + 12, y - 4), (x + 10, y - 4)], fill=SZKLO[3], outline=O)
+    prost(d, x + 11, y - 4, 1, 3, SZKLO[3])
+
+
+def sejf():
+    """Mały stalowy sejf z pokrętłem szyfru."""
+    img = nowy(24, 26)
+    d = ImageDraw.Draw(img)
+    skrzynia(d, 0, 0, 24, 4, 22, METAL)
+    d.ellipse((8, 9, 16, 17), fill=METAL[1], outline=O)
+    d.point((12, 10), fill=METAL[3])
+    prost(d, 18, 12, 3, 2, METAL[3])
+    return img
+
+
+def fotel_garderoba():
+    img = fotel_lata30()
+    return img
+
+
+def stolik_bukiety():
+    """Stolik zastawiony bukietami od wielbicieli, z bilecikami."""
+    img = nowy(44, 50)
+    d = ImageDraw.Draw(img)
+    skrzynia(d, 0, 24, 44, 6, 6, DREWNO)
+    for lx in (3, 39):
+        prost(d, lx, 36, 2, 14, DREWNO[1])
+    for wx, kolory in ((4, (CZERWIEN[3], CZERWIEN[4])), (17, ((240, 230, 220), (220, 200, 210))), (30, (ZLOTO[3], ZLOTO[2]))):
+        prost(d, wx + 2, 14, 7, 12, SZKLO[3])
+        obrys(d, wx + 2, 14, 7, 12)
+        for i, (kx, ky) in enumerate(((0, 6), (4, 1), (8, 6), (3, 9), (7, 10))):
+            d.line([(wx + 5, 14), (wx + kx + 2, ky + 3)], fill=ZIELEN[1])
+            d.ellipse((wx + kx, ky, wx + kx + 4, ky + 4), fill=kolory[i % 2], outline=O)
+    prost(d, 12, 22, 5, 4, PAPIER[2])
+    prost(d, 28, 21, 5, 4, PAPIER[2])
+    return img
+
+
+def garderoba_wolskiego():
+    mp.SZER, mp.WYS, mp.PODLOGA_Y = 640, 360, 104
+    mp.los = random.Random(47)
+    m = mp.Mapa()
+    d = m.d
+    W, H, PY = mp.SZER, mp.WYS, mp.PODLOGA_Y
+    prost(d, 0, 0, W, H, O)
+    mp.podloga(d)
+    mp.sciana_tylna(d)
+    # zielony dywan gwiazdy
+    prost(d, 196, PY + 26, 190, 120, ZIELEN[0])
+    obrys(d, 196, PY + 26, 190, 120, ZLOTO[1])
+    obrys(d, 201, PY + 31, 180, 110, ZIELEN[1])
+
+    # toaletka Wolskiego: lustro w żarówkach, koniak, puderniczki, peruka na główce
+    prost(d, 252, 26, 76, 56, DREWNO_C[2])
+    obrys(d, 252, 26, 76, 56)
+    prost(d, 258, 32, 64, 44, SZKLO[2])
+    prost(d, 262, 36, 3, 24, SZKLO[4])
+    prost(d, 268, 34, 2, 12, SZKLO[3])
+    for bx in range(256, 328, 9):
+        d.ellipse((bx, 22, bx + 5, 27), fill=(255, 236, 170), outline=O)
+    for by in range(32, 80, 9):
+        for bx in (247, 328):
+            d.ellipse((bx, by, bx + 5, by + 5), fill=(255, 236, 170), outline=O)
+    for lx in (270, 310):
+        m.swiatla.append((lx, 40, 0.95))
+    # karteczka za ramą lustra i wycinek z gazety
+    prost(d, 312, 30, 10, 12, PAPIER[2])
+    prost(d, 258, 62, 12, 12, PAPIER[1])
+    for ry in (64, 67, 70):
+        prost(d, 260, ry, 8, 1, PAPIER[0])
+    skrzynia(d, 240, PY - 22, 100, 10, 30, DREWNO)
+    for sx in (246, 296):
+        obrys(d, sx, PY - 6, 38, 10, DREWNO[1])
+        prost(d, sx + 17, PY - 2, 4, 2, ZLOTO[2])
+    koniak_toaletka(d, 322, PY - 14)
+    # pusta główka na perukę (peruki nie ma: garderobiana jej szuka)
+    d.ellipse((276, PY - 34, 288, PY - 20), fill=mp.SKORA_M[1], outline=O)
+    prost(d, 280, PY - 20, 4, 4, mp.SKORA_M[0])
+    d.ellipse((248, PY - 22, 258, PY - 17), fill=PAPIER[2], outline=O)
+    prost(d, 262, PY - 24, 3, 6, CZERWIEN[3])
+    prost(d, 296, PY - 22, 3, 6, (40, 30, 40))  # kredka do oczu
+    m.kolizje.append((240, PY, 340, PY + 10))
+
+    # plakaty z dawnych ról
+    plakat(d, 150, 30, ["HAMLET", "1998"], "korona")
+    plakat(d, 196, 30, ["ROMEO", "1994"], "roza")
+    plakat(d, 372, 30, ["OSTATNI", "AKT"], "maska")
+    mp.kinkiet(d, 120, 50)
+    m.swiatla.append((120, 44, 0.7))
+    mp.kinkiet(d, 560, 50)
+    m.swiatla.append((560, 44, 0.7))
+    # szafa, sejf przy szafie
+    mp.szafa(d, 40, PY - 74)
+    m.kolizje.append((40, PY, 112, PY + 22))
+    m.obiekt("sejf", sejf(), 116, PY + 18, 10)
+    # stojak z kostiumami na kółkach (można się za nim schować)
+    m.obiekt("stojak", stojak_ubrania(100, [CZERWIEN, TKANINY[0], ZLOTO, TKANINY[2]]), 420, 196, 8)
+    m.obiekt("kanapa", kanapa(), 60, 230, 22)
+    m.obiekt("fotel", fotel_garderoba(), 200, 220, 10)
+    m.obiekt("bukiety", stolik_bukiety(), 560, 270, 8)
+    m.obiekt("parawan", mp.parawan(), 540, 150, 8)
+    kosz = nowy(14, 16)
+    dk = ImageDraw.Draw(kosz)
+    skrzynia(dk, 0, 2, 14, 3, 11, METAL)
+    prost(dk, 3, 0, 5, 3, PAPIER[2])
+    prost(dk, 8, 1, 4, 2, PAPIER[1])
+    m.obiekt("kosz", kosz, 352, PY + 4, 6)
+    ramy_z_wejsciem(d, 288, 64)
+    return m, dict(korzen="GarderobaWolskiego", start=(320, 300), postacie=(), mrok=(0.55, 0.5, 0.6))
 
 
 # ---------- MAGAZYN DEKORACJI (rozdział 2, scena 6) ----------
@@ -1835,7 +1959,7 @@ def plan_miasta():
     return img
 
 
-MAPY = {"foyer": foyer, "kulisy": kulisy, "widownia": widownia, "garderoba": garderoba, "magazyn": magazyn, "budka": budka, "plac": plac, "gabinet": gabinet, "pralnia": pralnia, "pracownia": pracownia, "laboratorium": laboratorium}
+MAPY = {"foyer": foyer, "kulisy": kulisy, "widownia": widownia, "garderoba": garderoba, "magazyn": magazyn, "budka": budka, "plac": plac, "gabinet": gabinet, "pralnia": pralnia, "pracownia": pracownia, "laboratorium": laboratorium, "garderoba_wolskiego": garderoba_wolskiego}
 
 
 def main(folder_podgladu=None):
