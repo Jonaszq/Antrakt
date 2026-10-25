@@ -50,6 +50,11 @@ const SCENA1 := {
 	# po wyjściu Ani
 	"antoni_po_ani": [
 		["Antoni", "Za co ona przeprasza? I komu?"],
+		["Antoni", "Lepiej to sobie zapiszę. Stary nawyk z komendy."],
+		["", "Od teraz pod T masz notes. Wpisujesz w nim wszystko sam."],
+	],
+	# po zamknięciu notesu
+	"antoni_po_notesie": [
 		["Antoni", "Dobra. Najpierw kibel, potem zagadki. Może tymi drzwiami?"],
 	],
 }
@@ -108,13 +113,53 @@ const DRZWI := {
 }
 
 
-# ---------- WPISY W NOTESIE ----------
-# Zbierane od początku, ale notes jest wyłączony, dopóki nie zacznie się akcja.
+# ---------- NOTES ----------
+# Gra sama niczego nie zapisuje w notesie, gracz notuje wszystko sam.
 
 const NOTES := {
-	"ania_przeprasza": "Dubler zaginął. Ania za coś przeprasza?",
-	"adrian_nie_odbiera": "Dubler Adrian nie odbiera od wczoraj. Dyrektor Lis w panice.",
-	"kostium_w_pralni": "Wolski gra w nowym kostiumie, stary jest w pralni.",
+	# karteczka nad notesem przy pierwszym otwarciu (scena 1, po rozmowie Ani)
+	"samouczek": "To Twój notes. Gra nic tu nie zapisze za Ciebie, więc notuj wszystko, co ważne. Później trzeba to będzie pamiętać.\n\nWpisz, co usłyszałeś od Ani.\n\nEsc zamyka, T otwiera.",
+}
+
+
+# ---------- PRZEDMIOTY ----------
+# Nazwa w cudzysłowie przed dwukropkiem to identyfikator (i nazwa ikonki w ui/przedmioty/).
+# [nazwa w grze, opis, rodzaj, siły]
+# rodzaj: "fabularny" (trop, nie znika), "jedzenie" albo "picie" (E zjada/wypija),
+# "inny". Siły to ile pasek sił rośnie po zjedzeniu (0 = nic).
+
+const PRZEDMIOTY := {
+	# fabularne (ze scenariusza; w nawiasie gdzie leżą i w której scenie)
+	"program": ["Program premiery", "Biografia Wolskiego: zadebiutował w 1998 roku jako Hamlet. Na okładce jego zdjęcie.", "fabularny", 0],  # stojak w foyer, sc. 1
+	"klucz": ["Zapasowy klucz", "Klucz z zawieszką \"PRACOWNIA / GARDEROBY\". Otwiera drzwi także po godzinach.", "fabularny", 0],  # bezpieczniki w kulisach, sc. 2
+	"latarka": ["Latarka", "Stara, ciężka, ale świeci jak trzeba.", "fabularny", 0],  # skrzynka z rekwizytami w magazynie, sc. 6
+	"ladowarka": ["Ładowarka", "Ładowarka do telefonu. Pasuje do starszych modeli.", "fabularny", 0],  # szuflada w budce stróża, sc. 7
+	"rekawiczki": ["Lateksowe rękawiczki", "Chronią dłonie. Przy podejrzanych plamach lepiej ich nie zdejmować.", "fabularny", 0],  # apteczka w bufecie, sc. 9
+	"lampa_uv": ["Lampa UV", "W jej świetle niektóre plamy świecą.", "fabularny", 0],  # szafka pod ladą w pralni, sc. 12
+	"nozyczki": ["Nożyczki krawieckie", "Ostre jak brzytwa. Irena by mnie za nie zabiła.", "fabularny", 0],  # kosz z przyborami w pracowni, sc. 11
+	"woreczek": ["Woreczek na dowody", "Strunowy woreczek z komendy. Bez niego laboratorium nic nie przyjmie.", "fabularny", 0],  # schowek w samochodzie, sc. 13
+	"paragon": ["Paragon z hurtowni", "Hurtownia tkanin, czwartek 7:12. Na nazwisko Ireny.", "fabularny", 0],  # skrzynka z materiałami w pracowni, sc. 15
+	"grafik": ["Grafik dostaw", "Dostawy mleka do bufetu: tylko w czwartki.", "fabularny", 0],  # skrzynka na mleko przy bufecie, sc. 19
+	"spinka": ["Spinka do włosów", "Wygięta. Da się nią otworzyć prosty zamek.", "fabularny", 0],  # pudełko z charakteryzacją Ani, sc. 20
+	"pendrive": ["Pendrive", "Czarny pendrive z sejfu Wolskiego. Coś na nim jest.", "fabularny", 0],  # sejf w garderobie Wolskiego, sc. 18
+	# zwykłe (pasek sił)
+	"bulka": ["Bułka", "Świeża bułka z pralni pani Haliny.", "jedzenie", 10],
+	"kanapka": ["Kanapka", "Z serem i pomidorem, z bufetu.", "jedzenie", 20],
+	"paczek": ["Pączek", "Z lukrem. Z budki przed magazynem.", "jedzenie", 15],
+	"kawa": ["Kawa", "Czarna. Przez chwilę chodzisz szybciej.", "picie", 5],
+	"herbata": ["Herbata z termosu", "Herbata od Wolskiego. Gorąca i słodka.", "picie", 10],
+	"tabletki": ["Tabletki przeciwbólowe", "Na ból głowy. Nie więcej niż dwie dziennie.", "jedzenie", 15],
+	"papierosy": ["Papierosy", "Antoni nie pali, ale zestresowani ludzie chętniej gadają przy papierosie.", "inny", 0],
+	"monety": ["Drobne monety", "Kilka złotych. Na automat albo taksówkę.", "inny", 0],
+}
+
+# Miejsca do przeszukania (E): [podpowiedź nad miejscem, tekst po przeszukaniu, tekst gdy pusto]
+const SKRZYNKI := {
+	"stojak_programy": ["Weź program", "Program premiery. Jeden wezmę.", "Jeden program wystarczy."],
+	"bufet": ["Bufet", "Na ladzie kanapki i kawa dla widzów premiery. Biorę po jednej.", "Więcej nie wezmę, nie wypada."],
+	"apteczka": ["Apteczka", "W apteczce są tabletki przeciwbólowe. Biorę listek.", "Bandaże, plaster. Nic więcej mi nie trzeba."],
+	"szatnia": ["Szatnia", "Szatniarz: \"To pana? Wypadło komuś z płaszcza, nikt się nie przyznaje.\" Biorę drobne.", "Szatniarz kiwa głową. Nic więcej tu nie ma."],
+	"bezpieczniki": ["Bezpieczniki", "Między bezpiecznikami wisi zapasowy klucz. Ktoś tu dba o wygodę.", "Same bezpieczniki."],
 }
 
 

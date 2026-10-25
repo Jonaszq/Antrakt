@@ -16,19 +16,25 @@ var _muzyka: AudioStreamPlayer
 
 
 func _ready() -> void:
+	# ujęcia są rysowane w 480x270, kamera powiększa je na cały ekran 640x360
+	var kamera := Camera2D.new()
+	kamera.position = Vector2(240, 135)
+	kamera.zoom = Gra.SKALA_UI
+	add_child(kamera)
 	var ui := CanvasLayer.new()
 	ui.layer = 10
+	ui.scale = Gra.SKALA_UI
 	add_child(ui)
 	_zaslona = ColorRect.new()
 	_zaslona.color = Color.BLACK
 	_zaslona.size = Vector2(480, 270)
 	ui.add_child(_zaslona)
-	_napis = _etykieta(40, Vector2(0, 100), Vector2(480, 70))
+	_napis = _etykieta(24, Vector2(0, 100), Vector2(480, 70))
 	_napis.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	ui.add_child(_napis)
-	_podpis = _etykieta(20, Vector2(8, 2), Vector2(400, 20))
+	_podpis = _etykieta(12, Vector2(8, 2), Vector2(400, 20))
 	ui.add_child(_podpis)
-	var pomoc := _etykieta(20, Vector2(250, 250), Vector2(226, 20))
+	var pomoc := _etykieta(12, Vector2(250, 250), Vector2(226, 20))
 	pomoc.text = "Spacja – dalej   Esc – pomiń"
 	pomoc.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	pomoc.modulate = Color(1, 1, 1, 0.45)

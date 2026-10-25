@@ -1,89 +1,90 @@
 extends CanvasLayer
-## Notes Antoniego, dostępny w całej grze pod klawiszem T (singleton "Notatnik").
-## Sceny dopisują tropy przez Notatnik.dodaj("..."). Na razie to prosta lista
-## wpisów; łączenie tropów dorobi wątek mechaniki gry.
+## Notes Antoniego pod klawiszem T (singleton "Notatnik").
+## Gracz sam wpisuje w nim notatki, gra niczego tu nie dopisuje.
+## Escape albo klik obok kartki zamyka notes. Tekst zostaje między scenami
+## (Notatnik.tekst).
 
-signal dodano(wpis: String)
-
-## Notes jest wyłączony, dopóki nie zacznie się akcja (wtedy scena woła Notatnik.wlacz()).
-## Wpisy zbierają się po cichu także wcześniej, więc po włączeniu nic nie przepada.
+## Notes jest wyłączony, dopóki scena nie zawoła Notatnik.wlacz()
+## (w scenie 1 po podsłuchaniu Ani, razem z samouczkiem).
 var aktywny := false
 
-var wpisy: PackedStringArray = []
-
 var _kartka: NinePatchRect
-var _lista: Label
-var _dymek: PanelContainer
-var _dymek_tekst: Label
-var _dymek_czas := 0.0
+var _pole: TextEdit
+var _rada: PanelContainer
+var _rada_tekst: Label
+
+
+## Wszystko, co gracz zapisał.
+var tekst: String:
+	get:
+		return _pole.text
+	set(wartosc):
+		_pole.text = wartosc
 
 
 func _ready() -> void:
 	layer = 30
+	scale = Gra.SKALA_UI
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_kartka = NinePatchRect.new()
 	_kartka.texture = preload("res://ui/kartka.png")
 	for strona in [SIDE_LEFT, SIDE_TOP, SIDE_RIGHT, SIDE_BOTTOM]:
 		_kartka.set_patch_margin(strona, 6)
-	_kartka.position = Vector2(80, 16)
-	_kartka.size = Vector2(320, 238)
+	_kartka.position = Vector2(80, 30)
+	_kartka.size = Vector2(320, 230)
 	_kartka.visible = false
 	add_child(_kartka)
-	var tytul := _etykieta("Notes", 40, Color8(60, 40, 32))
-	tytul.position = Vector2(16, 2)
+	var tytul := _etykieta("Notes", 24, Color8(60, 40, 32))
+	tytul.add_theme_font_override("font", preload("res://fonty/AtkinsonHyperlegibleNext-Bold.ttf"))
+	tytul.position = Vector2(18, 2)
 	_kartka.add_child(tytul)
 	var margines := ColorRect.new()
 	margines.color = Color8(196, 78, 66)
-	margines.position = Vector2(12, 36)
-	margines.size = Vector2(1, 196)
+	margines.position = Vector2(12, 34)
+	margines.size = Vector2(1, 180)
 	_kartka.add_child(margines)
-	_lista = _etykieta("", 20, Color8(40, 34, 60))
-	_lista.position = Vector2(18, 36)
-	_lista.size = Vector2(292, 176)
-	_lista.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	_kartka.add_child(_lista)
-	var podpis := _etykieta("T – zamknij", 20, Color8(150, 132, 108))
-	podpis.position = Vector2(206, 214)
+	_pole = TextEdit.new()
+	_pole.position = Vector2(14, 34)
+	_pole.size = Vector2(298, 176)
+	_pole.wrap_mode = TextEdit.LINE_WRAPPING_BOUNDARY
+	_pole.placeholder_text = "Pisz tutaj. Notuj wszystko, co może się przydać: kto co powiedział, gdzie i kiedy."
+	_pole.add_theme_font_size_override("font_size", 12)
+	_pole.add_theme_color_override("font_color", Color8(40, 34, 60))
+	_pole.add_theme_color_override("font_placeholder_color", Color8(150, 132, 108))
+	_pole.add_theme_color_override("caret_color", Color8(40, 34, 60))
+	_pole.add_theme_color_override("selection_color", Color8(220, 196, 140))
+	for styl in ["normal", "focus", "read_only"]:
+		_pole.add_theme_stylebox_override(styl, StyleBoxEmpty.new())
+	_kartka.add_child(_pole)
+	var podpis := _etykieta("Esc – zamknij", 12, Color8(150, 132, 108))
+	podpis.position = Vector2(226, 210)
 	_kartka.add_child(podpis)
 
-	_dymek = PanelContainer.new()
+	# żółta karteczka z radą nad notesem (samouczek)
+	_rada = PanelContainer.new()
 	var styl := StyleBoxFlat.new()
-	styl.bg_color = Color8(232, 222, 196)
+	styl.bg_color = Color8(242, 212, 126)
 	styl.border_color = Color8(20, 12, 14)
 	styl.set_border_width_all(1)
-	styl.content_margin_left = 4
-	styl.content_margin_right = 4
-	styl.content_margin_top = -1
-	styl.content_margin_bottom = 0
-	_dymek.add_theme_stylebox_override("panel", styl)
-	_dymek_tekst = _etykieta("", 20, Color8(40, 34, 60))
-	_dymek.add_child(_dymek_tekst)
-	_dymek.position = Vector2(6, 6)
-	_dymek.visible = false
-	add_child(_dymek)
+	styl.set_content_margin_all(4)
+	_rada.add_theme_stylebox_override("panel", styl)
+	_rada.position = Vector2(348, 40)
+	_rada.rotation = deg_to_rad(2.0)
+	_rada_tekst = _etykieta("", 12, Color8(40, 30, 30))
+	_rada_tekst.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_rada_tekst.custom_minimum_size.x = 118
+	_rada_tekst.add_theme_constant_override("line_spacing", -3)
+	_rada.add_child(_rada_tekst)
+	_rada.visible = false
+	add_child(_rada)
 
 
-func _etykieta(tekst: String, rozmiar: int, kolor: Color) -> Label:
+func _etykieta(napis: String, rozmiar: int, kolor: Color) -> Label:
 	var l := Label.new()
-	l.text = tekst
+	l.text = napis
 	l.add_theme_font_size_override("font_size", rozmiar)
 	l.add_theme_color_override("font_color", kolor)
 	return l
-
-
-## Dopisuje trop do notesu i na chwilę pokazuje dymek w rogu ekranu.
-func dodaj(wpis: String) -> void:
-	if wpis in wpisy:
-		return
-	wpisy.append(wpis)
-	_odswiez()
-	dodano.emit(wpis)
-	if not aktywny:
-		return
-	_dymek_tekst.text = "Nowy wpis w notesie  [T]"
-	_dymek.reset_size()
-	_dymek.visible = true
-	_dymek_czas = 4.0
 
 
 func wlacz() -> void:
@@ -94,25 +95,52 @@ func otwarty() -> bool:
 	return _kartka.visible
 
 
-func _odswiez() -> void:
-	var tekst := ""
-	for w in wpisy:
-		tekst += "• " + w + "\n"
-	_lista.text = tekst if tekst != "" else "Na razie pusto."
+## Otwiera notes z karteczką z radą (samouczek). Czeka, aż gracz go zamknie.
+func samouczek(rada: String) -> void:
+	_rada_tekst.text = rada
+	_rada.reset_size()
+	_rada.visible = true
+	_kartka.position.x = 20  # notes w lewo, karteczka obok po prawej
+	_otworz()
+	while _kartka.visible:
+		await get_tree().process_frame
+	_rada.visible = false
+	_kartka.position.x = 80
 
 
-func _process(delta: float) -> void:
-	if _dymek_czas > 0.0:
-		_dymek_czas -= delta
-		_dymek.visible = _dymek_czas > 0.0
+func _otworz() -> void:
+	_kartka.visible = true
+	_pole.grab_focus()
+	_pole.set_caret_line(_pole.get_line_count() - 1)
+	_pole.set_caret_column(_pole.get_line(_pole.get_line_count() - 1).length())
+
+
+func _zamknij() -> void:
+	_pole.release_focus()
+	_kartka.visible = false
+
+
+func _input(zdarzenie: InputEvent) -> void:
+	if not _kartka.visible:
+		return
+	# Escape zamyka, zanim pole tekstowe go zje
+	var k := zdarzenie as InputEventKey
+	if k and k.pressed and k.physical_keycode == KEY_ESCAPE:
+		_zamknij()
+		get_viewport().set_input_as_handled()
+		return
+	var m := zdarzenie as InputEventMouseButton
+	if m and m.pressed and m.button_index == MOUSE_BUTTON_LEFT:
+		var poz: Vector2 = transform.affine_inverse() * m.position
+		if not Rect2(_kartka.position, _kartka.size).has_point(poz):
+			_zamknij()  # klik obok kartki
+			get_viewport().set_input_as_handled()
 
 
 func _unhandled_input(zdarzenie: InputEvent) -> void:
 	var k := zdarzenie as InputEventKey
 	if k and k.pressed and not k.echo and k.physical_keycode == KEY_T and aktywny:
-		if not _kartka.visible and Gra.okno_otwarte():
-			return
-		_odswiez()
-		_kartka.visible = not _kartka.visible
-		_dymek.visible = false
+		if Gra.okno_otwarte():
+			return  # przy otwartym notesie T to zwykła litera w polu tekstowym
+		_otworz()
 		get_viewport().set_input_as_handled()

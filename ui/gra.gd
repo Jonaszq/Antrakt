@@ -6,7 +6,18 @@ extends CanvasLayer
 
 signal zmieniono_postac(z_latarnia: bool)
 
+## Gra pokazuje świat w 640x360 (kamera widzi więcej), a okienka i napisy są
+## rysowane dla 480x270 i powiększane o 4/3, więc na ekranie 1920x1080 każdy
+## piksel grafiki to równo 4x4 piksele, a tekst jest ostry.
+const SKALA_UI := Vector2(4.0 / 3.0, 4.0 / 3.0)
+
 var latarnia := false
+
+## Pasek sił Antoniego (0-100). Jedzenie z ekwipunku go podnosi.
+## Spadanie z czasem dojdzie razem z licznikiem dni.
+var sily := 80
+
+var _kawa_czas := 0.0
 
 var _okno: NinePatchRect
 var _ramki: Array[ColorRect] = []
@@ -15,6 +26,7 @@ var _wybor := 0
 
 func _ready() -> void:
 	layer = 30
+	scale = Gra.SKALA_UI
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_okno = NinePatchRect.new()
 	_okno.texture = preload("res://ui/ramka.png")
@@ -24,7 +36,7 @@ func _ready() -> void:
 	_okno.size = Vector2(360, 190)
 	_okno.visible = false
 	add_child(_okno)
-	var tytul := _etykieta("Wybierz postać", 20, Color8(242, 212, 126))
+	var tytul := _etykieta("Wybierz postać", 12, Color8(242, 212, 126))
 	tytul.position = Vector2(0, 4)
 	tytul.size = Vector2(360, 20)
 	tytul.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -51,14 +63,14 @@ func _ready() -> void:
 		obraz.texture = klatka
 		obraz.position = Vector2(8, 4)
 		ramka.add_child(obraz)
-		var nazwa := _etykieta(opisy[i][0], 20, Color8(236, 226, 200))
+		var nazwa := _etykieta(opisy[i][0], 12, Color8(236, 226, 200))
 		nazwa.position = Vector2(54, 24)
 		ramka.add_child(nazwa)
-		var opis := _etykieta(opisy[i][1], 20, Color8(170, 160, 140))
+		var opis := _etykieta(opisy[i][1], 12, Color8(170, 160, 140))
 		opis.position = Vector2(6, 74)
 		opis.size = Vector2(130, 40)
 		ramka.add_child(opis)
-	var pomoc := _etykieta("A/D albo mysz – wybór   E – weź   Tab – zamknij", 20, Color8(170, 160, 140))
+	var pomoc := _etykieta("A/D albo mysz – wybór   E – weź   Tab – zamknij", 12, Color8(170, 160, 140))
 	pomoc.position = Vector2(0, 160)
 	pomoc.size = Vector2(360, 20)
 	pomoc.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -75,7 +87,24 @@ func _etykieta(tekst: String, rozmiar: int, kolor: Color) -> Label:
 
 ## Czy jest otwarte jakieś okno (notes, telefon, wybór postaci). Antoni wtedy stoi.
 func okno_otwarte() -> bool:
-	return _okno.visible or Notatnik.otwarty() or Telefon.otwarty()
+	return _okno.visible or Notatnik.otwarty() or Telefon.otwarty() or Ekwipunek.otwarty()
+
+
+func dodaj_sily(ile: int) -> void:
+	sily = clampi(sily + ile, 0, 100)
+
+
+## Po kawie Antoni przez pół minuty chodzi szybciej.
+func wypij_kawe() -> void:
+	_kawa_czas = 30.0
+
+
+func mnoznik_predkosci() -> float:
+	return 1.35 if _kawa_czas > 0.0 else 1.0
+
+
+func _process(delta: float) -> void:
+	_kawa_czas = maxf(0.0, _kawa_czas - delta)
 
 
 func ustaw_latarnie(z: bool) -> void:
@@ -122,7 +151,7 @@ func _input(zdarzenie: InputEvent) -> void:
 	if not _okno.visible or not zdarzenie is InputEventMouse:
 		return
 	get_viewport().set_input_as_handled()
-	var poz: Vector2 = (zdarzenie as InputEventMouse).position - _okno.position
+	var poz: Vector2 = transform.affine_inverse() * (zdarzenie as InputEventMouse).position - _okno.position
 	var pod := -1
 	for i in 2:
 		if Rect2(_ramki[i].position, _ramki[i].size).has_point(poz):

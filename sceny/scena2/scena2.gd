@@ -25,6 +25,8 @@ func _ready() -> void:
 	gdy_blisko(Vector2(582, 194), 130.0, _klotnia)
 	dodaj_rozmowce(_marta, _rozmowa_z_marta)
 	zamkniete_drzwi(WYJSCIE, Dialogi.DRZWI["kulisy_wyjscie"])
+	# zapasowy klucz w skrzynce z bezpiecznikami na ścianie
+	skrzynka(Vector2(612, 112), "bezpieczniki", ["klucz"], "bezpieczniki", 40.0)
 	await plansza("Kulisy, 18:50")
 	antoni.sterowanie = false
 	await dialog.pokaz(Dialogi.SCENA2["poczatek"])
@@ -35,7 +37,6 @@ func _klotnia() -> void:
 	antoni.sterowanie = false
 	zwroc_sie(_lis)
 	await dialog.pokaz(Dialogi.SCENA2["klotnia"])
-	Notatnik.dodaj(Dialogi.NOTES["adrian_nie_odbiera"])
 	_poznal_dyrekcje = true
 	zamkniete_drzwi(WYJSCIE, Dialogi.DRZWI["kulisy_wyjscie_2"])
 	dodaj_rozmowce(_lis, Dialogi.SCENA2["lis_potem"])
@@ -56,4 +57,3 @@ func _rozmowa_z_marta() -> void:
 func _otworz_wyjscie() -> void:
 	if _poznal_dyrekcje and _poznal_marte:
 		ustaw_wyjscie(WYJSCIE, "Wróć na widownię", NASTEPNA)
-		Notatnik.dodaj(Dialogi.NOTES["kostium_w_pralni"])

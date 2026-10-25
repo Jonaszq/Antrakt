@@ -114,7 +114,7 @@ func _physics_process(_delta: float) -> void:
 		else:
 			kierunek = "dol" if wejscie.y > 0.0 else "gora"
 			sprite.flip_h = false
-	velocity = Vector2(wejscie.x, wejscie.y * skrot_pionu) * predkosc
+	velocity = Vector2(wejscie.x, wejscie.y * skrot_pionu) * predkosc * Gra.mnoznik_predkosci()
 	move_and_slide()
 	_graj(("idzie_" if wejscie != Vector2.ZERO else "stoi_") + kierunek)
 

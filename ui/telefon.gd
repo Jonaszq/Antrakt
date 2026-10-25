@@ -23,10 +23,12 @@ var _widok := "start"
 var _wybor := 0
 var _rozmowa := ""
 var _przewiniecie := 0
+var _stopka := false
 
 
 func _ready() -> void:
 	layer = 30
+	scale = Gra.SKALA_UI
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_korpus = TextureRect.new()
 	_korpus.texture = preload("res://ui/telefon.png")
@@ -54,9 +56,9 @@ func _etykieta(tekst: String, kolor := BIALY, poz := Vector2.ZERO, szer := 0.0) 
 	var l := Label.new()
 	l.text = tekst
 	l.position = poz
-	l.add_theme_font_size_override("font_size", 20)
+	l.add_theme_font_size_override("font_size", 12)
 	l.add_theme_color_override("font_color", kolor)
-	l.add_theme_constant_override("line_spacing", -6)
+	l.add_theme_constant_override("line_spacing", -2)
 	_ekran.add_child(l)
 	if szer > 0.0:
 		l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
@@ -80,6 +82,7 @@ func _rysuj() -> void:
 	_prost(Vector2.ZERO, EKRAN.size, Color8(18, 24, 44))
 	_etykieta(godzina, SZARY, Vector2(4, -2))
 	_etykieta("sob", SZARY, Vector2(118, -2))
+	_stopka = false
 	match _widok:
 		"start":
 			_ekran_glowny()
@@ -95,12 +98,20 @@ func _rysuj() -> void:
 		"muzyka":
 			_naglowek("Muzyka")
 			_etykieta("Brak pobranych utworów.\n\nOla poleca:\n\"Sonata\nksiężycowa\"", SZARY, Vector2(8, 26), 136)
+	if _stopka:
+		_rysuj_stopke()
+
+
+## Pasek z "Q – wróć" na dole ekranu, rysowany na końcu, żeby przykrył przewinięte SMS-y.
+func _rysuj_stopke() -> void:
+	_prost(Vector2(0, 194), Vector2(150, 20), Color8(18, 24, 44))
+	_etykieta("Q – wróć", SZARY, Vector2(82, 196))  # klikalne, patrz _klik()
 
 
 func _naglowek(tekst: String) -> void:
 	_prost(Vector2(0, 16), Vector2(150, 1), Color8(60, 70, 100))
 	_etykieta(tekst, Color8(242, 212, 126), Vector2(6, 16))
-	_etykieta("Q – wróć", SZARY, Vector2(82, 196))  # klikalne, patrz _klik()
+	_stopka = true
 
 
 const APLIKACJE := [["telefon", "Telefon"], ["wiadomosci", "Wiadomości"], ["pogoda", "Pogoda"], ["muzyka", "Muzyka"]]
@@ -155,13 +166,13 @@ func _pokaz_rozmowe() -> void:
 	for w in sms[_rozmowa]:
 		var od_niego: bool = w[2]
 		var l := _etykieta(w[1], BIALY if od_niego else Color8(24, 24, 32), Vector2.ZERO, 128)
-		var wys := l.get_line_count() * (l.get_line_height() - 6.0) + 6.0
+		var wys := l.get_line_count() * (l.get_line_height() - 2.0) + 2.0
 		var x := 18.0 if od_niego else 4.0
 		var dymek := _prost(Vector2(x - 2, y), Vector2(132, wys + 2), Color8(60, 110, 200) if od_niego else Color8(214, 218, 230))
 		_ekran.move_child(dymek, l.get_index())
 		l.position = Vector2(x, y - 1)
-		_etykieta(w[0], SZARY, Vector2(x, y + wys - 2))
-		y += wys + 18
+		_etykieta(w[0], SZARY, Vector2(x, y + wys + 1))
+		y += wys + 20
 
 
 func _unhandled_input(zdarzenie: InputEvent) -> void:
@@ -235,7 +246,7 @@ func _input(zdarzenie: InputEvent) -> void:
 	if not _korpus.visible or not zdarzenie is InputEventMouse:
 		return
 	get_viewport().set_input_as_handled()
-	var poz: Vector2 = (zdarzenie as InputEventMouse).position - _korpus.position - EKRAN.position
+	var poz: Vector2 = transform.affine_inverse() * (zdarzenie as InputEventMouse).position - _korpus.position - EKRAN.position
 	if zdarzenie is InputEventMouseMotion:
 		var i := _pozycja_pod(poz)
 		if i >= 0 and i != _wybor:

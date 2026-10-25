@@ -6,7 +6,8 @@ extends Node2D
 ##
 ## Scena dziedziczy po tej klasie, w _ready() woła przygotuj($Mapa) i dodaje
 ## rozmówców (dodaj_rozmowce), wydarzenia (gdy_blisko), wyjście (ustaw_wyjscie)
-## i drzwi, którymi nie da się przejść (zamkniete_drzwi).
+## drzwi, którymi nie da się przejść (zamkniete_drzwi), i miejsca do przeszukania
+## z przedmiotami (skrzynka).
 
 const ZASIEG := 26.0  # jak blisko trzeba podejść, żeby porozmawiać
 
@@ -16,7 +17,7 @@ var obiekty: Node2D
 var ui: CanvasLayer
 var koniec := false
 
-var _rozmowcy: Array = []  # [węzeł, kwestie albo Callable]
+var _rozmowcy: Array = []  # [węzeł, kwestie albo Callable, napis przy E, wysokość podpowiedzi]
 var _wydarzenia: Array = []  # [węzeł albo Vector2, odległość, Callable]
 var _wyjscie := {}
 var _zamkniete: Array = []  # [prostokąt, napis, czy Antoni już z niego wyszedł]
@@ -30,6 +31,7 @@ func przygotuj(mapa: Node) -> void:
 	antoni = obiekty.get_node("Antoni")
 	ui = CanvasLayer.new()
 	ui.layer = 10
+	ui.scale = Gra.SKALA_UI
 	add_child(ui)
 	_podpowiedz = PanelContainer.new()
 	var styl := StyleBoxTexture.new()
@@ -39,7 +41,7 @@ func przygotuj(mapa: Node) -> void:
 	styl.content_margin_right = 3
 	styl.content_margin_bottom = 0
 	_podpowiedz.add_theme_stylebox_override("panel", styl)
-	_podpowiedz_tekst = etykieta(20, Color8(40, 30, 30))
+	_podpowiedz_tekst = etykieta(12, Color8(40, 30, 30))
 	_podpowiedz.add_child(_podpowiedz_tekst)
 	_podpowiedz.visible = false
 	ui.add_child(_podpowiedz)
@@ -62,7 +64,7 @@ func etykieta(rozmiar: int, kolor: Color) -> Label:
 
 ## Czarna plansza z miejscem i godziną, potem rozjaśnienie. Antoni czeka.
 func plansza(tekst: String) -> void:
-	var miejsce := etykieta(40, Color8(236, 226, 200))
+	var miejsce := etykieta(24, Color8(236, 226, 200))
 	miejsce.text = tekst
 	miejsce.position = Vector2(0, 110)
 	miejsce.size = Vector2(480, 40)
@@ -80,8 +82,8 @@ func plansza(tekst: String) -> void:
 
 ## Na kilka sekund pokazuje na dole listę klawiszy.
 func pomoc_klawiszy() -> void:
-	var pomoc := etykieta(20, Color8(236, 226, 200))
-	pomoc.text = "WASD chodzenie  E rozmowa  Q telefon  Tab postać"
+	var pomoc := etykieta(12, Color8(236, 226, 200))
+	pomoc.text = "WASD chodzenie  E rozmowa  I ekwipunek  Q telefon  Tab postać"
 	if Notatnik.aktywny:
 		pomoc.text += "  T notes"
 	pomoc.position = Vector2(8, 250)
@@ -101,12 +103,47 @@ func postac(plik: String, poz: Vector2) -> Node2D:
 
 
 ## Postać, z którą można pogadać pod E. Kwestie to lista [kto, tekst] albo funkcja.
-func dodaj_rozmowce(kto: Node2D, kwestie: Variant) -> void:
+## Napis to tekst obok "E" (pusty dla ludzi), wysokość: jak wysoko nad węzłem pokazać "E".
+func dodaj_rozmowce(kto: Node2D, kwestie: Variant, napis := "", wysokosc := 74.0) -> void:
 	for r in _rozmowcy:
 		if r[0] == kto:
 			r[1] = kwestie
 			return
-	_rozmowcy.append([kto, kwestie])
+	_rozmowcy.append([kto, kwestie, napis, wysokosc])
+
+
+## Miejsce do przeszukania pod E. Teksty są w Dialogi.SKRZYNKI[id], przedmioty
+## (identyfikatory z Dialogi.PRZEDMIOTY) trafiają do ekwipunku przy pierwszym
+## przeszukaniu. Rekwizyt to opcjonalny obrazek z rekwizyty/<nazwa>.png, stojący
+## dolną krawędzią na punkcie miejsce (uniesienie przesuwa go w górę, np. na ścianę).
+func skrzynka(miejsce: Vector2, id: String, przedmioty: Array, rekwizyt := "", uniesienie := 0.0) -> Node2D:
+	var wezel: Node2D
+	var wysokosc := 30.0
+	if rekwizyt != "":
+		var obraz := Sprite2D.new()
+		obraz.texture = load("res://rekwizyty/%s.png" % rekwizyt)
+		obraz.centered = false
+		var rozmiar := obraz.texture.get_size()
+		obraz.offset = Vector2(-rozmiar.x / 2.0, -rozmiar.y - uniesienie)
+		wysokosc = rozmiar.y + uniesienie + 6.0
+		wezel = obraz
+	else:
+		wezel = Node2D.new()
+	wezel.name = "Skrzynka_" + id
+	wezel.position = miejsce
+	obiekty.add_child(wezel)
+	var teksty: Array = Dialogi.SKRZYNKI[id]
+	var stan := {"pelna": true}
+	var przeszukaj := func() -> void:
+		if not stan.pelna:
+			await rozmowa([["", teksty[2]]])
+			return
+		stan.pelna = false
+		await rozmowa([["", teksty[1]]])
+		for p in przedmioty:
+			Ekwipunek.dodaj(p)
+	dodaj_rozmowce(wezel, przeszukaj, teksty[0], wysokosc)
+	return wezel
 
 
 ## Jednorazowe wydarzenie, gdy Antoni podejdzie na podaną odległość do węzła albo punktu.
@@ -161,7 +198,7 @@ func _process(_delta: float) -> void:
 			return
 	var r = _najblizszy()
 	if r:
-		_pokaz_podpowiedz("E", r[0].position + Vector2(0, -74))
+		_pokaz_podpowiedz("E  " + r[2] if r[2] != "" else "E", r[0].position + Vector2(0, -r[3]))
 
 
 func _w_wyjsciu() -> bool:
@@ -184,7 +221,7 @@ func _najblizszy() -> Variant:
 func _pokaz_podpowiedz(tekst: String, swiat: Vector2) -> void:
 	_podpowiedz_tekst.text = tekst
 	_podpowiedz.reset_size()
-	var ekran := get_viewport().get_canvas_transform() * swiat
+	var ekran := ui.transform.affine_inverse() * (get_viewport().get_canvas_transform() * swiat)
 	ekran.x = clampf(ekran.x, _podpowiedz.size.x / 2 + 2, 478 - _podpowiedz.size.x / 2)
 	_podpowiedz.position = (ekran - Vector2(_podpowiedz.size.x / 2, 0)).round()
 	_podpowiedz.visible = true

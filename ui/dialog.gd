@@ -43,13 +43,14 @@ var _ostatnia_litera := 0
 
 func _ready() -> void:
 	layer = 20
+	scale = Gra.SKALA_UI
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_okno = _ramka(preload("res://ui/ramka.png"), 6, Rect2(8, 192, 464, 72))
 	_tekst = Label.new()
 	_tekst.position = Vector2(10, 5)
 	_tekst.size = Vector2(444, 62)
 	_tekst.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	_tekst.add_theme_font_size_override("font_size", 20)
+	_tekst.add_theme_font_size_override("font_size", 12)
 	_tekst.add_theme_color_override("font_color", Color8(236, 226, 200))
 	_tekst.add_theme_constant_override("line_spacing", -2)
 	_okno.add_child(_tekst)
@@ -60,7 +61,8 @@ func _ready() -> void:
 	_imie_tlo = _ramka(preload("res://ui/imie.png"), 4, Rect2(14, 174, 60, 20))
 	_imie = Label.new()
 	_imie.position = Vector2(6, -1)
-	_imie.add_theme_font_size_override("font_size", 20)
+	_imie.add_theme_font_size_override("font_size", 12)
+	_imie.add_theme_font_override("font", preload("res://fonty/AtkinsonHyperlegibleNext-Bold.ttf"))
 	_imie.add_theme_color_override("font_color", Color8(242, 212, 126))
 	_imie_tlo.add_child(_imie)
 	_glos = AudioStreamPlayer.new()
