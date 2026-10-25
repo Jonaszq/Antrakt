@@ -773,10 +773,20 @@ const SCENA6 := {
 		["", "\"nie dam rady, kręci mi się w głowie\""],
 		["Antoni", "Pisał to tutaj. Usiadł na tej sofie, bo nie mógł ustać na nogach."],
 	],
+	"kielich": [
+		["", "Pod skrzynią coś błyszczy w świetle latarki. Złoty kielich, leży na boku."],
+		["", "Na nóżce jest wgniecenie, a obok kurz rozmazany długim pociągnięciem."],
+	],
+	"termos": [
+		["", "Na sofie stoi termos w kratkę. W środku resztka zimnej herbaty z cytryną."],
+		["", "Pachnie zwyczajnie, herbatą i cytryną. Na zakrętce wydrapane: \"A.\""],
+	],
+	"termos_potem": [["", "Termos Adriana. Herbata z cytryną, zimna."]],
+	"kielich_ciemno": [["", "Pod skrzynią coś jest, ale w tej ciemności nic nie widać."]],
 	"lista_potem": [["Antoni", "Na sofie wgniecenie. Siedział tu dłużej."]],
 	"skrzynia_przewrocona": [
-		["", "Przewrócona skrzynka z rekwizytami. Złoty kielich, korona, sztuczne owoce."],
-		["Antoni", "To, po co przyjechał. Skrzynka upadła razem z nim."],
+		["", "Przewrócona skrzynka z rekwizytami. Korona, sztuczne owoce, złote kielichy."],
+		["", "Kielichy są trzy. W wyściółce są cztery wgłębienia, jedno puste."],
 	],
 	"zamek": [["", "Ściana zamku ze sklejki. Farba odpryskuje, z wieżyczki zrobiło się gniazdo gołębi."]],
 	"statek": [["", "Dziób pirackiego statku. Na burcie wymalowane: \"Wyspa skarbów, 1987\"."]],
@@ -801,10 +811,14 @@ const SCENA6_WYBOR := ["Jeszcze się rozejrzę", "Pokaż dowód", "Skończyłem"
 const SCENA6_DOWODY := {
 	"lekarz": {
 		"zdjecie_pasy": [["Antoni", "Te pasy są tylko tam, gdzie przylegało ubranie."], ["Lekarz", "Uczulenie na proszek albo na farbę z kostiumu. Mówiłem. Zawał."]],
+		"termos": [["Lekarz", "Herbata. Mam ją wysłać do laboratorium? Za co? Panie, to był zawał."]],
+		"kielich": [["Lekarz", "Kielich? Panie, ja tu mam nieboszczyka, a nie inwentaryzację."]],
 		"lista_rekwizytow": [["Lekarz", "Kręciło mu się w głowie? No to serce. Wszystko się zgadza."]],
 	},
 	"lis": {
 		"lista_rekwizytow": [["Lis", "To moja lista... A na dole jego pismo. Boże, on to pisał tutaj, sam."]],
+		"termos": [["Lis", "Jego termos. Zawsze z nim chodził, nawet na scenę by go wziął, gdyby mógł."]],
+		"kielich": [["Lis", "Czwarty kielich. Wszystkie cztery są na liście. Gdzie on leżał?"], ["Antoni", "Pod skrzynią."], ["Lis", "Adrian był pedantem. Nigdy by go tak nie zostawił."]],
 		"telefon_adriana": [["Lis", "Jego telefon. Dzwoniłem do niego w sobotę rano, nie odbierał. Myślałem, że się obraził."]],
 	},
 	"nowicki": {
@@ -876,6 +890,40 @@ const SCENA7 := {
 	"paczki_bez": [["Sprzedawca", "Bez pieniędzy nie ma pączków. Noc długa, panie."]],
 	"paczki_potem": [["Sprzedawca", "(ziewa) Więcej nie ma. Rano przywiozą."]],
 	"pies": [["", "Kundel na łańcuchu warczy zza siatki. Lepiej nie podchodzić."]],
+	"radio_potem": [["", "Prognoza pogody: deszcz do rana, w nocy z piątku na sobotę temperatura spadła do trzech stopni."]],
+	"dziennik": [
+		["", "Zeszyt w kratkę: \"Książka wejść i wyjść\". Rubryki: data, godzina, kto, cel, wyjście."],
+		["", "\"pt. 18:30, dostawa farb, wyjście 18:50.\""],
+		["", "\"pt. 21:00, aktor z teatru, po rekwizyty od dyr. Lisa.\" W rubryce \"wyjście\" pusto."],
+		["", "Następny wpis jest z niedzieli: \"23:40, policja\"."],
+	],
+	"dziennik_potem": [["", "\"pt. 21:00, aktor z teatru, po rekwizyty.\" Wyjścia brak."]],
+	"gazeta": [
+		["", "Gazeta z programem telewizyjnym, otwarta na piątku. Kilka pozycji zakreślonych długopisem."],
+		["", "\"20:45 Piłka nożna: mecz ligowy. 22:45 Studio sport. 23:50 Hymn. Zakończenie programu.\""],
+	],
+	"gazeta_potem": [["", "\"23:50 Hymn. Zakończenie programu.\""]],
+	"smieciarka": "Za siatką przejeżdża śmieciarka. Pies dostaje szału.",
+	"sprzedawca_start": [["Sprzedawca", "(ziewa) Pączki, panie władzo? Czy pytania?"]],
+	"sprzedawca_piatek": [
+		["Antoni", "Stał pan tu w piątek wieczorem?"],
+		["Sprzedawca", "Stoję tu co noc od dziesiątej do szóstej. Taka robota. Kierowcy, taksówkarze, czasem ktoś z teatru."],
+	],
+	"sprzedawca_widzial": [
+		["Antoni", "Widział pan kogoś, kto wychodził z hali?"],
+		["Sprzedawca", "W piątek? Był taki jeden. Blady, młody. Chyba wpół do jedenastej, bo radio akurat dawało wiadomości."],
+		["Sprzedawca", "Kupił wodę, dużą butelkę. Wypił połowę od razu, tu przy okienku. I cały czas się drapał."],
+		["Sprzedawca", "Potem poszedł z powrotem do hali. Nie wyszedł już, chyba. Ale ja tam nie pilnuję, od tego jest Zenek."],
+	],
+	"sprzedawca_paczek": [["Antoni", "Poproszę pączka."]],
+	"sprzedawca_nic": [["Sprzedawca", "(ziewa) Nie wiem, panie. Ja tu tylko pączki."]],
+	"sprzedawca_koniec": [["Sprzedawca", "Smacznej nocy."]],
+}
+
+const SCENA7_DOWODY_SPRZEDAWCA := {
+	"zdjecie_pasy": [["Sprzedawca", "No właśnie tak się drapał. Po karku i po ramionach, aż mu się koszula podwijała."]],
+	"telefon_adriana": [["Sprzedawca", "Telefon? Nie, nie pamiętam, żeby miał telefon. Płacił drobnymi."]],
+	"kielich": [["Sprzedawca", "Złoty kielich? Panie, ja tu mam pączki, nie skarby."]],
 }
 
 const SCENA7_TEMATY := [
@@ -887,7 +935,7 @@ const SCENA7_TEMATY := [
 const SCENA7_TLO := {
 	"zenon": ["(siorbie herbatę)", "Jezus Maria...", "Taki młody chłopak..."],
 	"pies": ["Hau! Hau!", "Wrrr...", "(skomli)"],
-	"sprzedawca": ["(ziewa)", "Pączki, pączki..."],
+	"sprzedawca": ["(ziewa)", "Pączki, pączki...", "(liczy drobne)"],
 }
 
 # Retrospekcja 1 (po scenie 7): piątek w magazynie, tak jak to sobie wyobraża Antoni.
@@ -896,6 +944,11 @@ const RETRO1 := {
 	"zenon": "Tylko nie siedź do rana!",
 	"skora": "Pali... wszystko mnie pali...",
 	"lista": "nie dam rady...",
+	"woda": "Wody... muszę się napić.",
+	"termos": "(pije herbatę z termosu)",
+	"kielichy": "Kielichy złote... cztery.",
+	"kielich_upada": "Zostaw... potem...",
+	"siada": "Tylko chwilę posiedzę.",
 	"koniec": "Tak mogło być. Na pewno?",
 	"dalej": "Scena 8: Ania i Wolski. Już wkrótce.",
 }
@@ -998,6 +1051,8 @@ const PRZEDMIOTY := {
 	"grafik": ["Grafik dostaw", "Dostawy mleka do bufetu: tylko w czwartki.", "fabularny", 0],  # skrzynka na mleko przy bufecie, sc. 19
 	"spinka": ["Spinka do włosów", "Wygięta. Da się nią otworzyć prosty zamek.", "fabularny", 0],  # pudełko z charakteryzacją Ani, sc. 20
 	"telefon_adriana": ["Telefon Adriana", "Pęknięta szybka, na etui naklejka z maską. Rozładowany i zablokowany PIN-em.", "fabularny", 0],  # pod manekinem w magazynie, sc. 6
+	"termos": ["Termos", "Termos Adriana w kratkę, na zakrętce wydrapane \"A.\". Resztka herbaty z cytryną.", "fabularny", 0],  # na sofie w magazynie, sc. 6
+	"kielich": ["Złoty kielich", "Czwarty kielich z listy rekwizytów. Leżał pod skrzynią obok ciała, nóżka wgnieciona.", "fabularny", 0],  # pod skrzynią w magazynie, sc. 6
 	"lista_rekwizytow": ["Lista rekwizytów", "Lista od dyrektora Lisa. Na dole dopisek Adriana: \"nie dam rady, kręci mi się w głowie\".", "fabularny", 0],  # stolik w salonie, magazyn, sc. 6
 	"zdjecie_pasy": ["Zdjęcie: pasy na ramionach", "Zdjęcie z telefonu. Czerwone, równe pasy na ramionach i plecach Adriana.", "fabularny", 0],  # ciało Adriana, sc. 6
 	"pendrive": ["Pendrive", "Czarny pendrive z sejfu Wolskiego. Coś na nim jest.", "fabularny", 0],  # sejf w garderobie Wolskiego, sc. 18

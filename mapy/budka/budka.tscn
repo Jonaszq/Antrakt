@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3]
+[gd_scene load_steps=22 format=3]
 
 [ext_resource type="Texture2D" path="res://mapy/budka/tlo.png" id="tlo"]
 [ext_resource type="PackedScene" path="res://postacie/antoni/antoni.tscn" id="antoni"]
@@ -32,9 +32,18 @@ size = Vector2(88, 20)
 size = Vector2(28, 10)
 
 [sub_resource type="RectangleShape2D" id="k4"]
-size = Vector2(16, 220)
+size = Vector2(148, 34)
 
 [sub_resource type="RectangleShape2D" id="k5"]
+size = Vector2(5, 34)
+
+[sub_resource type="RectangleShape2D" id="k6"]
+size = Vector2(5, 34)
+
+[sub_resource type="RectangleShape2D" id="k7"]
+size = Vector2(16, 220)
+
+[sub_resource type="RectangleShape2D" id="k8"]
 size = Vector2(16, 80)
 
 [sub_resource type="RectangleShape2D" id="g0"]
@@ -77,12 +86,24 @@ position = Vector2(605.0, 101.0)
 shape = SubResource("k3")
 
 [node name="K4" type="CollisionShape2D" parent="Kolizje"]
-position = Vector2(404.0, 110.0)
+position = Vector2(486.0, 343.0)
 shape = SubResource("k4")
 
 [node name="K5" type="CollisionShape2D" parent="Kolizje"]
-position = Vector2(404.0, 320.0)
+position = Vector2(560.5, 343.0)
 shape = SubResource("k5")
+
+[node name="K6" type="CollisionShape2D" parent="Kolizje"]
+position = Vector2(628.5, 343.0)
+shape = SubResource("k6")
+
+[node name="K7" type="CollisionShape2D" parent="Kolizje"]
+position = Vector2(404.0, 110.0)
+shape = SubResource("k7")
+
+[node name="K8" type="CollisionShape2D" parent="Kolizje"]
+position = Vector2(404.0, 320.0)
+shape = SubResource("k8")
 
 [node name="G0" type="CollisionShape2D" parent="Kolizje"]
 position = Vector2(320.0, 54.0)

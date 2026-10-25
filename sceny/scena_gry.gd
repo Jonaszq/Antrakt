@@ -311,6 +311,27 @@ func przesun(kto: Node2D, cel: Vector2, czas: float) -> void:
 	await tw.finished
 
 
+## Postać idzie krokiem po kolei przez punkty (omija przeszkody, jeśli punkty są
+## dobrane przez alejki). Kołysze się przy każdym kroku i obraca w stronę marszu.
+func idz(kto: Node2D, punkty: Array, predkosc := 40.0) -> void:
+	var sprite: Node2D = kto.get_node_or_null("Sprite")
+	var krok: Tween = null
+	if sprite:
+		krok = create_tween().set_loops()
+		krok.tween_property(sprite, "position:y", -1.0, 0.16)
+		krok.tween_property(sprite, "position:y", 0.0, 0.16)
+	for cel in punkty:
+		if sprite is AnimatedSprite2D and absf(cel.x - kto.position.x) > 2.0:
+			(sprite as AnimatedSprite2D).flip_h = cel.x < kto.position.x
+		var czas := maxf(kto.position.distance_to(cel) / predkosc, 0.05)
+		var tw := create_tween()
+		tw.tween_property(kto, "position", cel, czas)
+		await tw.finished
+	if krok:
+		krok.kill()
+		sprite.position.y = 0.0
+
+
 # ---------- życie w tle ----------
 
 ## Miejsce do obejrzenia pod E, bez przedmiotów. Kwestie jak w dodaj_rozmowce.

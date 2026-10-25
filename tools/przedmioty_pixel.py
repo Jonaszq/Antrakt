@@ -337,6 +337,27 @@ def zdjecie_pasy():
     return img
 
 
+def termos():
+    img = nowy(); d = ImageDraw.Draw(img)
+    prost(d, 7, 4, 7, 13, CZERWIEN[2])
+    for y in (6, 10, 14):
+        prost(d, 7, y, 7, 1, CZERWIEN[0])
+    prost(d, 9, 4, 1, 13, CZERWIEN[3])
+    prost(d, 6, 1, 9, 3, METAL[2])
+    prost(d, 7, 1, 7, 1, METAL[3])
+    return img
+
+
+def kielich():
+    img = nowy(); d = ImageDraw.Draw(img)
+    d.polygon([(5, 3), (15, 3), (13, 9), (7, 9)], fill=ZLOTO[2])
+    prost(d, 6, 3, 8, 1, ZLOTO[3])
+    prost(d, 9, 9, 2, 5, ZLOTO[1])
+    prost(d, 6, 14, 8, 2, ZLOTO[1])
+    prost(d, 7, 14, 4, 1, ZLOTO[2])
+    return img
+
+
 IKONY = {
     "program": program, "klucz": klucz, "latarka": latarka, "ladowarka": ladowarka,
     "rekawiczki": rekawiczki, "lampa_uv": lampa_uv, "nozyczki": nozyczki,
@@ -345,6 +366,7 @@ IKONY = {
     "kawa": kawa, "herbata": herbata, "tabletki": tabletki, "papierosy": papierosy,
     "monety": monety, "bilet": bilet, "numerek": numerek, "noz": noz,
     "telefon_adriana": telefon_adriana, "lista_rekwizytow": lista_rekwizytow, "zdjecie_pasy": zdjecie_pasy,
+    "kielich": kielich, "termos": termos,
 }
 
 
@@ -464,6 +486,16 @@ def szczur():
     return kontur(img)
 
 
+def kielich_podloga():
+    """Czwarty kielich leżący na boku pod skrzynią w magazynie."""
+    img = nowy(10, 5); d = ImageDraw.Draw(img)
+    d.polygon([(0, 0), (5, 1), (5, 4), (0, 5)], fill=ZLOTO[2])
+    prost(d, 5, 2, 3, 1, ZLOTO[1])
+    prost(d, 8, 0, 2, 5, ZLOTO[1])
+    prost(d, 1, 1, 2, 1, ZLOTO[3])
+    return img
+
+
 def telefon_podloga():
     """Telefon Adriana leżący ekranem w dół pod manekinem."""
     img = nowy(8, 5); d = ImageDraw.Draw(img)
@@ -475,7 +507,8 @@ def telefon_podloga():
 REKWIZYTY = {"stojak_programy": stojak_programy, "bezpieczniki": bezpieczniki, "apteczka": apteczka,
              "noz_maly": noz_maly, "koszula_stol": koszula_stol, "kosz_wiklinowy": kosz_wiklinowy,
              "taca_kieliszki": taca_kieliszki, "gramofon": gramofon, "plama_wina": plama_wina,
-             "szczur": szczur, "telefon_podloga": telefon_podloga}
+             "szczur": szczur, "telefon_podloga": telefon_podloga,
+             "kielich_podloga": kielich_podloga}
 
 
 def main():

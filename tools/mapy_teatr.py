@@ -1215,6 +1215,24 @@ def budka():
     # latarnia przy bramie
     prost(d, 612, 150, 4, 120, (36, 36, 42))
     m.swiatla.append((614, 150, 0.7))
+    # dolna siatka z furtką na plac (przejście x 566-624)
+    FY = 322
+    for x0, x1 in ((SC + 12, 560),):
+        for x in range(x0, x1, 8):
+            d.line([(x, FY), (min(x + 8, x1), H - S)], fill=METAL[1])
+            d.line([(min(x + 8, x1), FY), (x, H - S)], fill=METAL[1])
+        prost(d, x0, FY - 2, x1 - x0, 3, METAL[2])
+        m.kolizje.append((x0, FY + 4, x1, H))
+    for sx in (558, 626):  # słupki furtki
+        prost(d, sx, FY - 10, 5, H - S - FY + 10, (40, 40, 48))
+        prost(d, sx, FY - 10, 5, 2, METAL[3])
+        m.kolizje.append((sx, FY + 4, sx + 5, H))
+    # skrzydło furtki otwarte do góry, na plac
+    prost(d, 619, FY - 44, 7, 44, (14, 16, 26))
+    d.rectangle((619, FY - 44, 625, FY - 1), outline=METAL[2])
+    for y in range(FY - 40, FY, 6):
+        d.line([(620, y), (624, y + 5)], fill=METAL[1])
+    prost(d, 566, H - S - 3, 58, 3, ASFALT_B[2])  # wydeptany próg
     # ściana budki z drzwiami (przejście y 220-280)
     for y0, y1 in ((0, 220), (280, H)):
         prost(d, SC - 4, y0, 16, y1 - y0, FARBA[0])

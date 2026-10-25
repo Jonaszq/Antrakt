@@ -64,6 +64,10 @@ func _ready() -> void:
 	miejsce(Vector2(850, 214), "Statek", _ciemno_albo(_kolejne("statek")))
 	miejsce(Vector2(378, 300), "Regały", _ciemno_albo(_kolejne("regaly")))
 	miejsce(Vector2(520, 238), "Wiadro", t["wiadro"])
+	miejsce(Vector2(684, 226), "Termos", _ciemno_albo(_termos))
+	# czwarty kielich z listy wtoczył się pod skrzynię
+	var kielich := rekwizyt("kielich_podloga", Vector2(704, 452))
+	dodaj_rozmowce(kielich, _kielich, "Pod skrzynią", 12.0)
 	gdy_blisko(Vector2(157, 482), 70.0, _manekin_upada)
 	zamkniete_drzwi(BRAMA, Dialogi.DRZWI["magazyn_brama"])
 	_flesz = PointLight2D.new()
@@ -182,6 +186,27 @@ func _lista() -> void:
 		return
 	await rozmowa(Dialogi.SCENA6["lista"])
 	Ekwipunek.dodaj("lista_rekwizytow")
+
+
+func _termos() -> void:
+	if Ekwipunek.przedmioty.has("termos"):
+		await rozmowa(Dialogi.SCENA6["termos_potem"])
+		return
+	await rozmowa(Dialogi.SCENA6["termos"])
+	Ekwipunek.dodaj("termos")
+
+
+func _kielich() -> void:
+	if Ekwipunek.przedmioty.has("kielich"):
+		return
+	if not Gra.latarnia:
+		await rozmowa(Dialogi.SCENA6["kielich_ciemno"])
+		return
+	await rozmowa(Dialogi.SCENA6["kielich"])
+	Ekwipunek.dodaj("kielich")
+	for r in _rozmowcy:
+		if r[0] is Sprite2D and (r[0] as Sprite2D).texture.resource_path.ends_with("kielich_podloga.png"):
+			r[0].queue_free()
 
 
 ## Manekin przewraca się sam, gdy Antoni przechodzi obok. Pod nim leży telefon Adriana.
