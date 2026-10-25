@@ -1097,7 +1097,141 @@ def magazyn():
     return m, dict(korzen="Magazyn", start=(480, H - 40), postacie=(), mrok=(0.13, 0.13, 0.19), podloze="marmur")
 
 
-MAPY = {"foyer": foyer, "kulisy": kulisy, "widownia": widownia, "garderoba": garderoba, "magazyn": magazyn}
+# ---------- BUDKA STRÓŻA (rozdział 2, scena 7) ----------
+
+ASFALT_B = [(14, 14, 20), (20, 20, 28), (28, 28, 38), (38, 38, 50)]
+LINO = [(54, 60, 52), (70, 78, 66), (86, 96, 80)]
+FARBA = [(56, 70, 62), (76, 94, 82), (150, 146, 126), (178, 172, 150)]
+
+
+def stol_zenona():
+    """Stolik z mini-telewizorem i szklanką herbaty w koszyczku."""
+    img = nowy(64, 46)
+    d = ImageDraw.Draw(img)
+    skrzynia(d, 0, 18, 64, 12, 6, DREWNO)
+    for x in (2, 58):
+        prost(d, x, 36, 4, 10, DREWNO[1])
+    skrzynia(d, 6, 0, 26, 4, 16, [(20, 20, 24), (34, 34, 40), (52, 52, 60), (70, 70, 80), (90, 90, 100)])
+    prost(d, 9, 6, 20, 10, (60, 90, 120))  # ekran z meczem
+    prost(d, 12, 12, 14, 2, ZIELEN[2])
+    prost(d, 40, 14, 6, 8, (200, 140, 80))  # herbata w szklance
+    obrys(d, 40, 14, 6, 8, METAL[3])
+    prost(d, 50, 18, 10, 3, PAPIER[2])  # gazeta
+    return img
+
+
+def biurko_szuflada():
+    """Biurko z wysuniętą szufladą pełną kabli."""
+    img = nowy(60, 40)
+    d = ImageDraw.Draw(img)
+    skrzynia(d, 0, 4, 60, 10, 22, DREWNO_C)
+    prost(d, 6, 24, 24, 10, DREWNO_C[3])  # wysunięta szuflada
+    obrys(d, 6, 24, 24, 10)
+    for i in range(6):
+        d.line([(8 + i * 3, 26), (12 + i * 2, 32)], fill=mp.los.choice([(20, 20, 20), (200, 200, 200), (180, 40, 40)]))
+    prost(d, 40, 0, 14, 8, (30, 30, 34))  # radio
+    prost(d, 42, 2, 6, 4, (120, 230, 140))
+    return img
+
+
+def kiosk_paczki():
+    """Całodobowa budka z pączkami: świecące okienko i szyld."""
+    img = nowy(90, 80)
+    d = ImageDraw.Draw(img)
+    skrzynia(d, 0, 10, 90, 8, 60, [(70, 30, 30), (110, 46, 40), (150, 70, 56), (190, 110, 80), (214, 140, 100)])
+    prost(d, 14, 30, 62, 26, (255, 220, 150))  # okienko
+    obrys(d, 14, 30, 62, 26)
+    for x in (20, 34, 48, 62):
+        d.ellipse((x, 46, x + 9, 53), fill=(200, 130, 60), outline=O)
+        prost(d, x + 2, 47, 5, 2, (240, 230, 220))
+    prost(d, 6, 0, 78, 12, (40, 20, 30))
+    napis(d, 26, 4, "PACZKI", (255, 200, 120))
+    prost(d, 10, 56, 70, 4, DREWNO[2])  # parapet
+    return img
+
+
+def buda_psa():
+    img = nowy(30, 26)
+    d = ImageDraw.Draw(img)
+    d.polygon([(2, 10), (15, 0), (28, 10)], fill=DREWNO[1], outline=O)
+    skrzynia(d, 3, 10, 24, 2, 14, DREWNO)
+    d.ellipse((10, 14, 20, 26), fill=(10, 8, 10))
+    return img
+
+
+def budka():
+    mp.SZER, mp.WYS, mp.PODLOGA_Y = 640, 360, 104
+    mp.los = random.Random(71)
+    m = mp.Mapa()
+    d = m.d
+    W, H, PY = mp.SZER, mp.WYS, mp.PODLOGA_Y
+    S = mp.SCIANA
+    SC = 400  # ściana budki: po lewej wnętrze, po prawej plac przed bramą
+    prost(d, 0, 0, W, H, O)
+    # wnętrze: linoleum w kratę, ściany w olejnej farbie
+    for y in range(PY, H, 16):
+        for x in range(0, SC, 16):
+            prost(d, x, y, 16, 16, LINO[(x // 16 + y // 16) % 2 + 1])
+    prost(d, 0, 0, SC, PY, FARBA[3])
+    prost(d, 0, PY - 44, SC, 44, FARBA[1])
+    prost(d, 0, PY - 44, SC, 2, FARBA[0])
+    prost(d, 0, PY - 1, SC, 1, O)
+    # okno na deszcz
+    prost(d, 60, 20, 70, 40, (14, 18, 34))
+    obrys(d, 60, 20, 70, 40, DREWNO[1])
+    prost(d, 94, 20, 2, 40, DREWNO[1])
+    for _ in range(14):
+        prost(d, mp.los.randint(62, 126), mp.los.randint(22, 54), 1, 3, (70, 90, 130))
+    # kalendarz z 1999 roku i półka
+    prost(d, 180, 20, 26, 34, PAPIER[2])
+    obrys(d, 180, 20, 26, 34)
+    prost(d, 182, 22, 22, 12, (60, 110, 170))
+    for i in range(4):  # kartka z rokiem: cztery czerwone kreski cyfr
+        prost(d, 184 + i * 5, 38, 3, 7, CZERWIEN[2])
+    prost(d, 240, 40, 80, 3, DREWNO[2])
+    for i, x in enumerate(range(244, 316, 10)):
+        prost(d, x, 28, 7, 12, TKANINY[i % len(TKANINY)][2])  # segregatory
+    # klucze na tablicy
+    prost(d, 340, 24, 40, 30, DREWNO[2])
+    obrys(d, 340, 24, 40, 30)
+    for kx in range(344, 378, 6):
+        prost(d, kx, 28, 1, 6, ZLOTO[2])
+    m.swiatla.append((200, 70, 0.9))
+    m.obiekt("stol", stol_zenona(), 150, 160, 14)
+    m.obiekt("biurko", biurko_szuflada(), 290, PY - 2, 16)
+    # na zewnątrz: mokry asfalt, siatka, buda psa, kiosk z pączkami
+    prost(d, SC, 0, W - SC, H, ASFALT_B[1])
+    for y in range(PY, H, 5):
+        for _ in range(4):
+            prost(d, mp.los.randint(SC, W), y, mp.los.randint(4, 12), 1, ASFALT_B[2])
+    prost(d, SC, 0, W - SC, PY, (14, 16, 26))
+    for x in range(SC, W, 8):  # siatka ogrodzenia
+        d.line([(x, 30), (x + 8, PY)], fill=METAL[1])
+        d.line([(x + 8, 30), (x, PY)], fill=METAL[1])
+    prost(d, SC, 28, W - SC, 3, METAL[2])
+    m.obiekt("kiosk", kiosk_paczki(), 470, 120, 20)
+    m.swiatla.append((515, 160, 0.8))
+    m.obiekt("buda", buda_psa(), 590, 80, 10)
+    # latarnia przy bramie
+    prost(d, 612, 150, 4, 120, (36, 36, 42))
+    m.swiatla.append((614, 150, 0.7))
+    # ściana budki z drzwiami (przejście y 220-280)
+    for y0, y1 in ((0, 220), (280, H)):
+        prost(d, SC - 4, y0, 16, y1 - y0, FARBA[0])
+        prost(d, SC - 4, y0, 2, y1 - y0, FARBA[1])
+        m.kolizje.append((SC - 4, y0, SC + 12, y1))
+    prost(d, SC - 4, 220, 16, 3, DREWNO[2])
+    prost(d, SC - 4, 277, 16, 3, DREWNO[2])
+    k = FARBA
+    prost(d, 0, 0, S, H, k[0])
+    prost(d, W - S, 0, S, H, METAL[1])
+    prost(d, 0, H - S, W, S, k[0])
+    obrys(d, 0, 0, W, H)
+    return m, dict(korzen="Budka", start=(440, 250), postacie=(), mrok=(0.42, 0.4, 0.5), podloze="drewno",
+                   strefy=((SC, 0, W, H, "mokry"),))
+
+
+MAPY = {"foyer": foyer, "kulisy": kulisy, "widownia": widownia, "garderoba": garderoba, "magazyn": magazyn, "budka": budka}
 
 
 def main(folder_podgladu=None):

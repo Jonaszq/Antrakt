@@ -13,6 +13,7 @@ const SCENY := [
 	["Scena 4: Bankiet", "res://sceny/scena4/scena4.tscn"],
 	["Scena 5: Telefon i jazda", "res://sceny/scena5/scena5.tscn"],
 	["Scena 6: Magazyn (rozdz. 2)", "res://sceny/scena6/scena6.tscn"],
+	["Scena 7: Stróż", "res://sceny/scena7/scena7.tscn"],
 ]
 
 var _lista: MenuLista
@@ -96,7 +97,8 @@ func _sceny() -> void:
 func _pokaz_naglowek(widoczny: bool) -> void:
 	for l in _naglowek:
 		l.visible = widoczny
-	_lista.position.y = 118 if widoczny else 24
+	_lista.position.y = 118 if widoczny else 4
+	_lista.add_theme_constant_override("separation", 4 if widoczny else 1)
 
 
 func _ustawienia() -> void:

@@ -804,7 +804,79 @@ const SCENA6_TLO := {
 
 const SCENA6_NAPISY := {
 	"zegar": "Kwadrans Nowickiego: %d min",
-	"dalej": "Scena 7: Stróż. Już wkrótce.",
+}
+
+
+# Scena 7: budka stróża, 0:40. Rozmowa z Zenonem to wybór tematów. Ładowarki nikt
+# nie oferuje: trzeba pokazać Zenonowi rozładowany telefon Adriana.
+const SCENA7 := {
+	"zenon_start": [
+		["", "Zenon nalewa wrzątek do szklanki w metalowym koszyczku. Ręce mu się trzęsą."],
+	],
+	"piatek": [
+		["Antoni", "Co się działo w piątek?"],
+		["Zenon", "Przyszedł o dziewiątej wieczorem. Po rekwizyty od dyrektora. Wpuściłem go i wróciłem do meczu."],
+		["Zenon", "Mecz był nudny jak flaki z olejem. Zasnąłem przy telewizorze."],
+		["Zenon", "Obudziłem się, jak już grali hymn na koniec programu. Światło w hali się paliło, to myślałem, że chłopak jeszcze pakuje."],
+	],
+	"wyglad": [
+		["Antoni", "Jak wyglądał, kiedy przyszedł?"],
+		["Zenon", "Był biały jak ściana i spocony. Mówił, że pali go skóra, jakby się poparzył. Myślałem, że grypa."],
+	],
+	"znalazl": [
+		["Antoni", "Kiedy go pan znalazł?"],
+		["Zenon", "Dziś wieczorem. Dyrektor dzwonił, czy ktoś odebrał rekwizyty. Poszedłem sprawdzić..."],
+		["Zenon", "Leżał tam przy tych skrzyniach. Cały dzień tam leżał, a ja tu siedziałem i herbatę piłem."],
+	],
+	"papierosy": [
+		["Zenon", "Pan weźmie papierosa. Ja już nie mogę, żona mi zabroniła, a w nerwach to cała paczka idzie."],
+	],
+	"pokaz_telefon": [
+		["Antoni", "To telefon Adriana. Rozładowany."],
+		["Zenon", "Kabel? Mam tu pół szuflady kabli, ludzie zostawiają, a ja nie wyrzucam."],
+		["", "Zenon grzebie w szufladzie i wyciąga ładowarkę."],
+		["Zenon", "Ta powinna pasować. Niech pan bierze."],
+	],
+	"pokaz_inne": [["Zenon", "Nie wiem, panie. Nic mi to nie mówi."]],
+	"koniec_rozmowy": [["Zenon", "Jakby co, ja tu siedzę. Gdzie miałbym iść."]],
+	"telewizor": [["", "Mini-telewizor. Powtórka meczu, ktoś przegrywa trzy do zera."]],
+	"kalendarz": [["", "Kalendarz z 1999 roku. Pożółkła kartka z marcem, nikt jej nie przewrócił."]],
+	"szuflada": [["", "Szuflada pełna splątanych kabli. Nie będę grzebał w cudzych rzeczach."]],
+	"szuflada_potem": [["", "Kable, kable i jeszcze raz kable."]],
+	"radio": [["", "Nocna audycja. Ktoś dzwoni do studia i opowiada o swoim kocie."]],
+	"klucze": [["", "Tablica z kluczami. Przy jednym haczyku kartka: \"HALA\". Haczyk pusty."]],
+	"okno": [["", "Za oknem leje. Na placu radiowóz z wyłączonym kogutem."]],
+	"paczki_kupuje": [
+		["Sprzedawca", "(ziewa) Pączek? Z różą, ostatni."],
+		["", "Antoni płaci drobnymi."],
+	],
+	"paczki_bez": [["Sprzedawca", "Bez pieniędzy nie ma pączków. Noc długa, panie."]],
+	"paczki_potem": [["Sprzedawca", "(ziewa) Więcej nie ma. Rano przywiozą."]],
+	"pies": [["", "Kundel na łańcuchu warczy zza siatki. Lepiej nie podchodzić."]],
+}
+
+const SCENA7_TEMATY := [
+	["Co się działo w piątek?", "piatek"],
+	["Jak wyglądał Adrian?", "wyglad"],
+	["Kiedy go pan znalazł?", "znalazl"],
+	["Pokaż przedmiot", "pokaz"],
+	["Nic więcej", "koniec"],
+]
+
+const SCENA7_TLO := {
+	"zenon": ["(siorbie herbatę)", "Jezus Maria...", "Taki młody chłopak..."],
+	"pies": ["Hau! Hau!", "Wrrr...", "(skomli)"],
+	"sprzedawca": ["(ziewa)", "Pączki, pączki..."],
+}
+
+# Retrospekcja 1 (po scenie 7): piątek w magazynie, tak jak to sobie wyobraża Antoni.
+const RETRO1 := {
+	"tytul": "Piątek, 21:00. Tak mogło być.",
+	"zenon": "Tylko nie siedź do rana!",
+	"skora": "Pali... wszystko mnie pali...",
+	"lista": "nie dam rady...",
+	"koniec": "Tak mogło być. Na pewno?",
+	"dalej": "Scena 8: Ania i Wolski. Już wkrótce.",
 }
 
 

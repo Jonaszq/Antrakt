@@ -6,10 +6,10 @@ extends ScenaGry
 ## znaleźć: czerwone pasy na ramionach Adriana (zdjęcie), telefon Adriana pod
 ## manekinem, który sam się przewraca, i listę rekwizytów z dopiskiem Adriana.
 ## Po kwadransie (albo gdy Antoni powie Nowickiemu, że skończył) ciało jest
-## zabierane i brama prowadzi dalej. W tle deszcz o dach, kapanie, blacha na
+## zabierane i brama prowadzi do budki stróża (scena 7). W tle deszcz o dach, kapanie, blacha na
 ## wietrze, szczury i flesz policjanta. Teksty w Dialogi.SCENA6.
 
-const NASTEPNA := "res://menu/menu.tscn"  # scena 7 (budka stróża) jeszcze nie zrobiona
+const NASTEPNA := "res://sceny/scena7/scena7.tscn"
 const BRAMA := Rect2(430, 556, 100, 40)
 const MINUT := 15
 const SEKUND_NA_MINUTE := 32.0  # kwadrans gry to ok. 8 minut naprawdę
@@ -231,23 +231,6 @@ func _zakoncz() -> void:
 	await dialog.pokaz(Dialogi.SCENA6["koniec"])
 	antoni.sterowanie = true
 	ustaw_wyjscie(BRAMA, "Do budki stróża", NASTEPNA)
-
-
-## Scena 7 jeszcze nie istnieje: plansza i powrót do menu.
-func przejdz(scena: String) -> void:
-	koniec = true
-	antoni.sterowanie = false
-	var tw := create_tween()
-	tw.tween_property(_zaslona, "color:a", 1.0, 1.0)
-	await tw.finished
-	var napis := etykieta(12, Color8(170, 160, 140))
-	napis.text = Dialogi.SCENA6_NAPISY["dalej"]
-	napis.position = Vector2(0, 124)
-	napis.size = Vector2(480, 20)
-	napis.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	ui.add_child(napis)
-	await get_tree().create_timer(3.0).timeout
-	get_tree().change_scene_to_file(scena)
 
 
 # ---------- życie w tle ----------
