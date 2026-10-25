@@ -1,20 +1,22 @@
 extends ScenaGry
-## Scena 5: foyer po bankiecie, sobota 23:30, potem auto dyrektora i brama magazynu.
+## Scena 5: foyer po bankiecie, sobota 23:30, potem jazda autem dyrektora.
 ## Do Lisa dzwoni stróż magazynu: znalazł Adriana, nie oddycha. Ania mdleje,
 ## Wolski ją łapie. Lis prosi Antoniego, żeby z nim pojechał. Jazda w deszczu to
 ## rozmowa: gracz wybiera dwa z trzech tematów (Adrian, teatr, Wolski), a na koniec
 ## Lis zawsze mówi o długach i o tym, że sam wysłał Adriana do magazynu.
-## Pod bramą czeka Zenon. Koniec rozdziału i licznik "5 dni do pogrzebu".
+## Bez przerywników: do Lisa przy telefonie i potem z prośbą Antoni podchodzi sam.
+## Po jeździe koniec rozdziału i licznik "5 dni do pogrzebu".
 ## Obrazy auta i bramy rysuje tools/jazda_pixel.py, teksty w Dialogi.SCENA5.
 ## Ujęcia leżą w warstwie _kino pod warstwą ui, więc czarna zasłona ScenaGry je przykrywa.
 
 const NASTEPNA := "res://sceny/scena6/scena6.tscn"  # rozdział 2: magazyn
 const SZYBA := Rect2(12, 34, 456, 134)  # przednia szyba na obrazku wnetrze.png
 
+var _uslyszal := false
 var _lis: Node2D
 var _wolski: Node2D
 var _ania: Node2D
-var _kino: CanvasLayer  # pełnoekranowe ujęcia (auto, brama, plansza końcowa)
+var _kino: CanvasLayer  # pełnoekranowe ujęcia (auto, plansza końcowa)
 var _swiatla: Array[ColorRect] = []
 var _wycieraczki: Array[Sprite2D] = []
 
@@ -36,25 +38,38 @@ func _ready() -> void:
 	rekwizyt("gramofon", Vector2(615, 267), 22.0)
 	dzwiek("gramofon.ogg", -14.0, true)
 	await plansza("Foyer, 23:30")
-	antoni.sterowanie = false
-	await get_tree().create_timer(1.5).timeout
+	# bez przerywnika: telefon dzwoni, a Antoni sam decyduje, czy podejść do dyrektora
+	await get_tree().create_timer(3.0).timeout
 	dzwiek("telefon.wav", -6.0)
 	await get_tree().create_timer(2.2).timeout
+	dymek(_lis, "Tak, Zenon, słucham... Co?!", 3.5)
+	gdy_blisko(_lis, 90.0, _telefon)
+	dodaj_rozmowce(_lis, _telefon)
+
+
+## Antoni podchodzi do Lisa: wiadomość od stróża, Ania mdleje, Lis prosi o pomoc.
+func _telefon() -> void:
+	if _uslyszal:
+		return
+	_uslyszal = true
+	antoni.sterowanie = false
 	zwroc_sie(_lis)
 	await dialog.pokaz(Dialogi.SCENA5["telefon"])
 	# Ania mdleje, Wolski ją łapie
-	zwroc_sie(_ania)
 	var upadek := create_tween().set_parallel()
 	upadek.tween_property(_ania, "rotation_degrees", 80.0, 0.5).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
 	upadek.tween_property(_wolski, "position", _ania.position + Vector2(-22, 2), 0.4)
 	await upadek.finished
 	await dialog.pokaz(Dialogi.SCENA5["omdlenie"])
-	await przesun(_lis, antoni.position + Vector2(30, -8), 1.0)
-	zwroc_sie(_lis)
-	await dialog.pokaz(Dialogi.SCENA5["prosba"])
+	antoni.sterowanie = true
+	dodaj_rozmowce(_lis, _jedziemy)
+
+
+func _jedziemy() -> void:
+	await rozmowa(Dialogi.SCENA5["prosba"])
+	antoni.sterowanie = false
 	await _sciemnij()
 	await _jazda()
-	await _brama()
 	await _koniec_rozdzialu()
 
 
@@ -162,16 +177,6 @@ func _wycieraj() -> void:
 			wroc.tween_property(w, "rotation_degrees", -70.0, 0.5).set_trans(Tween.TRANS_SINE)
 		await wroc.finished
 		await get_tree().create_timer(0.4).timeout
-
-
-func _brama() -> void:
-	_ujecie("brama.png")
-	var deszcz := Node2D.new()
-	deszcz.set_script(preload("res://wstep/deszcz.gd"))
-	_kino.add_child(deszcz)
-	await _rozjasnij()
-	await dialog.pokaz(Dialogi.SCENA5["brama"])
-	await _sciemnij(1.5)
 
 
 ## Plansza końcowa rozdziału i licznik dni do pogrzebu, potem rozdział 2.

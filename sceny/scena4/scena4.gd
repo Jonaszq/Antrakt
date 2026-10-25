@@ -13,8 +13,6 @@ const NASTEPNA := "res://sceny/scena5/scena5.tscn"
 const DRZWI_PERSONEL := Rect2(190, 106, 48, 38)
 const STOLIK := Vector2(655, 197)  # stolik_1, tu Irena rzuca koszulę
 
-const TOAST_PO := 8.0  # po tylu sekundach Wolski wznosi toast
-const IRENA_PO := 25.0  # po tylu sekundach od toastu wpada Irena
 
 var _toast := false
 var _irena := false  # awantura już była
@@ -89,14 +87,9 @@ func _ready() -> void:
 	Telefon.dodaj_sms(sms[0], sms[2], sms[1])
 	await rozmowa(t["poczatek"])
 	pomoc_klawiszy()
-	# toast po chwili albo gdy Antoni podejdzie do Wolskiego
+	# bez przerywników: toast, gdy Antoni sam podejdzie do Wolskiego,
+	# Irena wpada, gdy po toaście Antoni podejdzie do dyrektora
 	gdy_blisko(_wolski, 60.0, _wznies_toast)
-	await _czekaj_wolny(TOAST_PO)
-	await _wznies_toast()
-	# Irena wpada po chwili albo gdy Antoni podejdzie do dyrektora
-	gdy_blisko(_lis, 70.0, _irena_wpada)
-	await _czekaj_wolny(IRENA_PO)
-	_irena_wpada()
 
 
 ## Czeka podaną liczbę sekund, a potem aż Antoni będzie wolny (bez rozmowy i okien).
@@ -114,45 +107,25 @@ func _kolejne(kto: String) -> Callable:
 		stan.pierwsza = false
 
 
-## Kamera filmowa: płynnie jedzie od Antoniego do punktu. Zwraca ją, żeby potem wrócić.
-func _kamera_do(cel: Vector2) -> Camera2D:
-	var kamera := Camera2D.new()
-	kamera.limit_right = 880
-	kamera.limit_bottom = 512
-	kamera.global_position = antoni.get_node("Kamera").get_screen_center_position()
-	obiekty.add_child(kamera)
-	kamera.make_current()
-	var tw := create_tween()
-	tw.tween_property(kamera, "global_position", cel, 1.2).set_trans(Tween.TRANS_SINE)
-	await tw.finished
-	return kamera
-
-
-func _kamera_wroc(kamera: Camera2D) -> void:
-	antoni.get_node("Kamera").make_current()
-	kamera.queue_free()
-
-
 func _wznies_toast() -> void:
 	if _toast:
 		return
 	_toast = true
 	antoni.sterowanie = false
-	var kamera := await _kamera_do(_wolski.position + Vector2(0, -60))
+	zwroc_sie(_wolski)
 	await dialog.pokaz(Dialogi.SCENA4["toast"])
 	await blysk()
-	_kamera_wroc(kamera)
 	antoni.sterowanie = true
+	gdy_blisko(_lis, 70.0, _irena_wpada)
 
 
 ## Irena wypada z drzwi PERSONEL z koszem, robi awanturę dyrektorowi,
-## rzuca koszulę Adriana na stolik i wychodzi. Kamera to pokazuje.
+## rzuca koszulę Adriana na stolik i wychodzi (gdy Antoni stoi przy dyrektorze).
 func _irena_wpada() -> void:
 	if _irena or not _toast:
 		return
 	_irena = true
 	antoni.sterowanie = false
-	var kamera := await _kamera_do(Vector2(440, 200))
 	_postac_ireny.visible = true
 	await przesun(_postac_ireny, Vector2(520, 196), 1.6)
 	await dialog.pokaz(Dialogi.SCENA4["irena_wpada"])
@@ -169,7 +142,6 @@ func _irena_wpada() -> void:
 	koszula.visible = true
 	dodaj_rozmowce(_lis, Dialogi.SCENA4["lis_po_irenie"])
 	dodaj_rozmowce(_zawada, Dialogi.SCENA4["zawada_po_irenie"])
-	_kamera_wroc(kamera)
 	antoni.sterowanie = true
 	_sprawdz_koniec()
 
