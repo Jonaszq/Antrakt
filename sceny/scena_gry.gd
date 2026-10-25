@@ -460,6 +460,13 @@ func wybor(opcje: Array) -> int:
 	return stan.nr
 
 
+## Temat rozmowy, który zapamiętuje, że gracz o to zapytał (flaga dla Sledztwo).
+func temat(flaga: String, kwestie: Array) -> Callable:
+	return func() -> void:
+		await rozmowa(kwestie)
+		Gra.flagi[flaga] = true
+
+
 ## Rozmowa jak przesłuchanie: gracz sam wybiera tematy i może pokazać dowód.
 ## tematy: lista [napis, kwestie albo Callable, warunek (Callable -> bool) albo null].
 ## dowody: id -> kwestie albo Callable (karty z teczki mają id "karta_<id>").
@@ -481,11 +488,20 @@ func przesluchanie(tematy: Array, dowody: Dictionary, nic_nie_wiem: Array, pozeg
 			var id := await wybierz_dowod()
 			if id != "":
 				var reakcja = dowody.get(id, nic_nie_wiem)
+				# dowód, który tej osobie nic nie mówi, albo fałszywy trop: mija trochę czasu
+				if not dowody.has(id):
+					Sledztwo.strata(5)
+				if id in Dialogi.FALSZYWE_TROPY:
+					Sledztwo.strata(10)
+				Gra.flagi["pokazal_" + id] = true
 				if reakcja is Callable:
-					await reakcja.call()
+					# reakcja zwracająca true kończy rozmowę (np. rozmówca wychodzi)
+					var wynik = await reakcja.call()
+					if wynik is bool and wynik:
+						antoni.sterowanie = true
+						return
 				else:
 					await rozmowa(reakcja)
-				Gra.flagi["pokazal_" + id] = true
 			continue
 		var co = widoczne[nr][1]
 		if co is Callable:

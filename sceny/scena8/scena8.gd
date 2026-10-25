@@ -5,6 +5,7 @@ extends ScenaGry
 ## Taksówkarz pamięta, że wiózł Wolskiego pod blok Ani już przed północą; w jego aucie
 ## można podładować telefon Adriana (ładowarka od Zenona). Nowicki spisuje dane
 ## i odjeżdża, kiedy gracz uzna, że skończył; potem Antoni wsiada do swojego auta.
+## Wolski prosi o telefon Adriana: oddany przepada na resztę gry (Sledztwo).
 ## Teksty w Dialogi.SCENA8.
 
 const NASTEPNA := "res://sceny/scena9/scena9.tscn"
@@ -115,11 +116,30 @@ func _rozmowa_z_wolskim() -> void:
 		await rozmowa(t["wolski_start"])
 		Gra.dodaj_sily(10)
 	var tematy := [
-		["Skąd pan wiedział?", t["wolski_tu"]],
+		["Skąd pan wiedział?", temat("s8_wolski_ania_dzwonila", t["wolski_tu"])],
 		["Dobrze pan znał Adriana?", t["wolski_adrian"]],
 		["Co teraz z Anią?", t["wolski_ania"]],
 	]
-	await przesluchanie(tematy, Dialogi.SCENA8_DOWODY["wolski"], t["wolski_nic"], t["wolski_koniec"])
+	var dowody: Dictionary = Dialogi.SCENA8_DOWODY["wolski"].duplicate()
+	dowody["telefon_adriana"] = _wolski_chce_telefon
+	await przesluchanie(tematy, dowody, t["wolski_nic"], t["wolski_koniec"])
+
+
+## Wolski prosi o telefon Adriana. Oddany telefon przepada (nie będzie SMS-a w rozdz. 4).
+func _wolski_chce_telefon() -> void:
+	var t: Dictionary = Dialogi.SCENA8
+	if Gra.flagi.get("s8_telefon_zatrzymal", false):
+		await rozmowa(t["wolski_telefon_potem"])
+		return
+	await rozmowa(t["wolski_telefon"])
+	var w := await wybor(Dialogi.SCENA8_TELEFON_WYBOR)
+	if w == 0:
+		await rozmowa(t["wolski_telefon_oddal"])
+		Ekwipunek.usun("telefon_adriana")
+		Gra.flagi["s8_telefon_wolski"] = true
+	else:
+		await rozmowa(t["wolski_telefon_nie"])
+		Gra.flagi["s8_telefon_zatrzymal"] = true
 
 
 func _rozmowa_z_kierowca() -> void:

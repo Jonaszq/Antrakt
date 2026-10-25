@@ -1013,6 +1013,10 @@ const SCENA8 := {
 		["", "Nowicki spisuje Anię i Wolskiego. Wolski dyktuje za Anię."],
 		["Nowicki", "To wszystko. Dobranoc państwu."],
 	],
+	"wolski_telefon": [["Wolski", "Jego telefon? Niech mi pan go da, przekażę rodzinie. Po co ma pan się z tym nosić."]],
+	"wolski_telefon_oddal": [["", "Wolski chowa telefon do wewnętrznej kieszeni płaszcza."], ["Wolski", "Dziękuję. Rodzina będzie wdzięczna."]],
+	"wolski_telefon_nie": [["Antoni", "Zostawię go sobie. Na razie."], ["Wolski", "(uśmiecha się) Jak pan uważa."]],
+	"wolski_telefon_potem": [["Wolski", "Pan wie lepiej, panie Antoni."]],
 	"brama": [["", "Brama magazynu zaklejona taśmą. Na kłódce świeża plomba."]],
 	"radiowoz": [["", "Na siedzeniu radiowozu leży otwarty notes Nowickiego."], ["", "\"Dubler z teatru. Przyczyna: serce? (lekarz). Zgłosił: stróż.\""]],
 	"kaluza": [["", "W kałuży odbija się latarnia. Miga, jakby zaraz miała zgasnąć."]],
@@ -1023,6 +1027,7 @@ const SCENA8 := {
 }
 
 const SCENA8_WYBOR := ["Możemy kończyć", "Jeszcze chwilę"]
+const SCENA8_TELEFON_WYBOR := ["Oddaj mu telefon", "Zostawię go sobie"]
 
 const SCENA8_DOWODY := {
 	"ania": {
@@ -1033,7 +1038,6 @@ const SCENA8_DOWODY := {
 		"lista_rekwizytow": [["", "Ania czyta dopisek na dole. Kartka drży jej w palcach."], ["Ania", "To jego pismo."]],
 	},
 	"wolski": {
-		"telefon_adriana": [["Wolski", "Jego telefon? Niech mi pan go da, przekażę rodzinie. Po co ma pan się z tym nosić."]],
 		"zdjecie_pasy": [["Wolski", "Biedak. Pewnie od kurzu w tym magazynie, tam nikt nie sprząta od lat."]],
 		"kielich": [["Wolski", "Rekwizyty. Niech pan to zostawi, Lis się zajmie."]],
 		"termos": [["Wolski", "Ma pan dobre oko. Ja swój noszę od dwudziestu lat."]],
@@ -1139,6 +1143,15 @@ const SCENA9 := {
 	],
 	"ania_nic": [["Ania", "Nie wiem. Przepraszam."]],
 	"ania_koniec": [["Ania", "Proszę uważać na ten kostium. To... dużo kosztował."]],
+	"ania_kwit": [["", "Ania wyciąga rękę."], ["Ania", "Daj mi go. Ja i tak idę w tamtą stronę."]],
+	"ania_kwit_dal": [
+		["", "Antoni oddaje kwit. Ania ściska go w dłoni."],
+		["Ania", "Dziękuję. Naprawdę."],
+		["Lis", "Aniu... No dobrze. Tylko ostrożnie z tym kostiumem."],
+		["", "Ania wychodzi szybkim krokiem."],
+	],
+	"ania_kwit_nie": [["Antoni", "Pojadę sam."], ["", "Ania cofa rękę."]],
+	"lis_kwit_ania": [["Lis", "Ania pojechała z kwitem. Może i lepiej, niech się czymś zajmie."]],
 	"ania_kanapa": [["Ania", "(siedzi na kanapie Lisa, patrzy w okno)"]],
 	"bufetowa_start": [
 		["Bufetowa", "Panie Antoni... Proszę, kanapka. Na koszt firmy."],
@@ -1171,7 +1184,6 @@ const SCENA9_DOWODY := {
 		"kwit_odbioru": [["Lis", "O, jest. Gdzie on był? Pralnia na Kopernika, pan trafi."]],
 	},
 	"ania": {
-		"kwit_odbioru": [["", "Ania wyciąga rękę."], ["Ania", "Daj mi go. Ja i tak idę w tamtą stronę."], ["Antoni", "Pojadę sam."], ["", "Ania cofa rękę."]],
 		"telefon_adriana": [["Ania", "(odwraca wzrok) Mówiłam już. Schowaj to."]],
 		"zdjecie_pasy": [["Ania", "Przestań mi to pokazywać. Proszę."]],
 		"termos": [["Ania", "Jego termos. Oddasz mi go potem?"]],
@@ -1184,6 +1196,8 @@ const SCENA9_DOWODY := {
 	},
 }
 
+const SCENA9_KWIT_WYBOR := ["Daj jej kwit", "Pojadę sam"]
+
 const SCENA9_TLO := {
 	"aktor": ["(milczy)", "(kręci głową)"],
 	"aktorka": ["(pociąga nosem)", "Taki młody..."],
@@ -1195,6 +1209,34 @@ const SCENA9_TLO := {
 const SCENA9_NAPISY := {
 	"dalej": "Scena 10: Pralnia. Już wkrótce.",
 }
+
+# ---------- REJESTR ŚLEDZTWA (ui/sledztwo.gd) ----------
+
+## Dowody, które prowadzą donikąd: pokazanie ich komukolwiek zabiera dodatkowy czas.
+const FALSZYWE_TROPY := ["termos"]
+
+## Argumenty do konfrontacji w finale: id -> [warunki, co mówi Antoni].
+## Warunki jak w Sledztwo.jest: "f:flaga", "p:przedmiot", "k:karta", "!" odwraca.
+const SLEDZTWO_ARGUMENTY := {
+	"skora": [["p:zdjecie_pasy"], "Pasy na skórze były tylko tam, gdzie przylegał kostium."],
+	"godzina_smierci": [["f:s7_piatek", "f:s7_woda"], "Zmarł w piątek koło jedenastej wieczorem, a nie w sobotę."],
+	"czwartek_blady": [["f:s9_bufetowa_czwartek"], "Już w czwartek na próbie był blady i się drapał."],
+	"kostium_wolskiego": [["f:s9_obsada"], "Przez cały tydzień grał w kostiumie Wolskiego."],
+	"klamstwo_czwartek": [["f:s8_czwartek"], "Mówiłaś, że ostatni raz rozmawialiście w czwartek rano."],
+	"nic_nie_mowil": [["f:s9_ania_kostium"], "Mówiłaś, że Adrian nic nie mówił o kostiumie."],
+	"chciala_kostium": [["f:s9_ania_prosila"], "Chciałaś sama odebrać kostium z pralni."],
+	"wolski_u_ani": [["f:s8_kurs"], "Wolski był u ciebie w sobotę jeszcze przed północą."],
+	"telefon": [["p:telefon_adriana"], "Mam telefon Adriana."],
+}
+
+## Epilog: [warunki, zdanie gdy spełnione, zdanie gdy nie ("" = nic)].
+const SLEDZTWO_EPILOG := [
+	[["p:kielich"], "Czwarty kielich wrócił na scenę. Lis mówił, że bez niego drugi akt by się nie skleił.", "Czwarty kielich został pod skrzynią w magazynie. Nikt go już nie szukał."],
+	[["f:s7_woda"], "Sprzedawca z kiosku do dziś opowiada, że to on ostatni widział Adriana żywego.", ""],
+	[["f:s8_kurs"], "Taksówkarz z Mokotowa zeznawał w sądzie. Pamiętał każdą godzinę.", ""],
+	[["f:s8_telefon_wolski"], "Telefon Adriana nigdy nie trafił do rodziny. Wolski twierdził, że go zgubił.", ""],
+	[["f:s9_kwit_ania"], "Kostium z pralni Ania odebrała sama. Plamy nikt więcej nie zobaczył.", ""],
+]
 
 # Retrospekcja 1 (po scenie 7): piątek w magazynie, tak jak to sobie wyobraża Antoni.
 const RETRO1 := {

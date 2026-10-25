@@ -45,7 +45,7 @@ func _ready() -> void:
 	_bufet()
 	skrzynka(Vector2(600, 126), "apteczka_s9", ["rekawiczki"], "apteczka", 46.0)
 	ustaw_wyjscie(PERSONEL, "Do gabinetu dyrektora", GABINET)
-	if Ekwipunek.ma("kwit_odbioru"):
+	if Ekwipunek.ma("kwit_odbioru") or f.get("s9_kwit_ania", false):
 		ustaw_wyjscie(WYJSCIE, "Do pralni", NASTEPNA)
 	else:
 		zamkniete_drzwi(WYJSCIE, t["wyjscie_bez_kwitu"][0][1])
@@ -104,7 +104,7 @@ func _rozmowa_z_bufetowa() -> void:
 		await rozmowa(t["bufetowa_start"])
 		Ekwipunek.dodaj("kanapka")
 	var tematy := [
-		["Był tu w czwartek?", t["bufetowa_czwartek"]],
+		["Był tu w czwartek?", temat("s9_bufetowa_czwartek", t["bufetowa_czwartek"])],
 		["Kto bywa w teatrze rano?", t["bufetowa_rano"]],
 		["Jak się pani trzyma?", t["bufetowa_jak"]],
 	]
