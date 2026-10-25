@@ -21,6 +21,7 @@ Telefon="*res://ui/telefon.gd"
 Gra="*res://ui/gra.gd"
 Ekwipunek="*res://ui/ekwipunek.gd"
 Pauza="*res://ui/pauza.gd"
+Teczka="*res://ui/teczka.gd"
 
 [display]
 

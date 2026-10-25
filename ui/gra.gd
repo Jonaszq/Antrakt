@@ -97,7 +97,7 @@ func _etykieta(tekst: String, rozmiar: int, kolor: Color) -> Label:
 
 ## Czy jest otwarte jakieś okno (notes, telefon, wybór postaci). Antoni wtedy stoi.
 func okno_otwarte() -> bool:
-	return _okno.visible or Notatnik.otwarty() or Telefon.otwarty() or Ekwipunek.otwarty() or Pauza.otwarta()
+	return _okno.visible or Notatnik.otwarty() or Telefon.otwarty() or Ekwipunek.otwarty() or Pauza.otwarta() or Teczka.otwarty()
 
 
 ## Czyści wszystko przed nową grą (wołane z menu głównego).
@@ -110,6 +110,7 @@ func nowa_gra() -> void:
 	Notatnik.aktywny = false
 	Notatnik.tekst = ""
 	Ekwipunek.przedmioty.clear()
+	Teczka.wyczysc()
 	Telefon.sms = Dialogi.SMS.duplicate(true)
 	Telefon.polaczenia = Dialogi.POLACZENIA.duplicate(true)
 

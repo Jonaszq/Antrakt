@@ -880,6 +880,44 @@ const RETRO1 := {
 }
 
 
+# ---------- TECZKA DOWODÓW ----------
+# Karty dokłada gra (Teczka.dodaj("paragon")), gdy gracz zdobędzie dowód albo usłyszy
+# ważne zeznanie. Gracz sam wypełnia rubryki. Gra porównuje wpis bez wielkości liter,
+# polskich znaków, spacji i dwukropków, z każdą z dopuszczalnych odpowiedzi.
+# id: [nazwa, gdzie znaleziony, opis faktu, [[rubryka, [dobre odpowiedzi]], ...]]
+
+const KARTY := {
+	"paragon": ["Paragon z hurtowni", "Pracownia kostiumów", "Zakup tkanin, czwartek 7:15.",
+		[["Kogo dotyczy", ["irena", "mroz", "irena mroz"]]]],
+	"bank": ["Potwierdzenie z banku", "Biuro dyrektora", "Wizyta w banku, czwartek 8:05.",
+		[["Kogo dotyczy", ["lis", "bogdan", "bogdan lis", "dyrektor", "dyrektor lis"]]]],
+	"kwit": ["Kwit z pralni", "Pralnia", "Kostium oddany do skrzynki nocnej, podpis \"A.\".",
+		[["Kiedy", ["czwartek 23:40", "czwartek 2340", "czw 23:40", "czw 2340"]]]],
+	"sms": ["SMS z telefonu Adriana", "Telefon Adriana", "\"Ten kostium mnie parzy...\" Wiadomość odczytana.",
+		[["Do kogo", ["ania", "wrzos", "ania wrzos", "anna", "anna wrzos"]], ["Kiedy", ["czwartek 22:10", "czwartek 2210", "czw 22:10", "czw 2210"]]]],
+	"marta_grafik": ["Zeznanie Marty i grafik dostaw", "Teatr, korytarz przy bufecie", "Ktoś był w pracowni o 8:00, w dniu dostawy mleka.",
+		[["Kogo dotyczy", ["ania", "wrzos", "ania wrzos", "anna", "anna wrzos"]], ["Kiedy", ["czwartek", "czw"]]]],
+	"rekawiczki": ["Rękawiczki z kosza", "Kosz na śmieci", "W świetle UV świecą tak samo jak plama na kostiumie.",
+		[["Czyje", ["ania", "wrzos", "ania wrzos", "anna", "anna wrzos"]]]],
+	"pendrive": ["Pendrive z sejfu", "Sejf Wolskiego", "Nagranie wypadku sprzed roku.",
+		[["Kto prowadził", ["ania", "wrzos", "ania wrzos", "anna", "anna wrzos"]], ["Kto nagrywał", ["wolski", "adam", "adam wolski"]]]],
+}
+
+const TECZKA_NAPISY := {
+	"pusta": "Teczka jest pusta. Karty pojawią się, gdy zdobędziesz dowody.",
+	"zle": "Antoni kręci głową. Coś się nie zgadza.",
+	"dobrze": "SPRAWDZONE",
+	"pomoc": "F albo Esc – zamknij   1 karty   2 podejrzani",
+	"tablica": "Kliknij osobę, żeby ją skreślić albo przywrócić.",
+}
+
+## Podejrzani na tablicy: [imię na tablicy, folder postaci].
+const PODEJRZANI := [
+	["Ania", "ania"], ["Wolski", "wolski"], ["Irena", "irena"],
+	["Lis", "bogdan"], ["Marta", "marta"], ["Halina", "halina"],
+]
+
+
 # ---------- ZAMKNIĘTE DRZWI ----------
 # Napis, który pojawia się, gdy Antoni podejdzie do drzwi, którymi nie da się przejść.
 # Trzymaj je krótkie, żeby mieściły się w jednej linijce.

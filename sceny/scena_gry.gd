@@ -104,7 +104,7 @@ func pomoc_klawiszy() -> void:
 	var pomoc := etykieta(12, Color8(236, 226, 200))
 	pomoc.text = "WASD chodzenie  E rozmowa  I ekwipunek  Q telefon  Tab postać"
 	if Notatnik.aktywny:
-		pomoc.text += "  T notes"
+		pomoc.text += "  T notes  F teczka"
 	pomoc.position = Vector2(8, 250)
 	ui.add_child(pomoc)
 	var znik := create_tween()
