@@ -42,7 +42,7 @@ func _ready() -> void:
 	_cialo = rekwizyt("cialo_adriana", CIALO)
 	dodaj_rozmowce(_cialo, _ogledz_cialo, "Adrian", 26.0)
 	_lekarz = postac("lekarz", Vector2(838, 466))
-	dodaj_rozmowce(_lekarz, _kolejne("lekarz"))
+	dodaj_rozmowce(_lekarz, _rozmowa_z_lekarzem)
 	gada_w_tle(_lekarz, tlo["lekarz"], 11.0)
 	_policjant = postac("policjant", Vector2(700, 468))
 	dodaj_rozmowce(_policjant, _kolejne("policjant"))
@@ -92,25 +92,9 @@ func _ready() -> void:
 	_tlo_blacha()
 
 
-## Kamera jedzie do ciała, lekarz mówi swoje, potem bramą wchodzi Nowicki.
+## Bramą wchodzi Nowicki i daje Antoniemu kwadrans. Do lekarza Antoni podchodzi sam.
 func _wstep() -> void:
 	antoni.sterowanie = false
-	var kamera := Camera2D.new()
-	kamera.limit_right = 960
-	kamera.limit_bottom = 600
-	kamera.global_position = antoni.get_node("Kamera").get_screen_center_position()
-	obiekty.add_child(kamera)
-	kamera.make_current()
-	var tw := create_tween()
-	tw.tween_property(kamera, "global_position", CIALO + Vector2(0, -20), 2.0).set_trans(Tween.TRANS_SINE)
-	await tw.finished
-	await _blysk_policjanta()
-	await dialog.pokaz(Dialogi.SCENA6["lekarz_przy_ciele"])
-	tw = create_tween()
-	tw.tween_property(kamera, "global_position", antoni.position + Vector2(0, -30), 1.4).set_trans(Tween.TRANS_SINE)
-	await tw.finished
-	antoni.get_node("Kamera").make_current()
-	kamera.queue_free()
 	_nowicki.visible = true
 	antoni.stan("dol")
 	await przesun(_nowicki, Vector2(500, 584), 1.6)
@@ -155,6 +139,13 @@ func _ciemno_albo(co: Callable) -> Callable:
 			await rozmowa(Dialogi.SCENA6["ciemno"])
 
 
+## Pierwsza rozmowa: lekarz stwierdza zawał, potem "lekarz" i "lekarz_potem".
+func _rozmowa_z_lekarzem() -> void:
+	var ile: int = Gra.flagi.get("s6_lekarz", 0)
+	await rozmowa(Dialogi.SCENA6[["lekarz_przy_ciele", "lekarz", "lekarz_potem"][mini(ile, 2)]])
+	Gra.flagi["s6_lekarz"] = ile + 1
+
+
 func _wez_latarke() -> void:
 	if Gra.latarnia_dostepna:
 		await rozmowa(Dialogi.SCENA6["latarka_potem"])
@@ -163,7 +154,6 @@ func _wez_latarke() -> void:
 	Ekwipunek.dodaj("latarka")
 	Gra.latarnia_dostepna = true
 	Gra.ustaw_latarnie(true)
-	komunikat(Dialogi.SCENA6_NAPISY["latarka"], 5.0)
 
 
 func _ogledz_cialo() -> void:

@@ -703,9 +703,8 @@ const SCENA6 := {
 		["", "Deszcz bębni o blaszany dach. Gdzieś z góry kapie woda."],
 		["Lis", "Ja... ja zostanę przy bramie. Nie dam rady tam podejść."],
 	],
-	# kamera jedzie do ciała, lekarz pogotowia już tam jest
+	# pierwsza rozmowa z lekarzem pogotowia przy ciele
 	"lekarz_przy_ciele": [
-		["", "Między skrzyniami, pod drugą żarówką, lekarz pogotowia stoi nad ciałem."],
 		["Antoni", "Co mu się stało?"],
 		["Lekarz", "Te zaczerwienienia na ramionach? Pewnie uczulenie na proszek. Przyczyna to serce. Młody, ale zdarza się."],
 		["Lekarz", "Nie żyje od wielu godzin. Resztę powie sekcja, jak ktoś ją zleci."],
@@ -716,7 +715,6 @@ const SCENA6 := {
 		["Nowicki", "No proszę. Mój urlopowicz."],
 		["Antoni", "Szefie, daj mi się rozejrzeć. Kwadrans."],
 		["Nowicki", "Antek, jesteś na urlopie. Chłopak dostał zawału wśród starych gratów, koniec historii. Masz kwadrans."],
-		["Antoni", "W tej ciemności nic nie zobaczę. Gdzieś tu musi być latarka."],
 	],
 	"latarka": [
 		["", "Skrzynka pełna rekwizytów: korony z papier-mâché, drewniane miecze, sztuczne kwiaty."],
@@ -806,7 +804,6 @@ const SCENA6_TLO := {
 
 const SCENA6_NAPISY := {
 	"zegar": "Kwadrans Nowickiego: %d min",
-	"latarka": "Masz latarkę. Tab: Antoni z latarką albo bez.",
 	"dalej": "Scena 7: Stróż. Już wkrótce.",
 }
 

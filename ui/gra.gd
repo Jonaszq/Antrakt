@@ -175,7 +175,7 @@ func _pokaz_wybor() -> void:
 	for i in 2:
 		_ramki[i].color = Color8(242, 212, 126) if i == _wybor else Color8(70, 56, 50)
 	_ramki[1].modulate.a = 1.0 if latarnia_dostepna else 0.45
-	_opis_latarni.text = "Mocno świeci\nw ciemnościach" if latarnia_dostepna else "Najpierw znajdź\nlatarkę"
+	_opis_latarni.text = "Mocno świeci\nw ciemnościach" if latarnia_dostepna else "Nie masz\nlatarki"
 
 
 func _unhandled_input(zdarzenie: InputEvent) -> void:
