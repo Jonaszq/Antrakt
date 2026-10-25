@@ -8,6 +8,10 @@ extends CanvasLayer
 ##     add_child(dialog)
 ##     await dialog.pokaz([["Ania", "Adrian, odezwij się."], ["Antoni", "Hm."]])
 ## Pusty mówca ("") to narracja bez ramki z imieniem.
+##
+## Nad ramką stoją popiersia jak w Ruined Kingu: Antoni po lewej, rozmówca po prawej.
+## Kto mówi, ten jest jasny i lekko wysunięty, drugi przyciemniony. Gdy w rozmowie
+## jest kilku rozmówców (np. Lis i Wolski), prawe popiersie zmienia się na mówiącego.
 
 signal skonczony
 
@@ -21,6 +25,17 @@ const GLOSY := {
 	"Zenon": ["m", 0.78], "Starszy pan": ["m", 0.8], "Elegancka pani": ["k", 0.98], "Student": ["m", 1.14],
 }
 const CO_ILE_LITER := 3
+
+## Mówca -> folder postaci w postacie/. Popiersie to górna część pierwszej klatki
+## arkusza powiększona 3 razy. Jeśli w folderze jest portret.png, gra bierze go zamiast.
+const PORTRETY := {
+	"Antoni": "antoni", "Ania": "ania", "Wolski": "wolski", "Lis": "bogdan", "Bogdan": "bogdan",
+	"Marta": "marta", "Irena": "irena", "Halina": "halina", "Zenon": "zenon",
+	"Starszy pan": "gosc_pan", "Elegancka pani": "gosc_pani", "Student": "gosc_student",
+}
+const POPIERSIE := Rect2(0, 0, 40, 38)  # wycinek klatki: głowa i ramiona
+const POWIEKSZENIE := 3.0
+const CIEN := Color(0.38, 0.36, 0.44)  # kolor popiersia, które milczy
 
 ## Większe od zera: kwestie przechodzą same po tylu sekundach (w filmikach).
 var auto := 0.0
@@ -39,12 +54,18 @@ var _strzalka: TextureRect
 var _glos: AudioStreamPlayer
 var _glosy := {}
 var _ostatnia_litera := 0
+var _lewy: TextureRect
+var _prawy: TextureRect
+var _portrety_wlaczone := false
 
 
 func _ready() -> void:
 	layer = 20
 	scale = Gra.SKALA_UI
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	# popiersia dodane przed ramką, więc ramka zasłania ich dół
+	_lewy = _nowy_portret()
+	_prawy = _nowy_portret()
 	_okno = _ramka(preload("res://ui/ramka.png"), 6, Rect2(8, 192, 464, 72))
 	_tekst = Label.new()
 	_tekst.position = Vector2(10, 5)
@@ -77,6 +98,47 @@ func _ready() -> void:
 	visible = false
 
 
+func _nowy_portret() -> TextureRect:
+	var t := TextureRect.new()
+	t.visible = false
+	add_child(t)
+	return t
+
+
+func _tekstura_portretu(kto: String) -> Texture2D:
+	if not PORTRETY.has(kto):
+		return null
+	var folder: String = PORTRETY[kto]
+	var wlasny := "res://postacie/%s/portret.png" % folder
+	if ResourceLoader.exists(wlasny):
+		return load(wlasny)
+	var klatka := AtlasTexture.new()
+	klatka.atlas = load("res://postacie/%s/%s_arkusz.png" % [folder, folder])
+	klatka.region = POPIERSIE
+	return klatka
+
+
+## Ustawia teksturę popiersia i wylicza, gdzie stoi (dół chowa się za ramką).
+func _ustaw_portret(t: TextureRect, tekstura: Texture2D, z_prawej: bool) -> void:
+	t.texture = tekstura
+	t.visible = tekstura != null
+	if not tekstura:
+		return
+	var powiekszenie := POWIEKSZENIE if tekstura is AtlasTexture else 1.0
+	t.scale = Vector2.ONE * powiekszenie
+	var wym := tekstura.get_size() * powiekszenie
+	t.position = Vector2(468 - wym.x if z_prawej else 12, _okno.position.y - wym.y + 4)
+	t.set_meta("y", t.position.y)
+
+
+func _podswietl(t: TextureRect, mowi: bool) -> void:
+	if not t.visible:
+		return
+	var tw := create_tween().set_parallel()
+	tw.tween_property(t, "modulate", Color.WHITE if mowi else CIEN, 0.15)
+	tw.tween_property(t, "position:y", t.get_meta("y") - (4.0 if mowi else 0.0), 0.15)
+
+
 func _ramka(tekstura: Texture2D, margines: int, prost: Rect2) -> NinePatchRect:
 	var r := NinePatchRect.new()
 	r.texture = tekstura
@@ -96,6 +158,20 @@ func pokaz(kwestie: Array) -> void:
 	_numer = 0
 	_okno.position.y = 22 if u_gory else 192
 	_imie_tlo.position.y = _okno.position.y - 18
+	# popiersia tylko przy okienku na dole (w filmiku ramka jest u góry)
+	_portrety_wlaczone = not u_gory
+	var antoni_mowi := false
+	var rozmowca := ""
+	for k in kwestie:
+		if k[0] == "Antoni":
+			antoni_mowi = true
+		elif rozmowca == "" and PORTRETY.has(k[0]):
+			rozmowca = k[0]
+	_ustaw_portret(_lewy, _tekstura_portretu("Antoni") if antoni_mowi and _portrety_wlaczone else null, false)
+	_ustaw_portret(_prawy, _tekstura_portretu(rozmowca) if _portrety_wlaczone else null, true)
+	_prawy.set_meta("kto", rozmowca)
+	for t in [_lewy, _prawy]:
+		t.modulate = CIEN
 	visible = true
 	_ustaw()
 	await skonczony
@@ -113,6 +189,15 @@ func _ustaw() -> void:
 	_imie_tlo.visible = kto != ""
 	_imie.text = kto
 	_imie_tlo.size.x = _imie.get_minimum_size().x + 12
+	# imię po stronie mówiącego: Antoni po lewej, reszta po prawej
+	var z_prawej := kto != "Antoni" and _prawy.visible
+	_imie_tlo.position.x = 466 - _imie_tlo.size.x if z_prawej else 14
+	if _portrety_wlaczone and kto != "Antoni" and PORTRETY.has(kto) and _prawy.get_meta("kto") != kto:
+		_ustaw_portret(_prawy, _tekstura_portretu(kto), true)  # inny rozmówca wchodzi
+		_prawy.set_meta("kto", kto)
+		_prawy.modulate = CIEN
+	_podswietl(_lewy, kto == "Antoni")
+	_podswietl(_prawy, kto != "Antoni" and kto == _prawy.get_meta("kto"))
 	_ostatnia_litera = -CO_ILE_LITER
 	var glos: Array = GLOSY.get(kto, ["k" if kto.ends_with("a") else "m", 1.0])
 	_glos.stream = _glosy[glos[0]]

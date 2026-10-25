@@ -23,4 +23,5 @@ Nie trzeba niczego rozpakowywać ani podmieniać ręcznie.
 - Mapy do swobodnego chodzenia: `mapy/<nazwa>/<nazwa>.tscn` (otwórz i naciśnij F6).
 - Grafiki rysują skrypty w `tools/`, czcionka to Atkinson Hyperlegible Next (licencja OFL, `fonty/OFL.txt`); Jersey 10 zostaje tylko do napisów rysowanych na obrazkach.
 - Przedmioty: nazwy i opisy w `dialogi/dialogi.gd` (PRZEDMIOTY, SKRZYNKI), ikonki w `ui/przedmioty/` z `tools/przedmioty_pixel.py`.
+- Dialogi: popiersia nad ramką (Antoni po lewej, rozmówca po prawej), lista mówców w `ui/dialog.gd` (PORTRETY). Własny portret: wrzuć `postacie/<postać>/portret.png`, gra weźmie go zamiast powiększonego sprite'a.
 - Obraz: świat 640x360, okienka rysowane w 480x270 i powiększane o 4/3 (`Gra.SKALA_UI`).
