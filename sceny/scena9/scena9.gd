@@ -6,7 +6,7 @@ extends ScenaGry
 ## Stan między foyer a gabinetem w Gra.flagi (s9_*). Teksty w Dialogi.SCENA9.
 
 const GABINET := "res://sceny/scena9/gabinet.tscn"
-const NASTEPNA := "res://menu/menu.tscn"  # scena 10 (pralnia) jeszcze nie zrobiona
+const NASTEPNA := "res://sceny/scena10/scena10.tscn"
 const PERSONEL := Rect2(190, 106, 48, 38)
 const WYJSCIE := Rect2(396, 470, 88, 40)
 const LADA_BUFETU := Rect2(684, 96, 172, 30)
@@ -109,19 +109,3 @@ func _rozmowa_z_bufetowa() -> void:
 		["Jak się pani trzyma?", t["bufetowa_jak"]],
 	]
 	await przesluchanie(tematy, Dialogi.SCENA9_DOWODY["bufetowa"], t["bufetowa_nic"], t["bufetowa_koniec"])
-
-
-## Scena 10 jeszcze nie istnieje: napis i powrót do menu.
-func przejdz(scena: String) -> void:
-	koniec = true
-	var tw := create_tween()
-	tw.tween_property(_zaslona, "color:a", 1.0, 1.0)
-	await tw.finished
-	var napis := etykieta(12, Color8(170, 160, 140))
-	napis.text = Dialogi.SCENA9_NAPISY["dalej"]
-	napis.position = Vector2(0, 124)
-	napis.size = Vector2(480, 20)
-	napis.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	ui.add_child(napis)
-	await get_tree().create_timer(3.0).timeout
-	get_tree().change_scene_to_file(scena)

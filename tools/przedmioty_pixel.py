@@ -359,6 +359,16 @@ def kwit_odbioru():
     return img
 
 
+def zdjecie_plamy():
+    img = nowy(); d = ImageDraw.Draw(img)
+    prost(d, 3, 3, 14, 14, BIEL[2])
+    prost(d, 4, 4, 12, 10, (60, 30, 40))  # bordowa podszewka
+    d.ellipse((7, 6, 13, 11), fill=(120, 110, 70))  # plama
+    prost(d, 9, 7, 2, 1, (230, 220, 150))  # połysk
+    prost(d, 3, 16, 14, 1, BIEL[0])
+    return img
+
+
 def kielich():
     img = nowy(); d = ImageDraw.Draw(img)
     d.polygon([(5, 3), (15, 3), (13, 9), (7, 9)], fill=ZLOTO[2])
@@ -377,7 +387,7 @@ IKONY = {
     "kawa": kawa, "herbata": herbata, "tabletki": tabletki, "papierosy": papierosy,
     "monety": monety, "bilet": bilet, "numerek": numerek, "noz": noz,
     "telefon_adriana": telefon_adriana, "lista_rekwizytow": lista_rekwizytow, "zdjecie_pasy": zdjecie_pasy,
-    "kielich": kielich, "termos": termos, "kwit_odbioru": kwit_odbioru,
+    "kielich": kielich, "termos": termos, "kwit_odbioru": kwit_odbioru, "zdjecie_plamy": zdjecie_plamy,
 }
 
 
@@ -520,6 +530,18 @@ def zdjecie_zalobne():
     return img
 
 
+def kostium_folia():
+    """Kostium Wolskiego w folii, rozłożony na stole prasowalnicy."""
+    img = nowy(44, 14); d = ImageDraw.Draw(img)
+    d.polygon([(2, 2), (40, 1), (43, 12), (0, 13)], fill=(40, 30, 60), outline=O)
+    prost(d, 6, 4, 30, 2, (70, 56, 100))
+    prost(d, 18, 6, 8, 5, (90, 20, 40))  # bordowa podszewka
+    for x in range(3, 41, 6):
+        prost(d, x, 2, 2, 1, (220, 230, 236))  # folia
+    prost(d, 40, 3, 3, 3, ZLOTO[2])  # guzik
+    return img
+
+
 def wstazka_czarna():
     img = nowy(14, 18); d = ImageDraw.Draw(img)
     d.polygon([(7, 6), (2, 17), (5, 17), (7, 10), (9, 17), (12, 17)], fill=(14, 14, 18), outline=O)
@@ -550,7 +572,7 @@ REKWIZYTY = {"stojak_programy": stojak_programy, "bezpieczniki": bezpieczniki, "
              "taca_kieliszki": taca_kieliszki, "gramofon": gramofon, "plama_wina": plama_wina,
              "szczur": szczur, "telefon_podloga": telefon_podloga,
              "kielich_podloga": kielich_podloga, "zdjecie_zalobne": zdjecie_zalobne,
-             "wstazka_czarna": wstazka_czarna}
+             "wstazka_czarna": wstazka_czarna, "kostium_folia": kostium_folia}
 
 
 def main():

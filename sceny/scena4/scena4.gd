@@ -131,7 +131,10 @@ func _irena_wpada() -> void:
 	await dialog.pokaz(Dialogi.SCENA4["irena_wpada"])
 	await przesun(_postac_ireny, STOLIK + Vector2(-26, 6), 0.9)
 	var koszula := rekwizyt("koszula_stol", STOLIK, 24.0)
-	miejsce(STOLIK + Vector2(0, 6), "Koszula Adriana", _kolejne("koszula"))
+	var wachaj := _kolejne("koszula")
+	miejsce(STOLIK + Vector2(0, 6), "Koszula Adriana", func() -> void:
+		await wachaj.call()
+		Gra.flagi["s4_koszula"] = true)  # zapach wraca w pralni (scena 10)
 	await dialog.pokaz(Dialogi.SCENA4["irena_wychodzi"])
 	blysk()
 	await przesun(_postac_ireny, Vector2(214, 128), 2.2)

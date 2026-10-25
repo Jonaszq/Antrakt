@@ -40,7 +40,7 @@ FONT = {
     "P": ["110", "101", "110", "100", "100"], "R": ["110", "101", "110", "101", "101"],
     "S": ["011", "100", "010", "001", "110"], "T": ["111", "010", "010", "010", "010"],
     "U": ["101", "101", "101", "101", "111"], "W": ["101", "101", "111", "111", "101"],
-    "Y": ["101", "101", "010", "010", "010"], "X": ["101", "101", "010", "101", "101"], "Z": ["111", "001", "010", "100", "111"],
+    "Y": ["101", "101", "010", "010", "010"], "Ę": ["111", "100", "110", "100", "111"], "X": ["101", "101", "010", "101", "101"], "Z": ["111", "001", "010", "100", "111"],
     "Ś": ["011", "100", "010", "001", "110"], "Ł": ["100", "110", "100", "100", "111"],
     " ": ["000"] * 5,
 }
@@ -1470,7 +1470,149 @@ def gabinet():
     return m, dict(korzen="Gabinet", start=(320, 320), postacie=(), mrok=(0.6, 0.58, 0.62))
 
 
-MAPY = {"foyer": foyer, "kulisy": kulisy, "widownia": widownia, "garderoba": garderoba, "magazyn": magazyn, "budka": budka, "plac": plac, "gabinet": gabinet}
+PLYTKI = [(150, 168, 172), (176, 194, 196), (204, 218, 216)]
+LINO_P = [(70, 84, 90), (86, 102, 108), (100, 118, 124)]
+
+
+def stojak_ubrania(w=120, kolory=None):
+    """Stojak na kółkach z ubraniami w foliach (widok z przodu pod skosem)."""
+    img = nowy(w, 74)
+    d = ImageDraw.Draw(img)
+    prost(d, 0, 2, w, 3, METAL[3])
+    obrys(d, 0, 2, w, 3)
+    for nx in (2, w - 5):
+        prost(d, nx, 5, 3, 62, METAL[2])
+        d.ellipse((nx - 2, 66, nx + 5, 73), fill=(20, 20, 24), outline=O)
+    prost(d, 0, 64, w, 3, METAL[2])
+    rnd = random.Random(w * 7 + len(kolory or []))
+    cx = 6
+    i = 0
+    while cx < w - 14:
+        k = (kolory or TKANINY)[i % len(kolory or TKANINY)]
+        szer = rnd.randint(10, 14)
+        dl = rnd.randint(40, 54)
+        d.polygon([(cx + 1, 6), (cx + szer - 1, 6), (cx + szer + 1, 6 + dl), (cx - 1, 6 + dl)], fill=k[2], outline=O)
+        prost(d, cx + szer // 2, 8, 1, dl - 4, k[1])
+        # folia: jasny odblask i papierowa zawieszka z numerem
+        d.line([(cx + 2, 8), (cx + 2, 4 + dl)], fill=(220, 230, 236))
+        prost(d, cx + szer // 2 - 2, 9, 5, 3, PAPIER[2])
+        cx += szer - 1
+        i += 1
+    return img
+
+
+def prasowalnica():
+    """Prasowalnica parowa z lampą nad stołem (tu widać plamę)."""
+    img = nowy(110, 70)
+    d = ImageDraw.Draw(img)
+    skrzynia(d, 0, 30, 110, 12, 24, [(60, 66, 72), (90, 98, 104), (120, 128, 134), (160, 168, 172), (190, 198, 200)])
+    prost(d, 6, 32, 70, 8, PAPIER[2])  # pokrowiec stołu
+    prost(d, 80, 10, 26, 34, METAL[2])  # kocioł
+    obrys(d, 80, 10, 26, 34)
+    d.ellipse((86, 16, 98, 28), fill=METAL[3], outline=O)  # manometr
+    prost(d, 92, 21, 3, 1, CZERWIEN[2])
+    prost(d, 40, 0, 2, 26, METAL[1])  # lampa na wysięgniku
+    d.polygon([(32, 20), (50, 20), (46, 14), (36, 14)], fill=ZIELEN[1], outline=O)
+    prost(d, 36, 21, 10, 2, (255, 236, 170))
+    for nx in (4, 102):
+        prost(d, nx, 66, 4, 4, METAL[0])
+    return img
+
+
+def lada_pralni():
+    """Lada z kasą, dzwonkiem, książką przyjęć i koszykiem bułek."""
+    img = nowy(150, 50)
+    d = ImageDraw.Draw(img)
+    skrzynia(d, 0, 6, 150, 14, 28, DREWNO)
+    prost(d, 6, 24, 138, 2, DREWNO[4])
+    prost(d, 12, -0 + 0, 26, 12, METAL[1])  # kasa
+    obrys(d, 12, 0, 26, 12)
+    prost(d, 16, 2, 18, 4, (60, 120, 60))
+    d.ellipse((48, 6, 56, 12), fill=ZLOTO[2], outline=O)  # dzwonek
+    prost(d, 66, 8, 22, 9, (40, 70, 120))  # książka przyjęć
+    prost(d, 77, 8, 1, 9, PAPIER[2])
+    obrys(d, 66, 8, 22, 9)
+    d.ellipse((104, 6, 132, 18), fill=(150, 110, 60), outline=O)  # koszyk
+    for bx in (108, 116, 124):
+        d.ellipse((bx, 5, bx + 8, 11), fill=(210, 160, 90), outline=O)
+    return img
+
+
+def reczniki_kot():
+    """Regał z ręcznikami, na górnej półce śpi rudy kot."""
+    img = nowy(54, 76)
+    d = ImageDraw.Draw(img)
+    skrzynia(d, 0, 8, 54, 4, 64, DREWNO_C)
+    for py, kol in ((20, (230, 230, 220)), (38, (150, 190, 210)), (56, (230, 200, 200))):
+        for i in range(3):
+            prost(d, 4, py + i * 4, 46, 4, kol)
+            prost(d, 4, py + i * 4 + 3, 46, 1, O)
+    d.ellipse((12, 0, 40, 14), fill=(210, 120, 50), outline=O)  # kot
+    d.ellipse((32, 2, 42, 10), fill=(220, 130, 60), outline=O)  # głowa
+    prost(d, 35, 0, 2, 2, (220, 130, 60))
+    prost(d, 39, 0, 2, 2, (220, 130, 60))
+    d.line([(14, 10), (6, 12)], fill=(190, 100, 40), width=2)  # ogon
+    for px in (18, 24, 30):
+        prost(d, px, 4, 2, 1, (170, 80, 30))  # pręgi
+    return img
+
+
+def pralnia():
+    mp.SZER, mp.WYS, mp.PODLOGA_Y = 640, 360, 104
+    mp.los = random.Random(101)
+    m = mp.Mapa()
+    d = m.d
+    W, H, PY = mp.SZER, mp.WYS, mp.PODLOGA_Y
+    S = mp.SCIANA
+    prost(d, 0, 0, W, H, O)
+    # linoleum w kratkę
+    for y in range(PY, H, 16):
+        for x in range(0, W, 16):
+            prost(d, x, y, 16, 16, LINO_P[(x // 16 + y // 16) % 2 + 1])
+    # ściana z białymi płytkami do połowy
+    prost(d, 0, 0, W, PY, (120, 136, 140))
+    for y in range(40, PY, 10):
+        for x in range((y // 10) % 2 * 8, W, 16):
+            prost(d, x, y, 15, 9, PLYTKI[1 + (x // 16 + y // 10) % 2])
+    prost(d, 0, 38, W, 2, PLYTKI[0])
+    prost(d, 0, PY - 1, W, 1, O)
+    # okno wystawowe z napisem od środka (odwrócony szyld) i szarym niedzielnym światłem
+    prost(d, 440, 10, 160, 60, (130, 140, 156))
+    for ry in range(14, 66, 7):
+        prost(d, 444, ry, 152, 1, (156, 166, 180))
+    obrys(d, 440, 10, 160, 60, METAL[2])
+    szyld(d, 478, 14, "PRALNIA PERLA", tlo=[(30, 60, 100), (30, 60, 100)], kolor=PAPIER[2])
+    m.swiatla.append((520, 70, 1.0))
+    # drzwi na zaplecze (za ścianą dudni pralka)
+    drzwi_zwykle(d, 60, PY, "ZAPLECZE")
+    # zegar ścienny
+    d.ellipse((150, 12, 172, 34), fill=PAPIER[2], outline=O)
+    d.line([(161, 23), (161, 15)], fill=O)
+    d.line([(161, 23), (167, 23)], fill=O)
+    # obiekty
+    m.obiekt("lada", lada_pralni(), 130, 100, 20)
+    m.obiekt("prasowalnica", prasowalnica(), 470, 118, 24)
+    m.swiatla.append((511, 150, 0.8))
+    m.obiekt("reczniki", reczniki_kot(), 330, 48, 12)
+    # trzy rzędy stojaków z ubraniami: alejki między nimi
+    for i, (sx, sy, w) in enumerate(((150, 222, 130), (310, 222, 130), (150, 300, 130), (310, 300, 130))):
+        m.obiekt(f"stojak_{i}", stojak_ubrania(w), sx, sy - 74, 10)
+    # skrzynka nocna przy wejściu (wrzut w drzwiach i zegar stemplujący)
+    prost(d, 520, H - S - 30, 40, 26, METAL[1])
+    obrys(d, 520, H - S - 30, 40, 26)
+    prost(d, 526, H - S - 26, 28, 3, O)
+    szyld(d, 516, H - S - 44, "NOCNA", tlo=[METAL[0], METAL[0]], kolor=PAPIER[2])
+    m.kolizje.append((520, H - S - 10, 560, H))
+    # wycieraczka i drzwi wejściowe na dole
+    prost(d, 286, H - S - 18, 68, 14, (60, 50, 40))
+    ramy_z_wejsciem(d, 288, 64)
+    prost(d, 0, 0, S, H, (100, 116, 120))
+    prost(d, W - S, 0, S, H, (100, 116, 120))
+    obrys(d, 0, 0, W, H)
+    return m, dict(korzen="Pralnia", start=(320, 320), postacie=(), mrok=(0.66, 0.66, 0.7), podloze="drewno")
+
+
+MAPY = {"foyer": foyer, "kulisy": kulisy, "widownia": widownia, "garderoba": garderoba, "magazyn": magazyn, "budka": budka, "plac": plac, "gabinet": gabinet, "pralnia": pralnia}
 
 
 def main(folder_podgladu=None):

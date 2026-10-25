@@ -1206,8 +1206,89 @@ const SCENA9_TLO := {
 	"lis": ["(przerzuca papiery)", "Gdzie to jest..."],
 }
 
-const SCENA9_NAPISY := {
-	"dalej": "Scena 10: Pralnia. Już wkrótce.",
+# Scena 10: pralnia pani Haliny, niedziela 15:00. Wersja zwykła albo (s9_kwit_ania)
+# taka, w której Ania odebrała kostium przed południem.
+const SCENA10 := {
+	"poczatek": [["", "Dzwonek nad drzwiami. Ciepło, para i zapach krochmalu. Za ścianą dudni pralka."]],
+	"halina_start": [
+		["Halina", "Dzień dobry, dzień dobry! Pan z teatru? Po kostium pana Wolskiego?"],
+		["Antoni", "Tak. Kwit numer 0412."],
+		["Halina", "Zaraz, zaraz... Był tu gdzieś. Ja już ślepa jestem, panie. Niech pan sam poszuka na stojakach, numery są na zawieszkach."],
+	],
+	"halina_start_ania": [
+		["Halina", "Dzień dobry! Pan z teatru? Jeśli po kostium pana Wolskiego, to już nie ma."],
+		["Halina", "Pani Ania odebrała przed dwunastą. Mokry jeszcze, nie chciała czekać na prasowanie."],
+	],
+	"stojak": [
+		["", "Zawieszki: 0388, 0415, 0402, 0397. Płaszcz, garnitur, dwie sukienki."],
+		["", "Zawieszki: 0420, 0391, 0409. Firanki i obrus z kościoła."],
+		["", "Zawieszki: 0377, 0418, 0400, 0411, 0414. Mundur kolejarza i kurtki."],
+		["", "Zawieszki: 0403, 0412, 0396. Pod folią ciemny, ciężki kostium ze złotymi guzikami."],
+	],
+	"stojak_pusto": [["", "Zawieszki: 0403, 0396 i pusty wieszak z kartką \"0412, ODEBRANY\"."]],
+	"znalazl": [
+		["Antoni", "Jest. 0412."],
+		["Halina", "O, pan ma oko! Niech pan go położy na stole przy prasowalnicy, tam jest lampa."],
+	],
+	"lampa_bez": [["", "Stół prasowalnicy pod lampą. Pusty, ciepły od pary."]],
+	"plama": [
+		["", "Antoni rozkłada kostium pod lampą i odwija połę marynarki."],
+		["", "Na bordowej podszewce, od karku przez ramiona, ciągnie się plama. Matowa, a w świetle lekko błyszczy."],
+		["", "Antoni robi zdjęcie."],
+	],
+	"plama_zapach": [["", "Od podszewki idzie zapach. Słodkawy, chemiczny, a pod spodem coś zgniłego."]],
+	"plama_potem": [["", "Plama na podszewce. W świetle lampy połyskuje jak lakier."]],
+	"halina_plama": [
+		["Halina", "Trzydzieści lat piorę i pierwszy raz coś mi nie schodzi. Jutro będzie jak nowy, słowo daję."],
+		["Halina", "Niech pan go zostawi jeszcze na jeden dzień. Proszę."],
+	],
+	"ksiazka": [
+		["", "Książka przyjęć. Rubryki: numer, rzecz, kto, data i godzina ze stempla."],
+		["", "\"0412. Kostium sceniczny, teatr. Skrzynka nocna. Stempel: czw. 23:40. Podpis: A.\""],
+	],
+	"ksiazka_potem": [["", "\"Skrzynka nocna. Stempel: czw. 23:40. Podpis: A.\""]],
+	"skrzynka_nocna": [["", "Skrzynka nocna w drzwiach. W środku zegar, który stempluje godzinę na każdym worku. Nie spóźnia się, pani Halina pilnuje."]],
+	"bulki": [["Halina", "Niech pan weźmie bułkę, pan taki blady. Detektywi też muszą jeść."]],
+	"bulki_potem": [["", "Bułki z piekarni obok. Jedną już wziąłem."]],
+	"kot": [["", "Rudy kot śpi na ręcznikach. Otwiera jedno oko i zamyka z powrotem."]],
+	"kot_potem": [["", "(mruczy)"]],
+	"zaplecze": [["", "Za drzwiami dudni wielka pralka. Pani Halina nie wpuszcza tam klientów."]],
+	"zegar": [["", "Zegar ścienny. Piętnasta dwanaście."]],
+	"halina_kto": [
+		["Antoni", "Kto oddał ten kostium?"],
+		["Halina", "Ktoś wrzucił do skrzynki nocnej. Rano wyjęłam worek, a na kartce tylko \"kostium, teatr, A.\" Zegar wybił godzinę na worku."],
+	],
+	"halina_co": [
+		["Antoni", "Co to za plama?"],
+		["Halina", "Ani wino, ani krew, ani tłuszcz. Błyszczy się jak lakier. Odplamiacz nic, wrzątek nic."],
+	],
+	"halina_pytal": [
+		["Antoni", "Ktoś jeszcze pytał o ten kostium?"],
+		["Halina", "Nikt. Pan pierwszy."],
+	],
+	"halina_pytal_ania": [
+		["Antoni", "Pani Ania coś mówiła?"],
+		["Halina", "Mówiłam jej o plamie, że nie schodzi i że trzeba jeszcze raz. A ona, że to nic, że sama spierze. I poszła z mokrym."],
+	],
+	"halina_nic": [["Halina", "Panie, ja się na tym nie znam. Ja tylko piorę."]],
+	"halina_koniec": [["Halina", "Do widzenia, do widzenia! Niech pan uważa, ślisko."]],
+	"klientka": [["Klientka", "Ślub w sobotę! Suknia po mamie, a pani Halina wyprała ją jak nową. Cudotwórczyni."]],
+	"klientka_potem": [["Klientka", "Pan też przyjdzie na wesele? Żartuję. Ale ciasto będzie dobre."]],
+}
+
+const SCENA10_DOWODY := {
+	"zdjecie_pasy": [["Halina", "Jezus... Takie pasy to jak od pokrzywy. Albo od złej chemii, ludzie po farbiarni tak mają."]],
+	"kielich": [["Halina", "Kielichów nie piorę, panie."]],
+	"lista_rekwizytow": [["Halina", "Nie moje pismo, nie moja sprawa."]],
+}
+
+const SCENA10_TLO := {
+	"halina": ["(nuci)", "(paruje żelazko)", "Gdzie ja to..."],
+	"klientka": ["Ślub w sobotę!", "Mama by się popłakała..."],
+}
+
+const SCENA10_NAPISY := {
+	"dalej": "Scena 11: Ania. Już wkrótce.",
 }
 
 # ---------- REJESTR ŚLEDZTWA (ui/sledztwo.gd) ----------
@@ -1227,6 +1308,10 @@ const SLEDZTWO_ARGUMENTY := {
 	"chciala_kostium": [["f:s9_ania_prosila"], "Chciałaś sama odebrać kostium z pralni."],
 	"wolski_u_ani": [["f:s8_kurs"], "Wolski był u ciebie w sobotę jeszcze przed północą."],
 	"telefon": [["p:telefon_adriana"], "Mam telefon Adriana."],
+	"plama": [["p:zdjecie_plamy"], "Na podszewce kostiumu Wolskiego jest plama, która nie schodzi w praniu."],
+	"zapach": [["f:s10_zapach"], "Plama pachnie tak samo jak koszula Adriana."],
+	"skrzynka_23_40": [["k:kwit"], "Kostium wrzucono do skrzynki nocnej w czwartek o 23:40, z podpisem A."],
+	"ania_odebrala": [["f:s10_ania_odebrala"], "Odebrałaś kostium mokry, zanim ktokolwiek przyjrzał się plamie."],
 }
 
 ## Epilog: [warunki, zdanie gdy spełnione, zdanie gdy nie ("" = nic)].
@@ -1354,6 +1439,7 @@ const PRZEDMIOTY := {
 	"kwit_odbioru": ["Kwit z pralni", "\"Pralnia Perła. Odbiór: kostium sceniczny, 1 szt. Nr 0412.\" Leżał pod popielniczką u Lisa.", "fabularny", 0],  # biurko Lisa, sc. 9
 	"kielich": ["Złoty kielich", "Czwarty kielich z listy rekwizytów. Leżał pod skrzynią obok ciała, nóżka wgnieciona.", "fabularny", 0],  # pod skrzynią w magazynie, sc. 6
 	"lista_rekwizytow": ["Lista rekwizytów", "Lista od dyrektora Lisa. Na dole dopisek Adriana: \"nie dam rady, kręci mi się w głowie\".", "fabularny", 0],  # stolik w salonie, magazyn, sc. 6
+	"zdjecie_plamy": ["Zdjęcie plamy", "Podszewka kostiumu Wolskiego. Plama od karku przez ramiona, matowa, w świetle lekko błyszczy.", "fabularny", 0],  # pralnia, sc. 10
 	"zdjecie_pasy": ["Zdjęcie: pasy na ramionach", "Zdjęcie z telefonu. Czerwone, równe pasy na ramionach i plecach Adriana.", "fabularny", 0],  # ciało Adriana, sc. 6
 	"pendrive": ["Pendrive", "Czarny pendrive z sejfu Wolskiego. Coś na nim jest.", "fabularny", 0],  # sejf w garderobie Wolskiego, sc. 18
 	# zwykłe (pasek sił)
