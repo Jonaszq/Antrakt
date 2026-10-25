@@ -45,45 +45,26 @@ func _ready() -> void:
 
 func _rozmowa_z_zenonem() -> void:
 	var t: Dictionary = Dialogi.SCENA7
-	var tematy: Array = Dialogi.SCENA7_TEMATY
-	while true:
-		var nr := await wybor(tematy.map(func(x): return x[0]))
-		var klucz: String = tematy[nr][1]
-		if klucz == "koniec":
-			await rozmowa(t["koniec_rozmowy"])
-			break
-		if klucz == "pokaz":
-			await _pokaz_przedmiot()
-			continue
-		await rozmowa(t[klucz])
-		Gra.flagi["s7_" + klucz] = true
-		if not _papierosy:
-			_papierosy = true
-			await rozmowa(t["papierosy"])
-			Ekwipunek.dodaj("papierosy")
+	var tematy := []
+	for x in Dialogi.SCENA7_TEMATY:
+		tematy.append([x[0], _temat.bind(x[1])])
+	await przesluchanie(tematy, {"telefon_adriana": _ladowarka}, t["pokaz_inne"], t["koniec_rozmowy"])
 
 
-## Gracz wybiera przedmiot fabularny z ekwipunku i pokazuje go Zenonowi.
-func _pokaz_przedmiot() -> void:
+func _temat(klucz: String) -> void:
+	await rozmowa(Dialogi.SCENA7[klucz])
+	Gra.flagi["s7_" + klucz] = true
+	if not _papierosy:
+		_papierosy = true
+		await rozmowa(Dialogi.SCENA7["papierosy"])
+		Ekwipunek.dodaj("papierosy")
+
+
+## Rozładowany telefon Adriana: Zenon szuka w szufladzie kabla.
+func _ladowarka() -> void:
 	var t: Dictionary = Dialogi.SCENA7
-	var ids: Array = []
-	for id in Ekwipunek.przedmioty:
-		if Dialogi.PRZEDMIOTY[id][2] == "fabularny":
-			ids.append(id)
-	ids = ids.slice(maxi(0, ids.size() - 7))  # najnowsze 7, żeby lista zmieściła się na ekranie
-	if ids.is_empty():
-		await rozmowa(t["pokaz_inne"])
-		return
-	var nazwy: Array = ids.map(func(id): return Dialogi.PRZEDMIOTY[id][0])
-	nazwy.append("Wróć")
-	var nr := await wybor(nazwy)
-	if nr >= ids.size():
-		return
-	if ids[nr] == "telefon_adriana" and not Ekwipunek.ma("ladowarka"):
-		await rozmowa(t["pokaz_telefon"])
-		Ekwipunek.dodaj("ladowarka")
-	else:
-		await rozmowa(t["pokaz_inne"])
+	await rozmowa(t["pokaz_inne"] if Ekwipunek.ma("ladowarka") else t["pokaz_telefon"])
+	Ekwipunek.dodaj("ladowarka")
 
 
 func _szuflada() -> void:

@@ -439,6 +439,57 @@ func wybor(opcje: Array) -> int:
 	return stan.nr
 
 
+## Rozmowa jak przesłuchanie: gracz sam wybiera tematy i może pokazać dowód.
+## tematy: lista [napis, kwestie albo Callable, warunek (Callable -> bool) albo null].
+## dowody: id -> kwestie albo Callable (karty z teczki mają id "karta_<id>").
+## Temat bez spełnionego warunku się nie pokazuje (np. pytanie o pasy dopiero, gdy
+## Antoni je zobaczył). dowody: id przedmiotu albo karty -> kwestie, reszta dostaje
+## kwestie nic_nie_wiem. Po każdym temacie lista wraca, aż gracz wybierze "Nic więcej".
+func przesluchanie(tematy: Array, dowody: Dictionary, nic_nie_wiem: Array, pozegnanie: Array = []) -> void:
+	while true:
+		var widoczne := tematy.filter(func(t): return t.size() < 3 or t[2] == null or t[2].call())
+		var napisy: Array = widoczne.map(func(t): return t[0])
+		napisy.append_array(["Pokaż dowód", "Nic więcej"])
+		var nr := await wybor(napisy)
+		if nr == napisy.size() - 1:
+			if not pozegnanie.is_empty():
+				await rozmowa(pozegnanie)
+			antoni.sterowanie = true
+			return
+		if nr == napisy.size() - 2:
+			var id := await wybierz_dowod()
+			if id != "":
+				var reakcja = dowody.get(id, nic_nie_wiem)
+				if reakcja is Callable:
+					await reakcja.call()
+				else:
+					await rozmowa(reakcja)
+				Gra.flagi["pokazal_" + id] = true
+			continue
+		var co = widoczne[nr][1]
+		if co is Callable:
+			await co.call()
+		else:
+			await rozmowa(co)
+
+
+## Lista dowodów do pokazania: przedmioty fabularne i sprawdzone karty z teczki
+## (najnowsze, żeby lista zmieściła się na ekranie). Zwraca id albo "" (wróć).
+func wybierz_dowod() -> String:
+	var ids: Array = []
+	for id in Ekwipunek.przedmioty:
+		if Dialogi.PRZEDMIOTY[id][2] == "fabularny":
+			ids.append(id)
+	for id in Teczka.karty:
+		if Teczka.sprawdzona(id):
+			ids.append("karta_" + id)
+	ids = ids.slice(maxi(0, ids.size() - 7))
+	var napisy: Array = ids.map(func(id): return ("Karta: " + Dialogi.KARTY[id.substr(6)][0]) if id.begins_with("karta_") else Dialogi.PRZEDMIOTY[id][0])
+	napisy.append("Wróć")
+	var nr := await wybor(napisy)
+	return ids[nr] if nr < ids.size() else ""
+
+
 func przejdz(scena: String) -> void:
 	koniec = true
 	antoni.sterowanie = false

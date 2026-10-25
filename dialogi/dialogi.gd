@@ -734,7 +734,7 @@ const SCENA6 := {
 		["Antoni", "Muszę mu się przyjrzeć z bliska. Potrzebuję światła."],
 	],
 	"cialo_potem": [["Antoni", "Taki młody. A wszyscy myśleli, że po prostu nie przyszedł na premierę."]],
-	"lekarz": [
+	"lekarz_pewien": [
 		["Antoni", "Pan jest pewien, że to serce?"],
 		["Lekarz", "Młody człowiek, stres przed premierą, papierosy, kawa litrami. Widziałem to setki razy."],
 		["Lekarz", "Ja swoje napiszę. Zawał."],
@@ -750,6 +750,8 @@ const SCENA6 := {
 	"nowicki_jeszcze": [["Nowicki", "Zegar tyka, Antek."]],
 	"lis": [
 		["Lis", "Sam go tu wysłałem. Po kielichy i koronę do drugiego aktu. Po kielichy, rozumie pan?"],
+	],
+	"lis_kiedy": [
 		["Antoni", "Kiedy go pan wysłał?"],
 		["Lis", "W piątek po południu. Myślałem, że wrócił i poszedł prosto do domu."],
 	],
@@ -793,7 +795,28 @@ const SCENA6 := {
 	],
 }
 
-const SCENA6_WYBOR := ["Jeszcze się rozejrzę", "Skończyłem"]
+const SCENA6_WYBOR := ["Jeszcze się rozejrzę", "Pokaż dowód", "Skończyłem"]
+
+## Pokazywanie dowodów w scenie 6: kto -> {id dowodu: kwestie}.
+const SCENA6_DOWODY := {
+	"lekarz": {
+		"zdjecie_pasy": [["Antoni", "Te pasy są tylko tam, gdzie przylegało ubranie."], ["Lekarz", "Uczulenie na proszek albo na farbę z kostiumu. Mówiłem. Zawał."]],
+		"lista_rekwizytow": [["Lekarz", "Kręciło mu się w głowie? No to serce. Wszystko się zgadza."]],
+	},
+	"lis": {
+		"lista_rekwizytow": [["Lis", "To moja lista... A na dole jego pismo. Boże, on to pisał tutaj, sam."]],
+		"telefon_adriana": [["Lis", "Jego telefon. Dzwoniłem do niego w sobotę rano, nie odbierał. Myślałem, że się obraził."]],
+	},
+	"nowicki": {
+		"zdjecie_pasy": [["Nowicki", "Wysypka. Antek, ludzie mają alergie. Nie rób mi z tego sprawy."]],
+	},
+}
+
+const SCENA6_NIC := {
+	"lekarz": [["Lekarz", "Nie wiem, co pan chce mi pokazać."]],
+	"lis": [["Lis", "(kręci głową) Nic mi to nie mówi."]],
+	"nowicki": [["Nowicki", "I co z tego?"]],
+}
 
 const SCENA6_TLO := {
 	"policjant": ["Jeszcze jedno.", "Z tej strony...", "Ciemno jak w grobie."],
@@ -859,8 +882,6 @@ const SCENA7_TEMATY := [
 	["Co się działo w piątek?", "piatek"],
 	["Jak wyglądał Adrian?", "wyglad"],
 	["Kiedy go pan znalazł?", "znalazl"],
-	["Pokaż przedmiot", "pokaz"],
-	["Nic więcej", "koniec"],
 ]
 
 const SCENA7_TLO := {

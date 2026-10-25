@@ -49,7 +49,7 @@ func _ready() -> void:
 	gada_w_tle(_policjant, tlo["policjant"], 9.0)
 	spacer(_policjant, [Vector2(700, 468), Vector2(790, 494), Vector2(720, 500)], 22.0, 4.0)
 	_lis = postac("bogdan", Vector2(626, 526))
-	dodaj_rozmowce(_lis, _kolejne("lis"))
+	dodaj_rozmowce(_lis, _rozmowa_z_lisem)
 	gada_w_tle(_lis, tlo["lis"], 12.0)
 	_nowicki = postac("nowicki", Vector2(480, 640))
 	_nowicki.visible = false
@@ -139,11 +139,20 @@ func _ciemno_albo(co: Callable) -> Callable:
 			await rozmowa(Dialogi.SCENA6["ciemno"])
 
 
-## Pierwsza rozmowa: lekarz stwierdza zawał, potem "lekarz" i "lekarz_potem".
+## Lekarz i Lis odpowiadają tylko na to, o co gracz sam zapyta albo co pokaże.
 func _rozmowa_z_lekarzem() -> void:
-	var ile: int = Gra.flagi.get("s6_lekarz", 0)
-	await rozmowa(Dialogi.SCENA6[["lekarz_przy_ciele", "lekarz", "lekarz_potem"][mini(ile, 2)]])
-	Gra.flagi["s6_lekarz"] = ile + 1
+	var t: Dictionary = Dialogi.SCENA6
+	await przesluchanie([["Co mu się stało?", t["lekarz_przy_ciele"]], ["Na pewno serce?", t["lekarz_pewien"]]],
+			Dialogi.SCENA6_DOWODY["lekarz"], Dialogi.SCENA6_NIC["lekarz"], t["lekarz_potem"])
+
+
+func _rozmowa_z_lisem() -> void:
+	var t: Dictionary = Dialogi.SCENA6
+	if not Gra.flagi.get("s6_lis", false):
+		Gra.flagi["s6_lis"] = true
+		await rozmowa(t["lis"])
+	await przesluchanie([["Kiedy go pan wysłał?", t["lis_kiedy"]]],
+			Dialogi.SCENA6_DOWODY["lis"], Dialogi.SCENA6_NIC["lis"], t["lis_potem"])
 
 
 func _wez_latarke() -> void:
@@ -204,11 +213,19 @@ func _telefon() -> void:
 
 func _rozmowa_z_nowickim() -> void:
 	await rozmowa(Dialogi.SCENA6["nowicki"])
-	if await wybor(Dialogi.SCENA6_WYBOR) == 1:
-		await rozmowa(Dialogi.SCENA6["koniec_sam"])
-		_zakoncz()
-	else:
-		await rozmowa(Dialogi.SCENA6["nowicki_jeszcze"])
+	while true:
+		var nr := await wybor(Dialogi.SCENA6_WYBOR)
+		if nr == 1:
+			var id := await wybierz_dowod()
+			if id != "":
+				await rozmowa(Dialogi.SCENA6_DOWODY["nowicki"].get(id, Dialogi.SCENA6_NIC["nowicki"]))
+			continue
+		if nr == 2:
+			await rozmowa(Dialogi.SCENA6["koniec_sam"])
+			_zakoncz()
+		else:
+			await rozmowa(Dialogi.SCENA6["nowicki_jeszcze"])
+		return
 
 
 ## Koniec kwadransu: ściemnienie, ciało zabrane, brama otwarta.
