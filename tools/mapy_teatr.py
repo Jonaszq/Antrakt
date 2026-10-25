@@ -31,7 +31,7 @@ NIEBO = [(20, 30, 60), (36, 54, 96), (60, 90, 140)]
 
 FONT = {
     "A": ["010", "101", "111", "101", "101"], "B": ["110", "101", "110", "101", "110"],
-    "C": ["011", "100", "100", "100", "011"], "D": ["110", "101", "101", "101", "110"],
+    "G": ["011", "100", "101", "101", "011"], "C": ["011", "100", "100", "100", "011"], "D": ["110", "101", "101", "101", "110"],
     "E": ["111", "100", "110", "100", "111"], "F": ["111", "100", "110", "100", "100"],
     "H": ["101", "101", "111", "101", "101"], "M": ["101", "111", "111", "101", "101"],
     "I": ["111", "010", "010", "010", "111"], "J": ["001", "001", "001", "101", "010"],
@@ -227,6 +227,27 @@ def ramy_z_wejsciem(d, x_wej, w_wej):
     prost(d, x_wej + w_wej, y - 2, 4, mp.SCIANA + 2, ZLOTO[1])
 
 
+def drzwi_zwykle(d, x, py, tekst=None, uchylone=False):
+    """Zwykłe drewniane drzwi w tylnej ścianie (36x66), z szyldem nad nimi."""
+    prost(d, x, py - 66, 36, 66, DREWNO_C[1])
+    obrys(d, x, py - 66, 36, 66)
+    if uchylone:
+        # szpara na noc: zimne światło z podwórza i skrzydło odchylone do środka
+        prost(d, x + 4, py - 62, 28, 62, NIEBO[0])
+        for ky in range(py - 58, py - 4, 9):
+            prost(d, x + 6 + (ky % 5), ky, 1, 4, NIEBO[2])
+        d.polygon([(x + 4, py - 62), (x + 14, py - 58), (x + 14, py + 4), (x + 4, py)], fill=DREWNO[2], outline=O)
+    else:
+        prost(d, x + 4, py - 62, 28, 62, DREWNO[2])
+        prost(d, x + 4, py - 62, 28, 1, DREWNO[4])
+        obrys(d, x + 8, py - 56, 20, 20, DREWNO[1])
+        obrys(d, x + 8, py - 30, 20, 24, DREWNO[1])
+        prost(d, x + 26, py - 34, 3, 2, ZLOTO[3])
+    if tekst:
+        sw = len(tekst) * 4 + 5
+        szyld(d, x + 18 - sw // 2, py - 80, tekst)
+
+
 # ---------- FOYER ----------
 
 def foyer():
@@ -248,7 +269,7 @@ def foyer():
     drzwi_dwuskrzydlowe(d, 400, PY - 80, 80, 80, "WIDOWNIA")
     for px in (240, 360, 506, 626):
         pilaster(d, px, mp.SCIANA, PY - 3)
-    plakat(d, 290, 26, ["OSTATNI", "AKT"], "maska")
+    plakat(d, 318, 26, ["OSTATNI", "AKT"], "maska")
     plakat(d, 556, 26, ["HAMLET"], "korona")
     plakat(d, 674, 30, ["ROMEO"], "roza")
     for kx in (386, 540, 720):
@@ -256,15 +277,14 @@ def foyer():
         m.swiatla.append((kx, 46, 0.7))
 
     # drzwi służbowe do kulis (tędy Antoni trafia za scenę)
-    prost(d, 196, PY - 66, 36, 66, DREWNO_C[1])
-    obrys(d, 196, PY - 66, 36, 66)
-    prost(d, 200, PY - 62, 28, 62, DREWNO[2])
-    prost(d, 200, PY - 62, 28, 1, DREWNO[4])
-    obrys(d, 204, PY - 56, 20, 20, DREWNO[1])
-    obrys(d, 204, PY - 30, 20, 24, DREWNO[1])
-    prost(d, 222, PY - 34, 3, 2, ZLOTO[3])
-    szyld(d, 194, PY - 80, "PERSONEL")
+    drzwi_zwykle(d, 196, PY, "PERSONEL")
     m.swiatla.append((214, 70, 0.5))
+    # toalety dla widzów: awaria, kartka na drzwiach (dlatego Antoni szuka innej)
+    drzwi_zwykle(d, 264, PY, "TOALETY")
+    prost(d, 272, PY - 50, 14, 10, PAPIER[2])
+    obrys(d, 272, PY - 50, 14, 10, PAPIER[0])
+    for ly in (PY - 47, PY - 44):
+        prost(d, 274, ly, 10, 1, CZERWIEN[2])
 
     # kasa biletowa (lewa strona tylnej ściany)
     prost(d, 40, 24, 150, PY - 24, DREWNO_C[2])
@@ -418,6 +438,12 @@ def kulisy():
     obrys(d, 520, 30, 40, 16)
     napis(d, 530, 36, "CISZA", (255, 90, 80))
     m.swiatla.append((540, 38, 0.3))
+    # drzwi do garderób aktorów (zamknięte, klucz jest w skrzynce z bezpiecznikami)
+    drzwi_zwykle(d, 62, PY, "GARDEROBY")
+    m.swiatla.append((80, 40, 0.5))
+    # uchylone drzwi na podwórze, tu palą maszyniści
+    drzwi_zwykle(d, 564, PY, uchylone=True)
+    m.swiatla.append((582, 90, 0.3))
     # skrzynka z bezpiecznikami i kable
     prost(d, 600, 40, 24, 32, METAL[1])
     obrys(d, 600, 40, 24, 32)
@@ -691,7 +717,110 @@ def widownia():
                    mrok=(0.4, 0.36, 0.48), podloze="dywan", strefy=((0, 0, W, SCENA_Y1 + 20, "drewno"),))
 
 
-MAPY = {"foyer": foyer, "kulisy": kulisy, "widownia": widownia}
+# ---------- GARDEROBA ANI ----------
+
+def kanapa():
+    img = nowy(84, 44)
+    d = ImageDraw.Draw(img)
+    skrzynia(d, 0, 0, 84, 6, 22, CZERWIEN)  # oparcie
+    skrzynia(d, 0, 18, 84, 8, 16, CZERWIEN)  # siedzisko
+    for px in (2, 42):
+        obrys(d, px, 20, 40, 6, CZERWIEN[1])
+    skrzynia(d, 0, 10, 10, 4, 26, CZERWIEN)  # podłokietniki
+    skrzynia(d, 74, 10, 10, 4, 26, CZERWIEN)
+    d.polygon([(52, 14), (66, 12), (68, 22), (54, 24)], fill=PAPIER[2], outline=O)  # rzucony szal
+    for nx in (4, 78):
+        prost(d, nx, 40, 3, 4, DREWNO[1])
+    return img
+
+
+def stolik_kwiaty():
+    img = nowy(30, 50)
+    d = ImageDraw.Draw(img)
+    skrzynia(d, 0, 24, 30, 6, 6, DREWNO)
+    for lx in (3, 25):
+        prost(d, lx, 36, 2, 14, DREWNO[1])
+    prost(d, 11, 14, 8, 12, SZKLO[3])  # wazon
+    obrys(d, 11, 14, 8, 12)
+    for i, (kx, ky) in enumerate(((8, 6), (15, 2), (21, 7), (12, 10), (19, 11))):
+        d.line([(15, 14), (kx + 2, ky + 3)], fill=ZIELEN[1])
+        d.ellipse((kx, ky, kx + 5, ky + 5), fill=CZERWIEN[3] if i % 2 else CZERWIEN[4], outline=O)
+    prost(d, 20, 22, 6, 4, PAPIER[2])  # bilecik
+    return img
+
+
+def garderoba():
+    mp.SZER, mp.WYS, mp.PODLOGA_Y = 640, 360, 104
+    mp.los = random.Random(31)
+    m = mp.Mapa()
+    d = m.d
+    W, H, PY = mp.SZER, mp.WYS, mp.PODLOGA_Y
+    prost(d, 0, 0, W, H, O)
+    mp.podloga(d)
+    mp.sciana_tylna(d)
+    # chodniczek przed toaletką
+    prost(d, 236, PY + 30, 110, 40, TKANINY[0][1])
+    obrys(d, 236, PY + 30, 110, 40, TKANINY[0][3])
+    obrys(d, 240, PY + 34, 102, 32, TKANINY[0][2])
+
+    # toaletka Ani: lustro w żarówkach, zdjęcie, kosmetyki
+    prost(d, 252, 26, 76, 56, DREWNO_C[2])
+    obrys(d, 252, 26, 76, 56)
+    prost(d, 258, 32, 64, 44, SZKLO[2])
+    prost(d, 262, 36, 3, 24, SZKLO[4])
+    prost(d, 268, 34, 2, 12, SZKLO[3])
+    for bx in range(256, 328, 9):
+        d.ellipse((bx, 22, bx + 5, 27), fill=(255, 236, 170), outline=O)
+    for by in range(32, 80, 9):
+        for bx in (247, 328):
+            d.ellipse((bx, by, bx + 5, by + 5), fill=(255, 236, 170), outline=O)
+    for lx in (270, 310):
+        m.swiatla.append((lx, 40, 0.9))
+    # karteczki za ramą lustra
+    prost(d, 312, 30, 10, 12, PAPIER[2])
+    prost(d, 258, 64, 8, 10, (230, 200, 120))
+    skrzynia(d, 240, PY - 22, 100, 10, 30, DREWNO)
+    for sx in (246, 296):
+        obrys(d, sx, PY - 6, 38, 10, DREWNO[1])
+        prost(d, sx + 17, PY - 2, 4, 2, ZLOTO[2])
+    # zdjęcie w ramce (Ania i Adrian), puderniczka, szminka, szczotka
+    prost(d, 302, PY - 36, 14, 16, ZLOTO[1])
+    obrys(d, 302, PY - 36, 14, 16)
+    prost(d, 304, PY - 34, 10, 12, NIEBO[2])
+    prost(d, 304, PY - 26, 10, 4, (200, 180, 130))  # plaża
+    prost(d, 306, PY - 31, 2, 5, (60, 40, 30))  # dwie postacie
+    prost(d, 310, PY - 31, 2, 5, (120, 60, 40))
+    d.ellipse((248, PY - 22, 258, PY - 17), fill=PAPIER[2], outline=O)
+    prost(d, 262, PY - 24, 3, 6, CZERWIEN[3])
+    prost(d, 322, PY - 22, 12, 3, DREWNO[3])
+    m.kolizje.append((240, PY, 340, PY + 10))
+
+    # kostiumy Ani na drążku
+    mp.wieszak_scienny(d, 380, PY - 58, 120)
+    m.kolizje.append((378, PY, 502, PY + 18))
+    # szafa i plakat
+    mp.szafa(d, 40, PY - 74)
+    m.kolizje.append((40, PY, 112, PY + 22))
+    plakat(d, 170, 30, ["OSTATNI", "AKT"], "maska")
+    mp.kinkiet(d, 140, 50)
+    m.swiatla.append((140, 44, 0.7))
+    mp.kinkiet(d, 540, 50)
+    m.swiatla.append((540, 44, 0.7))
+
+    m.obiekt("kanapa", kanapa(), 60, 230, 22)
+    m.obiekt("kwiaty", stolik_kwiaty(), 176, 236, 8)
+    m.obiekt("parawan", mp.parawan(), 540, 150, 8)
+    kosz = nowy(14, 16)
+    dk = ImageDraw.Draw(kosz)
+    skrzynia(dk, 0, 2, 14, 3, 11, METAL)
+    d2 = (PAPIER[2])
+    prost(dk, 3, 0, 5, 3, d2)
+    m.obiekt("kosz", kosz, 352, PY + 4, 6)
+    ramy_z_wejsciem(d, 288, 64)
+    return m, dict(korzen="Garderoba", start=(320, 320), postacie=(), mrok=(0.55, 0.5, 0.6))
+
+
+MAPY = {"foyer": foyer, "kulisy": kulisy, "widownia": widownia, "garderoba": garderoba}
 
 
 def main(folder_podgladu=None):

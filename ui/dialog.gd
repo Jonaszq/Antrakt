@@ -22,7 +22,11 @@ const LITER_NA_SEKUNDE := 40.0
 const GLOSY := {
 	"Antoni": ["m", 0.92], "Ania": ["k", 1.06], "Wolski": ["m", 0.84], "Bogdan": ["m", 1.0],
 	"Lis": ["m", 1.0], "Irena": ["k", 0.88], "Marta": ["k", 1.12], "Halina": ["k", 0.82],
-	"Zenon": ["m", 0.78], "Starszy pan": ["m", 0.8], "Elegancka pani": ["k", 0.98], "Student": ["m", 1.14],
+	"Zenon": ["m", 0.78], "Starszy pan": ["m", 0.8], "Elegancka pani": ["k", 0.98], "Kuba": ["m", 1.14],
+	"Zawada": ["m", 0.9], "Pani Stasia": ["k", 0.86], "Bileterka": ["k", 1.0], "Szatniarz": ["m", 0.82],
+	"Bufetowa": ["k", 0.92], "Kelner": ["m", 1.04], "Kelnerka": ["k", 1.1], "Fotograf": ["m", 1.08],
+	"Mąż": ["m", 0.96], "Żona": ["k", 1.04], "Chłopiec": ["k", 1.3], "Maszynista": ["m", 0.86],
+	"Garderobiana": ["k", 0.9], "Aktor": ["m", 1.0], "Aktorka": ["k", 1.08], "Radio": ["m", 1.1],
 }
 const CO_ILE_LITER := 3
 
@@ -31,9 +35,14 @@ const CO_ILE_LITER := 3
 const PORTRETY := {
 	"Antoni": "antoni", "Ania": "ania", "Wolski": "wolski", "Lis": "bogdan", "Bogdan": "bogdan",
 	"Marta": "marta", "Irena": "irena", "Halina": "halina", "Zenon": "zenon",
-	"Starszy pan": "gosc_pan", "Elegancka pani": "gosc_pani", "Student": "gosc_student",
+	"Starszy pan": "gosc_pan", "Elegancka pani": "gosc_pani", "Kuba": "gosc_student",
+	"Zawada": "zawada", "Pani Stasia": "stasia", "Bileterka": "bileterka", "Szatniarz": "szatniarz",
+	"Bufetowa": "bufetowa", "Kelner": "kelner", "Kelnerka": "kelnerka", "Fotograf": "fotograf",
+	"Mąż": "para_pan", "Żona": "para_pani", "Chłopiec": "dziecko", "Maszynista": "maszynista2",
+	"Garderobiana": "garderobiana", "Aktor": "aktor", "Aktorka": "aktorka",
 }
 const POPIERSIE := Rect2(0, 0, 40, 38)  # wycinek klatki: głowa i ramiona
+const POPIERSIE_NIZEJ := {"dziecko": Rect2(0, 16, 40, 38)}  # niżsi mają głowę niżej w klatce
 const POWIEKSZENIE := 3.0
 const CIEN := Color(0.38, 0.36, 0.44)  # kolor popiersia, które milczy
 
@@ -114,7 +123,7 @@ func _tekstura_portretu(kto: String) -> Texture2D:
 		return load(wlasny)
 	var klatka := AtlasTexture.new()
 	klatka.atlas = load("res://postacie/%s/%s_arkusz.png" % [folder, folder])
-	klatka.region = POPIERSIE
+	klatka.region = POPIERSIE_NIZEJ.get(folder, POPIERSIE)
 	return klatka
 
 

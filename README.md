@@ -18,7 +18,8 @@ Nie trzeba niczego rozpakowywać ani podmieniać ręcznie.
 ## Co jest w grze
 
 - **F5** uruchamia grę od menu głównego (`menu/menu.tscn`): Nowa gra (filmik wstępny, `wstep/wstep.tscn`), Wybierz scenę (skrót do testów), Ustawienia, Wyjdź. W filmiku Spacja przewija ujęcie, Escape pomija filmik. W grze Escape to pauza z wyjściem do menu.
-- Po filmiku startuje scena 1 w foyer (`sceny/scena1/scena1.tscn`), potem scena 2 w kulisach (`sceny/scena2/scena2.tscn`) scena 3, filmik ze spektaklem na widowni (`sceny/scena3/scena3.tscn`), i scena 4, bankiet w foyer (`sceny/scena4/scena4.tscn`).
+- Rozdział 1 (około 25 do 30 minut): scena 1 w foyer, zgubiony bilet, szatnia i plotki (`sceny/scena1/scena1.tscn`), scena 2 w kulisach z szukaniem noża i garderobą Ani (`sceny/scena2/scena2.tscn`, `garderoba.tscn`), scena 3: akt pierwszy na widowni, antrakt w foyer i akt drugi (`sceny/scena3/scena3.tscn`, `antrakt.tscn`, `scena3_akt2.tscn`), scena 4, bankiet z toastem i awanturą Ireny (`sceny/scena4/scena4.tscn`), scena 5, telefon, jazda autem w deszczu i brama magazynu (`sceny/scena5/scena5.tscn`). Na końcu licznik "5 dni do pogrzebu" i powrót do menu.
+- Ludzie w tle i odgłosy: postacie rysuje `tools/postacie_pixel.py`, dźwięki tła (gwar, dzwonek, telefon, flesz, oklaski, gramofon, auto) `tools/dzwieki_tla.py`, ujęcia auta i bramy `tools/jazda_pixel.py`.
 - Klawisze: WASD chodzenie, E rozmowa i przeszukiwanie, I ekwipunek, T notes (gracz pisze sam, Esc zamyka), Q telefon, Tab wybór postaci (Antoni albo Antoni z latarnią). Telefon, wybór postaci i dialogi działają też myszką (klik, w telefonie prawy klik cofa, kółko przewija).
 - Mapy do swobodnego chodzenia: `mapy/<nazwa>/<nazwa>.tscn` (otwórz i naciśnij F6).
 - Grafiki rysują skrypty w `tools/`, czcionka to Atkinson Hyperlegible Next (licencja OFL, `fonty/OFL.txt`); Jersey 10 zostaje tylko do napisów rysowanych na obrazkach.

@@ -301,41 +301,55 @@ texture = SubResource("swiatlo")
 texture_scale = 1.60
 
 [node name="S1" type="PointLight2D" parent="Swiatla"]
-position = Vector2(686, 30)
-color = Color(0.55, 0.7, 1, 1)
-energy = 0.7
+position = Vector2(80, 40)
+color = Color(1, 0.7, 0.38, 1)
+energy = 0.5
 texture = SubResource("swiatlo")
-texture_scale = 1.60
+texture_scale = 0.95
 
 [node name="S2" type="PointLight2D" parent="Swiatla"]
-position = Vector2(758, 224)
+position = Vector2(582, 90)
 color = Color(0.55, 0.7, 1, 1)
 energy = 0.7
 texture = SubResource("swiatlo")
 texture_scale = 1.60
 
 [node name="S3" type="PointLight2D" parent="Swiatla"]
-position = Vector2(758, 344)
+position = Vector2(686, 30)
 color = Color(0.55, 0.7, 1, 1)
 energy = 0.7
 texture = SubResource("swiatlo")
 texture_scale = 1.60
 
 [node name="S4" type="PointLight2D" parent="Swiatla"]
-position = Vector2(758, 464)
+position = Vector2(758, 224)
 color = Color(0.55, 0.7, 1, 1)
 energy = 0.7
 texture = SubResource("swiatlo")
 texture_scale = 1.60
 
 [node name="S5" type="PointLight2D" parent="Swiatla"]
-position = Vector2(596, 254)
+position = Vector2(758, 344)
 color = Color(0.55, 0.7, 1, 1)
 energy = 0.7
 texture = SubResource("swiatlo")
 texture_scale = 1.60
 
 [node name="S6" type="PointLight2D" parent="Swiatla"]
+position = Vector2(758, 464)
+color = Color(0.55, 0.7, 1, 1)
+energy = 0.7
+texture = SubResource("swiatlo")
+texture_scale = 1.60
+
+[node name="S7" type="PointLight2D" parent="Swiatla"]
+position = Vector2(596, 254)
+color = Color(0.55, 0.7, 1, 1)
+energy = 0.7
+texture = SubResource("swiatlo")
+texture_scale = 1.60
+
+[node name="S8" type="PointLight2D" parent="Swiatla"]
 position = Vector2(430, 216)
 color = Color(1, 0.7, 0.38, 1)
 energy = 1.2

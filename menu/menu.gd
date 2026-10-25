@@ -7,12 +7,16 @@ const WSTEP := "res://wstep/wstep.tscn"
 const SCENY := [
 	["Scena 1: Foyer", "res://sceny/scena1/scena1.tscn"],
 	["Scena 2: Kulisy", "res://sceny/scena2/scena2.tscn"],
-	["Scena 3: Spektakl", "res://sceny/scena3/scena3.tscn"],
+	["Scena 3: Akt pierwszy", "res://sceny/scena3/scena3.tscn"],
+	["Scena 3: Antrakt", "res://sceny/scena3/antrakt.tscn"],
+	["Scena 3: Akt drugi", "res://sceny/scena3/scena3_akt2.tscn"],
 	["Scena 4: Bankiet", "res://sceny/scena4/scena4.tscn"],
+	["Scena 5: Telefon i jazda", "res://sceny/scena5/scena5.tscn"],
 ]
 
 var _lista: MenuLista
 var _zaslona: ColorRect
+var _naglowek: Array[Label] = []  # tytuł i podtytuł, chowane przy długiej liście scen
 
 
 func _ready() -> void:
@@ -45,6 +49,7 @@ func _ready() -> void:
 	podtytul.add_theme_font_size_override("font_size", 12)
 	podtytul.add_theme_color_override("font_color", Color8(170, 160, 140))
 	ui.add_child(podtytul)
+	_naglowek = [tytul, podtytul]
 	_lista = MenuLista.new()
 	_lista.position = Vector2(20, 118)
 	ui.add_child(_lista)
@@ -68,6 +73,7 @@ func _ready() -> void:
 
 
 func _glowne() -> void:
+	_pokaz_naglowek(true)
 	_lista.ustaw([
 		["Nowa gra", _nowa_gra],
 		["Wybierz scenę", _sceny],
@@ -81,7 +87,15 @@ func _sceny() -> void:
 	for i in SCENY.size():
 		pozycje.append([SCENY[i][0], _start.bind(SCENY[i][1], i > 0)])
 	pozycje.append(["Wróć", _glowne])
+	_pokaz_naglowek(false)
 	_lista.ustaw(pozycje)
+
+
+## Lista scen jest długa, więc na ten czas tytuł znika, a lista idzie do góry.
+func _pokaz_naglowek(widoczny: bool) -> void:
+	for l in _naglowek:
+		l.visible = widoczny
+	_lista.position.y = 118 if widoczny else 24
 
 
 func _ustawienia() -> void:

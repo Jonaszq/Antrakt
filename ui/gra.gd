@@ -17,6 +17,9 @@ var latarnia := false
 ## Spadanie z czasem dojdzie razem z licznikiem dni.
 var sily := 80
 
+## Stan fabuły, który musi przetrwać zmianę sceny (np. powrót z garderoby do kulis).
+var flagi := {}
+
 var _kawa_czas := 0.0
 
 var _okno: NinePatchRect
@@ -95,6 +98,7 @@ func nowa_gra() -> void:
 	latarnia = false
 	sily = 80
 	_kawa_czas = 0.0
+	flagi.clear()
 	Notatnik.aktywny = false
 	Notatnik.tekst = ""
 	Ekwipunek.przedmioty.clear()

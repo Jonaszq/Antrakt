@@ -274,13 +274,46 @@ def monety():
     return img
 
 
+def bilet():
+    img = nowy(); d = ImageDraw.Draw(img)
+    d.polygon([(2, 7), (17, 4), (18, 12), (3, 15)], fill=PAPIER[2])
+    d.line([(7, 6), (8, 14)], fill=PAPIER[0])  # perforacja
+    prost(d, 10, 7, 6, 1, CZERWIEN[2])
+    prost(d, 10, 9, 5, 1, PAPIER[1])
+    prost(d, 10, 11, 4, 1, PAPIER[1])
+    prost(d, 4, 9, 2, 3, ZLOTO[2])
+    return img
+
+
+def numerek():
+    img = nowy(); d = ImageDraw.Draw(img)
+    d.ellipse((4, 2, 15, 17), fill=ZLOTO[2])
+    d.ellipse((5, 3, 14, 16), fill=ZLOTO[3])
+    d.ellipse((8, 4, 11, 7), fill=(0, 0, 0, 0))
+    d.ellipse((8, 4, 11, 7), outline=ZLOTO[0])
+    prost(d, 7, 10, 2, 4, O)  # 47
+    prost(d, 7, 11, 3, 1, O)
+    prost(d, 11, 10, 2, 1, O)
+    prost(d, 12, 11, 1, 3, O)
+    return img
+
+
+def noz():
+    img = nowy(); d = ImageDraw.Draw(img)
+    d.polygon([(4, 16), (13, 5), (15, 4), (15, 7), (6, 17)], fill=METAL[2])
+    d.line([(5, 15), (13, 6)], fill=METAL[3])
+    prost(d, 3, 15, 4, 3, DREWNO[1])
+    d.line([(2, 13), (7, 18)], fill=ZLOTO[2], width=2)  # jelec
+    return img
+
+
 IKONY = {
     "program": program, "klucz": klucz, "latarka": latarka, "ladowarka": ladowarka,
     "rekawiczki": rekawiczki, "lampa_uv": lampa_uv, "nozyczki": nozyczki,
     "woreczek": woreczek, "paragon": paragon, "grafik": grafik, "spinka": spinka,
     "pendrive": pendrive, "bulka": bulka, "kanapka": kanapka, "paczek": paczek,
     "kawa": kawa, "herbata": herbata, "tabletki": tabletki, "papierosy": papierosy,
-    "monety": monety,
+    "monety": monety, "bilet": bilet, "numerek": numerek, "noz": noz,
 }
 
 
@@ -324,7 +357,74 @@ def apteczka():
     return kontur(img)
 
 
-REKWIZYTY = {"stojak_programy": stojak_programy, "bezpieczniki": bezpieczniki, "apteczka": apteczka}
+def noz_maly():
+    """Rekwizytowy nóż leżący na toaletce Ani (garderoba)."""
+    img = nowy(14, 6); d = ImageDraw.Draw(img)
+    d.polygon([(1, 3), (9, 1), (12, 2), (9, 4)], fill=METAL[3])
+    prost(d, 9, 1, 2, 4, ZLOTO[2])
+    prost(d, 11, 2, 3, 2, DREWNO[1])
+    return kontur(img)
+
+
+def koszula_stol():
+    """Zmięta koszula Adriana rzucona przez Irenę na stół bankietowy."""
+    img = nowy(22, 10); d = ImageDraw.Draw(img)
+    d.polygon([(1, 6), (5, 2), (12, 1), (20, 3), (21, 8), (14, 9), (3, 9)], fill=BIEL[1])
+    d.line([(5, 4), (12, 6), (18, 4)], fill=BIEL[0])
+    d.ellipse((9, 3, 14, 7), fill=(160, 158, 104))
+    prost(d, 15, 6, 4, 2, PAPIER[1])  # rękawiczki
+    return kontur(img)
+
+
+def kosz_wiklinowy():
+    """Wiklinowy kosz na pranie, który Irena przynosi na bankiet."""
+    img = nowy(20, 16); d = ImageDraw.Draw(img)
+    d.polygon([(1, 5), (19, 5), (17, 15), (3, 15)], fill=CHLEB[1])
+    for y in (7, 10, 13):
+        prost(d, 3, y, 15, 1, CHLEB[0])
+    for x in (5, 9, 13):
+        prost(d, x, 6, 1, 9, CHLEB[2])
+    d.arc((5, 0, 15, 10), 180, 360, fill=CHLEB[0])
+    prost(d, 4, 3, 10, 3, BIEL[1])  # wystający rękaw
+    return kontur(img)
+
+
+def taca_kieliszki():
+    """Kieliszki i butelka na stole przy bufecie (bankiet)."""
+    img = nowy(20, 14); d = ImageDraw.Draw(img)
+    for x in (2, 7, 12):
+        prost(d, x, 3, 3, 5, (230, 200, 110))
+        prost(d, x + 1, 8, 1, 4, BIEL[1])
+        prost(d, x, 12, 3, 1, BIEL[1])
+    prost(d, 16, 1, 3, 12, ZIELEN[0])
+    prost(d, 16, 0, 3, 2, ZLOTO[2])
+    return kontur(img)
+
+
+def gramofon():
+    """Gramofon z tubą (bankiet, gra walca)."""
+    img = nowy(22, 26); d = ImageDraw.Draw(img)
+    prost(d, 2, 16, 18, 9, DREWNO[2])
+    prost(d, 2, 16, 18, 2, DREWNO[3])
+    d.ellipse((4, 13, 18, 18), fill=(20, 18, 22))
+    d.polygon([(10, 14), (8, 6), (4, 1), (20, 0), (14, 6), (12, 14)], fill=ZLOTO[2])
+    d.ellipse((4, 0, 20, 5), fill=ZLOTO[3])
+    d.ellipse((7, 1, 17, 4), fill=ZLOTO[0])
+    return kontur(img)
+
+
+def plama_wina():
+    """Plama rozlanego wina na marmurze (antrakt)."""
+    img = nowy(18, 8); d = ImageDraw.Draw(img)
+    d.ellipse((0, 1, 12, 7), fill=(110, 20, 36, 200))
+    d.ellipse((9, 3, 17, 7), fill=(110, 20, 36, 200))
+    prost(d, 3, 2, 3, 1, (170, 50, 66, 220))
+    return img
+
+
+REKWIZYTY = {"stojak_programy": stojak_programy, "bezpieczniki": bezpieczniki, "apteczka": apteczka,
+             "noz_maly": noz_maly, "koszula_stol": koszula_stol, "kosz_wiklinowy": kosz_wiklinowy,
+             "taca_kieliszki": taca_kieliszki, "gramofon": gramofon, "plama_wina": plama_wina}
 
 
 def main():

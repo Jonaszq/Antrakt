@@ -448,6 +448,394 @@ def gosc_student(faza):
     return ap.pokoloruj(p, None)
 
 
+# ---------- ludzie w tle (rozdział 1) ----------
+# Składani z tych samych części, żeby było ich dużo: fryzura, góra, dół, dodatki.
+
+def fryzura(p, b, wl, styl):
+    if styl == "krotkie":
+        p.elipsa(14, 2 + b, 26, 9 + b, wl)
+        p.prost(14, 6 + b, 14, 11 + b, wl, 1)
+        p.prost(26, 6 + b, 26, 11 + b, wl, 1)
+    elif styl == "lysy":
+        p.prost(13, 6 + b, 14, 12 + b, wl)
+        p.prost(26, 6 + b, 27, 12 + b, wl)
+    elif styl == "kok":
+        p.elipsa(14, 2 + b, 26, 9 + b, wl)
+        p.elipsa(17, -1 + b, 23, 4 + b, wl, 2)
+    elif styl == "trwala":
+        for lx, ly in ((14, 4), (18, 1), (22, 1), (26, 4), (13, 9), (27, 9), (13, 13), (27, 13)):
+            p.elipsa(lx - 3, ly - 2 + b, lx + 3, ly + 3 + b, wl)
+        for lx, ly in ((16, 2), (21, 1), (25, 6)):
+            p.piksel(lx, ly + b, wl, 3)
+    elif styl == "kucyk":
+        p.elipsa(14, 2 + b, 26, 9 + b, wl)
+        p.prost(25, 6 + b, 28, 20 + b, wl, 1)
+        p.prost(26, 8 + b, 27, 18 + b, wl, 2)
+    elif styl == "dlugie":
+        p.elipsa(13, 1 + b, 27, 9 + b, wl)
+        p.prost(12, 7 + b, 14, 24 + b, wl)
+        p.prost(26, 7 + b, 28, 24 + b, wl)
+    elif styl == "czapka":
+        p.elipsa(13, 1 + b, 27, 8 + b, wl)
+        p.prost(13, 6 + b, 27, 7 + b, wl, 0)
+        p.piksel(20, 0 + b, wl, 3)
+
+
+def gora(p, b, kolor, styl, koszula=None, ozdoba=None):
+    """Tułów od ramion do pasa (y 17-46). Zwraca pozycje dłoni."""
+    if styl == "marynarka":
+        dlonie = rece(p, b, kolor, ozdoba or "skora", 20, 15, rozstaw=11)
+        p.wielokat([(10, 19 + b), (30, 19 + b), (31, 36 + b), (30, 48), (10, 48), (9, 36 + b)], kolor)
+        p.elipsa(9, 17 + b, 31, 23 + b, kolor)
+        p.wielokat([(17, 19 + b), (23, 19 + b), (21, 32 + b), (19, 32 + b)], koszula or "koszula")
+        p.wielokat([(14, 18 + b), (17, 19 + b), (19, 33 + b), (15, 26 + b)], kolor, 3)
+        p.wielokat([(26, 18 + b), (23, 19 + b), (21, 33 + b), (25, 26 + b)], kolor, 3)
+        p.piksel(20, 36 + b, kolor, 0)
+    elif styl == "kamizelka":
+        dlonie = rece(p, b, koszula or "koszula", ozdoba or "skora", 20, 15, rozstaw=10)
+        p.wielokat([(11, 19 + b), (29, 19 + b), (29, 46), (11, 46)], koszula or "koszula")
+        p.elipsa(10, 17 + b, 30, 23 + b, koszula or "koszula")
+        p.wielokat([(12, 21 + b), (18, 21 + b), (20, 32 + b), (20, 46), (12, 46)], kolor)
+        p.wielokat([(28, 21 + b), (22, 21 + b), (20, 32 + b), (20, 46), (28, 46)], kolor)
+        for gy in (35, 39, 43):
+            p.piksel(19, gy + b, "mosiadz", 2)
+    elif styl == "sweter":
+        dlonie = rece(p, b, kolor, ozdoba or "skora", 20, 15, rozstaw=10)
+        p.wielokat([(11, 19 + b), (29, 19 + b), (29, 46), (11, 46)], kolor)
+        p.elipsa(10, 17 + b, 30, 23 + b, kolor)
+        p.prost(11, 44, 29, 46, kolor, 0)
+    elif styl == "kombinezon":
+        dlonie = rece(p, b, kolor, ozdoba or "skora", 20, 15, rozstaw=11)
+        p.wielokat([(10, 19 + b), (30, 19 + b), (30, 48), (10, 48)], kolor)
+        p.elipsa(9, 17 + b, 31, 23 + b, kolor)
+        p.prost(14, 26 + b, 26, 40 + b, kolor, 1)  # śliniak
+        p.prost(14, 19 + b, 15, 26 + b, kolor, 3)
+        p.prost(25, 19 + b, 26, 26 + b, kolor, 3)
+        p.prost(17, 30 + b, 22, 33 + b, kolor, 0)  # kieszeń
+    elif styl == "sukienka":
+        dlonie = rece(p, b, kolor, ozdoba or "skora", 21, 14, rozstaw=8)
+        p.wielokat([(14, 20 + b), (26, 20 + b), (25, 32 + b), (29, 50), (11, 50), (15, 32 + b)], kolor)
+        p.prost(15, 31 + b, 25, 31 + b, kolor, 0)
+        p.linia([(18, 34 + b), (16, 49)], kolor, 1)
+    return dlonie
+
+
+def czlowiek(faza, *, skora, wlosy, fryz, ubranie, styl, dol, buty, koszula=None, usta=None, okulary=None,
+             zarost=None, nizej=0, nogi_od=48, rozstaw_nog=4, dodatki=None, muszka=None, szer_twarzy=5):
+    p = ap.Plotno()
+    b, mrug = oddech_mrug(faza)
+    b += nizej
+    if dol:
+        nogi(p, nogi_od, dol, buty, rozstaw=rozstaw_nog, szer=4)
+    dlonie = gora(p, b, ubranie, styl, koszula, skora)
+    if muszka:
+        p.prost(18, 19 + b, 22, 20 + b, muszka)
+        p.piksel(20, 19 + b, muszka, 0)
+    twarz(p, SRODEK, 8 + b, skora, mrug, usta=usta, brwi=wlosy, okulary=okulary, zarost=zarost, szer=szer_twarzy)
+    fryzura(p, b, wlosy, fryz)
+    if dodatki:
+        dodatki(p, b, dlonie)
+    return ap.pokoloruj(p, None)
+
+
+def _skora(stara=False):
+    return material("skora_starsza", SKORA_STARSZA) if stara else material("skora_jasna", SKORA_JASNA)
+
+
+def _usta():
+    return (material("usta_meskie", [(120, 70, 60), (150, 92, 78)]), 0)
+
+
+def _szminka():
+    return (material("usta_czerwone", [(110, 28, 36), (150, 40, 46)]), 1)
+
+
+def _buty():
+    return material("bogdan_buty", [(12, 8, 8), (30, 22, 20), (60, 48, 44)])
+
+
+def zawada(faza):
+    """Krytyk Zawada. Tweedowa marynarka, okulary, siwa kozia bródka, notes i ołówek."""
+    tweed = material("tweed", [(52, 40, 26), (82, 66, 42), (112, 94, 62), (140, 120, 82), (160, 140, 100)])
+    wl = material("zawada_wlosy", [(96, 92, 90), (150, 146, 140), (196, 192, 184)])
+    pap = material("papier", [(150, 140, 120), (206, 198, 178), (236, 230, 214)])
+
+    def notes(p, b, dl):
+        x, y = dl[1]
+        p.prost(x - 3, y - 7, x + 1, y - 1, pap)
+        p.prost(x - 2, y - 5, x, y - 5, pap, 0)
+        x, y = dl[0]
+        p.linia([(x, y - 6), (x + 2, y)], "mosiadz", 2)
+        p.prost(17, 14, 23, 17, wl, 1)  # bródka (bez oddechu, bo i tak drobna)
+    return czlowiek(faza, skora=_skora(True), wlosy=wl, fryz="lysy", ubranie=tweed, styl="marynarka",
+                    dol=material("pan_smoking", [(8, 8, 12), (16, 16, 22), (28, 28, 36), (44, 44, 54)]),
+                    buty=_buty(), usta=_usta(), okulary=material("okulary", [(30, 24, 22)]),
+                    koszula=material("koszula_ciemna", [(60, 30, 34), (90, 46, 50), (120, 66, 66)]),
+                    dodatki=notes, szer_twarzy=6)
+
+
+def stasia(faza):
+    """Pani Stasia, wierna fanka Wolskiego. Fioletowa trwała, futrzana etola, album z autografami."""
+    wl = material("stasia_wlosy", [(70, 40, 80), (106, 66, 118), (140, 96, 150), (176, 130, 180)])
+    su = material("stasia_suknia", [(40, 24, 18), (66, 40, 30), (96, 60, 44), (124, 84, 60)])
+    fu = material("futro", [(90, 78, 66), (140, 126, 108), (186, 172, 150), (220, 210, 190)])
+    al = material("album", [(80, 14, 22), (130, 26, 36), (176, 48, 52)])
+
+    def etola(p, b, dl):
+        p.elipsa(11, 17 + b, 29, 24 + b, fu)
+        for fx in range(12, 29, 3):
+            p.piksel(fx, 22 + b, fu, 3)
+        x, y = dl[0]
+        p.prost(x - 2, y - 9, x + 5, y + 1, al)
+        p.prost(x - 1, y - 8, x + 4, y - 8, al, 2)
+        p.piksel(x + 1, y - 5, "mosiadz", 3)
+    return czlowiek(faza, skora=_skora(True), wlosy=wl, fryz="trwala", ubranie=su, styl="sukienka", dol=None,
+                    buty=None, usta=_szminka(), nizej=2, dodatki=_nogi_pod_suknia(su, etola),
+                    okulary=material("okulary", [(30, 24, 22)]))
+
+
+def _nogi_pod_suknia(suknia, dalej=None, rajstopy=None):
+    def f(p, b, dl):
+        r = rajstopy or material("pani_rajstopy", [(70, 54, 50), (110, 88, 80), (140, 116, 104)])
+        for x0 in (16, 22):
+            p.prost(x0, 50, x0 + 2, ZIEMIA - 3, r)
+            p.prost(x0 - 1, ZIEMIA - 2, x0 + 2, ZIEMIA, _buty())
+        if dalej:
+            dalej(p, b, dl)
+    return f
+
+
+def bileterka(faza):
+    """Bileterka. Bordowa kamizelka z plakietką, biała bluzka, kok, czytnik biletów."""
+    ka = material("bordo", [(50, 10, 20), (84, 18, 30), (120, 30, 42), (156, 52, 58)])
+
+    def dodatki(p, b, dl):
+        p.prost(23, 25 + b, 26, 26 + b, "mosiadz", 3)  # plakietka
+        x, y = dl[1]
+        p.prost(x - 1, y - 5, x + 2, y, material("czytnik", [(20, 20, 24), (40, 40, 48), (90, 170, 120)]))
+        p.piksel(x, y - 4, "czytnik", 2)
+    return czlowiek(faza, skora=_skora(), wlosy=material("pani_wlosy", [(20, 14, 14), (40, 28, 26), (64, 44, 38)]),
+                    fryz="kok", ubranie=ka, styl="kamizelka", koszula="koszula",
+                    dol=material("marta_spodnie", [(14, 14, 20), (26, 26, 34), (40, 40, 50)]), buty=_buty(),
+                    usta=_szminka(), nogi_od=46, rozstaw_nog=3, dodatki=dodatki)
+
+
+def szatniarz(faza):
+    """Szatniarz. Starszy pan w szarej kamizelce, wąsy, numerki na kółku."""
+    ka = material("szara_kamizelka", [(34, 34, 40), (54, 54, 62), (76, 76, 84), (100, 100, 108)])
+    wl = material("pan_wlosy", [(110, 106, 104), (160, 156, 150), (204, 200, 192)])
+
+    def dodatki(p, b, dl):
+        p.prost(17, 14 + b, 23, 15 + b, wl, 1)  # wąs
+        x, y = dl[0]
+        for nx in (-2, 0, 2):
+            p.piksel(x + nx, y + 2, "mosiadz", 3)
+        p.linia([(x - 2, y + 1), (x + 2, y + 1)], "mosiadz", 1)
+    return czlowiek(faza, skora=_skora(True), wlosy=wl, fryz="krotkie", ubranie=ka, styl="kamizelka",
+                    dol=material("pan_smoking", [(8, 8, 12), (16, 16, 22), (28, 28, 36), (44, 44, 54)]),
+                    buty=_buty(), usta=_usta(), muszka=material("bogdan_muszka", [(70, 12, 20), (120, 24, 32), (164, 42, 44)]),
+                    dodatki=dodatki, nizej=1)
+
+
+def bufetowa(faza):
+    """Bufetowa. Biały fartuch, czepek, rumiane policzki, ścierka przez ramię."""
+    fa = material("fartuch_bialy", [(150, 146, 140), (200, 196, 188), (236, 232, 224)])
+    su = material("bufetowa_sukienka", [(30, 50, 80), (46, 74, 116), (70, 104, 150)])
+    wl = material("bufetowa_wlosy", [(110, 60, 20), (160, 96, 40), (200, 136, 66)])
+
+    def dodatki(p, b, dl):
+        p.wielokat([(13, 24 + b), (27, 24 + b), (28, 50), (12, 50)], fa)
+        p.prost(15, 34 + b, 25, 34 + b, fa, 0)
+        p.prost(14, 3 + b, 26, 5 + b, fa, 2)  # czepek
+        p.prost(26, 19 + b, 28, 30 + b, material("scierka", [(110, 30, 30), (170, 60, 50), (220, 200, 180)]), 1)
+        p.piksel(16, 12 + b, "usta_czerwone", 1)
+        p.piksel(24, 12 + b, "usta_czerwone", 1)
+    return czlowiek(faza, skora=_skora(True), wlosy=wl, fryz="kok", ubranie=su, styl="sukienka", dol=None, buty=None,
+                    usta=_szminka(), nizej=1, szer_twarzy=6, dodatki=_nogi_pod_suknia(su, dodatki))
+
+
+def _taca(p, dl, kieliszki=True):
+    x, y = dl[1]
+    tac = material("taca", [(90, 90, 96), (160, 160, 166), (210, 210, 214)])
+    p.prost(x - 6, y - 10, x + 5, y - 9, tac)
+    p.prost(x - 1, y - 9, x + 1, y - 1, "skora", 2)
+    if kieliszki:
+        sz = material("szampan", [(140, 110, 40), (220, 190, 90), (250, 236, 170)])
+        for kx in (-4, 0, 3):
+            p.prost(x + kx, y - 14, x + kx + 1, y - 11, sz, 1)
+            p.piksel(x + kx, y - 15, sz, 2)
+
+
+def kelner(faza):
+    """Kelner. Czarna kamizelka, biała koszula, muszka, taca z kieliszkami szampana."""
+    ka = material("pan_smoking", [(8, 8, 12), (16, 16, 22), (28, 28, 36), (44, 44, 54)])
+    return czlowiek(faza, skora=_skora(), wlosy=material("wlosy_czarne", [(14, 10, 10), (30, 22, 20), (48, 36, 30)]),
+                    fryz="krotkie", ubranie=ka, styl="kamizelka", dol=ka, buty=_buty(), usta=_usta(),
+                    muszka=ka, dodatki=lambda p, b, dl: _taca(p, dl))
+
+
+def kelnerka(faza):
+    """Kelnerka. Czarna sukienka, biały fartuszek, kucyk, taca z pustymi kieliszkami."""
+    su = material("pan_smoking", [(8, 8, 12), (16, 16, 22), (28, 28, 36), (44, 44, 54)])
+    fa = material("fartuch_bialy", [(150, 146, 140), (200, 196, 188), (236, 232, 224)])
+
+    def dodatki(p, b, dl):
+        p.wielokat([(14, 32 + b), (26, 32 + b), (27, 44), (13, 44)], fa)
+        _taca(p, dl)
+    return czlowiek(faza, skora=_skora(), wlosy=material("bufetowa_wlosy", [(110, 60, 20), (160, 96, 40), (200, 136, 66)]),
+                    fryz="kucyk", ubranie=su, styl="sukienka", dol=None, buty=None, usta=_szminka(), nizej=2,
+                    dodatki=_nogi_pod_suknia(su, dodatki))
+
+
+def fotograf(faza):
+    """Fotograf lokalnej gazety. Kurtka z kieszeniami, czapka z daszkiem, aparat z fleszem."""
+    ku = material("kurtka_oliwka", [(34, 40, 22), (54, 62, 34), (78, 88, 50), (104, 114, 70)])
+    ap_ = material("aparat", [(14, 14, 18), (34, 34, 40), (70, 70, 80), (200, 220, 240)])
+
+    def dodatki(p, b, dl):
+        p.prost(14, 30 + b, 18, 34 + b, ku, 3)
+        p.prost(22, 30 + b, 26, 34 + b, ku, 3)
+        p.linia([(14, 18 + b), (24, 30 + b)], ap_, 1)  # pasek
+        p.prost(16, 25 + b, 24, 31 + b, ap_, 1)
+        p.prost(18, 26 + b, 21, 29 + b, ap_, 0)
+        p.piksel(19, 27 + b, ap_, 3)
+        p.prost(17, 23 + b, 20, 24 + b, ap_, 2)  # flesz
+    return czlowiek(faza, skora=_skora(), wlosy=material("czapka_czerwona", [(70, 14, 18), (120, 26, 30), (170, 50, 50), (210, 90, 80)]),
+                    fryz="czapka", ubranie=ku, styl="sweter",
+                    dol=material("dzinsy", [(20, 28, 50), (34, 46, 78), (52, 68, 106)]), buty=_buty(), usta=_usta(),
+                    zarost=material("zarost_jasny", [(110, 80, 60), (140, 104, 80)]), dodatki=dodatki)
+
+
+def para_pan(faza):
+    """Mąż z kłócącej się pary. Brązowy garnitur, bilety w ręku, czerwony z nerwów."""
+    gar = material("garnitur_braz", [(36, 24, 18), (58, 40, 28), (84, 60, 42), (110, 82, 58)])
+    pap = material("papier", [(150, 140, 120), (206, 198, 178), (236, 230, 214)])
+
+    def bilety(p, b, dl):
+        x, y = dl[1]
+        p.prost(x - 1, y - 6, x + 3, y - 3, pap, 2)
+        p.prost(x, y - 5, x + 2, y - 5, "bordo", 2)
+    return czlowiek(faza, skora=_skora(), wlosy=material("wlosy_czarne", [(14, 10, 10), (30, 22, 20), (48, 36, 30)]),
+                    fryz="krotkie", ubranie=gar, styl="marynarka", dol=gar, buty=_buty(), usta=_usta(),
+                    koszula="koszula", dodatki=bilety, szer_twarzy=6,
+                    zarost=material("zarost_ciemny", [(70, 50, 44), (96, 70, 60)]))
+
+
+def para_pani(faza):
+    """Żona z kłócącej się pary. Zielona sukienka, blond loki, torebka."""
+    su = material("suknia_zielona", [(16, 48, 36), (26, 76, 56), (40, 106, 78), (64, 140, 104)])
+    wl = material("wlosy_blond", [(150, 110, 50), (200, 160, 80), (232, 200, 120), (248, 230, 170)])
+
+    def torebka(p, b, dl):
+        x, y = dl[0]
+        p.prost(x - 3, y - 1, x + 2, y + 4, "bordo", 1)
+        p.linia([(x - 2, y - 1), (x, y - 4), (x + 1, y - 1)], "mosiadz", 2)
+    return czlowiek(faza, skora=_skora(), wlosy=wl, fryz="dlugie", ubranie=su, styl="sukienka", dol=None, buty=None,
+                    usta=_szminka(), nizej=2, dodatki=_nogi_pod_suknia(su, torebka))
+
+
+def dziecko(faza):
+    """Dziecko (ok. 7 lat) w odświętnym ubranku, biega wokół kolumn."""
+    p = ap.Plotno()
+    b, mrug = oddech_mrug(faza)
+    sw = material("dziecko_sweter", [(30, 50, 110), (46, 76, 150), (70, 110, 190), (110, 150, 220)])
+    sp = material("dziecko_spodenki", [(30, 30, 36), (50, 50, 58), (70, 70, 80)])
+    skora = _skora()
+    wl = material("wlosy_blond", [(150, 110, 50), (200, 160, 80), (232, 200, 120), (248, 230, 170)])
+    for x0 in (16, 22):
+        p.prost(x0, 52, x0 + 2, ZIEMIA - 3, skora, 2)
+        p.prost(x0 - 1, ZIEMIA - 2, x0 + 2, ZIEMIA, _buty())
+    p.prost(14, 47, 26, 53, sp)
+    for strona in (-1, 1):
+        x = SRODEK + strona * 7
+        p.prost(x - 1, 36 + b, x + 1, 46 + b, sw)
+        p.prost(x - 1, 46 + b, x + 1, 48 + b, skora)
+    p.wielokat([(14, 35 + b), (26, 35 + b), (26, 48), (14, 48)], sw)
+    p.prost(17, 34 + b, 23, 36 + b, "koszula")
+    p.prost(18, 35 + b, 22, 35 + b, "krawat")
+    twarz(p, SRODEK, 24 + b, skora, mrug, usta=_usta(), brwi=wl, szer=6)
+    p.elipsa(13, 17 + b, 27, 26 + b, wl)
+    p.prost(13, 22 + b, 14, 29 + b, wl, 1)
+    p.prost(26, 22 + b, 27, 29 + b, wl, 1)
+    p.piksel(18, 18 + b, wl, 3)
+    return ap.pokoloruj(p, None)
+
+
+def maszynista(faza):
+    """Maszynista sceny. Granatowy kombinezon, rękawice robocze, broda."""
+    ko = material("kombinezon", [(20, 26, 44), (30, 40, 66), (44, 58, 92), (64, 82, 122)])
+    rek = material("rekawice", [(90, 70, 30), (140, 112, 52), (180, 150, 80)])
+
+    def dodatki(p, b, dl):
+        for x, y in dl:
+            p.prost(x - 2, y - 1, x + 2, y + 2, rek)
+    return czlowiek(faza, skora=_skora(), wlosy=material("wlosy_rude", [(90, 34, 14), (140, 60, 24), (180, 90, 40)]),
+                    fryz="krotkie", ubranie=ko, styl="kombinezon", dol=ko, buty=material("ania_buty", [(16, 10, 10), (34, 20, 18), (56, 34, 28)]),
+                    usta=_usta(), zarost=material("broda_ruda", [(110, 46, 20), (150, 70, 30)]), dodatki=dodatki,
+                    szer_twarzy=6)
+
+
+def maszynista2(faza):
+    """Drugi maszynista. Czarny podkoszulek, czapka, papieros za uchem."""
+    ko = material("marta_ubranie", [(12, 12, 16), (22, 22, 28), (36, 36, 44), (52, 52, 62)])
+
+    def dodatki(p, b, dl):
+        p.prost(27, 6 + b, 28, 6 + b, "koszula", 2)
+    return czlowiek(faza, skora=_skora(True), wlosy=material("czapka_szara", [(40, 40, 44), (64, 64, 70), (90, 90, 96), (120, 120, 126)]),
+                    fryz="czapka", ubranie=ko, styl="sweter",
+                    dol=material("dzinsy", [(20, 28, 50), (34, 46, 78), (52, 68, 106)]),
+                    buty=material("ania_buty", [(16, 10, 10), (34, 20, 18), (56, 34, 28)]), usta=_usta(),
+                    zarost=material("zarost_ciemny", [(70, 50, 44), (96, 70, 60)]), dodatki=dodatki)
+
+
+def garderobiana(faza):
+    """Garderobiana. Fartuch w kratkę, krótkie siwe włosy, żelazko w ręku."""
+    su = material("garderobiana_sukienka", [(50, 30, 50), (80, 50, 80), (110, 76, 110)])
+    fa = material("fartuch_krata", [(60, 80, 90), (100, 130, 140), (160, 190, 196)])
+
+    def dodatki(p, b, dl):
+        p.wielokat([(13, 24 + b), (27, 24 + b), (28, 50), (12, 50)], fa)
+        for ky in range(27, 49, 4):
+            p.prost(13, ky + b, 27, ky + b, fa, 0)
+        x, y = dl[1]
+        z = material("zelazko", [(30, 30, 34), (90, 90, 96), (170, 170, 176)])
+        p.wielokat([(x - 4, y), (x + 3, y), (x + 4, y + 4), (x - 4, y + 4)], z, 1)
+        p.prost(x - 2, y - 2, x + 1, y - 1, z, 0)
+    return czlowiek(faza, skora=_skora(True), wlosy=material("pan_wlosy", [(110, 106, 104), (160, 156, 150), (204, 200, 192)]),
+                    fryz="krotkie", ubranie=su, styl="sukienka", dol=None, buty=None, usta=_usta(), nizej=3,
+                    dodatki=_nogi_pod_suknia(su, dodatki))
+
+
+def aktor(faza):
+    """Aktor drugoplanowy w kostiumie: kubrak z bufiastymi rękawami i kryza."""
+    ku = material("kubrak", [(40, 50, 20), (64, 78, 32), (92, 108, 48), (124, 140, 70)])
+    kr = material("kryza", [(170, 166, 156), (220, 216, 206), (246, 244, 236)])
+
+    def dodatki(p, b, dl):
+        p.elipsa(13, 16 + b, 27, 21 + b, kr)
+        for kx in range(14, 27, 2):
+            p.piksel(kx, 20 + b, kr, 0)
+        for gy in (26, 31, 36, 41):
+            p.piksel(20, gy + b, "mosiadz", 3)
+    return czlowiek(faza, skora=_skora(), wlosy=material("wlosy_czarne", [(14, 10, 10), (30, 22, 20), (48, 36, 30)]),
+                    fryz="dlugie", ubranie=ku, styl="sweter",
+                    dol=material("rajstopy_czerwone", [(70, 14, 20), (110, 24, 30), (150, 40, 44)]),
+                    buty=_buty(), usta=_usta(), zarost=material("zarost_ciemny", [(70, 50, 44), (96, 70, 60)]),
+                    dodatki=dodatki)
+
+
+def aktorka(faza):
+    """Aktorka drugoplanowa w kostiumie: suknia z gorsetem, peruka z lokami."""
+    su = material("suknia_kostium", [(60, 20, 60), (96, 34, 96), (136, 56, 130), (176, 90, 166)])
+    wl = material("peruka", [(150, 140, 120), (196, 186, 164), (226, 218, 198), (244, 240, 226)])
+
+    def dodatki(p, b, dl):
+        for gy in range(23, 32, 3):
+            p.prost(18, gy + b, 22, gy + b, "mosiadz", 2)
+    return czlowiek(faza, skora=_skora(), wlosy=wl, fryz="trwala", ubranie=su, styl="sukienka", dol=None, buty=None,
+                    usta=_szminka(), nizej=1, dodatki=_nogi_pod_suknia(su, dodatki))
+
+
 POSTACIE = {
     "ania": ("Ania", ania),
     "wolski": ("Wolski", wolski),
@@ -459,6 +847,22 @@ POSTACIE = {
     "gosc_pan": ("GoscPan", gosc_pan),
     "gosc_pani": ("GoscPani", gosc_pani),
     "gosc_student": ("GoscStudent", gosc_student),
+    "zawada": ("Zawada", zawada),
+    "stasia": ("Stasia", stasia),
+    "bileterka": ("Bileterka", bileterka),
+    "szatniarz": ("Szatniarz", szatniarz),
+    "bufetowa": ("Bufetowa", bufetowa),
+    "kelner": ("Kelner", kelner),
+    "kelnerka": ("Kelnerka", kelnerka),
+    "fotograf": ("Fotograf", fotograf),
+    "para_pan": ("ParaPan", para_pan),
+    "para_pani": ("ParaPani", para_pani),
+    "dziecko": ("Dziecko", dziecko),
+    "maszynista": ("Maszynista", maszynista),
+    "maszynista2": ("Maszynista2", maszynista2),
+    "garderobiana": ("Garderobiana", garderobiana),
+    "aktor": ("Aktor", aktor),
+    "aktorka": ("Aktorka", aktorka),
 }
 
 

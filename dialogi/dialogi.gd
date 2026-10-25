@@ -22,12 +22,102 @@ const WSTEP := {
 
 
 # ---------- SCENA 1: FOYER, SOBOTA 18:30 ----------
+# Antoniemu chce się siku, toaleta jest nieczynna, a potem okazuje się, że zgubił bilet.
+# Bilet jest w płaszczu w szatni, płaszcz wydadzą za numerek, numerek leży przy stojaku z programami.
 
 const SCENA1 := {
 	# zaraz po planszy "Foyer, 18:30"
 	"poczatek": [
 		["Antoni", "Ech, ta kawa na komendzie... Strasznie chce mi się siku."],
-		["Antoni", "Do spektaklu pół godziny. Muszę znaleźć jakiś kibel."],
+		["Antoni", "Do spektaklu pół godziny. Gdzieś tu musi być toaleta."],
+	],
+	# Antoni podchodzi do drzwi TOALETY (uruchamia się samo)
+	"toaleta": [
+		["", "Na drzwiach wisi kartka: \"AWARIA. NIECZYNNE. Przepraszamy.\""],
+		["Antoni", "No pięknie. To może chociaż zajmę miejsce na widowni."],
+		["Antoni", "Bilet, bilet... (klepie się po kieszeniach)"],
+		["Antoni", "Gdzie jest mój bilet?!"],
+	],
+	# to samo, gdy Antoni już wie, że zgubił bilet
+	"toaleta_znowu": [
+		["", "Na drzwiach wisi kartka: \"AWARIA. NIECZYNNE. Przepraszamy.\""],
+		["Antoni", "No pięknie. Najpierw bilet, potem szukanie toalety."],
+	],
+	# bileterka przy drzwiach na widownię
+	"bileterka_bez_biletu": [
+		["Bileterka", "Dobry wieczór. Bilet poproszę."],
+		["Antoni", "Proszę bardzo, o, tutaj... (szuka po kieszeniach) Chwileczkę."],
+		["Bileterka", "Bez biletu nawet pan Wolski by nie wszedł. No, może pan Wolski tak."],
+		["Antoni", "Płaszcz. Włożyłem go do płaszcza, a płaszcz oddałem do szatni."],
+		["Bileterka", "To szatnia jest tam, po prawej. A ja tu stoję do trzeciego dzwonka."],
+	],
+	"bileterka_czeka": [
+		["Bileterka", "Bilet się znalazł? Nie? To czekam."],
+	],
+	"bileterka_z_biletem": [
+		["Antoni", "Mam! Proszę."],
+		["Bileterka", "No proszę. Rząd trzeci, miejsce czternaste. Widownię otwieramy za kwadrans."],
+		["Antoni", "A toaleta? Ta przy kasie jest nieczynna."],
+		["Bileterka", "Awaria od rana. Personel ma swoją, za drzwiami z napisem PERSONEL."],
+		["Bileterka", "Ale ja panu nic nie mówiłam."],
+	],
+	"bileterka_potem": [
+		["Bileterka", "Rząd trzeci, miejsce czternaste. Tylko niech pan go drugi raz nie zgubi."],
+	],
+	# szatniarz za ladą szatni
+	"szatniarz_zwykly": [
+		["Szatniarz", "Płaszczyk już wisi, numerek pan ma. Spokojna głowa."],
+	],
+	"szatniarz_bez_numerka": [
+		["Antoni", "Dobry wieczór. Oddawałem tu płaszcz, szary, z paskiem. Muszę coś wyjąć z kieszeni."],
+		["Szatniarz", "Numerek poproszę."],
+		["Antoni", "No właśnie... chyba go zgubiłem."],
+		["Szatniarz", "Bez numerka nie wydam. Tu wisi trzysta płaszczy i połowa jest szara z paskiem."],
+		["Antoni", "Gdzie mogłem go zgubić... Jak wchodziłem, schylałem się po program przy stojaku."],
+	],
+	"szatniarz_czeka": [
+		["Szatniarz", "Numerek, proszę pana. Regulamin."],
+	],
+	"szatniarz_z_numerkiem": [
+		["Antoni", "Czterdzieści siedem."],
+		["Szatniarz", "Czterdzieści siedem... Proszę bardzo."],
+		["", "Antoni przeszukuje kieszenie płaszcza."],
+		["Antoni", "Jest! Bilet. I parę drobnych."],
+		["Szatniarz", "Płaszcz zostaje u mnie? To proszę, numerek z powrotem. Tylko tym razem do portfela."],
+	],
+	"szatniarz_potem": [
+		["Szatniarz", "Czterdzieści siedem, pamiętam. Wszystko gra."],
+	],
+	# rozmowy opcjonalne
+	"zawada": [
+		["Zawada", "Pan też na Wolskiego? Proszę się nie spodziewać fajerwerków."],
+		["Antoni", "Podobno to wielki aktor."],
+		["Zawada", "Wielki, owszem. Wolski gra od dwudziestu lat jedną rolę: siebie."],
+		["Zawada", "Zawada, \"Kurier Teatralny\". Jutro przeczyta pan moją recenzję. Połowę już mam napisaną."],
+		["Antoni", "Przed spektaklem?"],
+		["Zawada", "Doświadczenie, młody człowieku. Doświadczenie."],
+	],
+	"zawada_potem": [
+		["Zawada", "Dubler zniknął? Najrozsądniejszy człowiek w tym teatrze."],
+	],
+	"stasia": [
+		["Pani Stasia", "Pan pierwszy raz na panu Adamie? Ja byłam na każdej jego premierze od 1998 roku. Od Hamleta!"],
+		["Pani Stasia", "Proszę, tu podpis z Hamleta, tu z \"Zemsty\", tu z \"Wesela\". Dziś będzie trzydziesty pierwszy."],
+		["Antoni", "Imponujące."],
+		["Pani Stasia", "Pan Adam zawsze się podpisuje z serduszkiem. Taki to dżentelmen."],
+	],
+	"stasia_potem": [
+		["Pani Stasia", "Podobno ten młody dubler przepadł. Pan Adam nigdy by nikogo nie zostawił w potrzebie."],
+	],
+	"kuba": [
+		["Kuba", "Kuba, trzeci rok aktorskiego. Wie pan, kto dziś miał siedzieć w pogotowiu? Adrian, dubler Wolskiego."],
+		["Kuba", "Dubler to najgorsza robota świata. Czekasz, aż ktoś zachoruje."],
+		["Kuba", "Uczysz się roli na pamięć, a potem siedzisz w garderobie i słuchasz oklasków dla kogoś innego."],
+		["Antoni", "Mówisz, jakbyś mu zazdrościł."],
+		["Kuba", "Zazdroszczę. Ja się nawet na dublera nie dostałem."],
+	],
+	"kuba_potem": [
+		["Kuba", "Jak Adrian się nie znajdzie, to może mnie wezmą. Żartuję. Chyba."],
 	],
 	"starszy_pan": [
 		["Starszy pan", "Słyszał pan? Podobno dubler Wolskiego zniknął. Od wczoraj nikt go nie widział."],
@@ -38,9 +128,32 @@ const SCENA1 := {
 		["Elegancka pani", "Wolski był podobno chory przez cały tydzień. Trzydzieści dziewięć stopni!"],
 		["Elegancka pani", "A dziś i tak zagra. Prawdziwy zawodowiec."],
 	],
-	"student": [
-		["Student", "Kupiłem bilet pół roku temu. Jak Wolski dziś nie zagra, to chyba umrę."],
-		["Antoni", "Lepiej nie."],
+	# ludzie w tle
+	"kelner": [
+		["Kelner", "Szampana?"],
+		["Antoni", "Nie, dziękuję. Przynajmniej nie przed spektaklem."],
+		["Kelner", "Gdyby pan zmienił zdanie, krążę tu do trzeciego dzwonka."],
+	],
+	"para": [
+		["Żona", "Mówiłam ci, że rząd siódmy, a nie siedemnasty!"],
+		["Mąż", "Na bilecie jest siedemnaście!"],
+		["Żona", "Bo kupiłeś w ostatniej chwili, jak zawsze!"],
+		["Mąż", "(do Antoniego) Pan powie, czy z siedemnastego rzędu widać twarze?"],
+		["Antoni", "Widać. Trochę z daleka."],
+		["Żona", "Słyszysz? Z daleka!"],
+	],
+	"para_potem": [
+		["Mąż", "Proszę się nie mieszać, to sprawa rodzinna."],
+	],
+	"dziecko": [
+		["Chłopiec", "Pan jest duchem teatru?"],
+		["Antoni", "Nie. Jestem tylko widzem."],
+		["Chłopiec", "Szkoda. Mama mówi, że tu straszy."],
+	],
+	"fotograf": [
+		["Fotograf", "Uśmiech! ...A, pan nie z obsady. Szkoda kliszy."],
+		["Antoni", "Klisza? Ktoś jeszcze używa kliszy?"],
+		["Fotograf", "W \"Głosie Miasta\" wszystko jest stare. Łącznie ze mną."],
 	],
 	# Antoni podchodzi do Ani przy drzwiach służbowych (uruchamia się samo)
 	"ania_telefon": [
@@ -55,8 +168,18 @@ const SCENA1 := {
 	],
 	# po zamknięciu notesu
 	"antoni_po_notesie": [
-		["Antoni", "Dobra. Najpierw kibel, potem zagadki. Może tymi drzwiami?"],
+		["Antoni", "Dobra. Na razie mam własne problemy."],
 	],
+}
+
+# Teksty, które pojawiają się na chwilę u góry ekranu albo nad głowami ludzi w tle.
+const SCENA1_TLO := {
+	"dzwonek": "Pierwszy dzwonek.",
+	"dziecko": ["Nie złapiesz mnie!", "Brrrum!", "Hihi!"],
+	"para": ["Siódmy!", "Siedemnasty!", "Zawsze to samo z tobą!"],
+	"kelner": ["Szampan, proszę bardzo.", "Uwaga, taca!"],
+	"stasia": ["Pan Adam to geniusz.", "Od dziewięćdziesiątego ósmego!"],
+	"zawada": ["Hm.", "Banał.", "(coś notuje)"],
 }
 
 
@@ -81,6 +204,30 @@ const SCENA2 := {
 		["Lis", "Policja? Tylko tego brakowało... Bogdan Lis, dyrektor. Proszę wybaczyć, mamy drobny kryzys."],
 		["Wolski", "Bogdan zawsze ma kryzys. Proszę się nie przejmować i zostać na bankiet. Stawiam wino."],
 	],
+	# zaraz po kłótni Marta łapie Antoniego za rękaw (uruchamia się samo)
+	"marta_noz": [
+		["Marta", "Hej, pan! Tak, pan."],
+		["Marta", "Pan nie z zespołu? Nie szkodzi. Ma pan oczy? To mi pan pomoże."],
+		["Antoni", "Ja tylko szukałem toalety..."],
+		["Marta", "Toaleta jest przy drzwiach na widownię, zaraz pan pójdzie. Najpierw nóż."],
+		["Marta", "Zginął rekwizytowy nóż. Bez niego Wolski nie zagra finału, a ja mam dwunastu ludzi i żadnego wolnego."],
+		["Marta", "Sprawdź pan stół z rekwizytami i skrzynie z kostiumami. Ja lecę do świateł."],
+		["Antoni", "Tak jest."],
+		["Marta", "Marta, inspicjentka. Jak pan znajdzie, to do mnie. Biegiem."],
+	],
+	"marta_czeka": [
+		["Marta", "I co, jest nóż? Nie? To czemu pan stoi?"],
+	],
+	"marta_oddaje": [
+		["Antoni", "Ten?"],
+		["Marta", "Tak! Gdzie był?"],
+		["Antoni", "W garderobie Ani. Na toaletce, obok zdjęcia."],
+		["Marta", "U Ani? Dziwne. Ona go w ogóle nie dotyka aż do finału."],
+		["Marta", "Nieważne. Ratuje mi pan życie. A teraz toaleta przy drzwiach na widownię i prosto na swoje miejsce."],
+	],
+	"marta_potem": [
+		["Marta", "Drzwi z napisem WIDOWNIA, tam na końcu. Proszę już iść, za chwilę trzeci dzwonek."],
+	],
 	# kolejne rozmowy pod E
 	"lis_potem": [
 		["Lis", "Niech pan wraca na widownię, dobrze? Jeszcze tylko policji za kulisami mi brakowało."],
@@ -89,20 +236,108 @@ const SCENA2 := {
 		["Wolski", "Gorączka? Ech, było, minęło. Teatr leczy lepiej niż aspiryna."],
 		["Wolski", "Tylko kostium mam nowy, stary jest w pralni. Ten drapie jak diabli."],
 	],
-	"marta_pierwsza": [
-		["Marta", "Hej! Pan tu nie może być. Za dziesięć minut podnosimy kurtynę."],
-		["Antoni", "Szukam toalety."],
-		["Marta", "Toaleta dla personelu jest zaraz przy drzwiach na widownię. Szybko, a potem prosto na swoje miejsce."],
-		["Marta", "Marta, inspicjentka. Jak ktoś się tu gubi, to potem ja tego kogoś szukam. Proszę za mną nie łazić."],
+	"maszynista": [
+		["Maszynista", "Uwaga, plecy! Przepraszam, ale ta ściana zamku sama nie pojedzie."],
 	],
-	"marta_potem": [
-		["Marta", "Drzwi z napisem WIDOWNIA, tam na końcu. Proszę już iść, za chwilę trzeci dzwonek."],
+	"palacz": [
+		["Maszynista", "Spokojnie, dym na scenę nie leci. Marta by mnie zabiła."],
+		["Antoni", "Widział pan dziś Adriana? Dublera?"],
+		["Maszynista", "Od czwartku nie. Pewnie leży gdzieś z gorączką, jak pół zespołu w tym tygodniu."],
+	],
+	"palacz_potem": [
+		["Maszynista", "Pff... Jeszcze jeden i wracam do roboty."],
+	],
+	"garderobiana": [
+		["Garderobiana", "Przepraszam, gorące! Pan Wolski ma zagniecenie na rękawie, a ja mam żelazko i dziewięć minut!"],
+	],
+	"aktor": [
+		["Aktor", "Mama, mema, mima, momo, mumu... Pan od dekoracji? Nie? To proszę mi nie przeszkadzać."],
+		["Aktor", "Mam tylko dwie kwestie, ale za to jakie!"],
+	],
+	"aktorka": [
+		["Aktorka", "W drugim akcie podaję Wolskiemu herbatę. Trzy sekundy na scenie i ani słowa."],
+		["Aktorka", "Ale podobno mam piękne plecy."],
+	],
+	# miejsca do obejrzenia
+	"stol": [
+		["", "Stół z rekwizytami. Każdy rekwizyt ma swój obrys z taśmy: korona, kielich, sztylet, czaszka."],
+		["", "Na końcu stołu pusty obrys w kształcie noża."],
+		["Antoni", "Sztylet jest, nóż nie. Ktoś go zabrał."],
+	],
+	"stol_przed": [
+		["", "Stół z rekwizytami. Korona, kielich, sztylet, czaszka. Lepiej niczego nie ruszać."],
+	],
+	"skrzynie": [
+		["", "Skrzynie z kostiumami. Peleryny, sztuczne wąsy, korona z papieru."],
+		["Antoni", "Noża nie ma. Ale ktoś tu zgubił kanapkę. Dawno."],
+	],
+	"tablica": [
+		["", "Tablica ogłoszeń. Grafik prób, lista rekwizytów i kartka: \"Kto zabrał mój kubek z kotem?! M.\""],
+	],
+	"tron": [
+		["", "Tron z dykty pomalowany na złoto. Z bliska widać gwoździe."],
+	],
+	"zarowka": [
+		["", "Goła żarówka na statywie. Ola mówiła, że w teatrach świeci całą noc, żeby duchy miały przy czym grać."],
+	],
+	"pulpit": [
+		["", "Pulpit inspicjenta. Scenariusz oklejony kolorowymi karteczkami i rząd przycisków z napisami \"DZWONEK\", \"KURTYNA\", \"BURZA\"."],
+	],
+	"wieszak": [
+		["", "Wieszak z kostiumami do drugiego aktu. Na każdym karteczka z nazwiskiem."],
+	],
+}
+
+const SCENA2_TLO := {
+	"glosnik_1": "Głośnik: Piętnaście minut do początku.",
+	"glosnik_2": "Głośnik: Dziesięć minut. Proszę o ciszę za kulisami.",
+	"maszynista": ["Uwaga, plecy!", "Na trzy: raz, dwa...", "W lewo! Moje lewo!"],
+	"garderobiana": ["Gorące! Gorące!", "Kto widział moje szpilki?!"],
+	"aktor": ["Mama, mema, mima...", "Szczebrzeszyn...", "Bla, ble, bli, blo, blu."],
+	"aktorka": ["Trzy sekundy. Trzy sekundy.", "Herbata, herbata..."],
+	"palacz": ["Pff...", "Ale leje."],
+}
+
+# Garderoba Ani (za drzwiami GARDEROBY w kulisach).
+const GARDEROBA := {
+	"wejscie": [
+		["Antoni", "Garderoba Ani. Pachnie pudrem i kwiatami."],
+	],
+	"toaletka_przed": [
+		["", "Toaletka Ani. Lustro w żarówkach, puder, szminka. Obok zdjęcia w ramce leży nóż."],
+		["Antoni", "Pewnie jakiś rekwizyt. Nie mój interes."],
+	],
+	"toaletka": [
+		["", "Toaletka Ani. Lustro w żarówkach, puder, szminka."],
+		["", "Obok zdjęcia w ramce leży nóż. Rekwizytowy, ostrze chowa się w rękojeść."],
+		["", "Na zdjęciu Ania z jakimś chłopakiem. Śmieją się, za nimi morze."],
+		["Antoni", "To pewnie Adrian. Tylko co nóż z finału robi u Ani?"],
+		["", "Wskazówka: to może się przydać później. Notes masz pod T."],
+	],
+	"toaletka_potem": [
+		["", "Zdjęcie Ani i Adriana nad morzem. Na odwrocie nic nie ma."],
+	],
+	"kwiaty": [
+		["", "Bukiet czerwonych róż. Bilecik: \"Połamania nóg, córeczko. Mama.\""],
+	],
+	"wieszak": [
+		["", "Kostiumy Ani na drążku. Każdy podpisany numerem sceny."],
+	],
+	"kanapa": [
+		["", "Kanapa, na niej kremowy szal Ani. Jeszcze ciepły."],
+	],
+	"parawan": [
+		["", "Parawan do przebierania. Przewieszona przez niego koszula nocna z pierwszego aktu."],
+	],
+	"szafa": [
+		["", "Szafa zamknięta. Na górze pudła na kapelusze."],
 	],
 }
 
 
-# ---------- SCENA 3: SPEKTAKL, SOBOTA 19:00 (FILMIK) ----------
-# Gracz tylko ogląda i klika dalej. "Wolski" i "Ania" na scenie grają role ze sztuki.
+# ---------- SCENA 3: SPEKTAKL I ANTRAKT, SOBOTA 19:00 DO 21:30 ----------
+# Akt pierwszy i drugi to filmiki (gracz tylko klika dalej), antrakt dzieje się w foyer.
+# "Wolski" i "Ania" na scenie grają role ze sztuki.
 
 const SCENA3 := {
 	# Antoni siada na swoim miejscu
@@ -115,15 +350,35 @@ const SCENA3 := {
 		["Wolski", "A ja wiem, kto. Wiem i milczę, bo milczenie to też rodzaj zbrodni."],
 		["", "Widownia wstrzymuje oddech. Wolski gra, jakby naprawdę bał się o życie."],
 	],
-	"akt2": [
+	# Ania wchodzi na scenę, myli kwestię i zamiera
+	"akt1_ania": [
 		["Wolski", "Nareszcie jesteś. Powiedz mi prawdę, choć raz w życiu."],
 		["Ania", "Prawda jest taka, że ty... że ty nie powinieneś..."],
 		["", "Ania milknie w pół zdania. Patrzy na kostium Wolskiego, jakby zobaczyła ducha."],
 	],
-	"akt2_ratunek": [
+	"akt1_ratunek": [
 		["Wolski", "...nie powinienem żyć? Wiem. A jednak stoję przed tobą, moja droga."],
 		["Ania", "Tak. A jednak stoisz."],
 		["", "Spektakl toczy się dalej. Nikt na widowni niczego nie zauważył. Prawie nikt."],
+	],
+	"antrakt": [
+		["", "Kurtyna opada. Zapalają się światła. Antrakt."],
+		["Antoni", "Kawa. Potrzebuję kawy."],
+	],
+	# drugi akt
+	"przed_akt2": [
+		["", "Trzeci dzwonek. Ludzie wracają na miejsca, ktoś jeszcze przeciska się przez rząd."],
+	],
+	"akt2": [
+		["Wolski", "Wszyscy myślą, że zbrodnia to jedna chwila. Błysk ostrza i po wszystkim."],
+		["Wolski", "Nieprawda. Zbrodnia to lata czekania. Ktoś musi bardzo długo cię nienawidzić."],
+		["", "Ania wchodzi na scenę. Tym razem nie myli ani słowa."],
+		["Ania", "Czekałam dwadzieścia lat. Możesz mi wierzyć, że umiem czekać."],
+	],
+	"final": [
+		["", "Finał. Ania podnosi nóż. Ten sam, który leżał na jej toaletce."],
+		["", "Światło gaśnie na sekundę. Kiedy wraca, Wolski leży na deskach."],
+		["", "Cisza. A potem cała widownia wstaje."],
 	],
 	"koniec": [
 		["", "Burza oklasków. Wolski kłania się trzy razy. Ania tylko raz, i szybko znika za kulisami."],
@@ -134,24 +389,125 @@ const SCENA3 := {
 # Duże napisy na środku ekranu między aktami.
 const SCENA3_NAPISY := {
 	"akt1": "Akt pierwszy",
+	"antrakt": "Antrakt",
 	"akt2": "Akt drugi",
 	"koniec": "21:30",
 }
 
+# Antrakt w foyer, około 20:10.
+const ANTRAKT := {
+	"poczatek": [
+		["Antoni", "Dwadzieścia minut przerwy. Kawa, a potem może w końcu toaleta. Jeśli już ją naprawili."],
+	],
+	"bufet": [
+		["Antoni", "Kawę i kanapkę poproszę."],
+		["Bufetowa", "Kawa czarna jak dusza krytyka, proszę bardzo."],
+		["Bufetowa", "I kanapka z serem. Dziewięć złotych."],
+	],
+	"bufet_place": [
+		["Antoni", "Proszę. Akurat drobne z płaszcza."],
+		["Bufetowa", "Co do grosza! Smacznego."],
+		["", "Wskazówka: jedzenie i picie masz w ekwipunku (I). E zjada albo wypija."],
+	],
+	"bufet_na_kreske": [
+		["Antoni", "Mam tylko kartę..."],
+		["Bufetowa", "Terminal nie działa od premiery Hamleta. Niech pan bierze, odda pan po spektaklu."],
+		["", "Wskazówka: jedzenie i picie masz w ekwipunku (I). E zjada albo wypija."],
+	],
+	"bufet_potem": [
+		["Bufetowa", "Druga kawa po spektaklu. Teraz kolejka."],
+	],
+	"zawada": [
+		["Zawada", "Pierwszy akt: Wolski gra Wolskiego. Bez niespodzianek."],
+		["Antoni", "A ta pauza Ani?"],
+		["Zawada", "Pauza? Najlepszy moment wieczoru. Pierwszy raz od lat ktoś na tej scenie wyglądał na naprawdę przerażonego."],
+		["Zawada", "Zapiszę to sobie: \"Wrzos, strach prawdziwszy niż sztuka.\" Ładne, prawda?"],
+	],
+	"zawada_potem": [
+		["Zawada", "Proszę mi nie zaglądać do notesu. To nieetyczne."],
+	],
+	"stasia": [
+		["Pani Stasia", "Cudowny! Cudowny! Widział pan, jak on trzyma pauzę? Jak w Hamlecie w dziewięćdziesiątym ósmym!"],
+		["Antoni", "Widziałem."],
+		["Pani Stasia", "Po spektaklu idę po autograf. Trzydziesty pierwszy. Mam już przygotowaną stronę."],
+	],
+	"stasia_potem": [
+		["Pani Stasia", "Strona trzydziesta pierwsza. Z serduszkiem."],
+	],
+	"kuba": [
+		["Kuba", "Widział pan, jak Ania zamarła? Na egzaminie by za to oblała."],
+		["Kuba", "Adrian by się tak nie zawiesił. Znał ten tekst lepiej niż Wolski. Grał go przecież na próbie generalnej."],
+	],
+	"kuba_potem": [
+		["Kuba", "Ciekawe, czy Adrian w ogóle wie, że premiera się udała."],
+	],
+	"wino": [
+		["Żona", "Cała sukienka! Mówiłam, żebyś nie machał rękami!"],
+		["Mąż", "To nie ja, to ten pan z wąsem!"],
+		["Starszy pan", "Ja? Ja piję tylko wodę."],
+	],
+	"wino_potem": [
+		["Żona", "Wiesz, ile kosztowała ta sukienka?!"],
+	],
+	"szatniarz": [
+		["Szatniarz", "Chrrr... Chrrr..."],
+		["Antoni", "Nie będę budził."],
+	],
+	"fotograf": [
+		["Fotograf", "Antrakt to najlepsze zdjęcia. Ludzie zapominają, że ktoś patrzy."],
+	],
+	"bileterka": [
+		["Bileterka", "Drugi akt po dzwonku. Proszę się nie oddalać."],
+	],
+	"bileterka_po_dzwonku": [
+		["Bileterka", "Zapraszam, zapraszam. Rząd trzeci, pamiętam."],
+	],
+	# przy drzwiach do toalet (uruchamia się samo)
+	"ania_placze": [
+		["", "Przy drzwiach do toalet stoi Ania, wciąż w kostiumie. Płacze nad telefonem."],
+		["Antoni", "Wszystko w porządku?"],
+		["", "Ania szybko chowa telefon do kieszeni kostiumu i ociera oczy."],
+		["Ania", "Przepraszam, to nerwy. Premiera."],
+		["Antoni", "W pierwszym akcie..."],
+		["Ania", "Muszę wracać. Zaraz drugi dzwonek."],
+	],
+	"po_ani": [
+		["Antoni", "Za każdym razem, jak ją spotykam, za coś przeprasza."],
+	],
+}
+
+const ANTRAKT_TLO := {
+	"dzwonek": "Drugi dzwonek. Proszę zająć miejsca.",
+	"zawada": ["(skrobie w notesie)", "Hm. Banał."],
+	"stasia": ["Cudowny!", "Jak w Hamlecie!"],
+	"para": ["Cała sukienka!", "To nie ja!"],
+	"szatniarz": ["Zzz...", "Chrrr..."],
+	"kolejka": ["Długo jeszcze?", "Dwie kawy, proszę!", "Czy jest coś bez glutenu?"],
+}
+
 
 # ---------- SCENA 4: BANKIET W FOYER, SOBOTA 22:00 ----------
-# Najważniejsze są rozmowy z Ireną i Martą. Po obu scena się kończy.
+# Toast Wolskiego, potem wpada Irena z koszem. Po awanturze i rozmowie z Martą scena się kończy.
 
 const SCENA4 := {
 	"poczatek": [
 		["Antoni", "Bankiet. Ola mówiła, że po premierze zawsze jest wino i dużo gadania."],
 		["Antoni", "Dobrze. Posłucham, co gadają."],
 	],
+	# Wolski wznosi toast (uruchamia się samo)
+	"toast": [
+		["Wolski", "Kochani! Cisza, cisza, na chwilę!"],
+		["Wolski", "Dziękuję wam za ten wieczór. Bogdanowi za nerwy, Marcie za cierpliwość, Irenie za kostiumy."],
+		["Wolski", "I jeszcze jeden. Za nieobecnego przyjaciela."],
+		["Wolski", "Za Adriana, który pewnie śpi teraz jak zabity. Wypijmy, żeby jutro miał kaca od naszych opowieści."],
+		["", "Wszyscy piją. Ania odstawia kieliszek, nie biorąc ani łyka."],
+		["Fotograf", "Zdjęcie zespołu! Wszyscy do mnie, szybciutko!"],
+	],
 	"wolski": [
 		["Wolski", "Pan Antoni! I jak? Tylko szczerze, choć i tak usłyszę same komplementy."],
 		["Antoni", "Był pan świetny."],
 		["Wolski", "Wiem. Ale od policjanta to brzmi jak zeznanie pod przysięgą. Wino jest na stole, proszę się częstować."],
-		["Antoni", "A ta pauza w drugim akcie?"],
+		["Antoni", "A ta pauza w pierwszym akcie?"],
 		["Wolski", "Ania? Trema, każdemu się zdarza. Złapałem ją, nikt nie zauważył. No, prawie nikt."],
 	],
 	"wolski_potem": [
@@ -165,23 +521,37 @@ const SCENA4 := {
 	"lis_potem": [
 		["Lis", "Niech pan spróbuje tartinek. Kosztowały mnie majątek."],
 	],
-	"irena": [
-		["Irena", "Ten chłopak wszystko niszczy."],
-		["Antoni", "Kto taki?"],
-		["Irena", "Adrian, a kto! Kostium Adama od próby w pralni, a we wtorek drugi spektakl!"],
-		["Antoni", "Adrian nosił kostium Wolskiego?"],
-		["Irena", "Na czwartkowej próbie, bo Adam leżał z gorączką. Po próbie kostium zniknął z wieszaka i wylądował w pralni."],
-		["Irena", "Coś na niego wylał i nawet się nie przyznał. Dwa miesiące go szyłam."],
+	"lis_po_irenie": [
+		["Lis", "Przepraszam za to przedstawienie. Irena jest nerwowa przed każdym praniem."],
+		["Lis", "I niech pan tego nie wącha, na litość boską. Kelnerka zaraz to zabierze."],
+	],
+	# Irena wpada z wiklinowym koszem i krzyczy na dyrektora (uruchamia się samo)
+	"irena_wpada": [
+		["Irena", "Bogdan, co to ma być?! Takie stroje się oddaje do prania?! To wszystko śmierdzi jak zdechły szczur!"],
+		["Lis", "(szeptem) Irena, na litość boską, nie teraz. Jest prasa."],
+		["Irena", "Prasa niech powącha! Ten chłopak wszystko niszczy. Kostium Adama od próby w pralni, a we wtorek drugi spektakl!"],
+		["", "Irena wyciąga z kosza zmiętą męską koszulę i parę rękawiczek."],
+		["Irena", "Koszula i rękawiczki Adriana. Z próby generalnej. Leżały zwinięte w kącie garderoby."],
+		["Irena", "Proszę bardzo, panie dyrektorze. Niech pan sam to wypierze!"],
+	],
+	"irena_wychodzi": [
+		["", "Irena rzuca koszulę na stół, odwraca się na pięcie i wychodzi. Fotograf robi zdjęcie. Lis łapie się za głowę."],
+	],
+	# koszula na stole
+	"koszula": [
+		["", "Biała koszula, zmięta, z żółtawą plamą pod pachą. Rękawiczki sztywne, jakby czymś nasiąknięte."],
+		["", "Antoni pochyla się nad stołem. Zapach jest słodkawy, chemiczny, a pod spodem coś zgniłego."],
+		["Antoni", "To nie jest pot. Pot tak nie pachnie."],
 		["", "Wskazówka: takie rzeczy warto zapisać w notesie (T). Gra sama tego nie zrobi."],
 	],
-	"irena_potem": [
-		["Irena", "Jak ten kostium nie wróci na wtorek, to Adam zagra w szlafroku."],
+	"koszula_potem": [
+		["Antoni", "Słodkawy, chemiczny, zgniły. Nie zapomnę tego zapachu."],
 	],
 	"marta": [
-		["Marta", "O, pan od toalety. Znalazł pan w końcu?"],
-		["Antoni", "Znalazłem. Wszystko w porządku za kulisami?"],
-		["Marta", "Teraz tak. Ale wie pan, co jest dziwne? Na próbie generalnej Adrian cały czas się drapał."],
-		["Marta", "Jakby miał mrówki pod koszulą. Blady był jak ściana."],
+		["Marta", "O, pan od noża! Uratował mi pan finał."],
+		["Antoni", "Wszystko w porządku za kulisami?"],
+		["Marta", "Teraz tak. Ale wie pan, co jest dziwne? Adrian całą próbę się drapał, jakby miał mrówki pod koszulą."],
+		["Marta", "Blady był jak ściana. Myślałam, że to trema."],
 		["Antoni", "Uczulenie?"],
 		["Marta", "Może. A teraz nie odbiera telefonu. Dziwny ten tydzień."],
 	],
@@ -190,30 +560,136 @@ const SCENA4 := {
 	],
 	"ania": [
 		["Ania", "Przepraszam, nie mam dziś siły na rozmowy."],
-		["Antoni", "W drugim akcie..."],
+		["Antoni", "W pierwszym akcie..."],
 		["Ania", "Zapomniałam tekstu. Zdarza się. Proszę mnie zostawić."],
 	],
 	"ania_potem": [
 		["Ania", "..."],
 	],
 	"starszy_pan": [
-		["Starszy pan", "Wolski był genialny. A ta mała w drugim akcie? Zbladła jak trup."],
+		["Starszy pan", "Wolski był genialny. A ta mała w pierwszym akcie? Zbladła jak trup."],
 	],
 	"elegancka_pani": [
 		["Elegancka pani", "Gorączka czy nie, zagrał jak bóg. Mówiłam, prawdziwy zawodowiec."],
 	],
-	"student": [
-		["Student", "Przeżyłem! Wolski zagrał. Mogę umierać spokojnie."],
+	"kuba": [
+		["Kuba", "Przeżyłem! Wolski zagrał. Mogę umierać spokojnie."],
 		["Antoni", "Lepiej nie."],
 	],
-	# po rozmowach z Ireną i Martą
+	"stasia": [
+		["Pani Stasia", "Trzydziesty pierwszy autograf! Z serduszkiem, jak zawsze."],
+	],
+	"zawada": [
+		["Zawada", "Trzecia tartinka. Za darmo smakują lepiej niż recenzje."],
+	],
+	"zawada_po_irenie": [
+		["Zawada", "Ta awantura z kostiumami? Najlepsza scena wieczoru. Szkoda, że nie było jej w programie."],
+	],
+	"fotograf": [
+		["Fotograf", "Jutro na pierwszej stronie: zespół z kieliszkami. A na drugiej Irena z koszem, jeśli redaktor się zgodzi."],
+	],
+	"kelnerka": [
+		["Kelnerka", "Pusty kieliszek? Zabieram. Pełny? Zostawiam. Taka praca."],
+	],
+	"spiewak": [
+		["Aktor", "Sto lat, sto lat! Pan się przyłączy? Nie? Pan z policji, pan nie śpiewa."],
+	],
+	"gramofon": [
+		["", "Stary gramofon gra walca. Płyta trzeszczy, ale nikt nie chce jej zmienić."],
+	],
+	# po awanturze i rozmowie z Martą
 	"koniec": [
-		["", "Mija godzina. Wino się kończy, goście powoli zakładają płaszcze."],
+		["", "Mija godzina. Goście powoli zakładają płaszcze. Gramofon gra trzeci raz tę samą płytę."],
 	],
 }
 
 ## SMS, który przychodzi na początku bankietu: [kontakt, godzina, tekst].
 const SCENA4_SMS := ["Ola (siostra)", "21:52", "I jak?? Wolski był boski, prawda? Opowiadaj!"]
+
+const SCENA4_TLO := {
+	"stasia": ["Panie Adamie, jeszcze tutaj!", "Z serduszkiem!"],
+	"zawada": ["(mlask)", "Trzecia..."],
+	"kelnerka": ["Przepraszam, kieliszki!", "Pusty? Zabieram."],
+	"spiewak": ["~ Sto lat, sto lat... ~", "~ Niech żyje, żyje nam! ~"],
+	"goscie": ["Za premierę!", "Genialny był!", "Jeszcze wina?"],
+}
+
+
+# ---------- SCENA 5: TELEFON I JAZDA, SOBOTA 23:30 ----------
+
+const SCENA5 := {
+	"telefon": [
+		["", "Telefon dyrektora dzwoni. Lis odbiera z uśmiechem, który znika po kilku sekundach."],
+		["Lis", "Tak, Zenon, słucham... Co? Gdzie?"],
+		["Lis", "Jak to nie oddycha? Wezwałeś pogotowie? ...Dobrze. Dobrze. Już jadę."],
+		["Lis", "(cicho) To był stróż z magazynu. Znalazł Adriana. Adrian... nie oddycha."],
+	],
+	"omdlenie": [
+		["", "Ania osuwa się na podłogę. Wolski łapie ją w ostatniej chwili."],
+		["Wolski", "Ania! Wody, szybko!"],
+	],
+	"prosba": [
+		["Lis", "Pan jest z policji, prawda? Proszę, niech pan jedzie ze mną. Nie dam rady sam."],
+		["Antoni", "Jadę."],
+	],
+	# w aucie dyrektora
+	"auto": [
+		["", "Deszcz bębni o dach. Wycieraczki ledwo nadążają."],
+		["Radio", "...do rana ulewy nad całym regionem, możliwe podtopienia. Prosimy kierowców o ostrożność..."],
+		["", "Lis ścisza radio."],
+		["Lis", "Przepraszam. Nie wiem, co się mówi w takiej chwili."],
+		["", "Do magazynu jest kawałek drogi. Antoni zdąży zapytać o dwie rzeczy."],
+	],
+	"o_adrianie": [
+		["Antoni", "Jaki był Adrian?"],
+		["Lis", "Zdolny. Cholernie zdolny i cholernie nieśmiały. Na próbach mówił tak cicho, że Marta krzyczała na niego z pulpitu."],
+		["Lis", "Od roku był z Anią. Myśleli, że nikt nie wie. W teatrze wszyscy wiedzą wszystko."],
+		["Antoni", "A ostatnio?"],
+		["Lis", "Ostatnio był jakiś nieswój. Myślałem, że to trema przed premierą."],
+	],
+	"o_teatrze": [
+		["Antoni", "Jak się teatrowi powodzi?"],
+		["Lis", "(śmieje się gorzko) Długi, kredyt na nowy dach, a miasto obcina dotację."],
+		["Lis", "Na wszystkim oszczędzamy. Na tragarzach, na pralni, na ludziach."],
+		["Antoni", "A dziś bilety się sprzedały."],
+		["Lis", "Na jedną premierę. Teatru nie utrzymuje się z jednej premiery."],
+	],
+	"o_wolskim": [
+		["Antoni", "A Wolski? Jak się dogadywali z Adrianem?"],
+		["Lis", "Adam go uczył. Pół zespołu by się zabiło, żeby Wolski ich uczył, a on wybrał Adriana."],
+		["Lis", "Dał mu nawet grać w swoim kostiumie na próbie generalnej, jak sam leżał z gorączką."],
+		["Lis", "Adam ma złote serce. Wszyscy tak mówią."],
+	],
+	# po dwóch pytaniach, zawsze
+	"auto_koniec": [
+		["Lis", "Jeśli ta premiera się nie sprzeda, za pół roku zamkną nam teatr. A ja wysłałem chłopaka po jakieś graty..."],
+		["Antoni", "Do magazynu?"],
+		["Lis", "W piątek. Po rekwizyty do drugiego aktu. Sam go wysłałem."],
+		["", "Dalej jadą w milczeniu. Światła miasta zostają w tyle."],
+	],
+	# pod bramą magazynu
+	"brama": [
+		["", "Magazyn dekoracji na końcu miasta. Pusta ulica i jedna latarnia przy bramie."],
+		["", "Pod latarnią czeka stróż w płaszczu przeciwdeszczowym."],
+		["Zenon", "Panie dyrektorze, ja nie wiedziałem. Myślałem, że on dawno poszedł."],
+		["Lis", "Gdzie on jest, Zenon?"],
+		["Zenon", "W środku. Za skrzyniami. Pogotowie już jedzie."],
+		["Antoni", "Tyle z mojego wolnego wieczoru."],
+	],
+}
+
+## Opcje rozmowy w aucie (kolejność jak klucze SCENA5: o_adrianie, o_teatrze, o_wolskim).
+const SCENA5_PYTANIA := [
+	["O Adriana", "o_adrianie"],
+	["O teatr", "o_teatrze"],
+	["O Wolskiego", "o_wolskim"],
+]
+
+const SCENA5_NAPISY := {
+	"koniec": "Koniec rozdziału 1",
+	"licznik": "5 dni do pogrzebu",
+	"dalej": "Rozdział 2: Ciało w magazynie. Już wkrótce.",
+}
 
 
 # ---------- ZAMKNIĘTE DRZWI ----------
@@ -223,12 +699,22 @@ const SCENA4_SMS := ["Ola (siostra)", "21:52", "I jak?? Wolski był boski, prawd
 const DRZWI := {
 	"foyer_widownia": "Zamknięte. Widownię otwierają tuż przed spektaklem.",
 	"foyer_wyjscie": "Nie wyjdę teraz. Ola by mnie zabiła.",
+	"foyer_toalety": "AWARIA. NIECZYNNE. Przepraszamy.",
+	"foyer_personel": "PERSONEL. Nie mam tam czego szukać. Na razie.",
+	"foyer_personel_2": "Najpierw bilet. Bez niego i tak nie wejdę na spektakl.",
 	"kulisy_wyjscie": "Zaraz wracam. Najpierw sprawdzę, kto się tak drze.",
-	"kulisy_wyjscie_2": "To chyba drzwi na widownię. Ale gdzie ta toaleta? Zapytam kogoś.",
+	"kulisy_wyjscie_2": "Najpierw ten nóż. Marta by mnie zabiła.",
 	"kulisy_dol": "Tędy przyszedłem. Nie ma czasu, zaraz trzeci dzwonek.",
+	"kulisy_garderoby": "Zamknięte na klucz. Na drzwiach kartki z nazwiskami aktorów.",
+	"kulisy_podworze": "Podwórze. Leje jak z cebra.",
+	"antrakt_widownia": "Jeszcze nie. Drugi akt po dzwonku.",
+	"antrakt_wyjscie": "Wyjść w antrakcie? Ola by mi tego nie darowała.",
+	"antrakt_toalety": "Wciąż nieczynne. Kartka nawet się nie przekrzywiła.",
+	"antrakt_personel": "Za kulisy w czasie spektaklu? Lepiej nie.",
 	"bankiet_widownia": "Widownia już zamknięta. Spektakl się skończył.",
 	"bankiet_wyjscie": "Jeszcze nie wychodzę. Najpierw posłucham, co ludzie mówią.",
 	"bankiet_personel": "Za kulisy już nie wejdę. Marta by mnie zabiła.",
+	"bankiet_toalety": "Nadal awaria. Teatr na premierę, a toaleta jak w pociągu.",
 }
 
 
@@ -250,6 +736,9 @@ const NOTES := {
 const PRZEDMIOTY := {
 	# fabularne (ze scenariusza; w nawiasie gdzie leżą i w której scenie)
 	"program": ["Program premiery", "Biografia Wolskiego: zadebiutował w 1998 roku jako Hamlet. Na okładce jego zdjęcie.", "fabularny", 0],  # stojak w foyer, sc. 1
+	"bilet": ["Bilet", "Premiera \"Ostatniego aktu\", rząd 3, miejsce 14. Prezent od Oli.", "fabularny", 0],  # kieszeń płaszcza w szatni, sc. 1
+	"numerek": ["Numerek z szatni", "Mosiężny numerek 47. Bez niego szatniarz nie wyda płaszcza.", "fabularny", 0],  # pod stojakiem z programami, sc. 1
+	"noz": ["Rekwizytowy nóż", "Nóż z finału spektaklu. Ostrze chowa się w rękojeść. Leżał na toaletce Ani.", "fabularny", 0],  # garderoba Ani, sc. 2
 	"klucz": ["Zapasowy klucz", "Klucz z zawieszką \"PRACOWNIA / GARDEROBY\". Otwiera drzwi także po godzinach.", "fabularny", 0],  # bezpieczniki w kulisach, sc. 2
 	"latarka": ["Latarka", "Stara, ciężka, ale świeci jak trzeba.", "fabularny", 0],  # skrzynka z rekwizytami w magazynie, sc. 6
 	"ladowarka": ["Ładowarka", "Ładowarka do telefonu. Pasuje do starszych modeli.", "fabularny", 0],  # szuflada w budce stróża, sc. 7
@@ -274,12 +763,11 @@ const PRZEDMIOTY := {
 
 # Miejsca do przeszukania (E): [podpowiedź nad miejscem, tekst po przeszukaniu, tekst gdy pusto]
 const SKRZYNKI := {
-	"stojak_programy": ["Weź program", "Program premiery. Jeden wezmę.", "Jeden program wystarczy."],
+	"stojak_programy": ["Stojak z programami", "Program premiery. Jeden wezmę. A pod stojakiem... numerek z szatni! Czterdzieści siedem. To mój!", "Jeden program wystarczy."],
 	"bufet": ["Bufet", "Na ladzie kanapki i kawa dla widzów premiery. Biorę po jednej.", "Więcej nie wezmę, nie wypada."],
 	"apteczka": ["Apteczka", "W apteczce są tabletki przeciwbólowe. Biorę listek.", "Bandaże, plaster. Nic więcej mi nie trzeba."],
-	"szatnia": ["Szatnia", "Szatniarz: \"To pana? Wypadło komuś z płaszcza, nikt się nie przyznaje.\" Biorę drobne.", "Szatniarz kiwa głową. Nic więcej tu nie ma."],
 	"bankiet": ["Stół bankietowy", "Tartinki, pączki i wino. Biorę coś na ząb.", "Starczy. Nie chcę wyjść na łakomczucha."],
-	"bezpieczniki": ["Bezpieczniki", "Między bezpiecznikami wisi zapasowy klucz. Ktoś tu dba o wygodę.", "Same bezpieczniki."],
+	"bezpieczniki": ["Bezpieczniki", "Między bezpiecznikami wisi zapasowy klucz z zawieszką \"PRACOWNIA / GARDEROBY\". Ktoś tu dba o wygodę.", "Same bezpieczniki."],
 }
 
 
