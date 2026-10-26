@@ -35,6 +35,11 @@ Nie trzeba niczego rozpakowywać ani podmieniać ręcznie.
 - Scena 19 (`sceny/scena19`, foyer): Marta, skrzynki po mleku z grafikiem, bufetowa, Kuba (casting, kwit na garnitur).
 - Retrospekcja 5 (`retro5`, pracownia): czwartek 8:00, sylwetka przy kostiumie, potem wybór na czwartkowe popołudnie (`sceny/rozdzial4.gd`: garderoba Ani, sejf Wolskiego, obiad u Oli, dom).
 - Scena 20 (`sceny/scena20`, mapa garderoby): garderoba Ani w czwartek. Rękawiczki w koszu (UV), spinka, szuflada z przelewami, kartka od Adriana. Koniec rozdziału 4: `koniec4.tscn`.
+- Scena 21 (`sceny/scena21`, mapa `pokoj_antoniego`): piątek rano. Tablica z dwoma pytaniami do przypięcia argumentem, telefony od Oli i Nowickiego, kuchnia, łóżko. Zegar idzie od działań; SMS do oskarżonej osoby przed 9:00.
+- Scena 22 (`sceny/scena22`, mapa widowni): konfrontacja na pustej scenie. Z Anią rundy argumentów (szanse zależą od tablicy, siły spadają), z inną osobą zakończenie C albo D.
+- Retrospekcja 6 (`retro6`, pracownia): czwartek z twarzą Ani, tylko z tym, co gracz ustalił.
+- Scena 23 (`sceny/scena23`): brawa Wolskiego i Nowicki. Pendrive decyduje o zakończeniu A albo B.
+- Zakończenia (`sceny/zakonczenia`): A, B, C, D, potem epilog z tego, co gracz odkrył, i KONIEC.
 - "Wybierz scenę" w menu jest teraz podzielone na rozdziały.
 - Teczka dowodów i tablica podejrzanych pod F (`ui/teczka.gd`, karty w `Dialogi.KARTY`). Rozmowy jak przesłuchanie: `ScenaGry.przesluchanie()` (tematy i pokazywanie dowodów).
 - Ludzie w tle i odgłosy: postacie rysuje `tools/postacie_pixel.py`, dźwięki tła (gwar, dzwonek, telefon, flesz, oklaski, gramofon, auto) `tools/dzwieki_tla.py`, ujęcia auta i bramy `tools/jazda_pixel.py`.

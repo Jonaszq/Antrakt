@@ -1,8 +1,8 @@
 extends Node2D
-## Koniec rozdziału 4: czwartek wieczorem, do pogrzebu jedna noc. Potem menu
-## (rozdział 5 jeszcze nie zrobiony). Teksty w Dialogi.SCENA20.
+## Koniec rozdziału 4: czwartek wieczorem, do pogrzebu jedna noc. Potem rozdział 5
+## (scena 21). Teksty w Dialogi.SCENA20.
 
-const NASTEPNA := "res://menu/menu.tscn"
+const NASTEPNA := "res://sceny/scena21/scena21.tscn"
 
 
 func _ready() -> void:
@@ -24,6 +24,7 @@ func _ready() -> void:
 	var t: Dictionary = Dialogi.SCENA20
 	var teksty: Array = t["koniec_dnia"].map(func(k): return k[1])
 	teksty.append(t["rozdzial"])
+	teksty.append(t["rozdzial5"])
 	for tekst in teksty:
 		napis.text = tekst
 		napis.modulate.a = 0.0

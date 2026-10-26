@@ -557,6 +557,28 @@ func wybierz_dowod() -> String:
 	return ids[nr] if nr < ids.size() else ""
 
 
+## Lista argumentów (Sledztwo.argumenty) po 6 na stronę. Zwraca id albo "".
+func wybierz_argument(pytanie: String, rezygnacja: String) -> String:
+	var ids: Array = Sledztwo.argumenty()
+	var strona := 0
+	komunikat(pytanie, 2.5)
+	while true:
+		var kawalek: Array = ids.slice(strona * 6, strona * 6 + 6)
+		var napisy: Array = kawalek.map(func(id): return Dialogi.ARGUMENTY_NAZWY.get(id, id))
+		var wiecej := ids.size() > 6
+		if wiecej:
+			napisy.append("Więcej...")
+		napisy.append(rezygnacja)
+		var nr := await wybor(napisy)
+		if nr < kawalek.size():
+			return kawalek[nr]
+		if wiecej and nr == kawalek.size():
+			strona = (strona + 1) % ceili(ids.size() / 6.0)
+			continue
+		return ""
+	return ""
+
+
 func przejdz(scena: String) -> void:
 	koniec = true
 	antoni.sterowanie = false

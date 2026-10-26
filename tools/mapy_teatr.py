@@ -1161,6 +1161,108 @@ def mieszkanie_adriana():
                    podloze="drewno", strefy=((0, KLATKA_PODLOGA, W, H, "marmur"),))
 
 
+# ---------- POKÓJ ANTONIEGO (rozdział 5, scena 21) ----------
+
+def tablica_korkowa(d, x, y, w, h):
+    """Tablica korkowa z przypiętymi kartkami, zdjęciami i czerwoną nitką."""
+    prost(d, x - 3, y - 3, w + 6, h + 6, DREWNO[2])
+    obrys(d, x - 3, y - 3, w + 6, h + 6)
+    prost(d, x, y, w, h, (150, 112, 70))
+    for _ in range(w * h // 30):
+        d.point((x + mp.los.randint(0, w - 1), y + mp.los.randint(0, h - 1)), fill=(124, 90, 56))
+    kartki = []
+    for i in range(14):
+        kx = x + 6 + (i % 7) * (w - 12) // 7 + mp.los.randint(-2, 2)
+        ky = y + 6 + (i // 7) * (h // 2) + mp.los.randint(0, 6)
+        zdjecie = i % 3 == 0
+        kolor = (60, 60, 70) if zdjecie else PAPIER[2]
+        prost(d, kx, ky, 14, 12 if zdjecie else 10, kolor)
+        obrys(d, kx, ky, 14, 12 if zdjecie else 10, PAPIER[0])
+        if not zdjecie:
+            prost(d, kx + 2, ky + 3, 9, 1, PAPIER[0])
+            prost(d, kx + 2, ky + 6, 7, 1, PAPIER[0])
+        d.point((kx + 7, ky + 1), fill=(200, 30, 30))
+        kartki.append((kx + 7, ky + 1))
+    for a, b in ((0, 8), (3, 9), (8, 12), (5, 10)):
+        d.line([kartki[a], kartki[b]], fill=(190, 30, 30))
+
+
+def lozko_antoniego():
+    img = nowy(70, 50)
+    d = ImageDraw.Draw(img)
+    skrzynia(d, 0, 0, 70, 6, 14, DREWNO_C)
+    skrzynia(d, 0, 12, 70, 26, 10, [(50, 46, 40), (70, 66, 58), (96, 90, 80), (120, 114, 100), (150, 144, 128)])
+    prost(d, 6, 14, 20, 9, PAPIER[2])
+    obrys(d, 6, 14, 20, 9)
+    d.polygon([(26, 16), (68, 14), (66, 36), (30, 38)], fill=(90, 84, 74), outline=O)  # nietknięta narzuta
+    for nx in (2, 64):
+        prost(d, nx, 46, 4, 4, DREWNO[1])
+    return img
+
+
+def stol_antoniego():
+    """Stół zawalony notatkami, kubek po kawie, telefon."""
+    img = nowy(60, 38)
+    d = ImageDraw.Draw(img)
+    skrzynia(d, 0, 4, 60, 12, 8, DREWNO)
+    for lx in (3, 53):
+        prost(d, lx, 24, 4, 14, DREWNO[1])
+    for i in range(5):
+        prost(d, 4 + i * 9, 3 + (i % 2) * 3, 8, 6, PAPIER[2 - i % 2])
+    d.ellipse((48, 4, 55, 10), fill=PAPIER[2], outline=O)
+    prost(d, 50, 6, 3, 2, (60, 36, 20))
+    return img
+
+
+def aneks():
+    """Szafka z czajnikiem i lodówka-maluch."""
+    img = nowy(70, 46)
+    d = ImageDraw.Draw(img)
+    skrzynia(d, 0, 8, 46, 8, 28, [(140, 136, 128), (170, 166, 156), (196, 192, 182), (216, 212, 202), (232, 228, 218)])
+    prost(d, 10, 0, 12, 10, METAL[2])  # czajnik
+    obrys(d, 10, 0, 12, 10)
+    prost(d, 22, 3, 3, 2, METAL[3])
+    prost(d, 30, 5, 8, 5, (220, 200, 60))  # kubek z herbatą
+    skrzynia(d, 48, 0, 22, 4, 40, [(150, 154, 156), (190, 194, 196), (214, 218, 218), (230, 232, 232), (240, 242, 242)])
+    prost(d, 66, 10, 2, 8, METAL[1])
+    return img
+
+
+def pokoj_antoniego():
+    mp.SZER, mp.WYS, mp.PODLOGA_Y = 640, 360, 104
+    mp.los = random.Random(21)
+    m = mp.Mapa()
+    d = m.d
+    W, H, PY = mp.SZER, mp.WYS, mp.PODLOGA_Y
+    prost(d, 0, 0, W, H, O)
+    mp.podloga(d)
+    # ściana: zwykła farba
+    prost(d, 0, 0, W, PY, (96, 90, 84))
+    prost(d, 0, PY - 24, W, 24, (76, 70, 64))
+    prost(d, 0, PY - 24, W, 2, (116, 110, 102))
+    prost(d, 0, PY - 1, W, 1, O)
+    tablica_korkowa(d, 196, 16, 230, 64)
+    # okno o świcie
+    prost(d, 470, 16, 60, 56, DREWNO_C[2])
+    for i, k in enumerate([(60, 50, 90), (110, 70, 100), (190, 110, 100), (240, 170, 110)]):
+        prost(d, 474, 20 + i * 12, 52, 12, k)
+    prost(d, 499, 20, 2, 48, DREWNO_C[2])
+    for bx, bh in ((476, 14), (488, 22), (506, 16), (516, 26)):
+        prost(d, bx, 68 - bh, 8, bh, (40, 30, 50))
+    m.swiatla.append((500, 50, 0.4))
+    # zegar ścienny
+    d.ellipse((140, 26, 162, 48), fill=PAPIER[2], outline=O)
+    d.line([(151, 37), (151, 29)], fill=O)
+    d.line([(151, 37), (157, 37)], fill=O)
+    m.swiatla.append((320, 160, 0.7))
+    m.obiekt("lozko", lozko_antoniego(), 40, 150, 30)
+    m.obiekt("stol", stol_antoniego(), 290, 150, 12)
+    m.obiekt("aneks", aneks(), 540, PY - 34, 12)
+    m.obiekt("krzeslo", krzeslo_proste(), 316, 170, 6)
+    ramy_z_wejsciem(d, 288, 64)
+    return m, dict(korzen="Pokoj", start=(320, 300), postacie=(), mrok=(0.62, 0.58, 0.66))
+
+
 # ---------- MAGAZYN DEKORACJI (rozdział 2, scena 6) ----------
 
 BETON = [(30, 30, 34), (40, 40, 44), (52, 52, 56), (66, 66, 70)]
@@ -2176,7 +2278,7 @@ def plan_miasta():
     return img
 
 
-MAPY = {"foyer": foyer, "kulisy": kulisy, "widownia": widownia, "garderoba": garderoba, "magazyn": magazyn, "budka": budka, "plac": plac, "gabinet": gabinet, "pralnia": pralnia, "pracownia": pracownia, "laboratorium": laboratorium, "garderoba_wolskiego": garderoba_wolskiego, "mieszkanie_adriana": mieszkanie_adriana}
+MAPY = {"foyer": foyer, "kulisy": kulisy, "widownia": widownia, "garderoba": garderoba, "magazyn": magazyn, "budka": budka, "plac": plac, "gabinet": gabinet, "pralnia": pralnia, "pracownia": pracownia, "laboratorium": laboratorium, "garderoba_wolskiego": garderoba_wolskiego, "mieszkanie_adriana": mieszkanie_adriana, "pokoj_antoniego": pokoj_antoniego}
 
 
 def main(folder_podgladu=None):

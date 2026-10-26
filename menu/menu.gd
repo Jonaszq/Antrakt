@@ -12,6 +12,11 @@ const SCENY_ROZDZ4 := ["res://sceny/scena14/scena14.tscn", "res://sceny/scena15/
 	"res://sceny/scena16/scena16.tscn", "res://sceny/scena17/scena17.tscn", "res://sceny/retrospekcje/retro3.tscn",
 	"res://sceny/scena18/scena18.tscn", "res://sceny/scena19/scena19.tscn", "res://sceny/scena20/scena20.tscn"]
 
+## Przy starcie od rozdziału 5 z menu: dowody pełnego śledztwa (żeby dało się sprawdzić finał).
+const SCENY_ROZDZ5 := ["res://sceny/scena21/scena21.tscn", "res://sceny/scena22/scena22.tscn"]
+const KARTY_ROZDZ5 := ["kwit", "sms", "marta_grafik", "rekawiczki", "przelewy", "recepta", "garnitur", "zeszyt"]
+const FLAGI_ROZDZ5 := ["s9_obsada", "s11_szwy", "s11_podszewka", "s12_uv", "s14_chory", "s18_podsluch", "s19_szczegoly", "s20_lustro"]
+
 const SCENY := [
 	["Scena 1: Foyer", "res://sceny/scena1/scena1.tscn"],
 	["Scena 2: Kulisy", "res://sceny/scena2/scena2.tscn"],
@@ -36,12 +41,15 @@ const SCENY := [
 	["Scena 18: Podsłuch w garderobie", "res://sceny/scena18/scena18.tscn"],
 	["Scena 19: Marta i skrzynki", "res://sceny/scena19/scena19.tscn"],
 	["Scena 20: Garderoba Ani", "res://sceny/scena20/scena20.tscn"],
+	["Scena 21: Tablica (rozdz. 5)", "res://sceny/scena21/scena21.tscn"],
+	["Scena 22: Pusta scena", "res://sceny/scena22/scena22.tscn"],
 ]
 
 ## Rozdziały w "Wybierz scenę": [napis, pierwszy indeks w SCENY, indeks za ostatnim].
 const ROZDZIALY := [
 	["Rozdział 1: Premiera", 0, 7], ["Rozdział 2: Magazyn", 7, 10],
 	["Rozdział 3: Plama", 10, 16], ["Rozdział 4: Kto miał zginąć?", 16, 23],
+	["Rozdział 5: Ostatni akt", 23, 25],
 ]
 
 var _lista: MenuLista
@@ -164,11 +172,19 @@ func _start(scena: String, z_notesem: bool, z_latarka := false) -> void:
 		Gra.latarnia_dostepna = true
 		if not Ekwipunek.ma("latarka"):
 			Ekwipunek.dodaj("latarka")
-	if scena in SCENY_ROZDZ4:
+	if scena in SCENY_ROZDZ4 or scena in SCENY_ROZDZ5:
 		for p in DOWODY_ROZDZ4:
 			Ekwipunek.dodaj(p)
 		Gra.flagi["s13_wynik"] = true
 		Teczka.dodaj("podszewka")
+	if scena in SCENY_ROZDZ5:
+		Ekwipunek.dodaj("pendrive")
+		for k in KARTY_ROZDZ5:
+			Teczka.dodaj(k)
+			Teczka.karty[k].sprawdzona = true
+		for fl in FLAGI_ROZDZ5:
+			Gra.flagi[fl] = true
+		Gra.flagi["oskarzony"] = "Ania"
 	_lista.visible = false
 	var tw := create_tween()
 	tw.tween_property(_zaslona, "color:a", 1.0, 0.6)

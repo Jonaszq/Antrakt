@@ -2463,9 +2463,272 @@ const SCENA20 := {
 		["", "Jutro w południe pogrzeb. Do pogrzebu została jedna noc."],
 	],
 	"rozdzial": "Koniec rozdziału 4.",
+	"rozdzial5": "Rozdział 5: Ostatni akt",
 }
 
 const SCENA15_DOKAD_OLA := "Obiad u Oli"
+
+
+# ---------- ROZDZIAŁ 5: OSTATNI AKT ----------
+
+# Scena 21: pokój Antoniego, piątek od 6:00. Tablica z trzema pytaniami, telefony od Oli
+# i Nowickiego, kuchnia, łóżko. Zegar idzie tylko od tego, co Antoni robi. SMS do
+# oskarżonej osoby trzeba wysłać przed 9:00, inaczej sprawa idzie do archiwum.
+const SCENA21 := {
+	"plansza": "Pokój Antoniego, piątek %s",
+	"pogrzeb": "Pogrzeb Adriana o 12:00.",
+	"start": [["", "Nie spałem. Na ścianie wszystko, co mam: zdjęcia, kwity, kartki z notesu. I czerwona nitka."]],
+	"start_zaspal": [["", "Zasnąłem nad notatkami. Zegar... %s. Straciłem rano, bo straciłem cały tydzień."]],
+	"zegar": "Zegar: %s",
+	"tablica_napis": "Tablica",
+	"tablica_start": [["", "Trzy pytania. Każde trzeba przypiąć dowodem, inaczej nitka nie trzyma."]],
+	"pytania": ["Jak zginął Adrian?", "Kto miał zginąć?", "Odejdź od tablicy"],
+	"jak_odp": ["Zawał serca", "Trucizna w podszewce kostiumu", "Herbata z termosu", "Upadek w magazynie"],
+	"kto_odp": ["Adrian", "Wolski", "Ania", "Lis"],
+	"czym_przypiac": "Czym to przypiąć?",
+	"bez_dowodu": "Nie mam czym (zostaw)",
+	"zla_odp": [["", "Przypinam. Nitka zwisa. To się nie trzyma kupy."]],
+	"zly_dowod": [["", "Dobra odpowiedź, ale ten dowód niczego tu nie dowodzi. Nitka spada."]],
+	"jak_dobrze": [["", "Trucizna kontaktowa w podszewce. Zabija po dobie, dwóch. Nitka trzyma."]],
+	"kto_dobrze": [["", "Kostium Wolskiego, rozmiar Wolskiego, premiera Wolskiego. To on miał go założyć. Nitka trzyma."]],
+	"juz_jest": [["", "To już wisi. Nie ruszam."]],
+	"zostawiam": [["", "Nie mam tego czym przypiąć. Zostawiam znak zapytania."]],
+	"monolog_start": "Patrzę na całość.",
+	# fragmenty monologu: [warunek, tekst]
+	"monolog": [
+		["p:zdjecie_plamy", "Plama, która nie schodzi."],
+		["k:kwit", "Kwit z podpisem A."],
+		["k:marta_grafik", "Czwartek rano w pracowni."],
+		["k:sms", "SMS bez odpowiedzi."],
+		["k:rekawiczki", "Rękawiczki, które świecą."],
+		["k:przelewy", "Przelewy co miesiąc."],
+		["f:s18_podsluch", "I powód: Wolski."],
+	],
+	"monolog_pusto": "Za mało. Mam dziury jak w starej kurtynie.",
+	"ola_dzwoni": "Dzwoni telefon. Ola.",
+	"ola": [["Ola", "Antek? Żyjesz? Jadłeś coś w ogóle od wczoraj?"]],
+	"ola_wybor": ["Jadłem", "Jeszcze nie"],
+	"ola_jadl_slaby": [["Ola", "Kłamiesz. Słyszę po głosie. Zjedz coś, zanim się przewrócisz, rozumiesz?"]],
+	"ola_jadl": [["Ola", "No dobrze. Wierzę ci. Prawie."]],
+	"ola_nie": [["Ola", "To zjedz! Masz w lodówce cokolwiek? Nie wychodź z domu na pusty żołądek."]],
+	"ola_zupa": [["Ola", "Masz mój słoik z rosołem. Zjedz go, a nie oglądaj."]],
+	"ola_koniec": [["Ola", "I uważaj na siebie. Wiem, że dziś pogrzeb."]],
+	"nowicki_dzwoni": "Dzwoni telefon. Komisarz Nowicki.",
+	"nowicki": [["Nowicki", "Antek, masz czas do dwunastej. Potem chłopak idzie do ziemi, a sprawa do szafy. Jako zawał."], ["Nowicki", "Chyba że coś mi dasz."]],
+	"nowicki_wybor": ["Przyjedź na 9:30 do teatru. Na scenę.", "Jeszcze nic nie mam"],
+	"nowicki_tak": [["Nowicki", "Na scenę? Ty i te twoje teatry... Dobra. Biorę dwóch chłopaków. Lepiej, żeby to było coś."]],
+	"nowicki_nie": [["Nowicki", "To nie dzwoń. Do dwunastej."]],
+	"czajnik": [["", "Woda, herbata, dwie łyżki cukru. Ręce przestają mi się trząść."]],
+	"czajnik_potem": [["", "Herbata wypita. Na drugą nie mam czasu."]],
+	"lodowka": [["", "Lodówka. Musztarda, dwa jajka, masło. Robię jajecznicę na szybko."]],
+	"lodowka_potem": [["", "Musztarda. Sama musztarda."]],
+	"lozko": [["", "Położyć się na godzinę? Siły wrócą, ale czas nie."]],
+	"lozko_wybor": ["Prześpię się godzinę", "Nie teraz"],
+	"lozko_spi": [["", "Śni mi się teatr. Puste krzesło na scenie. Budzę się zlany potem, ale głowa jaśniejsza."]],
+	"lozko_potem": [["", "Już spałem. Więcej nie mogę sobie pozwolić."]],
+	"okno": [["", "Świta. Sąsiad z dołu wyprowadza psa. Pies sika na tę samą latarnię co zawsze. Świat się nie zatrzymał."]],
+	"stol_napis": "Telefon",
+	"stol": [["", "Telefon. Jeden SMS: \"Przyjdź na scenę o 9:00.\" Do kogo?"]],
+	"stol_wybor_nikt": "Nikogo jeszcze (odłóż telefon)",
+	"stol_nikt_na_pewno": ["Wróć", "Nikogo nie oskarżę"],
+	"skreslony": [["", "Skreśliłem tę osobę na tablicy w teczce. Na pewno?"]],
+	"potwierdz": ["Tak, wysyłam", "Jeszcze nie"],
+	"sms": "Przyjdź na scenę o 9:00. Antoni",
+	"wyslane": [["", "Wysłane. Teraz nie ma odwrotu."]],
+	"nikt": [["", "Nie mam nikogo. Odkładam telefon i patrzę, jak wskazówki idą do dwunastej."]],
+	"za_pozno": [["", "Dziewiąta. Za późno, żeby kogokolwiek ściągać do teatru przed pogrzebem."]],
+	"wyjscie": "Muszę najpierw wysłać tego SMS-a.",
+	"tlo": ["(zegar) tik... tak...", "(za ścianą) radio, wiadomości o szóstej", "(pies na dworze) hau!"],
+}
+
+# Scena 22: pusta scena, piątek 9:00. Konfrontacja z oskarżoną osobą. Ania: rundy,
+# w każdej gracz wybiera argument (Sledztwo.argumenty). Dobre: [mocne, słabe].
+const SCENA22 := {
+	"plansza": "Teatr Miejski, pusta scena, piątek 9:00",
+	"start": [["", "Dekoracje ze sztuki o morderstwie. Jedno światło na krzesło, na którym w sztuce siedzi ofiara."]],
+	"nowicki_jest": [["", "Na końcu widowni, w ciemności, skrzypi fotel. Nowicki. Przyszedł."]],
+	"wchodzi": "Ktoś wchodzi od kulis.",
+	"ania_wchodzi": [
+		["Ania", "Antoni. Jestem już ubrana na pogrzeb, widzisz. Po co ta scena?"],
+		["Antoni", "Usiądź. Na tym krześle."],
+		["Ania", "Na krześle ofiary? (siada) No dobrze. Mów."],
+	],
+	"ania_przylapany": [["Ania", "Po tym, jak grzebałeś mi w garderobie, w ogóle nie powinnam przychodzić."]],
+	"ania_uciekla": [["Ania", "I nie mów mi znowu o tym telefonie. Nie mam siły."]],
+	"argument": "Co jej odpowiesz?",
+	"wiecej": "Więcej...",
+	"milcz": "Nic nie mam (milcz)",
+	"sily": "Antoni ledwo stoi. W oczach mu ciemnieje.",
+	"ostatnia_szansa": "Ania wstaje z krzesła. Jeszcze jedno złe słowo i wyjdzie.",
+	"slabe": [["Ania", "To nic pewnego i dobrze o tym wiesz."], ["", "Zostaje. Ale słyszę, jak to wątle zabrzmiało."]],
+	"zle": [
+		[["Ania", "I co z tego? Szukasz na siłę."]],
+		[["Ania", "To nie ma nic wspólnego ze mną."]],
+		[["Ania", "Antoni, ty chyba nie spałeś. Słyszysz, co mówisz?"]],
+	],
+	# rundy: kłamstwo Ani, mocne argumenty, słabe argumenty, reakcja na dobry argument
+	"rundy": [
+		{"klamstwo": [["Ania", "Lekarz powiedział: zawał. Adrian miał słabe serce, brał leki. To wszystko."]],
+		 "mocne": ["trucizna", "uv_zielona", "pasy_szwy", "plama"],
+		 "slabe": ["skora", "podszewka_piekla", "zapach", "notatka_lodowka", "sam_dotknal"],
+		 "reakcja": [["Ania", "(ściska torebkę) Trucizna? W kostiumie? To... to jakiś absurd."]]},
+		{"klamstwo": [["Ania", "Ten kostium Adrian sam zaniósł do pralni. Zawsze o wszystko dbał."]],
+		 "mocne": ["skrzynka_23_40"],
+		 "slabe": ["sasiadka_kaszel"],
+		 "reakcja": [["Antoni", "Kostium oddano do pralni w czwartek o 23:40. Podpis A. Adrian już wtedy leżał chory w domu."], ["Ania", "Każdy może napisać A. Adam też się tak podpisuje!"]]},
+		{"klamstwo": [["Ania", "Może to Adam go oddał. Albo Kuba, on się kręcił koło tego kostiumu."]],
+		 "mocne": ["recepta", "kuba_garnitur"],
+		 "slabe": ["wolski_chory"],
+		 "reakcja": [["Ania", "(milczy dłuższą chwilę) Nie wiem, kto go oddał. Nie było mnie tam."]]},
+		{"klamstwo": [["Ania", "W czwartek rano byłam w domu. Do pracowni Ireny w ogóle nie zaglądam."]],
+		 "mocne": ["marta_czwartek"],
+		 "slabe": ["marta_bez_dnia", "klucz_ania"],
+		 "reakcja": [["Antoni", "Marta widziała cię w pracowni w czwartek o ósmej. Z butelką w ręku."], ["Ania", "Marta... Marta się potknęła. Ona nie wie, co widziała."]]},
+		{"klamstwo": [["Ania", "Nie dotknęłam tego kostiumu. Pokaż mi choć jeden ślad, że go dotykałam."]],
+		 "mocne": ["rekawiczki_uv"],
+		 "slabe": ["pierscionek"],
+		 "reakcja": [["Ania", "(patrzy na swoje dłonie) To... ja tylko poprawiałam szwy."]]},
+		{"klamstwo": [["Ania", "Po co miałabym kogokolwiek krzywdzić? Adam to mój przyjaciel. Pomógł mi dostać tę rolę."]],
+		 "mocne": ["podsluch", "zeszyt", "przelewy", "pendrive"],
+		 "slabe": ["podsluch_czesc", "wolski_palil"],
+		 "reakcja": [["Ania", "(szeptem) Rok. Cały rok płaciłam. Za to, że skręciłam w złą ulicę."]]},
+		{"klamstwo": [["Ania", "Ostatni raz rozmawiałam z Adrianem w czwartek rano. Przysięgam ci na wszystko."]],
+		 "mocne": ["ania_sms"],
+		 "slabe": [],
+		 "reakcja": [["Antoni", "Napisał do ciebie o 22:10, że kostium go parzy. Odczytałaś. I nie przyjechałaś."]]},
+	],
+	"sms_juz_wiedziala": [["Ania", "Już mi to mówiłeś na klatce. Uciekłam wtedy. Teraz nie mam dokąd."]],
+	"przyznanie": [
+		["Ania", "Bo nie mogłam mu pomóc! Rozumiesz? Nie ma na to lekarstwa."],
+		["Ania", "To miał być on, Wolski. Adrian nigdy nie miał go założyć."],
+		["Ania", "A potem Wolski zadzwonił, że jest chory, i było już za późno..."],
+		["Ania", "Odebrałam kostium z próby w nocy. Myślałam, że jak go wypiorą, nic nie zostanie. Że to się nie stało."],
+	],
+	"kartka": [["Antoni", "\"Złamania karku, kochanie. Zawsze w ciebie wierzę.\" Wisi na twoim lustrze."]],
+	"koniec_kartka": [["Ania", "(zakrywa twarz) Zabiłam jedyną osobę, która we mnie wierzyła."]],
+	"koniec_bez_kartki": [["Ania", "(długo patrzy w puste krzesło obok) Zabiłam go. Zabiłam Adriana."]],
+	"wychodzi": [["Ania", "Dość. Nie będę tego słuchać w dniu jego pogrzebu."], ["", "Ania wstaje i wychodzi. Drzwi od kulis trzaskają. Echo długo się niesie."]],
+	"mdleje": [["", "Deski sceny podnoszą się na spotkanie. Ostatnie, co słyszę, to kroki Ani. Oddalają się."]],
+	# inne osoby: [kwestie po przyjściu, zaprzeczenie, alibi znane z karty]
+	"inni": {
+		"Wolski": [[["Wolski", "Panie Antoni, o dziewiątej rano? Na pustej scenie? Lubi pan teatr, przyznaję."]], [["Wolski", "Ja? Otruć samego siebie we własnym kostiumie? To byłby świetny scenariusz. Ale nie mój."]], [["Wolski", "Leżałem w czwartek z gorączką, był u mnie lekarz. Ma pan przecież receptę."]]],
+		"Irena": [[["Irena", "Mam dziś pogrzeb do obszycia, panie Antoni. O co chodzi?"]], [["Irena", "Ja? Ja ten kostium szyłam! Wszywałabym truciznę we własną robotę?"]], [["Irena", "Byłam w czwartek rano w hurtowni. Ma pan mój paragon."]]],
+		"Lis": [[["Lis", "Antoni, za trzy godziny pogrzeb, a pan mi urządza przedstawienie?"]], [["Lis", "Polisa to procedura! Każdy teatr ubezpiecza gwiazdy!"]], [["Lis", "W czwartek o ósmej błagałem w banku o kredyt. Ma pan potwierdzenie."]]],
+		"Kuba": [[["Kuba", "Dostałem SMS-a... Panie Antoni, ja nic nie zrobiłem, przysięgam!"]], [["Kuba", "Ja tylko chciałem tę rolę! Nie w taki sposób!"]], [["Kuba", "Byłem na castingu w Teatrze Nowym. Ma pan moje zdjęcie z numerem."]]],
+		"Marta": [[["Marta", "Inspicjentka ma zawsze coś do zrobienia, panie Antoni. Szybko."]], [["Marta", "Ja? Ja tylko pilnuję, żeby wszyscy weszli na czas."]], [["Marta", "To ja panu powiedziałam o czwartku. Sama siebie bym wydała?"]]],
+		"Halina": [[["Halina", "Pan mnie ściągnął aż z pralni... Co się stało?"]], [["Halina", "Ja ten kostium tylko prałam! Ręce mam od tego popalone!"]], [["Halina", "Wyjęłam go ze skrzynki rano. Kwit ma pan przecież."]]],
+	},
+	"oskarzenie": [["Antoni", "Adrian zginął przez ten kostium. Wiem, kto go zatruł. Siedzi na krześle ofiary."]],
+	"alibi_antoni": [["", "Ma rację. Sam mam w teczce dowód, że nie mogła tego zrobić. Że nie mógł."]],
+	"nowicki_zabiera": [["Nowicki", "(z ciemnej widowni) Starczy. Zabieramy. Resztę wyjaśni prokurator."]],
+	"nowicki_odmawia": [["Nowicki", "(z widowni) Antek, przecież ta osoba ma alibi. Sam je masz w papierach. Ja się pod tym nie podpiszę."]],
+	"bez_nowickiego": [["", "Nikt nie przyjechał, żeby kogokolwiek zatrzymać. Osoba wychodzi. Drzwi trzaskają."]],
+}
+
+# Ostatnia retrospekcja: wszystko z twarzami. Pokazuje tylko to, co gracz ustalił.
+const RETRO6 := {
+	"tytul": "Czwartek. Tak było.",
+	"sroda": "Środa wieczorem. Ania wie, że jutro na próbie Wolski założy swój kostium.",
+	"ania_butelka": "(butelka) Tylko wzdłuż szwów...",
+	"rekawiczki": "(zdejmuje gumowe rękawiczki)",
+	"marta": "Ała! Kto tu... Ania?",
+	"chory": "Czwartek, 7:00. Wolski dzwoni do teatru: gorączka. Dubler wchodzi na próbę.",
+	"adrian": "Piecze mnie ta podszewka...",
+	"sms": "22:10. \"Ten kostium mnie parzy...\" Odczytane.",
+	"skrzynka": "23:40. Kostium ląduje w skrzynce nocnej pralni. Podpis: A.",
+	"przymierzylem": "W retrospekcji wpisałem w tę sylwetkę Anię. Miałem rację od początku.",
+	"przymierzylem_kogos": "W retrospekcji wpisałem w tę sylwetkę kogoś innego: %s. Myliłem się.",
+	"koniec": "Tak było.",
+}
+
+# Scena 23: brawa. Wolski na widowni, potem Nowicki.
+const SCENA23 := {
+	"brawa": "Z ciemnej widowni: powolne brawa.",
+	"wolski": [["Wolski", "Wspaniałe przedstawienie, panie Antoni. Teraz niech pan odda Anię policji i wszyscy pójdziemy na pogrzeb jak porządni ludzie."]],
+	"wolski_ostrzezony": [["Wolski", "We wtorek mówił mi pan, że to ja miałem zginąć. Myślałem, że pan przesadza. Dziękuję. Uratował mi pan życie."]],
+	"wolski_przylapany": [["Wolski", "A sejf proszę następnym razem zostawić w spokoju. Wiem, kto skrzypi podłogą w mojej garderobie."]],
+	"wolski_nagrania": [["Wolski", "Myślę, że o nieistotnych nagraniach możemy zapomnieć. Prawda? Między przyjaciółmi teatru."]],
+	"pendrive": [["Antoni", "Nagranie leży w mojej kieszeni. Ania za kierownicą, pan z kamerą. I zeszyt z wpłatami."], ["Antoni", "Na pogrzeb pójdzie pan w kajdankach."]],
+	"pendrive_przylapany": [["Wolski", "(sięga do kieszeni marynarki, blednie) Pan... z mojego sejfu..."]],
+	"bez_pendrive": [["Antoni", "Pan ją szantażował. Wiem o tym."], ["Wolski", "Wie pan? A co pan ma? Słowa przestępczyni? (uśmiecha się) Do zobaczenia na pogrzebie."]],
+	"nowicki_wchodzi": "Trzask drzwi. Kroki na widowni. Kogut radiowozu błyska w foyer.",
+	"nowicki_ania": [["Nowicki", "Pani Anna Wrzos? Proszę wstać. Pójdzie pani z nami."]],
+	"nowicki_wolski": [["Nowicki", "Pan Wolski też. Szantaż i zatajenie wypadku. Proszę ręce do przodu."]],
+	"nowicki_slyszal": [["Nowicki", "Wszystko słyszałem z ostatniego rzędu, Antek. Dobra robota."]],
+	"nowicki_wezwany": [["Nowicki", "Zadzwoniłeś, to jestem. Mów, kogo mam zabrać."]],
+}
+
+# Zakończenia. Każde: lista ekranów (napisy), potem epilog i KONIEC.
+const ZAKONCZENIA := {
+	"A": ["Zakończenie: Pełne", [
+		"Cmentarz, piątek 12:00.",
+		"Policja zabrała Anię sprzed teatru. Wolskiego zatrzymano za szantaż i zatajenie wypadku.",
+		"Nad grobem Adriana stoi tylko kilka osób: Marta, Irena, pani Halina, Lis. I Antoni.",
+		"Halina kładzie na grobie chusteczkę wypraną do białości.",
+		"Halina: \"Ta jedna mi się udała.\"",
+		"Antoni: \"Teatr zagrał ostatni akt. Tym razem bez dublerów.\"",
+	]],
+	"B": ["Zakończenie: Połowiczne", [
+		"Teatr Miejski, miesiąc później.",
+		"Ania czeka na proces w areszcie.",
+		"Wolski gra nową premierę. Dedykuje ją \"pamięci Adriana\". Widownia płacze.",
+		"Kłania się. Uśmiecha się prosto do Antoniego, który siedzi w pierwszym rzędzie.",
+		"Wolski (bezgłośnie, ruchem ust): \"Dziękuję.\"",
+	]],
+	"C": ["Zakończenie: Złe", [
+		"Komenda, piątek po południu.",
+		"%s trafia do aresztu. Po tygodniu sprawa zaczyna się sypać.",
+		"Na pogrzebie Ania obejmuje Antoniego i dziękuje mu ze łzami.",
+		"Wieczorem, w garderobie, Ania płucze w umywalce gumowe rękawiczki.",
+		"Patrzy w lustro, na kartkę od Adriana.",
+		"Ania (szeptem): \"Przepraszam.\"",
+	]],
+	"D": ["Zakończenie: Czas minął", [
+		"Cmentarz, piątek 12:00. Deszcz.",
+		"Sprawa zostaje zamknięta jako zawał.",
+		"Ania kładzie kwiaty na grobie Adriana. Wolski trzyma nad nią parasol i delikatnie ściska jej ramię.",
+		"Wolski (cicho, do Ani): \"Pierwszego, jak zwykle. Podwójnie.\"",
+		"Antoni patrzy z daleka. Z notesem pełnym pytań.",
+	]],
+	# dlaczego D (pokazywane przed napisami zakończenia)
+	"powod_czas": "Do dziewiątej nikt nie dostał SMS-a.",
+	"powod_nikt": "Antoni nikogo nie oskarżył.",
+	"powod_wyszla": "Ania wyszła ze sceny. Bez przyznania nie było czego dać Nowickiemu.",
+	"powod_zemdlal": "Antoni zemdlał na scenie. Obudził się w karetce o wpół do dwunastej.",
+	"powod_alibi": "Oskarżona osoba miała alibi, o którym Antoni sam wiedział.",
+	"powod_nikt_nie_zabral": "Nikt nie przyjechał, żeby kogokolwiek zatrzymać.",
+	"stracone": "Zmarnowany czas w śledztwie: %d min",
+	"koniec": "KONIEC",
+	"dziekuje": "Dziękujemy za grę.",
+}
+
+## Krótkie napisy argumentów na liście w konfrontacji (pełne zdania w SLEDZTWO_ARGUMENTY).
+const ARGUMENTY_NAZWY := {
+	"skora": "Pasy na skórze", "godzina_smierci": "Godzina śmierci", "czwartek_blady": "Blady na czwartkowej próbie",
+	"kostium_wolskiego": "Grał w kostiumie Wolskiego", "klamstwo_czwartek": "Ostatnia rozmowa w czwartek",
+	"nic_nie_mowil": "\"Nic nie mówił o kostiumie\"", "kuba_chcial_kostium": "Kuba chciał odebrać kostium",
+	"kuba_dubler": "Kuba nowym dublerem", "kuba_alibi": "Kuba: zajęcia w czwartek", "kuba_recytuje": "Kuba zna rolę na pamięć",
+	"kuba_pytal": "Kuba pytał w pralni", "kuba_klucz": "Kuba i klucz do pracowni", "wolski_wyrzucic": "Głos: \"wyrzucić kostium\"",
+	"pani_bez_kwitu": "Pani dzwoniła bez kwitu", "wolski_u_ani": "Wolski u Ani w sobotę", "telefon": "Telefon Adriana",
+	"plama": "Plama na podszewce", "zapach": "Zapach plamy", "skrzynka_23_40": "Kwit: czwartek 23:40, podpis A.",
+	"kuba_odebral": "Kuba odebrał kostium", "podszewka_piekla": "Podszewka piekła", "pasy_szwy": "Pasy wzdłuż szwów",
+	"rece_haliny": "Dłonie Haliny", "uv_zielona": "Plama świeci w UV", "sam_dotknal": "Sam dotknąłem podszewki",
+	"trucizna": "Wynik z laboratorium", "rece_haliny_alergia": "Halina: \"alergia\"", "wolski_chory": "Wolski zgłosił chorobę",
+	"wolski_apteka": "Wolski pod apteką", "wolski_palil": "Wolski spalił przelewy", "wolski_hamlet": "Hamlet, 1998",
+	"irena_kradnie": "Irena kradnie materiały", "irena_alibi": "Paragon Ireny", "klucz_ania": "Ania ma klucz do pracowni",
+	"lis_polisa": "Polisa na Wolskiego", "lis_wierzyciel": "Wierzyciele Lisa", "lis_alibi": "Lis w banku",
+	"ania_sms": "SMS o 22:10", "ania_unika": "Ania uciekła z klatki", "notatka_lodowka": "Notatka na lodówce",
+	"sasiadka_kaszel": "Sąsiadka: kaszel w nocy", "kuba_klucz_mieszkanie": "Kuba i klucz do mieszkania",
+	"podsluch": "Podsłuch: szantaż", "podsluch_czesc": "Początek podsłuchanej rozmowy", "zeszyt": "Zeszyt z wpłatami",
+	"recepta": "Recepta Wolskiego", "pendrive": "Nagranie wypadku", "marta_czwartek": "Marta: czwartek, butelka",
+	"marta_bez_dnia": "Marta: ktoś o ósmej", "kuba_casting": "Casting Kuby", "kuba_garnitur": "Kwit Kuby: 23:10",
+	"rekawiczki_uv": "Rękawiczki świecą w UV", "przelewy": "Wydruki przelewów", "kartka_adriana": "Kartka od Adriana",
+	"pierscionek": "Pierścionek na zdjęciu",
+}
+
+## Tablica w scenie 21: które argumenty przypinają dobrą odpowiedź.
+const TABLICA_JAK := ["trucizna", "uv_zielona", "pasy_szwy", "plama", "skora", "podszewka_piekla", "zapach", "notatka_lodowka", "sam_dotknal"]
+const TABLICA_KTO_MIAL := ["kostium_wolskiego", "wolski_chory", "recepta", "podsluch", "wolski_apteka"]
 
 
 const FALSZYWE_TROPY := ["termos"]
@@ -2551,6 +2814,9 @@ const SLEDZTWO_EPILOG := [
 	[["f:s20_przylapany"], "Ania do pogrzebu nie odezwała się do Antoniego ani słowem.", ""],
 	[["f:obiad_sr", "f:obiad_czw"], "Ola mówi, że w tamtym tygodniu Antoni pierwszy raz od lat jadł u niej dwa dni z rzędu.", ""],
 	[["f:s11_podszewka"], "Irena od tamtej pory wszywa podszewki tylko w rękawiczkach.", ""],
+	[["f:s21_spal"], "Antoni przespał godzinę w dniu pogrzebu. Mówi, że to była najlepiej wydana godzina tego tygodnia.", ""],
+	[["f:s21_nowicki"], "Nowicki od tamtej pory dzwoni do Antoniego, zanim zamknie jakąkolwiek sprawę jako zawał.", "Nowicki dowiedział się wszystkiego z gazet."],
+	[["f:s22_kartka"], "Kartkę od Adriana Antoni oddał jego matce. Powiesiła ją nad łóżkiem syna.", ""],
 ]
 
 # Retrospekcja 1 (po scenie 7): piątek w magazynie, tak jak to sobie wyobraża Antoni.
