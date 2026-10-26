@@ -77,7 +77,7 @@ func _unhandled_input(zdarzenie: InputEvent) -> void:
 func _czekaj(sekundy: float) -> void:
 	_pomin = false
 	var t := 0.0
-	while t < sekundy and not _pomin and not _koniec:
+	while t < sekundy and not _pomin and not _koniec and is_inside_tree():
 		await get_tree().process_frame
 		t += get_process_delta_time()
 
