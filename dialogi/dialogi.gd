@@ -2606,11 +2606,11 @@ const SCENA21 := {
 	# fragmenty monologu: [warunek, tekst]
 	"monolog": [
 		["p:zdjecie_plamy", "Plama, która nie schodzi."],
-		["k:kwit", "Kwit z podpisem A."],
-		["k:marta_grafik", "Czwartek rano w pracowni."],
-		["k:sms", "SMS bez odpowiedzi."],
-		["k:rekawiczki", "Rękawiczki, które świecą."],
-		["k:przelewy", "Przelewy co miesiąc."],
+		["w:kwit", "Kwit z podpisem A."],
+		["w:marta_grafik", "Czwartek rano w pracowni."],
+		["w:sms", "SMS bez odpowiedzi."],
+		["w:rekawiczki", "Rękawiczki, które świecą."],
+		["w:przelewy", "Przelewy co miesiąc."],
 		["f:s18_podsluch", "I powód: Wolski."],
 	],
 	"monolog_pusto": "Za mało. Mam dziury jak w starej kurtynie.",
@@ -2880,7 +2880,7 @@ const TABLICA_KTO_MIAL := ["kostium_wolskiego", "wolski_chory", "recepta", "pods
 const FALSZYWE_TROPY := ["termos"]
 
 ## Argumenty do konfrontacji w finale: id -> [warunki, co mówi Antoni].
-## Warunki jak w Sledztwo.jest: "f:flaga", "p:przedmiot", "k:karta", "!" odwraca.
+## Warunki jak w Sledztwo.jest: "f:flaga", "p:przedmiot", "k:karta dobrze", "w:karta wpisana", "!" odwraca.
 const SLEDZTWO_ARGUMENTY := {
 	"skora": [["p:zdjecie_pasy"], "Pasy na skórze były tylko tam, gdzie przylegał kostium."],
 	"godzina_smierci": [["f:s7_piatek", "f:s7_woda"], "Zmarł w piątek koło jedenastej wieczorem, a nie w sobotę."],
@@ -3137,12 +3137,12 @@ const DZIENNIK := {
 ## Pytanie bez odpowiedzi, nigdy podpowiedź, gdzie jej szukać.
 const DZIENNIK_PYTANIA := [
 	[[], ["f:s13_wynik"], "Na co naprawdę umarł Adrian?"],
-	[["f:s10_ksiazka"], ["k:podpis"], "Czyje pismo jest na kwicie z pralni?"],
-	[["f:s10_ksiazka"], ["f:s11b_kuba_widzial", "f:s11b_pokrowiec", "k:podpis"], "Kto wrzucił kostium do skrzynki w czwartek w nocy?"],
+	[["f:s10_ksiazka"], ["w:podpis"], "Czyje pismo jest na kwicie z pralni?"],
+	[["f:s10_ksiazka"], ["f:s11b_kuba_widzial", "f:s11b_pokrowiec", "w:podpis"], "Kto wrzucił kostium do skrzynki w czwartek w nocy?"],
 	[["f:s9_obsada"], ["f:s14_ostrzezony", "f:s14_teoria"], "Czyj to był naprawdę kostium? Kto miał w nim zginąć?"],
 	[["f:s15_utrwalacz"], ["f:s15_utrwalacz_prawda"], "Po co Irenie żrący utrwalacz?"],
-	[["f:s14_spalil"], ["f:s18_podsluch", "k:zeszyt"], "Co Wolski spalił przed spektaklem i dlaczego?"],
-	[["f:s11b_wieszak"], ["k:marta_grafik"], "Kto był w pracowni w czwartek rano?"],
+	[["f:s14_spalil"], ["f:s18_podsluch", "w:zeszyt"], "Co Wolski spalił przed spektaklem i dlaczego?"],
+	[["f:s11b_wieszak"], ["w:marta_grafik"], "Kto był w pracowni w czwartek rano?"],
 	[["f:s17_kuba"], ["f:s19_kuba_scenariusz"], "Czego Kuba szukał w mieszkaniu Adriana?"],
 	[["f:s17_ania_sms"], ["f:s22_przyznala"], "Dlaczego Ania uciekła z klatki?"],
 ]
@@ -3210,11 +3210,18 @@ const KARTY := {
 
 const TECZKA_NAPISY := {
 	"pusta": "Teczka jest pusta. Karty pojawią się, gdy zdobędziesz dowody.",
-	"zle": "Antoni kręci głową. Coś się nie zgadza.",
-	"dobrze": "SPRAWDZONE",
+	"wpisane": "WPISANE",
+	"zatwierdz": "Zatwierdź",
+	"puste": "Najpierw wypełnij wszystkie rubryki.",
+	"nie_znam": "Nie znam nikogo takiego. Wpisz imię kogoś, kogo spotkałeś.",
+	"nie_czas": "Tu trzeba wpisać dzień i godzinę.",
+	"epilog_zla": "Karta \"%s\": wpisałeś \"%s\". To był błąd.",
 	"pomoc": "F albo Esc – zamknij   1 karty   2 podejrzani",
 	"tablica": "Kliknij osobę, żeby ją skreślić albo przywrócić.",
 }
+
+## Imiona, które teczka przyjmuje oprócz podejrzanych (PODEJRZANI_ALIASY).
+const TECZKA_IMIONA := ["adrian", "antoni", "ola", "nowicki", "zawada", "stasia", "zenon", "lekarz", "fotograf", "kelnerka", "bufetowa", "szatniarz", "garderobiana", "sprzataczka", "maszynista", "policjant"]
 
 ## Podejrzani na tablicy: [imię na tablicy, folder postaci].
 const PODEJRZANI := [

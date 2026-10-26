@@ -1,9 +1,11 @@
 extends CanvasLayer
 ## Teczka dowodów pod klawiszem F (singleton "Teczka"). Osobno od notatnika:
 ## notatnik to wolny tekst gracza, a teczka to karty-formularze, które gra dokłada
-## sama (Teczka.dodaj("paragon")). Gracz wpisuje w puste rubryki imię albo czas,
-## a gra sprawdza wpis (bez wielkości liter i polskich znaków). Dobra karta dostaje
-## pieczątkę "SPRAWDZONE" (Teczka.sprawdzona(id)), zła tylko "coś się nie zgadza".
+## sama (Teczka.dodaj("paragon")). Gracz wpisuje w puste rubryki imię albo czas
+## i zatwierdza (pieczątka "WPISANE", potem nie da się zmienić). Gra przyjmuje każde
+## znane imię i NIE mówi, czy jest dobrze: Teczka.wpisana(id) to "wypełniona",
+## Teczka.sprawdzona(id) to "wypełniona dobrze". Zły wpis wychodzi dopiero w finale
+## (argument nie działa), w przymierzaniu (karta nic nie obala) i w epilogu.
 ## Druga zakładka to tablica podejrzanych: gracz sam ich skreśla i przywraca.
 ## Dane kart w Dialogi.KARTY, podejrzani w Dialogi.PODEJRZANI.
 
@@ -12,7 +14,7 @@ const ATRAMENT := Color8(40, 30, 30)
 const ZLOTO := Color8(242, 212, 126)
 const JASNY := Color8(236, 226, 200)
 
-## Karty w kolejności zdobycia: id -> {"wpisy": [...], "sprawdzona": bool}
+## Karty w kolejności zdobycia: id -> {"wpisy": [...], "wpisana": bool, "sprawdzona": bool}
 var karty := {}
 var _kolejnosc: Array = []
 ## Skreśleni na tablicy (imiona z Dialogi.PODEJRZANI).
@@ -101,12 +103,27 @@ func dodaj(id: String) -> void:
 	var wpisy := []
 	wpisy.resize(rubryki.size())
 	wpisy.fill("")
-	karty[id] = {"wpisy": wpisy, "sprawdzona": false}
+	karty[id] = {"wpisy": wpisy, "wpisana": false, "sprawdzona": false}
 	_kolejnosc.append(id)
 
 
+## Wypełniona dobrze (gracz się o tym nie dowiaduje aż do epilogu).
 func sprawdzona(id: String) -> bool:
 	return karty.has(id) and karty[id].sprawdzona
+
+
+## Wypełniona i zatwierdzona, dobrze albo źle. Stare zapisy nie miały tego pola.
+func wpisana(id: String) -> bool:
+	return karty.has(id) and karty[id].get("wpisana", karty[id].sprawdzona)
+
+
+## Zatwierdzone karty z błędem: [[id, wpis], ...] (do epilogu).
+func zle_karty() -> Array:
+	var wynik := []
+	for id in _kolejnosc:
+		if wpisana(id) and not sprawdzona(id):
+			wynik.append([id, ", ".join(karty[id].wpisy)])
+	return wynik
 
 
 func otwarty() -> bool:
@@ -165,7 +182,7 @@ func _odswiez_liste() -> void:
 		return
 	for id in _kolejnosc:
 		var nazwa: String = Dialogi.KARTY[id][0]
-		var b := _przycisk(("✓ " if karty[id].sprawdzona else "") + nazwa, Vector2.ZERO, Vector2(150, 18))
+		var b := _przycisk(("✓ " if wpisana(id) else "") + nazwa, Vector2.ZERO, Vector2(150, 18))
 		b.clip_text = true
 		b.pressed.connect(_pokaz_karte.bind(id))
 		_lista.add_child(b)
@@ -213,36 +230,67 @@ func _pokaz_karte(id: String) -> void:
 		pole.add_theme_stylebox_override("focus", styl)
 		pole.add_theme_stylebox_override("read_only", styl)
 		pole.text = stan.wpisy[i]
-		pole.editable = not stan.sprawdzona
+		pole.editable = not wpisana(id)
 		pole.text_changed.connect(func(t: String) -> void: stan.wpisy[i] = t)
 		_kartka.add_child(pole)
 		pola.append(pole)
 		y += 26
-	if stan.sprawdzona:
-		var pieczatka := _etykieta(Dialogi.TECZKA_NAPISY["dobrze"], Color8(180, 30, 30))
+	if wpisana(id):
+		var pieczatka := _etykieta(Dialogi.TECZKA_NAPISY["wpisane"], Color8(40, 50, 130))
 		pieczatka.add_theme_font_size_override("font_size", 24)
 		pieczatka.position = Vector2(110, 140)
 		pieczatka.rotation_degrees = -12.0
 		_kartka.add_child(pieczatka)
 	else:
-		var b := _przycisk("Sprawdź", Vector2(8, 160), Vector2(80, 18))
+		var b := _przycisk(Dialogi.TECZKA_NAPISY["zatwierdz"], Vector2(8, 160), Vector2(80, 18))
 		b.pressed.connect(_sprawdz.bind(id))
 		_kartka.add_child(b)
 
 
+## Zatwierdza kartę: każde znane imię (albo czas z cyfrą) przechodzi, a gra tylko po
+## cichu zapamiętuje, czy wpis był dobry.
 func _sprawdz(id: String) -> void:
 	var rubryki: Array = Dialogi.KARTY[id][3]
 	var stan: Dictionary = karty[id]
+	var dobrze := true
 	for i in rubryki.size():
 		var wpis := uprosc(stan.wpisy[i])
 		var dobre: Array = rubryki[i][1].map(func(x): return uprosc(x))
-		if not dobre.has(wpis):
-			_pole_info.text = Dialogi.TECZKA_NAPISY["zle"]
-			Gra.flagi["stracone_minuty"] = Gra.flagi.get("stracone_minuty", 0) + 10
+		var czas: bool = dobre.any(func(x): return x.contains(":") or x.is_valid_int())
+		if wpis == "":
+			_pole_info.text = Dialogi.TECZKA_NAPISY["puste"]
 			return
-	stan.sprawdzona = true
+		var cyfra := false
+		for c in wpis:
+			cyfra = cyfra or c.is_valid_int()
+		if czas and not cyfra:
+			_pole_info.text = Dialogi.TECZKA_NAPISY["nie_czas"]
+			return
+		if not czas and not _znane_imie(wpis):
+			_pole_info.text = Dialogi.TECZKA_NAPISY["nie_znam"]
+			return
+		if not dobre.has(wpis) and not (not czas and _jedyne_imie(wpis, dobre)):
+			dobrze = false
+	stan.wpisana = true
+	stan.sprawdzona = dobrze
 	_pole_info.text = ""
 	_odswiez_liste()
+
+
+## "chyba Ania" liczy się jak "Ania", ale "Ania albo Wolski" już nie (dwa różne imiona).
+func _jedyne_imie(wpis: String, dobre: Array) -> bool:
+	var imiona := Array(wpis.split(" ")).filter(func(slowo): return _znane_imie(slowo))
+	return not imiona.is_empty() and imiona.all(func(slowo): return slowo in dobre)
+
+
+## Czy w wpisie jest imię kogoś z gry (wystarczy jedno słowo, np. "chyba Ania").
+func _znane_imie(wpis: String) -> bool:
+	var znane: Array = Dialogi.TECZKA_IMIONA.duplicate()
+	for imie in Dialogi.PODEJRZANI_ALIASY:
+		znane.append_array(Dialogi.PODEJRZANI_ALIASY[imie])
+	if wpis in znane:
+		return true
+	return Array(wpis.split(" ")).any(func(slowo): return slowo in znane)
 
 
 func _odswiez_tablice() -> void:

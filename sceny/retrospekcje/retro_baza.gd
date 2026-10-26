@@ -78,7 +78,7 @@ func przymierz(sylwetka: Node2D, kontekst: String) -> String:
 		# karta, która temu przeczy
 		var ids: Array = []
 		for id in Teczka.karty:
-			if Teczka.sprawdzona(id):
+			if Teczka.wpisana(id):
 				ids.append(id)
 		var napisy: Array = ids.map(func(id): return "Karta: " + Dialogi.KARTY[id][0])
 		napisy.append(r["bez_karty"])
@@ -86,7 +86,8 @@ func przymierz(sylwetka: Node2D, kontekst: String) -> String:
 		if nr >= ids.size():
 			continue
 		var karta: String = ids[nr]
-		if dane.has(kto) and dane[kto][0] == karta:
+		# karta ze złym wpisem nic nie obala, choć gracz nie wie dlaczego
+		if dane.has(kto) and dane[kto][0] == karta and Teczka.sprawdzona(karta):
 			await rozmowa([["Antoni", dane[kto][1]]])
 			blysk()
 			twarz.queue_free()

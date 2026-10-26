@@ -1,9 +1,13 @@
 class_name Sledztwo
 ## Rejestr śledztwa: co gracz ustalił, co stracił i ile czasu zmarnował.
 ## Gra nie czyta notatnika, tylko flag (Gra.flagi) i ekwipunku. Warunki to napisy:
-## "f:nazwa" (flaga), "p:id" (przedmiot w ekwipunku), "k:id" (sprawdzona karta
-## z teczki); "!" na początku odwraca warunek. Z tego korzystają retrospekcje,
+## "f:nazwa" (flaga), "p:id" (przedmiot w ekwipunku), "k:id" (karta z teczki wpisana
+## dobrze), "w:id" (wpisana, dobrze czy źle: tam, gdzie gracz nie może poznać wyniku); "!" na początku odwraca warunek. Z tego korzystają retrospekcje,
 ## konfrontacja w finale (Dialogi.SLEDZTWO_ARGUMENTY) i epilog (Dialogi.SLEDZTWO_EPILOG).
+
+
+## Na czas argumenty(): "k:" znaczy wtedy "karta zatwierdzona", dobrze czy źle.
+static var _wpisane := false
 
 
 ## Czy spełniony jest jeden warunek.
@@ -18,7 +22,9 @@ static func jest(warunek: String) -> bool:
 		"p:":
 			return Ekwipunek.ma(nazwa)
 		"k:":
-			return Teczka.sprawdzona(nazwa)
+			return Teczka.wpisana(nazwa) if _wpisane else Teczka.sprawdzona(nazwa)
+		"w:":
+			return Teczka.wpisana(nazwa)
 	push_warning("Sledztwo: nieznany warunek " + warunek)
 	return false
 
@@ -41,12 +47,21 @@ static func stracone() -> int:
 
 
 ## Argumenty, które gracz ma w ręku na konfrontację (id z Dialogi.SLEDZTWO_ARGUMENTY).
+## Liczą się karty zatwierdzone, też te ze złym wpisem: gracz o błędzie nie wie,
+## a w finale taki argument nie trafia (trafny()).
 static func argumenty() -> Array:
 	var wynik := []
+	_wpisane = true
 	for id in Dialogi.SLEDZTWO_ARGUMENTY:
 		if wszystkie(Dialogi.SLEDZTWO_ARGUMENTY[id][0]):
 			wynik.append(id)
+	_wpisane = false
 	return wynik
+
+
+## Czy karty, na których stoi argument, są wpisane dobrze.
+static func trafny(id: String) -> bool:
+	return not Dialogi.SLEDZTWO_ARGUMENTY.has(id) or wszystkie(Dialogi.SLEDZTWO_ARGUMENTY[id][0])
 
 
 ## Zdania epilogu: co gracz odkrył, a co przeoczył.
@@ -58,4 +73,6 @@ static func epilog() -> Array:
 			zdania.append(tekst)
 	for kto in Gra.obrazeni():
 		zdania.append(Dialogi.URAZA["epilog"] % kto)
+	for zla in Teczka.zle_karty():
+		zdania.append(Dialogi.TECZKA_NAPISY["epilog_zla"] % [Dialogi.KARTY[zla[0]][0], zla[1]])
 	return zdania

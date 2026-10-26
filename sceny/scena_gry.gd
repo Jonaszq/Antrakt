@@ -486,7 +486,7 @@ func _podpowiedzi() -> void:
 			if not p[0].any(func(w): return Sledztwo.jest(w)):
 				mysl = p[1]
 				break
-		if mysl == "" and Teczka.karty.keys().any(func(id): return not Teczka.sprawdzona(id)):
+		if mysl == "" and Teczka.karty.keys().any(func(id): return not Teczka.wpisana(id)):
 			mysl = Dialogi.PODPOWIEDZ_TECZKA
 		if mysl != "":
 			await rozmowa([["Antoni", mysl]])
@@ -496,7 +496,7 @@ func _podpowiedzi() -> void:
 func _postep() -> int:
 	var n := Gra.flagi.size() + Ekwipunek.przedmioty.size() * 100 + Teczka.karty.size() * 1000
 	for id in Teczka.karty:
-		if Teczka.sprawdzona(id):
+		if Teczka.wpisana(id):
 			n += 10000
 	return n
 

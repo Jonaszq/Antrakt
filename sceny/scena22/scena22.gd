@@ -85,12 +85,14 @@ func _ania() -> void:
 		await rozmowa(runda["klamstwo"])
 		while true:
 			var arg := await wybierz_argument(t["argument"], t["milcz"])
-			if arg in runda["mocne"]:
+			# argument ze źle wypełnionej karty nie trafia: Ania od razu go zbija
+			var trafny := Sledztwo.trafny(arg)
+			if arg in runda["mocne"] and trafny:
 				if runda["reakcja"][0][0] != "Antoni":
 					await _powiedz(arg)
 				await rozmowa(runda["reakcja"])
 				break
-			var slaby: bool = arg in runda["slabe"]
+			var slaby: bool = arg in runda["slabe"] and trafny
 			if slaby:
 				await _powiedz(arg)
 				await rozmowa(t["slabe"])

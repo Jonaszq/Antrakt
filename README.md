@@ -65,3 +65,9 @@ Nie trzeba niczego rozpakowywać ani podmieniać ręcznie.
 - Każde zakończenie (A-D) ma własną scenkę: `sceny/zakonczenia/film_a..d` (cmentarz, widownia, garderoba, cmentarz w deszczu). Potem napisy, epilog, "Dziękuję za rozgrywkę. Buziak dla ciebie!" i powrót do menu.
 - Postacie w przerywnikach omijają meble same (`ScenaGry.trasa`, siatka A*), chodzą trochę szybciej (`TEMPO`).
 - Długie pauzy w retrospekcjach i napisach można przeskoczyć klawiszem E, spacją albo Enterem.
+
+## Teczka bez podpowiedzi (26.10)
+
+Karty przyjmują każde znane imię (albo czas z cyfrą) i dostają pieczątkę "WPISANE". Gra nie mówi, czy wpis jest dobry. Zły wpis wychodzi w finale (argument nie trafia), w przymierzaniu (karta nic nie obala) i w epilogu. W kodzie: `Teczka.wpisana(id)` = zatwierdzona, `Teczka.sprawdzona(id)` = dobra; warunek `"w:id"` w Dialogi tam, gdzie gracz nie może poznać wyniku.
+
+Tymczasowo: F9 daje wszystkie przedmioty i karty (`TESTY` w ui/gra.gd).
