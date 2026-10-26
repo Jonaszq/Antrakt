@@ -2830,6 +2830,90 @@ const RETRO1 := {
 }
 
 
+# ---------- PODPOWIEDZI ----------
+# Gdy gracz przez ScenaGry.PODPOWIEDZ_PO sekund niczego nowego nie znajdzie ani się
+# nie dowie, Antoni myśli na głos: pierwsza podpowiedź, której jeszcze nie załatwił.
+# Klucz = nazwa pliku sceny. Wpis: [warunki "załatwione" (wystarczy jeden), myśl].
+# Warunki jak w Sledztwo.jest. "f:_" = nigdy załatwione (ostatnia rada w scenie).
+# Podpowiedź mówi, gdzie iść albo czego szukać, nigdy nie zdradza odpowiedzi.
+const PODPOWIEDZI := {
+	"scena1": [
+		[["f:s1_bez_biletu", "p:numerek", "p:bilet"], "Toaleta nieczynna. Zapytam kogoś z obsługi. Bileterka stoi przy wejściu na widownię."],
+		[["p:numerek", "p:bilet"], "Szatniarz bez numerka nic nie wyda. Gdzie mogłem go upuścić? Stałem przy stojaku z programami..."],
+		[["p:bilet"], "Mam numerek. Do szatni: w płaszczu powinien być bilet."],
+		[["f:_"], "Z biletem wracam do bileterki. Ona coś wie o toalecie."],
+	],
+	"scena2": [
+		[["p:klucz", "p:noz", "f:s2_oddal"], "Marta szuka noża. Stół i skrzynie z rekwizytami... a na ścianie skrzynka z bezpiecznikami."],
+		[["p:noz", "f:s2_oddal"], "Mam klucz do garderób. Nóż mógł trafić do czyjejś torby."],
+		[["f:s2_oddal"], "Mam nóż. Trzeba go oddać Marcie."],
+		[["f:_"], "Drzwi z napisem WIDOWNIA. Spektakl zaraz się zacznie."],
+	],
+	"garderoba": [
+		[["p:noz", "f:s2_oddal"], "Torby aktorów pod ścianą. Któraś z inicjałami?"],
+	],
+	"scena6": [
+		[["p:latarka"], "Ciemno jak w grobie. Przy bramie stała skrzynka z rekwizytami, może jest tam coś do świecenia."],
+		[["p:zdjecie_pasy"], "Z latarką (Tab) obejrzę ciało jeszcze raz. Dokładnie."],
+		[["p:telefon_adriana"], "Adrian musiał mieć telefon. Gdzie? Między tymi manekinami?"],
+		[["p:lista_rekwizytow"], "Po co Adrian tu w ogóle przyszedł? Może zostawił jakąś kartkę."],
+		[["f:_"], "Kiedy skończę, powiem Nowickiemu."],
+	],
+	"scena10": [
+		[["f:s10_kostium", "f:s10_kuba_odebral"], "Na kwicie jest numer: 0412. Sam przejrzę stojaki, Halina go nie znajdzie."],
+		[["p:zdjecie_plamy", "f:s10_kuba_odebral"], "Kostium trzeba położyć pod lampą i dobrze mu się przyjrzeć. Zrobię zdjęcie."],
+		[["f:s10_ksiazka"], "Kto oddał ten kostium? Halina zapisuje wszystko w książce przyjęć."],
+		[["f:_"], "Na dziś starczy. Wyjście jest przy ladzie."],
+	],
+	"scena12": [
+		[["p:lampa_uv"], "Halina coś trzyma w szafce pod ladą. Zajrzę, kiedy zajmie się klientem."],
+		[["f:s12_uv"], "Mam lampę UV. Poświecę nią na podszewkę."],
+		[["f:s12_numer"], "Kto dzwonił w sprawie kostiumu? Halina mogła zapisać numer przy książce."],
+	],
+	"scena13": [
+		[["p:woreczek", "p:probka", "f:s13_oddana"], "Laboratorium nie przyjmie próbki luzem. W aucie, w schowku, wożę woreczki na dowody."],
+		[["p:probka", "f:s13_oddana"], "Trzeba wyciąć kawałek podszewki. Czym? Irena miała ostre nożyczki."],
+		[["f:s13_oddana"], "Próbkę trzeba zawieźć do laboratorium. Mam w aucie plan miasta."],
+	],
+	"scena15": [
+		[["f:s15_zapalila", "f:s15_przyznala"], "Irena jest kłębkiem nerwów. Może zapali, jak ją poczęstuję?"],
+		[["f:s15_bele", "f:s15_przyznala"], "Klucze leżą przy maszynie. Kiedy Irena wyjdzie odebrać telefon, zajrzę do szafy."],
+		[["f:s15_spis", "f:s15_przyznala"], "Na regale leży spis tkanin. Ciekawe, czy zgadza się z tym, co jest w szafie."],
+		[["f:s15_przyznala"], "Mam bele i spis. Pokażę je Irenie."],
+		[["p:paragon"], "Irena mówiła o hurtowni. Rachunki trzyma gdzieś przy stole."],
+	],
+	"scena17": [
+		[["p:klucz_adriana", "f:s17_wszedl"], "Ania ma klucz, ale go nie odda ot tak. Zapytam ją jeszcze raz o ten czwartek."],
+		[["p:ladowarka", "f:s17_sms"], "Telefon Adriana jest rozładowany. Potrzebuję ładowarki. Może sąsiedzi pożyczą?"],
+		[["f:s17_laduje", "f:s17_sms"], "Mam ładowarkę. W pokoju jest gniazdko."],
+		[["f:s17_sms"], "PIN. Ludzie ustawiają daty, które coś dla nich znaczą. Przyjrzę się zdjęciom w mieszkaniu."],
+	],
+	"scena18": [
+		[["f:s18_zeszyt"], "Szuflada w toaletce. Wolski coś tam chowa."],
+		[["f:s18_recepta"], "Kosz. Ludzie wyrzucają rzeczy, które ich zdradzają."],
+		[["f:s18_sejf"], "Sejf. Szyfr to pewnie rok ważny dla Wolskiego. Plakaty na ścianie, program premiery..."],
+	],
+	"scena19": [
+		[["f:s19_marta"], "Marta bywa w teatrze od świtu. Zapytam ją, kogo widuje rano w pracowni."],
+		[["p:grafik", "f:s19_czwartek"], "Marta potknęła się o skrzynki. Stoją pod drzwiami PERSONEL, zajrzę do nich."],
+		[["f:s19_czwartek"], "Mam grafik dostaw. Pokażę go Marcie, może przypomni sobie dzień."],
+		[["f:s19_kuba_otwarty"], "Kuba coś ukrywa. Może kwit z pralni rozwiąże mu język?"],
+	],
+	"scena20": [
+		[["f:s20_kosz"], "Kosz pod toaletką. Ania coś wyrzuciła?"],
+		[["p:spinka", "f:s20_przelewy"], "Szuflada jest zamknięta. Czymś cienkim dałoby się ją otworzyć. Pudełko z charakteryzacją?"],
+		[["f:s20_przelewy"], "Mam spinkę. Teraz szuflada."],
+	],
+	"scena21": [
+		[["f:s21_jak", "f:s21_kto_mial"], "Tablica. Najpierw dwa pytania: jak zginął i kto miał zginąć."],
+		[["f:_"], "Telefon na stole. Komu wyślę SMS-a?"],
+	],
+}
+
+## Gdy w teczce są karty, których gracz nie uzupełnił (po podpowiedziach sceny).
+const PODPOWIEDZ_TECZKA := "W teczce (F) mam karty bez wpisów. Bez nich nic nie udowodnię."
+
+
 # ---------- TECZKA DOWODÓW ----------
 # Karty dokłada gra (Teczka.dodaj("paragon")), gdy gracz zdobędzie dowód albo usłyszy
 # ważne zeznanie. Gracz sam wypełnia rubryki. Gra porównuje wpis bez wielkości liter,

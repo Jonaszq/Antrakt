@@ -96,6 +96,7 @@ func _fotografuje(fotograf: Node2D) -> void:
 
 func _zgubiony_bilet() -> void:
 	_wie_o_bilecie = true
+	Gra.flagi["s1_bez_biletu"] = true  # dla podpowiedzi
 	if not _bileterka_ok:
 		zamkniete_drzwi(DRZWI, Dialogi.DRZWI["foyer_personel_2"])
 

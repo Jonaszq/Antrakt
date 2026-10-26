@@ -10,6 +10,7 @@ extends Node2D
 ## z przedmiotami (skrzynka).
 
 const ZASIEG := 26.0  # jak blisko trzeba podejść, żeby porozmawiać
+const PODPOWIEDZ_PO := 120.0  # sekundy bez postępu, po których Antoni myśli na głos
 
 var antoni: CharacterBody2D
 var dialog: Dialog
@@ -62,6 +63,7 @@ func przygotuj(mapa: Node) -> void:
 	ui.add_child(_komunikat)
 	dialog = Dialog.new()
 	add_child(dialog)
+	_podpowiedzi()
 
 
 func etykieta(rozmiar: int, kolor: Color) -> Label:
@@ -350,6 +352,50 @@ func komunikat(tekst: String, czas := 3.5) -> void:
 	tw.tween_property(_komunikat, "modulate:a", 1.0, 0.3)
 	tw.tween_interval(czas)
 	tw.tween_property(_komunikat, "modulate:a", 0.0, 0.6)
+
+
+## Gdy gracz długo nie robi postępu (nowa flaga, przedmiot, karta, wpis w karcie),
+## Antoni mówi na głos pierwszą niezałatwioną podpowiedź z Dialogi.PODPOWIEDZI[nazwa
+## pliku sceny], a gdy takich nie ma, przypomina o pustych kartach w teczce.
+func _podpowiedzi() -> void:
+	var klucz := scene_file_path.get_file().get_basename()
+	var lista: Array = Dialogi.PODPOWIEDZI.get(klucz, [])
+	var drzewo := get_tree()
+	var stan := _postep()
+	var bezczynnie := 0.0
+	while is_instance_valid(self) and not koniec:
+		await drzewo.create_timer(1.0).timeout
+		if not is_instance_valid(self) or koniec:
+			return
+		var teraz := _postep()
+		if teraz != stan:
+			stan = teraz
+			bezczynnie = 0.0
+			continue
+		if not wolny() or not antoni.visible:
+			continue
+		bezczynnie += 1.0
+		if bezczynnie < PODPOWIEDZ_PO:
+			continue
+		bezczynnie = 0.0
+		var mysl := ""
+		for p in lista:
+			if not p[0].any(func(w): return Sledztwo.jest(w)):
+				mysl = p[1]
+				break
+		if mysl == "" and Teczka.karty.keys().any(func(id): return not Teczka.sprawdzona(id)):
+			mysl = Dialogi.PODPOWIEDZ_TECZKA
+		if mysl != "":
+			await rozmowa([["Antoni", mysl]])
+
+
+## Liczba rzeczy, które gracz już ustalił (zmiana = postęp).
+func _postep() -> int:
+	var n := Gra.flagi.size() + Ekwipunek.przedmioty.size() * 100 + Teczka.karty.size() * 1000
+	for id in Teczka.karty:
+		if Teczka.sprawdzona(id):
+			n += 10000
+	return n
 
 
 ## Antoni znajduje albo dostaje pieniądze: dopisuje je i pokazuje napis u góry.
