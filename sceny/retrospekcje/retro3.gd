@@ -47,8 +47,7 @@ func _ready() -> void:
 	# gdzieś w mieście ktoś czyta wiadomość
 	_adrian.visible = false
 	$Mieszkanie/Mrok.color = Color(0.12, 0.12, 0.2)
-	var czyta := postac("ania", CZYTA)
-	czyta.modulate = SYLWETKA
+	var czyta := postac("sylwetka", CZYTA)
 	var ekran := PointLight2D.new()
 	ekran.texture = _swiatlo()
 	ekran.color = Color(0.6, 0.8, 1.0)

@@ -565,8 +565,10 @@ func dymek(kto: Node2D, tekst: String, czas := 2.5) -> void:
 func gada_w_tle(kto: Node2D, teksty: Array, co_ile := 7.0) -> void:
 	await get_tree().create_timer(randf_range(1.0, co_ile)).timeout
 	while is_instance_valid(kto) and not koniec:
-		if kto.visible and not dialog.trwa() and odleglosc(antoni.position, kto.position) < 260.0:
-			dymek(kto, teksty.pick_random())
+		# scena może podmienić kwestie w trakcie (meta "tlo"; pusta lista = cisza)
+		var biezace: Array = kto.get_meta("tlo", teksty)
+		if kto.visible and not dialog.trwa() and not biezace.is_empty() and odleglosc(antoni.position, kto.position) < 260.0:
+			dymek(kto, biezace.pick_random())
 		await get_tree().create_timer(co_ile + randf_range(-1.5, 1.5)).timeout
 
 
@@ -777,21 +779,31 @@ func _uraza_tekst(klucz: String, kto: String) -> Array:
 	return w.map(func(linia): return [kto if linia[0] == "*" else linia[0], linia[1]])
 
 
-## Lista dowodów do pokazania: przedmioty fabularne i sprawdzone karty z teczki
-## (najnowsze, żeby lista zmieściła się na ekranie). Zwraca id albo "" (wróć).
+## Lista dowodów do pokazania: przedmioty fabularne i karty z teczki (też te jeszcze
+## nie sprawdzone, bo pokazuje się sam papier), po 6 na stronę. Zwraca id albo "" (wróć).
 func wybierz_dowod() -> String:
 	var ids: Array = []
 	for id in Ekwipunek.przedmioty:
 		if Dialogi.PRZEDMIOTY[id][2] == "fabularny":
 			ids.append(id)
 	for id in Teczka.karty:
-		if Teczka.sprawdzona(id):
-			ids.append("karta_" + id)
-	ids = ids.slice(maxi(0, ids.size() - 7))
-	var napisy: Array = ids.map(func(id): return ("Karta: " + Dialogi.KARTY[id.substr(6)][0]) if id.begins_with("karta_") else Dialogi.PRZEDMIOTY[id][0])
-	napisy.append("Wróć")
-	var nr := await wybor(napisy)
-	return ids[nr] if nr < ids.size() else ""
+		ids.append("karta_" + id)
+	var strona := 0
+	while true:
+		var kawalek: Array = ids.slice(strona * 6, strona * 6 + 6)
+		var napisy: Array = kawalek.map(func(id): return ("Karta: " + Dialogi.KARTY[id.substr(6)][0]) if id.begins_with("karta_") else Dialogi.PRZEDMIOTY[id][0])
+		var wiecej := ids.size() > 6
+		if wiecej:
+			napisy.append("Więcej...")
+		napisy.append("Wróć")
+		var nr := await wybor(napisy)
+		if nr < kawalek.size():
+			return kawalek[nr]
+		if wiecej and nr == kawalek.size():
+			strona = (strona + 1) % ceili(ids.size() / 6.0)
+			continue
+		return ""
+	return ""
 
 
 ## Lista argumentów (Sledztwo.argumenty) po 6 na stronę. Zwraca id albo "".

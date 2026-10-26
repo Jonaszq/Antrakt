@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Texture2D" path="res://postacie/sylwetka/sylwetka.png" id="arkusz"]
+[ext_resource type="Texture2D" path="res://postacie/antoni/cien.png" id="cien"]
+
+[sub_resource type="AtlasTexture" id="k0"]
+atlas = ExtResource("arkusz")
+region = Rect2(0, 0, 40, 68)
+
+[sub_resource type="AtlasTexture" id="k1"]
+atlas = ExtResource("arkusz")
+region = Rect2(40, 0, 40, 68)
+
+[sub_resource type="SpriteFrames" id="klatki"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("k0")
+}, {
+"duration": 1.0,
+"texture": SubResource("k1")
+}],
+"loop": true,
+"name": &"stoi_dol",
+"speed": 1.5
+}]
+
+[node name="Sylwetka" type="Node2D"]
+
+[node name="Cien" type="Sprite2D" parent="."]
+texture = ExtResource("cien")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("klatki")
+animation = &"stoi_dol"
+autoplay = "stoi_dol"
+centered = false
+offset = Vector2(-20, -65)

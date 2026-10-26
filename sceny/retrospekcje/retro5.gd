@@ -14,8 +14,7 @@ func _ready() -> void:
 	przygotuj_retro($Pracownia, Vector2(800, 480), Vector2(240, 240), Color(0.55, 0.52, 0.5))
 	var r: Dictionary = Dialogi.RETRO5
 	var f: Dictionary = Gra.flagi
-	var kto := postac("ania", DRZWI)
-	kto.modulate = SYLWETKA
+	var kto := postac("sylwetka", DRZWI)
 	await plansza(r["tytul_czwartek"] if Teczka.sprawdzona("marta_grafik") else r["tytul_niewiadomo"])
 	antoni.sterowanie = false
 	await idz(kto, [Vector2(60, 200), STOJAK + Vector2(30, 0)], 26.0)

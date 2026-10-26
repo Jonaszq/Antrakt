@@ -4,7 +4,6 @@ extends ScenaGry
 ## i przymierzanie: gracz wpisuje imię w czarną sylwetkę i może obalić je kartą z teczki.
 ## Dane przymierzania w Dialogi.PRZYMIERZANIE[kontekst]: imię -> [karta, co mówi Antoni].
 
-const SYLWETKA := Color(0.02, 0.02, 0.03)
 const CENA_PRZYMIERZENIA := 10
 const CENA_ZLEJ_KARTY := 5
 

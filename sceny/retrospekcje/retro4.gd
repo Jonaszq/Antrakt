@@ -42,8 +42,7 @@ func _ready() -> void:
 	rowerzysta.rotation = PI / 2
 	await get_tree().create_timer(1.5).timeout
 	# kierowca wysiada i patrzy
-	var kierowca := postac("ania", Vector2(400, DROGA_Y - 30))
-	kierowca.modulate = SYLWETKA
+	var kierowca := postac("sylwetka", Vector2(400, DROGA_Y - 30))
 	await idz(kierowca, [Vector2(350, DROGA_Y - 24)], 30.0)
 	await get_tree().create_timer(1.0).timeout
 	# drugie auto staje w oddali, czerwona lampka kamery

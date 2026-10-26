@@ -8,7 +8,6 @@ extends ScenaGry
 ## albo karta "kwit"). Teksty w Dialogi.RETRO2.
 
 const NASTEPNA := "res://sceny/scena14/scena14.tscn"
-const SYLWETKA := Color(0.02, 0.02, 0.03)
 
 var _adrian: Node2D
 var _kamera: Camera2D
@@ -44,9 +43,8 @@ func _ready() -> void:
 	var r: Dictionary = Dialogi.RETRO2
 	var f: Dictionary = Gra.flagi
 	var zna_irene: bool = f.get("s11_kostium", false) or f.get("s11_podszewka", false) or f.get("s11_zeszyt", false)
-	var irena := postac("irena", Vector2(255, 236))
-	if not zna_irene:
-		irena.modulate = SYLWETKA
+	# nieznana osoba to zawsze ta sama czarna sylwetka, bez fryzury i stroju
+	var irena := postac("irena" if zna_irene else "sylwetka", Vector2(255, 236))
 	_adrian = postac("adrian", Vector2(80, 150))
 	await plansza(r["tytul"])
 	antoni.sterowanie = false
@@ -63,8 +61,7 @@ func _ready() -> void:
 	await idz(_adrian, [Vector2(330, 320), Vector2(450, 330)], 24.0)
 	if f.get("s11_foto", false):
 		# ktoś staje obok i kładzie mu dłoń na ramieniu; fotograf robi zdjęcie
-		var obok := postac("ania", Vector2(330, 330))
-		obok.modulate = SYLWETKA
+		var obok := postac("sylwetka", Vector2(330, 330))
 		postac("fotograf", Vector2(520, 400))
 		await idz(obok, [Vector2(472, 330)], 34.0)
 		await dymek(obok, r["dlon"], 2.5)

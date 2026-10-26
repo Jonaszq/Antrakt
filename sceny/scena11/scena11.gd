@@ -1,7 +1,7 @@
 extends ScenaGry
 ## Scena 11 (rozdział 3): pracownia kostiumów, niedziela 18:00.
 ## Irena szyje opaski i zbywa Antoniego. Mówi o podszewce dopiero, gdy zobaczy zdjęcie
-## plamy (sc. 10) albo pasów na skórze (sc. 6) i wtedy odwraca się do okna (s11_otwarta).
+## plamy (sc. 10) albo pasów na skórze (sc. 6) i wtedy przestaje szyć i staje przy oknie (s11_otwarta).
 ## Dopiero wtedy da się zabrać nożyczki ze stołu (potrzebne w sc. 13). Zeznanie dodaje
 ## kartę "podszewka" do teczki. Zdjęcie z próby (s11_foto) pokaże się w retrospekcji 2.
 ## Teksty w Dialogi.SCENA11.
@@ -75,17 +75,26 @@ func _wez_nozyczki() -> void:
 
 
 ## Zdjęcie plamy albo pasów: Irena pęka, opowiada o podszewce i odchodzi do okna.
-func _pokazal(klucz: String, flaga: String) -> void:
+## Wtedy rozmowa się kończy (true), maszyna milknie, a Irena stoi przy oknie.
+func _pokazal(klucz: String, flaga: String) -> bool:
 	var t: Dictionary = Dialogi.SCENA11
 	await rozmowa(t[klucz])
 	Gra.flagi[flaga] = true
 	if Gra.flagi.get("s11_otwarta", false):
-		return
+		return false
 	await rozmowa(t["podszewka"])
 	Gra.flagi["s11_otwarta"] = true
 	Gra.flagi["s11_podszewka"] = true
 	Teczka.dodaj("podszewka")
+	_irena.set_meta("tlo", [])
+	_do_okna()
+	return true
+
+
+func _do_okna() -> void:
 	await idz(_irena, [Vector2(330, 380), Vector2(521, 200), OKNO], 60.0)
+	if is_instance_valid(_irena):
+		_irena.set_meta("tlo", Dialogi.SCENA11_TLO["irena_okno"])
 
 
 func _rozmowa_z_irena() -> void:
@@ -111,7 +120,7 @@ func _rozmowa_z_irena() -> void:
 		"zdjecie_pasy": _pokazal.bind("pasy", "s11_szwy"),
 		"karta_kwit": t["irena_kwit"],
 	}
-	await przesluchanie(tematy, dowody, t["irena_nic"], t["irena_koniec"])
+	await przesluchanie(tematy, dowody, t["irena_nic"], t["irena_okno_koniec"] if otwarta.call() else t["irena_koniec"])
 
 
 func _wez_opaske() -> void:

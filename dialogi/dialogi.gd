@@ -1388,6 +1388,7 @@ const SCENA11 := {
 	"irena_nic": [["Irena", "Panie, ja szyję. Na papierach się nie znam."]],
 	"irena_kwit": [["Irena", "Pralnia Perła. Halina pierze najlepiej w mieście, a i tak nie dała rady?"]],
 	"irena_koniec": [["Irena", "(wraca do maszyny)"]],
+	"irena_okno_koniec": [["Irena", "(dalej patrzy w okno)"]],
 	"nozyczki_nie": [["", "Irena podnosi wzrok znad maszyny i patrzy na moje ręce. Lepiej nie teraz."]],
 	"nozyczki": [["", "Duże nożyczki krawieckie. Ostre jak brzytwa. Irena stoi tyłem."], ["", "Biorę je."]],
 	"nozyczki_potem": [["", "Na stole skrawki materiału i kreda krawiecka."]],
@@ -1424,6 +1425,7 @@ const SCENA11 := {
 
 const SCENA11_TLO := {
 	"irena": ["(stuk-stuk maszyny)", "Cholerna nitka...", "(pociąga nosem)"],
+	"irena_okno": ["(pociąga nosem)", "(patrzy w deszcz)"],
 }
 
 
