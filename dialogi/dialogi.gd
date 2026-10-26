@@ -1084,6 +1084,7 @@ const SCENA9 := {
 		["", "\"Zawsze w drugim rzędzie, a grałeś jak w pierwszym. Zespół.\""],
 		["", "\"Adriankowi, od pani Stasi z czwartego rzędu.\""],
 		["", "\"Do zobaczenia za kulisami. M.\""],
+		["", "Ostatnia kartka, bez koperty: \"Przepraszam. Kocham. A.\" Duże A wywinięte w pętelkę, pod spodem kreska."],
 	],
 	"zdjecie_potem": [["", "Świeczka dopala się. Ktoś dołożył jeszcze jeden goździk."]],
 	"wstazka": [["", "Czarna wstążka przypięta pinezką. Pod spodem kartka: \"Spektakl we wtorek odbędzie się zgodnie z planem\"."]],
@@ -1280,8 +1281,10 @@ const SCENA10 := {
 	"ksiazka": [
 		["", "Książka przyjęć. Rubryki: numer, rzecz, kto, data i godzina ze stempla."],
 		["", "\"0412. Kostium sceniczny, teatr. Skrzynka nocna. Stempel: czw. 23:40. Podpis: A.\""],
+		["", "Podpis to jedna litera, ale charakterna: duże A wywinięte u góry w pętelkę, pod spodem zamaszysta kreska."],
+		["", "Adrian, Adam, Adamczyk... Połowa teatru podpisałaby się \"A.\". Ale nie każdy robi pętelkę."],
 	],
-	"ksiazka_potem": [["", "\"Skrzynka nocna. Stempel: czw. 23:40. Podpis: A.\""]],
+	"ksiazka_potem": [["", "\"Stempel: czw. 23:40. Podpis: A.\" Pętelka u góry, kreska pod spodem."]],
 	"skrzynka_nocna": [["", "Skrzynka nocna w drzwiach. W środku zegar, który stempluje godzinę na każdym worku. Nie spóźnia się, pani Halina pilnuje."]],
 	"bulki": [["Halina", "Niech pan weźmie bułkę, pan taki blady. Detektywi też muszą jeść."]],
 	"bulki_potem": [["", "Bułki z piekarni obok. Jedną już wziąłem."]],
@@ -1839,7 +1842,7 @@ const SCENA14 := {
 		["", "W programie premiery to samo: debiut w 1998, jako Hamlet. Ten rok musi być dla niego ważny."],
 	],
 	"plakat_romeo": [["", "\"ROMEO 1994\". Szkoła teatralna. Wolski jako Romeo, chudy jak patyk."]],
-	"plakat_akt": [["", "\"Ostatni akt\". Ten sam plakat co w foyer, tylko z autografem: \"Dla siebie samego, A.W.\""]],
+	"plakat_akt": [["", "\"Ostatni akt\". Ten sam plakat co w foyer, tylko z autografem: \"Dla siebie samego, A.W.\""], ["", "Pismo zamaszyste, pochylone w prawo. A ostre jak namiot, bez żadnej pętelki."]],
 	"sejf": [["", "Mały stalowy sejf przy szafie. Pokrętło z czterema cyframi. Przy Wolskim nawet nie dotykam."]],
 	"szafa": [["", "Garnitury, szlafrok z monogramem, trzy pary lakierków. Peruki tu nie ma."]],
 	"parawan": [["", "Za parawanem lustro i stołek. Na podłodze rozsypany puder. Peruki nie ma."]],
@@ -1957,9 +1960,21 @@ const SCENA15 := {
 	"szafa_otwieram": [
 		["", "Mały klucz pasuje. Szafa otwiera się ze skrzypnięciem."],
 		["", "Bele jedwabiu, brokatu, aksamitu w kolorze wina. Z metkami hurtowni \"Atlas\". Na każdej metce cena, której teatr nigdy by nie zapłacił."],
+		["", "Na dnie szafy brązowa butelka. Ręczny napis: \"UTRWALACZ. ŻRĄCE. NIE DOTYKAĆ SKÓRĄ\"."],
 		["", "Zamykam szafę i odkładam klucze. Lepiej, żeby nie wiedziała."],
 	],
-	"szafa_potem": [["", "Szafa z belami. Jedwab, brokat, metki \"Atlas\"."]],
+	"szafa_potem": [["", "Szafa z belami. Jedwab, brokat, metki \"Atlas\". Na dnie butelka z utrwalaczem."]],
+	"utrwalacz_zapach": [["", "Odkręcam butelkę na moment. Ostry ocet, aż łzawią oczy. Nic słodkiego, nic zgniłego."]],
+	"irena_utrwalacz": [
+		["Antoni", "W pani szafie stoi butelka. \"Żrące, nie dotykać skórą\"."],
+		["Irena", "(blednie, potem czerwienieje) Grzebał pan w mojej szafie?!"],
+		["Irena", "To nie pana sprawa, co tam trzymam. Proszę stąd wyjść, zanim zawołam Bogdana."],
+	],
+	"irena_utrwalacz_prawda": [
+		["Antoni", "A butelka z utrwalaczem?"],
+		["Irena", "(wzdycha) Farbuję ten jedwab, zanim pójdzie na lewo. Żeby nikt go nie poznał na cudzej scenie."],
+		["Irena", "Śmierdzi octem na całe piętro. Adrian zawsze otwierał okno i żartował, że marynuję śledzie."],
+	],
 	"regal": [
 		["", "Na regale segregator: \"Spis tkanin pracowni\". Podpisany przez Lisa."],
 		["", "Aksamit, len, atłas, bawełna, filc. Jedwabiu i brokatu nie ma w ogóle."],
@@ -2141,7 +2156,7 @@ const SCENA17 := {
 		["", "Biorę to pełne. Może się przydać."],
 	],
 	"leki_potem": [["", "Puste opakowania po lekach przeciwbólowych."]],
-	"lodowka": [["", "Na lodówce kartka pod magnesem, pismo rozjechane: \"od próby wszystko piecze, kupić maść\"."]],
+	"lodowka": [["", "Na lodówce kartka pod magnesem, pismo rozjechane: \"od próby wszystko piecze, kupić maść\"."], ["", "Adrian pisał drobnymi, drukowanymi literami. Jak ktoś, kto całe życie przepisuje role."]],
 	"lodowka_potem": [["", "\"Od próby wszystko piecze, kupić maść\"."]],
 	"zlew": [["", "Kran kapie. Kap. Kap. Zakręcam go mocniej. Dalej kapie."]],
 	"roslina": [["", "Zwiędła bazylia na parapecie. Nikt jej nie podlał od tygodnia."]],
@@ -2395,6 +2410,11 @@ const SCENA19 := {
 		["Antoni", "Kto ma klucz do pracowni?"],
 		["Marta", "Ja, Irena, dyrekcja i główna obsada. Tak zawsze było."],
 	],
+	"marta_podpis": [
+		["Antoni", "Znasz to pismo? Duże A z pętelką."],
+		["Marta", "(mruży oczy) Pętelka i kreska pod spodem... Tak się podpisuje Ania. Na każdej kartce urodzinowej w pokoju aktorów."],
+		["Marta", "Uczyła się autografu jeszcze w szkole teatralnej. Śmialiśmy się z niej."],
+	],
 	"marta_grafik": [
 		["Marta", "(patrzy na grafik, potem na skrzynki pod drzwiami)"],
 		["Marta", "Mleko w czwartki... To były te skrzynki. Pod drzwiami PERSONEL."],
@@ -2438,6 +2458,7 @@ const SCENA19 := {
 	"kuba_kwit": [
 		["Kuba", "Skrzynka w pralni? Byłem tam w czwartek, ale o 23:10. Oddałem garnitur na casting."],
 		["Kuba", "(grzebie w portfelu) Mam swój kwit. Podpisałem się całym nazwiskiem, Adamczyk. Nie żadne \"A.\"."],
+		["", "Koślawe, szkolne litery. A jak daszek, bez pętelki."],
 	],
 	"kuba_wolski": [
 		["Antoni", "Znasz całą rolę Wolskiego na pamięć."],
@@ -2491,6 +2512,7 @@ const CZWARTEK := {
 
 # Obiad u Oli: raz na dzień, +40 sił, godzina w plecy.
 const OLA := {
+	"obrazeni": [["Ola", "Dzwoniła do mnie Marta z teatru. Mówi, że obrazili się na ciebie: {kto}. Coś ty im zrobił?"], ["Antoni", "Pokazałem parę rzeczy nie tym ludziom, co trzeba."], ["Ola", "To idź i przeproś. Ludzie mówią więcej, jak ich nie obrażasz."]],
 	"start": [["Ola", "No wreszcie! Siadaj. Rosół, ziemniaki, kotlet. I nie gadaj mi, że nie jesteś głodny."]],
 	"slaby": [["Ola", "Antek, ty wyglądasz jak trup. Biegasz po mieście i nic z tego nie masz. Kiedy ostatnio spałeś? Jedz. Powoli."]],
 	"palce": [["Ola", "Co ty masz z palcami? Czerwone jak od pokrzyw. Pokaż... Tylko nie mów, że to od pracy."]],
@@ -2533,7 +2555,7 @@ const SCENA20 := {
 	],
 	"szuflada_potem": [["", "Wydruki przelewów do Wolskiego."]],
 	"lustro": [
-		["", "Do lustra przyklejona kartka, pismo Adriana:"],
+		["", "Do lustra przyklejona kartka, pismo Adriana, drobne i drukowane:"],
 		["", "\"Złamania karku, kochanie. Zawsze w ciebie wierzę.\""],
 	],
 	"zdjecie": [["", "Zdjęcie: Ania i Adrian na plaży. To samo, co w sobotę. Tylko ramka jest teraz odwrócona do ściany."]],
@@ -2651,11 +2673,11 @@ const SCENA22 := {
 		 "slabe": ["skora", "podszewka_piekla", "zapach", "notatka_lodowka", "sam_dotknal", "halina_lakier", "ciemniejsza", "przez_skore"],
 		 "reakcja": [["Ania", "(ściska torebkę) Trucizna? W kostiumie? To... to jakiś absurd."]]},
 		{"klamstwo": [["Ania", "Ten kostium Adrian sam zaniósł do pralni. Zawsze o wszystko dbał."]],
-		 "mocne": ["skrzynka_23_40"],
+		 "mocne": ["skrzynka_23_40", "pismo_ani"],
 		 "slabe": ["sasiadka_kaszel", "pokrowiec", "kuba_widzial", "skrzynka_noc", "kwit_bez_karty"],
 		 "reakcja": [["Antoni", "Kostium oddano do pralni w czwartek o 23:40. Podpis A. Adrian już wtedy leżał chory w domu."], ["Ania", "Każdy może napisać A. Adam też się tak podpisuje!"]]},
 		{"klamstwo": [["Ania", "Może to Adam go oddał. Albo Kuba, on się kręcił koło tego kostiumu."]],
-		 "mocne": ["recepta", "kuba_garnitur", "kuba_widzial"],
+		 "mocne": ["recepta", "kuba_garnitur", "kuba_widzial", "pismo_ani"],
 		 "slabe": ["wolski_chory", "pokrowiec", "wolski_grypa", "kuba_scenariusz"],
 		 "reakcja": [["Ania", "(milczy dłuższą chwilę) Nie wiem, kto go oddał. Nie było mnie tam."]]},
 		{"klamstwo": [["Ania", "W czwartek rano byłam w domu. Do pracowni Ireny w ogóle nie zaglądam."]],
@@ -2811,6 +2833,7 @@ const ARGUMENTY_NAZWY := {
 	"kwit_bez_karty": "Książka przyjęć: czw. 23:40", "marta_bez_karty": "Marta: czwartek, ósma",
 	"rekawiczki_bez_karty": "Rękawiczki świeciły", "przelewy_bez_karty": "Przelewy w szufladzie",
 	"sms_bez_karty": "SMS z telefonu Adriana",
+	"pismo_ani": "Podpis \"A.\" to pismo Ani", "irena_chemia": "Utrwalacz w szafie Ireny",
 }
 
 ## Tablica w scenie 21: które argumenty przypinają dobrą odpowiedź.
@@ -2897,6 +2920,8 @@ const SLEDZTWO_ARGUMENTY := {
 	"marta_bez_karty": [["f:s19_czwartek", "!k:marta_grafik"], "Marta mówi, że to był czwartek, ósma rano. Widziała cię w pracowni."],
 	"rekawiczki_bez_karty": [["f:s20_uv", "!k:rekawiczki"], "Rękawiczki z twojego kosza świeciły w UV. Widziałem to na własne oczy."],
 	"przelewy_bez_karty": [["f:s20_przelewy", "!k:przelewy"], "Widziałem w twojej szufladzie wydruki przelewów do Wolskiego."],
+	"pismo_ani": [["k:podpis"], "Podpis \"A.\" na kwicie z pralni to twoje pismo. Ta sama pętelka, ta sama kreska co na kartce \"Przepraszam. Kocham. A.\" u Adriana."],
+	"irena_chemia": [["f:s15_utrwalacz", "!f:s15_utrwalacz_prawda"], "Irena trzyma w zamkniętej szafie żrący utrwalacz. Kiedy o niego zapytałem, wyrzuciła mnie z pracowni."],
 	"sms_bez_karty": [["f:s17_sms", "!k:sms"], "Czytałem telefon Adriana. W czwartek wieczorem pisał do ciebie, że kostium go parzy."],
 }
 
@@ -2947,6 +2972,9 @@ const SLEDZTWO_EPILOG := [
 	[["f:s19_garnitur"], "Kuba odebrał w końcu swój garnitur z pralni. Halina dała mu go za darmo.", ""],
 	[["f:s20_uv"], "Rękawiczki z kosza Ani trafiły do laboratorium. Laborant nie był zdziwiony.", ""],
 	[["f:s22_przyznala"], "Ania przyznała się przed sądem do wszystkiego. Do potrącenia też.", ""],
+	[["f:s15_utrwalacz", "!f:s15_utrwalacz_prawda"], "Antoni długo podejrzewał Irenę o ten utrwalacz. Farbowała nim kradziony jedwab, nic więcej.", ""],
+	[["f:s15_utrwalacz_prawda"], "Irena wylała utrwalacz do zlewu jeszcze tego samego dnia. Okno w pracowni stało otwarte do wieczora.", ""],
+	[["k:podpis"], "Kwit z podpisem \"A.\" trafił do akt sprawy. Biegły od pisma potwierdził to, co Antoni zobaczył sam.", ""],
 	[["f:s11_foto_irena"], "Zdjęcie z próby generalnej Irena zdjęła ze ściany. Trzyma je w szufladzie, odwrócone.", ""],
 	[["f:s11b_wieszak"], "Maszynista z kulis od tamtej pory zagląda do pracowni co rano. Tak na wszelki wypadek.", ""],
 ]
@@ -3005,8 +3033,7 @@ const PODPOWIEDZI := {
 		[["f:s11b_klucze", "p:klucze_schowka"], "Sprzątaczka nie odezwie się, dopóki nie ma kluczy. Mówiła coś o skrzyniach."],
 		[["f:s11b_klucze"], "Mam jej klucze. Oddam je i zapytam o czwartek."],
 		[["f:s11b_ania_pytala"], "Garderobiana kłamie, widać po niej. Może zmięknie, jak zobaczy, co ten kostium zrobił?"],
-		[["f:s11_foto_irena"], "Zdjęcie z próby generalnej Irena zdjęła ze ściany. Trzyma je w szufladzie, odwrócone.", ""],
-	[["f:s11b_wieszak"], "Maszynista kręci się tu od świtu. Zapytam go o czwartek rano."],
+		[["f:s11b_wieszak"], "Maszynista kręci się tu od świtu. Zapytam go o czwartek rano."],
 	],
 	"scena12": [
 		[["p:lampa_uv"], "Halina coś trzyma w szafce pod ladą. Zajrzę, kiedy zajmie się klientem."],
@@ -3054,6 +3081,57 @@ const PODPOWIEDZI := {
 }
 
 ## Gdy w teczce są karty, których gracz nie uzupełnił (po podpowiedziach sceny).
+## Napis w rogu ekranu, gdy przybędzie argumentów do finału albo kart w teczce.
+const NOWY_TROP := "Nowy trop"
+
+## Wieczorne podsumowanie dnia w telefonie (Gra._podsumuj_dzien).
+const DZIENNIK := {
+	"kontakt": "Dziennik",
+	"komunikat": "Nowy dzień. Podsumowanie wczorajszego w telefonie (Q).",
+	"naglowek": "%s, wieczorem.",
+	"miejsca": "Byłem: %s.",
+	"kasa": "Wydałem %d zł, zostało %d zł.",
+	"czas": "Stracony czas: %d min.",
+	"tropy": "Nowe tropy: %d.",
+	"obrazeni": "Nie chcą ze mną gadać: %s.",
+	"pytania": "Wciąż nie wiem:",
+}
+
+## Otwarte pytania w dzienniku: [kiedy się pojawia (wszystkie), co je zamyka (wystarczy jedno), pytanie].
+## Pytanie bez odpowiedzi, nigdy podpowiedź, gdzie jej szukać.
+const DZIENNIK_PYTANIA := [
+	[[], ["f:s13_wynik"], "Na co naprawdę umarł Adrian?"],
+	[["f:s10_ksiazka"], ["k:podpis"], "Czyje pismo jest na kwicie z pralni?"],
+	[["f:s10_ksiazka"], ["f:s11b_kuba_widzial", "f:s11b_pokrowiec", "k:podpis"], "Kto wrzucił kostium do skrzynki w czwartek w nocy?"],
+	[["f:s9_obsada"], ["f:s14_ostrzezony", "f:s14_teoria"], "Czyj to był naprawdę kostium? Kto miał w nim zginąć?"],
+	[["f:s15_utrwalacz"], ["f:s15_utrwalacz_prawda"], "Po co Irenie żrący utrwalacz?"],
+	[["f:s14_spalil"], ["f:s18_podsluch", "k:zeszyt"], "Co Wolski spalił przed spektaklem i dlaczego?"],
+	[["f:s11b_wieszak"], ["k:marta_grafik"], "Kto był w pracowni w czwartek rano?"],
+	[["f:s17_kuba"], ["f:s19_kuba_scenariusz"], "Czego Kuba szukał w mieszkaniu Adriana?"],
+	[["f:s17_ania_sms"], ["f:s22_przyznala"], "Dlaczego Ania uciekła z klatki?"],
+]
+
+## Zaufanie: chybiony dowód pod nos to insynuacja (ScenaGry._urazony). "*" = rozmówca.
+const URAZA := {
+	"przepros": "Przepraszam za tamto",
+	"epilog": "%s do dziś nie odpowiada Antoniemu na dzień dobry.",
+	"ostrzezenie": [
+		[["*", "(mruży oczy) Co pan właściwie sugeruje?"]],
+		[["*", "Pokazuje mi pan to drugi raz z taką miną. Uważaj pan."]],
+	],
+	"obraza": [
+		[["*", "Wystarczy. Pan mnie ma za kogoś, kim nie jestem. Nie mam panu nic więcej do powiedzenia."]],
+		[["*", "Dość tych insynuacji. Proszę mnie zostawić w spokoju."]],
+	],
+	"zimno": [
+		[["*", "(odwraca wzrok) Znowu pan? Nie rozmawiam z panem."]],
+		[["*", "(milczy i patrzy w bok)"]],
+	],
+	"przeprosiny": [
+		[["Antoni", "Przepraszam. Za dużo nocy bez snu, za dużo podejrzeń. Nie powinienem był."], ["*", "(długo milczy) No dobrze. Ale niech pan uważa, co mi pokazuje."]],
+	],
+}
+
 const PODPOWIEDZ_TECZKA := "W teczce (F) mam karty bez wpisów. Bez nich nic nie udowodnię."
 
 
@@ -3064,6 +3142,8 @@ const PODPOWIEDZ_TECZKA := "W teczce (F) mam karty bez wpisów. Bez nich nic nie
 # id: [nazwa, gdzie znaleziony, opis faktu, [[rubryka, [dobre odpowiedzi]], ...]]
 
 const KARTY := {
+	"podpis": ["Podpis \"A.\" z kwitu", "Pralnia", "Duże A wywinięte w pętelkę, pod spodem kreska. Kto tak pisze?",
+		[["Czyje pismo", ["ania", "wrzos", "ania wrzos", "anna", "anna wrzos"]]]],
 	"paragon": ["Paragon z hurtowni", "Pracownia kostiumów", "Zakup tkanin, czwartek 7:15.",
 		[["Kogo dotyczy", ["irena", "mroz", "irena mroz"]]]],
 	"bank": ["Potwierdzenie z banku", "Biuro dyrektora", "Wizyta w banku, czwartek 8:05.",

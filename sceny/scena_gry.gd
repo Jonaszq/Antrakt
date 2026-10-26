@@ -11,6 +11,7 @@ extends Node2D
 
 const ZASIEG := 26.0  # jak blisko trzeba podejść, żeby porozmawiać
 const PODPOWIEDZ_PO := 120.0  # sekundy bez postępu, po których Antoni myśli na głos
+const URAZA_PROG := 2  # tyle chybionych dowodów pod nos i rozmówca się obraża
 
 var antoni: CharacterBody2D
 var dialog: Dialog
@@ -27,6 +28,7 @@ var _podpowiedz_tekst: Label
 var _zaslona: ColorRect
 var _dymki: Array = []  # [węzeł, etykieta]
 var _komunikat: Label
+var _trop: Label
 
 
 func przygotuj(mapa: Node) -> void:
@@ -61,10 +63,20 @@ func przygotuj(mapa: Node) -> void:
 	_komunikat.add_theme_color_override("font_outline_color", Color8(12, 8, 10))
 	_komunikat.modulate.a = 0.0
 	ui.add_child(_komunikat)
+	_trop = etykieta(12, Color8(242, 212, 126))
+	_trop.text = Dialogi.NOWY_TROP
+	_trop.position = Vector2(372, 246)
+	_trop.size = Vector2(100, 20)
+	_trop.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	_trop.add_theme_constant_override("outline_size", 4)
+	_trop.add_theme_color_override("font_outline_color", Color8(12, 8, 10))
+	_trop.modulate.a = 0.0
+	ui.add_child(_trop)
 	dialog = Dialog.new()
 	add_child(dialog)
 	Gra.zapisz(scene_file_path)
 	_podpowiedzi()
+	_tropy()
 
 
 func etykieta(rozmiar: int, kolor: Color) -> Label:
@@ -83,8 +95,13 @@ func plansza(tekst: String) -> void:
 	miejsce.size = Vector2(480, 40)
 	miejsce.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	ui.add_child(miejsce)
-	Gra.ustaw_dzien(tekst)
-	if Gra.flagi.has("dni_do_pogrzebu"):
+	# retrospekcje dzieją się w przeszłości: nie ruszają licznika ani dziennika
+	var teraz := not "/retrospekcje/" in scene_file_path
+	var nowy_dzien := false
+	if teraz:
+		nowy_dzien = Gra.ustaw_dzien(tekst)
+		Gra.zapamietaj_miejsce(tekst)
+	if teraz and Gra.flagi.has("dni_do_pogrzebu"):
 		var licznik := etykieta(12, Color8(200, 150, 140))
 		licznik.text = Gra.do_pogrzebu()
 		licznik.size = Vector2(480, 20)
@@ -99,6 +116,8 @@ func plansza(tekst: String) -> void:
 	await tw.finished
 	miejsce.queue_free()
 	antoni.sterowanie = true
+	if nowy_dzien:
+		komunikat(Dialogi.DZIENNIK["komunikat"], 4.0)
 
 
 ## Szybkie rozjaśnienie bez planszy (powrót do miejsca, w którym już się było).
@@ -407,6 +426,25 @@ func _postep() -> int:
 	return n
 
 
+## "Nowy trop" w rogu ekranu z cichym akordem, gdy przybędzie argumentów albo kart.
+## Nie mówi, co to znaczy: gracz tylko wie, że coś ważnego właśnie usłyszał.
+func _tropy() -> void:
+	var drzewo := get_tree()
+	var ile := Gra.ile_tropow()
+	while is_instance_valid(self) and not koniec:
+		await drzewo.create_timer(0.5).timeout
+		if not is_instance_valid(self) or koniec:
+			return
+		var teraz := Gra.ile_tropow()
+		if teraz > ile:
+			dzwiek("trop.wav", -8.0)
+			var tw := create_tween()
+			tw.tween_property(_trop, "modulate:a", 1.0, 0.3)
+			tw.tween_interval(2.5)
+			tw.tween_property(_trop, "modulate:a", 0.0, 0.8)
+		ile = teraz
+
+
 ## Antoni znajduje albo dostaje pieniądze: dopisuje je i pokazuje napis u góry.
 func znajdz_kase(ile: int) -> void:
 	Gra.dodaj_kase(ile)
@@ -569,9 +607,19 @@ func temat(flaga: String, kwestie: Array) -> Callable:
 ## Antoni je zobaczył). dowody: id przedmiotu albo karty -> kwestie, reszta dostaje
 ## kwestie nic_nie_wiem. Po każdym temacie lista wraca, aż gracz wybierze "Nic więcej".
 func przesluchanie(tematy: Array, dowody: Dictionary, nic_nie_wiem: Array, pozegnanie: Array = []) -> void:
+	var kto: String = nic_nie_wiem[0][0] if not nic_nie_wiem.is_empty() else ""
+	if kto in ["", "Antoni"]:
+		kto = ""
+	if kto != "" and Gra.obrazony(kto):
+		await rozmowa(_uraza_tekst("zimno", kto))
 	while true:
-		var widoczne := tematy.filter(func(t): return t.size() < 3 or t[2] == null or t[2].call())
+		var obrazony := kto != "" and Gra.obrazony(kto)
+		# obrażony rozmówca nie odpowiada na pytania, dopóki Antoni nie przeprosi;
+		# dowody działają dalej, bo na twarde fakty trzeba zareagować
+		var widoczne := [] if obrazony else tematy.filter(func(t): return t.size() < 3 or t[2] == null or t[2].call())
 		var napisy: Array = widoczne.map(func(t): return t[0])
+		if obrazony:
+			napisy.append(Dialogi.URAZA["przepros"])
 		napisy.append_array(["Pokaż dowód", "Nic więcej"])
 		var nr := await wybor(napisy)
 		if nr == napisy.size() - 1:
@@ -583,12 +631,17 @@ func przesluchanie(tematy: Array, dowody: Dictionary, nic_nie_wiem: Array, pozeg
 			var id := await wybierz_dowod()
 			if id != "":
 				var reakcja = dowody.get(id, nic_nie_wiem)
-				# dowód, który tej osobie nic nie mówi, albo fałszywy trop: mija trochę czasu
+				# dowód, który tej osobie nic nie mówi, albo fałszywy trop: mija trochę czasu,
+				# a podsuwanie ludziom pod nos dowodów, które ich nie dotyczą, to insynuacja
 				if not dowody.has(id):
 					Sledztwo.strata(5)
 				if id in Dialogi.FALSZYWE_TROPY:
 					Sledztwo.strata(10)
 				Gra.flagi["pokazal_" + id] = true
+				if not dowody.has(id) and kto != "" and not Gra.obrazony(kto):
+					await rozmowa(reakcja)
+					await _urazony(kto)
+					continue
 				if reakcja is Callable:
 					# reakcja zwracająca true kończy rozmowę (np. rozmówca wychodzi)
 					var wynik = await reakcja.call()
@@ -598,11 +651,35 @@ func przesluchanie(tematy: Array, dowody: Dictionary, nic_nie_wiem: Array, pozeg
 				else:
 					await rozmowa(reakcja)
 			continue
+		if obrazony and nr == 0:
+			await rozmowa(_uraza_tekst("przeprosiny", kto))
+			Sledztwo.strata(20)
+			Gra.przepros(kto)
+			continue
 		var co = widoczne[nr][1]
 		if co is Callable:
-			await co.call()
+			# temat zwracający true kończy rozmowę (rozmówca wyrzuca Antoniego)
+			var wynik = await co.call()
+			if wynik is bool and wynik:
+				antoni.sterowanie = true
+				return
 		else:
 			await rozmowa(co)
+
+
+## Chybiony dowód: pierwszy raz rozmówca się krzywi, za URAZA_PROG razem się obraża.
+func _urazony(kto: String) -> void:
+	var ile := Gra.uraz(kto)
+	if ile >= URAZA_PROG:
+		await rozmowa(_uraza_tekst("obraza", kto))
+	else:
+		await rozmowa(_uraza_tekst("ostrzezenie", kto))
+
+
+func _uraza_tekst(klucz: String, kto: String) -> Array:
+	var wiersze: Array = Dialogi.URAZA[klucz]
+	var w: Array = wiersze[Gra.flagi.get("uraza_" + kto, 0) % wiersze.size()]
+	return w.map(func(linia): return [kto if linia[0] == "*" else linia[0], linia[1]])
 
 
 ## Lista dowodów do pokazania: przedmioty fabularne i sprawdzone karty z teczki

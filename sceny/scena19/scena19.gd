@@ -86,7 +86,8 @@ func _rozmowa_z_marta() -> void:
 		["Pamiętasz coś jeszcze z tamtego rana?", temat("s19_szczegoly", t["marta_szczegoly"]), func() -> bool: return f.get("s19_marta", false)],
 		["Kto ma klucz do pracowni?", t["marta_klucz"]],
 	]
-	await przesluchanie(tematy, {"grafik": _grafik}, t["marta_nic"], t["marta_koniec"])
+	var dowody := {"grafik": _grafik, "karta_kwit": t["marta_podpis"], "karta_podpis": t["marta_podpis"]}
+	await przesluchanie(tematy, dowody, t["marta_nic"], t["marta_koniec"])
 
 
 ## Grafik działa dopiero, gdy Marta opowiedziała o skrzynkach.

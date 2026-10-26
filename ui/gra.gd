@@ -198,6 +198,8 @@ func wczytaj() -> String:
 
 func dodaj_kase(ile: int) -> void:
 	kasa = maxi(kasa + ile, 0)
+	if ile > 0 and flagi.has("_dzien"):
+		flagi["_dzien"].dostal += ile
 
 
 ## Po kawie Antoni przez pół minuty chodzi szybciej.
@@ -283,12 +285,97 @@ func _input(zdarzenie: InputEvent) -> void:
 const DNI := {"niedziela": 5, "poniedziałek": 4, "wtorek": 3, "środa": 2, "czwartek": 1, "piątek": 0}
 
 
-func ustaw_dzien(tekst: String) -> void:
+## Ustawia licznik z dnia tygodnia na planszy. Zwraca true, gdy zaczął się nowy dzień
+## (wtedy do telefonu trafia podsumowanie poprzedniego).
+func ustaw_dzien(tekst: String) -> bool:
 	var maly := tekst.to_lower()
 	for dzien in DNI:
 		if dzien in maly:
 			flagi["dni_do_pogrzebu"] = DNI[dzien]
+			var stary: Dictionary = flagi.get("_dzien", {})
+			if stary.get("nazwa", "") == dzien:
+				return false
+			var byl := not stary.is_empty()
+			if byl:
+				_podsumuj_dzien(stary)
+			flagi["_dzien"] = {"nazwa": dzien, "miejsca": [miejsce_z(tekst)], "kasa": kasa, "dostal": 0,
+				"stracone": flagi.get("stracone_minuty", 0), "tropy": ile_tropow()}
+			return byl
+	return false
+
+
+func miejsce_z(tekst: String) -> String:
+	return tekst.split(",")[0].strip_edges()
+
+
+## Miejsce z planszy do dziennika dnia (bez powtórek).
+func zapamietaj_miejsce(tekst: String) -> void:
+	var d: Dictionary = flagi.get("_dzien", {})
+	if d.is_empty():
+		return
+	var m := miejsce_z(tekst)
+	for dzien in DNI:
+		if m.to_lower() == dzien:
 			return
+	if not m in d.miejsca:
+		d.miejsca.append(m)
+
+
+## Wieczorne podsumowanie w telefonie (Wiadomości, kontakt "Dziennik"): gdzie był,
+## pieniądze, stracony czas, ile nowych tropów, kto się obraził i czego jeszcze nie wie.
+func _podsumuj_dzien(d: Dictionary) -> void:
+	var t: Dictionary = Dialogi.DZIENNIK
+	var linie: Array = [t["naglowek"] % d.nazwa.capitalize()]
+	linie.append(t["miejsca"] % ", ".join(d.miejsca))
+	var wydal: int = d.kasa + d.dostal - kasa
+	linie.append(t["kasa"] % [wydal, kasa])
+	linie.append(t["czas"] % maxi(0, flagi.get("stracone_minuty", 0) - d.stracone))
+	linie.append(t["tropy"] % maxi(0, ile_tropow() - d.tropy))
+	var obrazeni := obrazeni()
+	if not obrazeni.is_empty():
+		linie.append(t["obrazeni"] % ", ".join(obrazeni))
+	var pytania: Array = []
+	for p in Dialogi.DZIENNIK_PYTANIA:
+		if Sledztwo.wszystkie(p[0]) and not p[1].any(func(w): return Sledztwo.jest(w)):
+			pytania.append("- " + p[2])
+	if not pytania.is_empty():
+		linie.append(t["pytania"] + "\n" + "\n".join(pytania.slice(0, 3)))
+	Telefon.dodaj_sms(t["kontakt"], "\n".join(linie), "22:00")
+
+
+func ile_tropow() -> int:
+	return Sledztwo.argumenty().size() + Teczka.karty.size()
+
+
+# ---------- zaufanie ----------
+# Chybiony dowód podsunięty pod nos to insynuacja: uraza_<imię> rośnie, przy
+# ScenaGry.URAZA_PROG rozmówca się obraża (obrazony_<imię>) i nie odpowiada na pytania,
+# dopóki Antoni nie przeprosi (przeprosil_<imię>). Działa w każdej scenie z tą osobą.
+
+func obrazeni() -> Array:
+	var wynik: Array = []
+	for k in flagi:
+		if str(k).begins_with("obrazony_") and flagi[k]:
+			wynik.append(str(k).substr(9))
+	return wynik
+
+
+func obrazony(kto: String) -> bool:
+	return flagi.get("obrazony_" + kto, false)
+
+
+func uraz(kto: String) -> int:
+	var ile: int = flagi.get("uraza_" + kto, 0) + 1
+	flagi["uraza_" + kto] = ile
+	if ile >= ScenaGry.URAZA_PROG:
+		flagi["obrazony_" + kto] = true
+	return ile
+
+
+func przepros(kto: String) -> void:
+	flagi["obrazony_" + kto] = false
+	flagi["uraza_" + kto] = 0
+	flagi["przeprosil_" + kto] = true
 
 
 func do_pogrzebu() -> String:

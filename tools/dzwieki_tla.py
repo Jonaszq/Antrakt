@@ -18,6 +18,7 @@ Wynik (dzwieki/tlo/):
   blacha.wav     skrzypienie i łomot blachy na wietrze
   upadek.wav     głuchy łomot przewracającego się manekina
   szczur.wav     szczur: drobne kroki i pisk
+  trop.wav       dwie ciche nuty fortepianu, gdy Antoni wpadnie na nowy trop
 """
 import subprocess
 from pathlib import Path
@@ -239,6 +240,14 @@ def szczur():
     return x / np.max(np.abs(x)) * 0.4
 
 
+def trop():
+    x = np.zeros(int(2.4 * SR))
+    wstaw(x, fortepian("A4", 0.25, 0.6), 0.0, 0.5)
+    wstaw(x, fortepian("E5", 0.6, 0.6), 0.16, 0.5)
+    x = dz.poglos(x, mokry=0.25)
+    return x / np.max(np.abs(x)) * 0.35
+
+
 def main():
     FOLDER.mkdir(parents=True, exist_ok=True)
     zapisz_wav(FOLDER / "dzwonek.wav", dzwonek())
@@ -252,6 +261,7 @@ def main():
     zapisz_wav(FOLDER / "blacha.wav", blacha())
     zapisz_wav(FOLDER / "upadek.wav", upadek())
     zapisz_wav(FOLDER / "szczur.wav", szczur())
+    zapisz_wav(FOLDER / "trop.wav", trop())
 
 
 if __name__ == "__main__":

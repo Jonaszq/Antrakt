@@ -104,6 +104,7 @@ func _ksiazka() -> void:
 	await rozmowa(t["ksiazka"])
 	Gra.flagi["s10_ksiazka"] = true
 	Teczka.dodaj("kwit")
+	Teczka.dodaj("podpis")
 
 
 func _bulki() -> void:

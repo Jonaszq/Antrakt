@@ -16,7 +16,7 @@ const SCENY_ROZDZ4 := ["res://sceny/scena14/scena14.tscn", "res://sceny/scena15/
 ## Przy starcie od rozdziału 5 z menu: dowody pełnego śledztwa (żeby dało się sprawdzić finał).
 const SCENY_ROZDZ5 := ["res://sceny/scena21/scena21.tscn", "res://sceny/scena22/scena22.tscn",
 	"res://sceny/retrospekcje/retro6.tscn", "res://sceny/scena23/scena23.tscn"]
-const KARTY_ROZDZ5 := ["kwit", "sms", "marta_grafik", "rekawiczki", "przelewy", "recepta", "garnitur", "zeszyt"]
+const KARTY_ROZDZ5 := ["kwit", "podpis", "sms", "marta_grafik", "rekawiczki", "przelewy", "recepta", "garnitur", "zeszyt"]
 const FLAGI_ROZDZ5 := ["s9_obsada", "s11_szwy", "s11_podszewka", "s12_uv", "s14_chory", "s18_podsluch", "s19_szczegoly", "s20_lustro"]
 
 const SCENY := [

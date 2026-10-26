@@ -112,6 +112,8 @@ func _szafa() -> void:
 	var t: Dictionary = Dialogi.SCENA15
 	if Gra.flagi.get("s15_bele", false):
 		await rozmowa(t["szafa_potem"])
+		if Gra.flagi.get("s10_zapach", false):
+			await rozmowa(t["utrwalacz_zapach"])
 	elif not _klucze:
 		await rozmowa(t["szafa_zamknieta"])
 	else:
@@ -158,6 +160,7 @@ func _rozmowa_z_irena() -> void:
 		["Gdzie pani była w czwartek rano?", _czwartek],
 		["Kto jeszcze ma klucz do pracowni?", _klucz],
 		["Bele w szafie", _bele, func() -> bool: return f.get("s15_bele", false) and not przyznala.call()],
+		["Butelka z utrwalaczem", _utrwalacz, func() -> bool: return f.get("s15_bele", false) and not f.get("s15_utrwalacz_prawda", false)],
 	]
 	var dowody := {
 		"paragon": _paragon,
@@ -217,6 +220,19 @@ func _bele() -> void:
 func _paragon() -> void:
 	await rozmowa(Dialogi.SCENA15["irena_paragon"])
 	Gra.flagi["s15_alibi"] = true
+
+
+## Fałszywy trop: żrący utrwalacz w szafie. Przed przyznaniem się do kradzieży Irena
+## wpada w złość i wyrzuca Antoniego (s15_utrwalacz), po przyznaniu mówi prawdę.
+func _utrwalacz() -> bool:
+	var t: Dictionary = Dialogi.SCENA15
+	if Gra.flagi.get("s15_przyznala", false):
+		await rozmowa(t["irena_utrwalacz_prawda"])
+		Gra.flagi["s15_utrwalacz_prawda"] = true
+		return false
+	await rozmowa(t["irena_utrwalacz"])
+	Gra.flagi["s15_utrwalacz"] = true
+	return true
 
 
 ## Wyjście: opcjonalnie gabinet Lisa (sc. 16) i obiad u Oli, potem mieszkanie Adriana.

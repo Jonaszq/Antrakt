@@ -45,6 +45,11 @@ Nie trzeba niczego rozpakowywać ani podmieniać ręcznie.
 - Pieniądze zamiast sił (`Gra.kasa`, widać w ekwipunku pod I): z płaszcza, od Marty, z domu, od Oli. Taksówka między miejscami kosztuje 15 zł, bez pieniędzy autobus = 40 minut straty (`Rozdzial4.dojazd`).
 - Licznik dni do pogrzebu na planszy każdej sceny i w ekwipunku (`Gra.ustaw_dzien` czyta dzień tygodnia z planszy).
 - Podpowiedzi: gdy gracz przez 2 minuty nic nowego nie znajdzie, Antoni myśli na głos, gdzie iść albo czego szukać (`Dialogi.PODPOWIEDZI`).
+- Porównanie pisma: podpis "A." z kwitu (karta "podpis" w teczce). Próbki pisma: autograf Wolskiego (sc. 14), kartki u Adriana (sc. 17, 20), kwit Kuby (sc. 19). Marta rozpozna pismo na karcie.
+- Fałszywy trop: utrwalacz w szafie Ireny (sc. 15). Przed przyznaniem się do kradzieży Irena wyrzuca Antoniego, po przyznaniu mówi prawdę.
+- "Nowy trop" w rogu ekranu z cichym akordem (`dzwieki/tlo/trop.wav`), gdy przybędzie argumentów albo kart.
+- Dziennik: po każdym dniu w telefonie (Wiadomości, "Dziennik") podsumowanie: gdzie był Antoni, pieniądze, stracony czas, nowe tropy, kto się obraził i czego jeszcze nie wie (`Dialogi.DZIENNIK_PYTANIA`).
+- Zaufanie: dowód, który rozmówcy nic nie mówi, to insynuacja. Za drugim razem osoba się obraża i nie odpowiada na pytania (w każdej scenie), dopóki Antoni nie przeprosi (20 minut). Ola o tym wspomina, a epilog pamięta.
 - Zapis: gra zapisuje się na początku każdej sceny (`user://zapis.txt`), w menu jest "Kontynuuj". Notes zapisuje się do `user://notes.txt`.
 - Teczka dowodów i tablica podejrzanych pod F (`ui/teczka.gd`, karty w `Dialogi.KARTY`). Rozmowy jak przesłuchanie: `ScenaGry.przesluchanie()` (tematy i pokazywanie dowodów).
 - Ludzie w tle i odgłosy: postacie rysuje `tools/postacie_pixel.py`, dźwięki tła (gwar, dzwonek, telefon, flesz, oklaski, gramofon, auto) `tools/dzwieki_tla.py`, ujęcia auta i bramy `tools/jazda_pixel.py`.

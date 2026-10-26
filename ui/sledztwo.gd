@@ -56,4 +56,6 @@ static func epilog() -> Array:
 		var tekst: String = e[1] if wszystkie(e[0]) else e[2]
 		if tekst != "":
 			zdania.append(tekst)
+	for kto in Gra.obrazeni():
+		zdania.append(Dialogi.URAZA["epilog"] % kto)
 	return zdania
