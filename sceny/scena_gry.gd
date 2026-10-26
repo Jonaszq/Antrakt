@@ -63,6 +63,7 @@ func przygotuj(mapa: Node) -> void:
 	ui.add_child(_komunikat)
 	dialog = Dialog.new()
 	add_child(dialog)
+	Gra.zapisz(scene_file_path)
 	_podpowiedzi()
 
 

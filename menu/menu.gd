@@ -112,12 +112,27 @@ func _ready() -> void:
 
 func _glowne() -> void:
 	_pokaz_naglowek(true)
-	_lista.ustaw([
+	var pozycje := [
 		["Nowa gra", _nowa_gra],
 		["Wybierz scenę", _sceny],
 		["Ustawienia", _ustawienia],
 		["Wyjdź z gry", get_tree().quit],
-	])
+	]
+	if Gra.ma_zapis():
+		pozycje.push_front(["Kontynuuj", _kontynuuj])
+	_lista.ustaw(pozycje)
+
+
+## Wczytuje zapis i wraca na początek sceny, w której gracz skończył.
+func _kontynuuj() -> void:
+	var scena := Gra.wczytaj()
+	if scena == "" or not ResourceLoader.exists(scena):
+		return
+	_lista.visible = false
+	var tw := create_tween()
+	tw.tween_property(_zaslona, "color:a", 1.0, 0.6)
+	await tw.finished
+	get_tree().change_scene_to_file(scena)
 
 
 func _sceny() -> void:
@@ -161,12 +176,14 @@ func _ustawienia() -> void:
 func _nowa_gra() -> void:
 	Notatnik.tekst = ""  # nowa gra = czysty notes; start sceny z menu go nie rusza
 	_start(WSTEP, false)
+	Gra.zapisuj = true
 
 
 ## Ściemnia ekran i uruchamia scenę od zera. Od sceny 2 notes jest już włączony,
 ## a po magazynie (scena 6) Antoni ma już latarkę.
 func _start(scena: String, z_notesem: bool, z_latarka := false) -> void:
 	Gra.nowa_gra()
+	Gra.zapisuj = false  # skok do sceny z menu to test, nie nadpisuje zapisu
 	if z_notesem:
 		Notatnik.wlacz()
 	if z_latarka:

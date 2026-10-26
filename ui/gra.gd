@@ -27,6 +27,12 @@ var flagi := {}
 
 var _kawa_czas := 0.0
 
+## Zapis gry: na początku każdej sceny (ScenaGry.przygotuj) cały stan trafia do PLIK_ZAPISU,
+## "Kontynuuj" w menu wczytuje go i uruchamia tę scenę od początku. Start sceny z menu
+## "Wybierz scenę" (testy) nie nadpisuje zapisu.
+const PLIK_ZAPISU := "user://zapis.txt"
+var zapisuj := true
+
 var _okno: NinePatchRect
 var _ramki: Array[ColorRect] = []
 var _opis_latarni: Label
@@ -144,6 +150,50 @@ func zmien_glosnosc() -> void:
 
 func napis_glosnosci() -> String:
 	return "Głośność: %d%%" % glosnosc()
+
+
+func ma_zapis() -> bool:
+	return FileAccess.file_exists(PLIK_ZAPISU)
+
+
+func zapisz(scena: String) -> void:
+	if not zapisuj or scena == "":
+		return
+	var stan := {
+		"scena": scena, "latarnia": latarnia, "latarnia_dostepna": latarnia_dostepna,
+		"kasa": kasa, "flagi": flagi, "przedmioty": Array(Ekwipunek.przedmioty),
+		"karty": Teczka.karty, "kolejnosc": Teczka._kolejnosc, "skresleni": Teczka.skresleni,
+		"sms": Telefon.sms, "polaczenia": Telefon.polaczenia, "godzina": Telefon.godzina,
+		"notes": Notatnik.aktywny,
+	}
+	var plik := FileAccess.open(PLIK_ZAPISU, FileAccess.WRITE)
+	if plik:
+		plik.store_string(var_to_str(stan))
+
+
+## Wczytuje zapis i zwraca scenę, od której grać dalej ("" gdy zapisu nie ma).
+func wczytaj() -> String:
+	var plik := FileAccess.open(PLIK_ZAPISU, FileAccess.READ)
+	if not plik:
+		return ""
+	var stan = str_to_var(plik.get_as_text())
+	if not stan is Dictionary or not stan.has("scena"):
+		return ""
+	nowa_gra()
+	latarnia = stan.latarnia
+	latarnia_dostepna = stan.latarnia_dostepna
+	kasa = stan.kasa
+	flagi = stan.flagi
+	Ekwipunek.przedmioty = PackedStringArray(stan.przedmioty)
+	Teczka.karty = stan.karty
+	Teczka._kolejnosc = stan.kolejnosc
+	Teczka.skresleni = stan.skresleni
+	Telefon.sms = stan.sms
+	Telefon.polaczenia = stan.polaczenia
+	Telefon.godzina = stan.godzina
+	Notatnik.aktywny = stan.notes
+	zapisuj = true
+	return stan.scena
 
 
 func dodaj_kase(ile: int) -> void:
