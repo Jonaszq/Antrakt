@@ -130,3 +130,12 @@ func _rozmowa_z_halina() -> void:
 	tematy.append(["Kto jeszcze tu bywa z teatru?", temat("s10_kuba_pytal", t["halina_mlody"])])
 	await przesluchanie(tematy, Dialogi.SCENA10_DOWODY, t["halina_nic"], t["halina_koniec"])
 
+
+## Z pralni do teatru: taksówka albo autobus (Rozdzial4.dojazd).
+func przejdz(scena: String) -> void:
+	if koniec:
+		return
+	if scena == NASTEPNA:
+		antoni.sterowanie = false
+		await Rozdzial4.dojazd(self)
+	super.przejdz(scena)

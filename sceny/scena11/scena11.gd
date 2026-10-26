@@ -6,7 +6,7 @@ extends ScenaGry
 ## kartę "podszewka" do teczki. Zdjęcie z próby (s11_foto) pokaże się w retrospekcji 2.
 ## Teksty w Dialogi.SCENA11.
 
-const NASTEPNA := "res://sceny/scena12/scena12.tscn"
+const NASTEPNA := "res://sceny/scena11b/scena11b.tscn"
 const DRZWI := Rect2(26, 104, 52, 36)
 const OKNO := Vector2(521, 132)
 const NOZYCZKI := Vector2(600, 254)

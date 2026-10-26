@@ -1425,6 +1425,86 @@ const SCENA11_TLO := {
 
 
 
+# Scena 11b (rozdział 3): kulisy, niedziela 20:00. Teatr zamknięty na żałobę, ale ekipa
+# jeszcze siedzi. Gracz sam chodzi i wypytuje: sprzątaczka (klucze pod skrzynią),
+# maszynista (czwartek 7:45 pod pracownią), garderobiana (kłamie, pęka przy zdjęciu
+# plamy), Kuba (kłamie o czwartkowej nocy, pęka przy kwicie albo słowach Haliny).
+const SCENA11B := {
+	"plansza": "Kulisy, niedziela 20:00",
+	"start": [["", "Teatr zamknięty na żałobę, ale za sceną pali się światło. Ekipa jeszcze siedzi. Każdy coś widział, tylko nikt nie lubi mówić pierwszy."]],
+	"marta": [
+		["Marta", "Panie Antoni? O tej porze? We wtorek robimy minutę ciszy na scenie, wszystko na mojej głowie."],
+		["Marta", "Kto tu jest? Maszynista przy pulpicie, garderobiana Wolskiego przy wieszaku, sprzątaczka gdzieś łazi, a Kuba gada do tronu. Od piątku tylko to robi."],
+		["Marta", "I niech pan weźmie na taksówkę, w niedzielę autobusy jeżdżą jak chcą. Teatr stawia. (wciska banknot)"],
+	],
+	"marta_potem": [["Marta", "Nie mam teraz głowy, panie Antoni. Naprawdę."]],
+	# sprzątaczka: najpierw klucze, potem mówi
+	"sprzataczka_start": [
+		["Sprzątaczka", "Niech pan nie depcze, dopiero umyłam. I niech pan nie pyta, bo nie mam czasu."],
+		["Sprzątaczka", "Zgubiłam klucze od schowka. Bez nich nie wyjdę stąd do rana, tam mam płaszcz."],
+	],
+	"sprzataczka_bez": [["Sprzątaczka", "Klucze, panie. Najpierw klucze. Gdzieś przy skrzyniach mi wypadły, jak przesuwałam."]],
+	"klucze": [["", "Pod skrzynią, w kurzu: pęk kluczy z plastikową zawieszką \"SCHOWEK\"."]],
+	"klucze_potem": [["", "Kurz i stare konfetti."]],
+	"klucze_oddane": [
+		["Sprzątaczka", "Moje klucze! No to pyta pan. Szybko."],
+	],
+	"sprzataczka_czwartek": [
+		["Sprzątaczka", "W czwartek? Myłam korytarz przy wyjściu dla aktorów. Koło jedenastej w nocy."],
+		["Sprzątaczka", "Wyszła jakaś kobieta. Drobna, w kapturze. Pokrowiec na ubranie pod pachą, taki długi, na kostium."],
+		["Sprzątaczka", "Twarzy nie widziałam. Ale pachniało za nią perfumami. Takimi drogimi, jak u aktorek."],
+	],
+	"sprzataczka_adrian": [["Sprzątaczka", "Pan Adrian zawsze mówił \"dzień dobry\". Jako jedyny. Reszta przechodzi, jakby mnie nie było."]],
+	"sprzataczka_nic": [["Sprzątaczka", "Ja się na tym nie znam. Ja tylko sprzątam."]],
+	"sprzataczka_koniec": [["Sprzątaczka", "Idę, póki mam klucze."]],
+	# maszynista
+	"maszynista_start": [["Maszynista", "Detektyw, co? Słyszałem. Siadaj, jak chcesz. Ja tu jeszcze godzinę liny sprawdzam."]],
+	"maszynista_czwartek": [
+		["Maszynista", "W czwartek rano? Niosłem drabinę koło pracowni, za kwadrans ósma."],
+		["Maszynista", "Drzwi uchylone, światło się paliło. Na stojaku kostium z kartką \"WOLSKI, próba czw.\" I nikogo. Ireny jeszcze nie było, ona przychodzi po dziewiątej."],
+		["Maszynista", "Pomyślałem: ktoś wyszedł na chwilę. Kto? Nie wiem. Drabina była ciężka."],
+	],
+	"maszynista_proba": [["Maszynista", "Na próbie dubler się drapał, cały czas za kołnierz. Myślałem, że nerwy. Pierwszy raz w roli Wolskiego."]],
+	"maszynista_wolski": [["Maszynista", "Wolski? Gwiazda. Daje napiwki jak pan z filmu. Ale jak coś nie po jego myśli, to nagle cichnie i patrzy. Nie lubię tego patrzenia."]],
+	"maszynista_nic": [["Maszynista", "Nie moja działka, szefie."]],
+	"maszynista_koniec": [["Maszynista", "To ja wracam do lin."]],
+	# garderobiana Wolskiego: kłamie
+	"garderobiana_start": [["Garderobiana", "Panie, ja tu tylko wieszam. Kostiumów pana Wolskiego nikt nie rusza oprócz mnie."]],
+	"garderobiana_kto": [["Garderobiana", "Nikt o nic nie pytał. Po co ktoś miałby pytać o kostiumy?"], ["", "Odwraca się do wieszaka trochę za szybko."]],
+	"garderobiana_peka": [
+		["Garderobiana", "(patrzy na zdjęcie długo) To... to jest ta podszewka? Od tego?"],
+		["Garderobiana", "Dobrze. Powiem. W środę wieczorem pytała mnie Ania. W którym kostiumie pan Wolski gra jutro na próbie i kiedy idzie do pracowni do poprawki."],
+		["Garderobiana", "Powiedziałam: ten z premiery, rano, na stojaku u Ireny. Myślałam, że chce mu zrobić niespodziankę. Ona go tak lubi..."],
+	],
+	"garderobiana_potem": [["Garderobiana", "Powiedziałam już wszystko. Proszę mnie zostawić."]],
+	"garderobiana_nic": [["Garderobiana", "Nie wiem, co to ma do mnie."]],
+	"garderobiana_koniec": [["Garderobiana", "Mam jeszcze trzy wieszaki."]],
+	# Kuba: kłamie o czwartkowej nocy
+	"kuba_start": [["Kuba", "(do tronu) \"...i niech ta noc będzie ostatnią...\" O, pan detektyw. Ja tylko powtarzam rolę."]],
+	"kuba_czwartek": [["Kuba", "W czwartek wieczorem? W domu byłem. Uczyłem się roli. Całą noc."]],
+	"kuba_pralnia": [
+		["Antoni", "Halina z pralni mówi co innego. Pytałeś tam o kostium z teatru."],
+	],
+	"kuba_peka": [
+		["Kuba", "No dobra! Byłem przy pralni. Wrzuciłem garnitur do skrzynki nocnej, koło jedenastej. Na rozmowę w Teatrze Nowym, rano miałem casting."],
+		["Kuba", "Potem czekałem na nocny autobus, naprzeciwko. Spóźnił się. Za dwadzieścia dwunasta podeszła do skrzynki jakaś kobieta. Drobna, w kapturze."],
+		["Kuba", "Wcisnęła coś dużego, zawiniętego. Długo nie mogła. Potem odeszła szybko, prawie biegiem. Nie widziałem twarzy, przysięgam."],
+	],
+	"kuba_potem": [["Kuba", "Powiedziałem wszystko. Niech pan nie mówi Lisowi o castingu, dobra?"]],
+	"kuba_rola": [["Kuba", "Dostałem rolę dublera. Wiem, jak to wygląda. Ale ja nie chciałem jej w ten sposób."]],
+	"kuba_nic": [["Kuba", "Nie wiem, panie Antoni."]],
+	"kuba_koniec": [["Kuba", "(wraca do tronu) \"...i niech ta noc...\""]],
+	"skrzynie": [["", "Skrzynie z dekoracjami. Jedna przesunięta, na podłodze ślad w kurzu."]],
+	"ghost_light": [["", "Lampa ducha. Pali się zawsze, kiedy teatr jest pusty. Żeby duchy miały przy czym grać."]],
+	"wyjscie": "Do domu",
+	"noc": "Poniedziałek. Do pogrzebu cztery dni.",
+	"tlo": {
+		"maszynista": ["(sprawdza linę) Trzyma...", "(gwiżdże cicho)"],
+		"kuba": ["\"...i niech ta noc będzie ostatnią...\"", "\"...nie, jeszcze raz...\""],
+		"sprzataczka": ["(szoruje) Ciągle ktoś łazi...", "(mruczy) Kurz, kurz, kurz..."],
+	},
+}
+
 # Scena 12: pralnia, poniedziałek 10:00. Lampa UV leży w szafce pod ladą: da się ją
 # wziąć tylko wtedy, gdy Halina jest zajęta klientem albo kurierem.
 const SCENA12 := {
@@ -2572,19 +2652,19 @@ const SCENA22 := {
 		 "reakcja": [["Ania", "(ściska torebkę) Trucizna? W kostiumie? To... to jakiś absurd."]]},
 		{"klamstwo": [["Ania", "Ten kostium Adrian sam zaniósł do pralni. Zawsze o wszystko dbał."]],
 		 "mocne": ["skrzynka_23_40"],
-		 "slabe": ["sasiadka_kaszel"],
+		 "slabe": ["sasiadka_kaszel", "pokrowiec", "kuba_widzial"],
 		 "reakcja": [["Antoni", "Kostium oddano do pralni w czwartek o 23:40. Podpis A. Adrian już wtedy leżał chory w domu."], ["Ania", "Każdy może napisać A. Adam też się tak podpisuje!"]]},
 		{"klamstwo": [["Ania", "Może to Adam go oddał. Albo Kuba, on się kręcił koło tego kostiumu."]],
-		 "mocne": ["recepta", "kuba_garnitur"],
-		 "slabe": ["wolski_chory"],
+		 "mocne": ["recepta", "kuba_garnitur", "kuba_widzial"],
+		 "slabe": ["wolski_chory", "pokrowiec"],
 		 "reakcja": [["Ania", "(milczy dłuższą chwilę) Nie wiem, kto go oddał. Nie było mnie tam."]]},
 		{"klamstwo": [["Ania", "W czwartek rano byłam w domu. Do pracowni Ireny w ogóle nie zaglądam."]],
 		 "mocne": ["marta_czwartek"],
-		 "slabe": ["marta_bez_dnia", "klucz_ania"],
+		 "slabe": ["marta_bez_dnia", "klucz_ania", "ania_pytala", "kartka_wolski"],
 		 "reakcja": [["Antoni", "Marta widziała cię w pracowni w czwartek o ósmej. Z butelką w ręku."], ["Ania", "Marta... Marta się potknęła. Ona nie wie, co widziała."]]},
 		{"klamstwo": [["Ania", "Nie dotknęłam tego kostiumu. Pokaż mi choć jeden ślad, że go dotykałam."]],
 		 "mocne": ["rekawiczki_uv"],
-		 "slabe": ["pierscionek"],
+		 "slabe": ["pierscionek", "ania_pytala"],
 		 "reakcja": [["Ania", "(patrzy na swoje dłonie) To... ja tylko poprawiałam szwy."]]},
 		{"klamstwo": [["Ania", "Po co miałabym kogokolwiek krzywdzić? Adam to mój przyjaciel. Pomógł mi dostać tę rolę."]],
 		 "mocne": ["podsluch", "zeszyt", "przelewy", "pendrive"],
@@ -2719,12 +2799,14 @@ const ARGUMENTY_NAZWY := {
 	"recepta": "Recepta Wolskiego", "pendrive": "Nagranie wypadku", "marta_czwartek": "Marta: czwartek, butelka",
 	"marta_bez_dnia": "Marta: ktoś o ósmej", "kuba_casting": "Casting Kuby", "kuba_garnitur": "Kwit Kuby: 23:10",
 	"rekawiczki_uv": "Rękawiczki świecą w UV", "przelewy": "Wydruki przelewów", "kartka_adriana": "Kartka od Adriana",
-	"pierscionek": "Pierścionek na zdjęciu",
+	"pierscionek": "Pierścionek na zdjęciu", "pokrowiec": "Sprzątaczka: kobieta z pokrowcem",
+	"kuba_widzial": "Kuba: kobieta przy skrzynce", "kartka_wolski": "Kartka \"WOLSKI\" na kostiumie",
+	"ania_pytala": "Garderobiana: Ania pytała",
 }
 
 ## Tablica w scenie 21: które argumenty przypinają dobrą odpowiedź.
 const TABLICA_JAK := ["trucizna", "uv_zielona", "pasy_szwy", "plama", "skora", "podszewka_piekla", "zapach", "notatka_lodowka", "sam_dotknal"]
-const TABLICA_KTO_MIAL := ["kostium_wolskiego", "wolski_chory", "recepta", "podsluch", "wolski_apteka"]
+const TABLICA_KTO_MIAL := ["kostium_wolskiego", "wolski_chory", "recepta", "podsluch", "wolski_apteka", "kartka_wolski", "ania_pytala"]
 
 
 const FALSZYWE_TROPY := ["termos"]
@@ -2787,6 +2869,10 @@ const SLEDZTWO_ARGUMENTY := {
 	"przelewy": [["k:przelewy"], "W twojej szufladzie leżą wydruki przelewów do Wolskiego."],
 	"kartka_adriana": [["f:s20_lustro"], "\"Złamania karku, kochanie. Zawsze w ciebie wierzę.\" Kartka od Adriana na twoim lustrze."],
 	"pierscionek": [["f:s11_foto"], "Na zdjęciu z próby ktoś trzyma dłoń z pierścionkiem na ramieniu Adriana."],
+	"pokrowiec": [["f:s11b_pokrowiec"], "W czwartek koło jedenastej w nocy drobna kobieta w kapturze wyniosła z teatru pokrowiec na kostium. Pachniało za nią drogimi perfumami."],
+	"kuba_widzial": [["f:s11b_kuba_widzial"], "Kuba czekał na autobus naprzeciwko pralni. O 23:40 drobna kobieta w kapturze wcisnęła do skrzynki coś dużego, zawiniętego."],
+	"kartka_wolski": [["f:s11b_wieszak"], "W czwartek za kwadrans ósma kostium wisiał w pustej pracowni z kartką \"WOLSKI, próba czw.\"."],
+	"ania_pytala": [["f:s11b_ania_pytala"], "W środę wieczorem pytałaś garderobianą, w którym kostiumie Wolski gra na próbie i kiedy idzie do pracowni."],
 }
 
 ## Epilog: [warunki, zdanie gdy spełnione, zdanie gdy nie ("" = nic)].
@@ -2798,6 +2884,9 @@ const SLEDZTWO_EPILOG := [
 	[["f:s9_kwit_kuba"], "Kuba odebrał kostium z pralni za wcześnie. Część plamy spłynęła z wodą.", ""],
 	[["f:s12_dotknal"], "Antoni jeszcze przez tydzień czuł pieczenie w palcach.", ""],
 	[["f:s13_dom"], "Ola do dziś wypomina, że zupa była dla niej, nie dla detektywa.", ""],
+	[["f:s11b_klucze"], "Sprzątaczka z teatru mówi Antoniemu \"dzień dobry\". Jako jedynemu.", ""],
+	[["f:s11b_kuba_widzial"], "Kuba zeznawał w sądzie o kobiecie w kapturze. Na casting do Teatru Nowego się dostał.", ""],
+	[["f:s11b_ania_pytala"], "Garderobiana Wolskiego odeszła z teatru po sezonie. Mówi, że już nikomu nie powie, co kto nosi.", ""],
 	[["f:taksowki"], "Taksówkarze z postoju pod teatrem do dziś machają Antoniemu na powitanie.", ""],
 	[["f:s11_opaska"], "Antoni nosił czarną opaskę Ireny aż do pogrzebu.", ""],
 	[["f:s14_ostrzezony"], "Wolski od tamtego wieczoru nie założył żadnego kostiumu, zanim garderobiana go nie wyprała.", ""],
@@ -2864,6 +2953,12 @@ const PODPOWIEDZI := {
 		[["p:zdjecie_plamy", "f:s10_kuba_odebral"], "Kostium trzeba położyć pod lampą i dobrze mu się przyjrzeć. Zrobię zdjęcie."],
 		[["f:s10_ksiazka"], "Kto oddał ten kostium? Halina zapisuje wszystko w książce przyjęć."],
 		[["f:_"], "Na dziś starczy. Wyjście jest przy ladzie."],
+	],
+	"scena11b": [
+		[["f:s11b_klucze", "p:klucze_schowka"], "Sprzątaczka nie odezwie się, dopóki nie ma kluczy. Mówiła coś o skrzyniach."],
+		[["f:s11b_klucze"], "Mam jej klucze. Oddam je i zapytam o czwartek."],
+		[["f:s11b_ania_pytala"], "Garderobiana kłamie, widać po niej. Może zmięknie, jak zobaczy, co ten kostium zrobił?"],
+		[["f:s11b_wieszak"], "Maszynista kręci się tu od świtu. Zapytam go o czwartek rano."],
 	],
 	"scena12": [
 		[["p:lampa_uv"], "Halina coś trzyma w szafce pod ladą. Zajrzę, kiedy zajmie się klientem."],
@@ -3033,6 +3128,7 @@ const PRZEDMIOTY := {
 	"probka": ["Próbka podszewki", "Kawałek podszewki z plamą w woreczku na dowody.", "fabularny", 0],  # wycięta w pralni, sc. 13
 	"polisa": ["Polisa na życie", "Ubezpieczony: Adam Wolski. Uposażony: Teatr Miejski. Dwa miliony złotych. Podpis: B. Lis.", "fabularny", 0],  # szuflada Lisa, sc. 16
 	"klucz_adriana": ["Klucz do mieszkania Adriana", "Klucz z breloczkiem w kształcie serca. Od Ani.", "fabularny", 0],  # Ania na klatce, sc. 17
+	"klucze_schowka": ["Klucze od schowka", "Pęk kluczy z zawieszką \"SCHOWEK\". Ktoś ich szuka.", "fabularny", 0],  # pod skrzynią w kulisach, sc. 11b
 	"opaska": ["Czarna opaska", "Uszyła ją Irena. Dla Adriana.", "fabularny", 0],  # stół przy maszynie w pracowni, sc. 11
 	"kawa": ["Kawa", "Czarna. Przez chwilę chodzisz szybciej.", "picie", 5],
 	"papierosy": ["Papierosy", "Antoni nie pali, ale zestresowani ludzie chętniej gadają przy papierosie.", "inny", 0],
