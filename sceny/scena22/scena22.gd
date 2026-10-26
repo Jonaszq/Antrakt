@@ -50,10 +50,7 @@ func _ready() -> void:
 
 
 func _folder(imie: String) -> String:
-	for p in Dialogi.PODEJRZANI:
-		if p[0] == imie:
-			return p[1]
-	return "ania"
+	return Dialogi.FOLDERY_POSTACI.get(imie, "ania")
 
 
 func _koniec(litera: String, powod := "") -> void:

@@ -44,10 +44,7 @@ func rozpoznaj(tekst: String) -> String:
 
 
 func _folder(imie: String) -> String:
-	for p in Dialogi.PODEJRZANI:
-		if p[0] == imie:
-			return p[1]
-	return ""
+	return Dialogi.FOLDERY_POSTACI.get(imie, "ania")
 
 
 ## Przymierzanie sylwetki. Zwraca imię, które zostało na sylwetce ("" = nikt).

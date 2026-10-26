@@ -341,7 +341,7 @@ func zapamietaj_miejsce(tekst: String) -> void:
 
 
 ## Wieczorne podsumowanie w telefonie (Wiadomości, kontakt "Dziennik"): gdzie był,
-## pieniądze, stracony czas, ile nowych tropów, kto się obraził i czego jeszcze nie wie.
+## pieniądze, stracony czas, ile nowych tropów, i czego jeszcze nie wie.
 func _podsumuj_dzien(d: Dictionary) -> void:
 	var t: Dictionary = Dialogi.DZIENNIK
 	var linie: Array = [t["naglowek"] % d.nazwa.capitalize()]
@@ -350,9 +350,6 @@ func _podsumuj_dzien(d: Dictionary) -> void:
 	linie.append(t["kasa"] % [wydal, kasa])
 	linie.append(t["czas"] % maxi(0, flagi.get("stracone_minuty", 0) - d.stracone))
 	linie.append(t["tropy"] % maxi(0, ile_tropow() - d.tropy))
-	var obrazeni := obrazeni()
-	if not obrazeni.is_empty():
-		linie.append(t["obrazeni"] % ", ".join(obrazeni))
 	var pytania: Array = []
 	for p in Dialogi.DZIENNIK_PYTANIA:
 		if Sledztwo.wszystkie(p[0]) and not p[1].any(func(w): return Sledztwo.jest(w)):
@@ -367,34 +364,6 @@ func ile_tropow() -> int:
 
 
 # ---------- zaufanie ----------
-# Chybiony dowód podsunięty pod nos to insynuacja: uraza_<imię> rośnie, przy
-# ScenaGry.URAZA_PROG rozmówca się obraża (obrazony_<imię>) i nie odpowiada na pytania,
-# dopóki Antoni nie przeprosi (przeprosil_<imię>). Działa w każdej scenie z tą osobą.
-
-func obrazeni() -> Array:
-	var wynik: Array = []
-	for k in flagi:
-		if str(k).begins_with("obrazony_") and flagi[k]:
-			wynik.append(str(k).substr(9))
-	return wynik
-
-
-func obrazony(kto: String) -> bool:
-	return flagi.get("obrazony_" + kto, false)
-
-
-func uraz(kto: String) -> int:
-	var ile: int = flagi.get("uraza_" + kto, 0) + 1
-	flagi["uraza_" + kto] = ile
-	if ile >= ScenaGry.URAZA_PROG:
-		flagi["obrazony_" + kto] = true
-	return ile
-
-
-func przepros(kto: String) -> void:
-	flagi["obrazony_" + kto] = false
-	flagi["uraza_" + kto] = 0
-	flagi["przeprosil_" + kto] = true
 
 
 func do_pogrzebu() -> String:

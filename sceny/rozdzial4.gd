@@ -92,10 +92,6 @@ static func obiad(s: ScenaGry, flaga: String) -> void:
 		await s.rozmowa(t["slaby"])
 	if f.get("s12_dotknal", false) or f.get("s20_dotknal", false):
 		await s.rozmowa(t["palce"])
-	var obrazeni := Gra.obrazeni()
-	if not obrazeni.is_empty():
-		var kto := ", ".join(obrazeni)
-		await s.rozmowa(t["obrazeni"].map(func(r): return [r[0], r[1].replace("{kto}", kto)]))
 	await s.rozmowa(t["ania"] if f.get("s17_sms", false) else t["bilet"])
 	await s.rozmowa(t["koniec"])
 	s.znajdz_kase(OBIAD_KASA)

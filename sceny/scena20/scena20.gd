@@ -31,7 +31,8 @@ func _ready() -> void:
 	miejsce(Vector2(256, 120), "Pudełko z charakteryzacją", _pudelko, 30.0)
 	miejsce(Vector2(318, 124), "Szuflada", _szuflada, 20.0)
 	miejsce(Vector2(290, 108), "Lustro", _lustro, 60.0)
-	miejsce(Vector2(309, 104), "Zdjęcie", t["zdjecie"], 40.0)
+	miejsce(Vector2(309, 104), "Zdjęcie", _zdjecie, 40.0)
+	miejsce(Vector2(272, 124), "Szkatułka", _szkatulka, 16.0)
 	miejsce(Vector2(440, 126), "Wieszak", t["wieszak"], 60.0)
 	miejsce(Vector2(80, 280), "Kanapa", t["kanapa"])
 	miejsce(Vector2(76, 130), "Szafa", t["szafa"], 70.0)
@@ -96,6 +97,19 @@ func _kosz() -> void:
 		Teczka.dodaj("rekawiczki")
 	else:
 		await rozmowa(t["kosz_bez_uv"])
+
+
+## Za zdjęciem z plaży drugie: Ania z ojcem przed farbiarnią (skąd trucizna).
+func _zdjecie() -> void:
+	await rozmowa(Dialogi.SCENA20["zdjecie"])
+	Gra.flagi["s20_tata"] = true
+
+
+## Prawdziwy sygnet Ani: ten ze zdjęcia z próby to nie rekwizyt.
+func _szkatulka() -> void:
+	var t: Dictionary = Dialogi.SCENA20
+	await rozmowa(t["szkatulka_potem"] if Gra.flagi.get("s20_sygnet", false) else t["szkatulka"])
+	Gra.flagi["s20_sygnet"] = true
 
 
 func _pudelko() -> void:

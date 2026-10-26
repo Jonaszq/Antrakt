@@ -49,7 +49,7 @@ Nie trzeba niczego rozpakowywać ani podmieniać ręcznie.
 - Fałszywy trop: utrwalacz w szafie Ireny (sc. 15). Przed przyznaniem się do kradzieży Irena wyrzuca Antoniego, po przyznaniu mówi prawdę.
 - "Nowy trop" w rogu ekranu z cichym akordem (`dzwieki/tlo/trop.wav`), gdy przybędzie argumentów albo kart.
 - Dziennik: po każdym dniu w telefonie (Wiadomości, "Dziennik") podsumowanie: gdzie był Antoni, pieniądze, stracony czas, nowe tropy, kto się obraził i czego jeszcze nie wie (`Dialogi.DZIENNIK_PYTANIA`).
-- Zaufanie: dowód, który rozmówcy nic nie mówi, to insynuacja. Za drugim razem osoba się obraża i nie odpowiada na pytania (w każdej scenie), dopóki Antoni nie przeprosi (20 minut). Ola o tym wspomina, a epilog pamięta.
+- Rozmowy: dowód, który rozmówcy nic nie mówi, kosztuje tylko trochę czasu. Nikt się nie obraża (Jonasz uznał te dialogi za bez sensu).
 - Zapis: gra zapisuje się na początku każdej sceny (`user://zapis.txt`), w menu jest "Kontynuuj". Notes zapisuje się do `user://notes.txt`.
 - Teczka dowodów i tablica podejrzanych pod F (`ui/teczka.gd`, karty w `Dialogi.KARTY`). Rozmowy jak przesłuchanie: `ScenaGry.przesluchanie()` (tematy i pokazywanie dowodów).
 - Ludzie w tle i odgłosy: postacie rysuje `tools/postacie_pixel.py`, dźwięki tła (gwar, dzwonek, telefon, flesz, oklaski, gramofon, auto) `tools/dzwieki_tla.py`, ujęcia auta i bramy `tools/jazda_pixel.py`.
@@ -71,3 +71,13 @@ Nie trzeba niczego rozpakowywać ani podmieniać ręcznie.
 Karty przyjmują każde znane imię (albo czas z cyfrą) i dostają pieczątkę "WPISANE". Gra nie mówi, czy wpis jest dobry. Zły wpis wychodzi w finale (argument nie trafia), w przymierzaniu (karta nic nie obala) i w epilogu. W kodzie: `Teczka.wpisana(id)` = zatwierdzona, `Teczka.sprawdzona(id)` = dobra; warunek `"w:id"` w Dialogi tam, gdzie gracz nie może poznać wyniku.
 
 Tymczasowo: F9 daje wszystkie przedmioty i karty (`TESTY` w ui/gra.gd).
+
+## Łatki fabuły (26.10)
+
+- Podejrzani na tablicy: Ania, Irena, Wolski, Kuba. Lis, Marta i Halina mają swoje tropy, ale nie stoją na tablicy.
+- Wolski chorował od poniedziałku do środy, w czwartek o 7:00 nawrót (dzwoni prywatnie do Lisa, reszta wie od 9:00). Ania truła kostium, myśląc, że założy go Wolski.
+- Premierę Wolski grał w zapasowym kostiumie (Irena poszerzyła pas), oryginał zniknął w piątek rano.
+- Dłoń na zdjęciu z próby ma sygnet z rekwizytorni (nosi go każdy). Prawdziwy złoty sygnet "A. 14.03" leży w szkatułce Ani (sc. 20, s20_sygnet).
+- Trucizna z farbiarni ojca Ani (zdjęcie za zdjęciem w sc. 20, s20_tata, argument "farbiarnia").
+- Świadkowie mówią "ktoś" zamiast "kobieta" (Halina, sprzątaczka, Kuba).
+- SMS od Nowickiego na początku sc. 9: pięć dni wolnej ręki i zgoda na wejścia wszędzie.

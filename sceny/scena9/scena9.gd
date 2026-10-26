@@ -54,6 +54,9 @@ func _ready() -> void:
 		await rozjasnij()
 	else:
 		await plansza("Niedziela, 11:00. Teatr")
+		# Nowicki daje Antoniemu wolną rękę na 5 dni: dlatego wszędzie go wpuszczają
+		Telefon.dodaj_sms("Komisarz Nowicki", Dialogi.SCENA9["sms_szef"], "9:12")
+		await rozmowa(t["sms_szef_czyta"])
 		await rozmowa(t["poczatek"])
 	if not f.get("s9_stasia", false):
 		_stasia()
