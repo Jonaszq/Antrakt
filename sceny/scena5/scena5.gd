@@ -39,7 +39,7 @@ func _ready() -> void:
 	dzwiek("gramofon.ogg", -14.0, true)
 	await plansza("Foyer, 23:30")
 	# bez przerywnika: telefon dzwoni, a Antoni sam decyduje, czy podejść do dyrektora
-	await get_tree().create_timer(3.0).timeout
+	await pauza(3.0)
 	dzwiek("telefon.wav", -6.0)
 	await get_tree().create_timer(2.2).timeout
 	dymek(_lis, "Tak, Zenon, słucham... Co?!", 3.5)

@@ -110,5 +110,5 @@ func zakoncz(napisy: Array, scena: String) -> void:
 	await tw.finished
 	for n in napisy:
 		komunikat(n, 3.5)
-		await get_tree().create_timer(4.0).timeout
+		await pauza(4.0)
 	get_tree().change_scene_to_file(scena)

@@ -79,14 +79,14 @@ func _ready() -> void:
 	await tw.finished
 	if Teczka.sprawdzona("sms"):
 		komunikat(r["sms"], 3.5)
-		await get_tree().create_timer(4.0).timeout
+		await pauza(4.0)
 	if f.get("s10_ksiazka", false) or Teczka.karty.has("kwit"):
 		komunikat(r["skrzynka"], 4.0)
-		await get_tree().create_timer(4.5).timeout
+		await pauza(4.5)
 	komunikat(r["koniec"], 3.0)
-	await get_tree().create_timer(3.5).timeout
+	await pauza(3.5)
 	komunikat(r["rozdzial"], 3.0)
-	await get_tree().create_timer(3.5).timeout
+	await pauza(3.5)
 	get_tree().change_scene_to_file(NASTEPNA)
 
 

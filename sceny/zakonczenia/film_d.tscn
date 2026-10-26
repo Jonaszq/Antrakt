@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://sceny/zakonczenia/film_d.gd" id="skrypt"]
+[ext_resource type="PackedScene" path="res://mapy/cmentarz/cmentarz.tscn" id="mapa"]
+
+[node name="FilmD" type="Node2D"]
+script = ExtResource("skrypt")
+
+[node name="Cmentarz" parent="." instance=ExtResource("mapa")]

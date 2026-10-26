@@ -56,10 +56,10 @@ func _ready() -> void:
 	ekran.position = CZYTA + Vector2(0, -30)
 	obiekty.add_child(ekran)
 	komunikat(r["ekran"], 4.0)
-	await get_tree().create_timer(4.5).timeout
+	await pauza(4.5)
 	if f.get("s11_foto", false):
 		komunikat(r["pierscionek"], 3.5)
-		await get_tree().create_timer(4.0).timeout
+		await pauza(4.0)
 	await przymierz(czyta, "sms")
 	await zakoncz([r["koniec"]], NASTEPNA)
 

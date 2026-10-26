@@ -12,6 +12,9 @@ extends Node2D
 const ZASIEG := 26.0  # jak blisko trzeba podejść, żeby porozmawiać
 const PODPOWIEDZ_PO := 120.0  # sekundy bez postępu, po których Antoni myśli na głos
 const URAZA_PROG := 2  # tyle chybionych dowodów pod nos i rozmówca się obraża
+const TEMPO := 1.4  # postacie w przerywnikach chodzą szybciej niż prędkości ze skryptów
+const KRATKA := 8.0  # oczko siatki do omijania mebli
+const ZAPAS_STOP := 5.0  # o tyle poszerza się meble, żeby nie wchodzić w nie stopami
 
 var antoni: CharacterBody2D
 var dialog: Dialog
@@ -351,15 +354,87 @@ func idz(kto: Node2D, punkty: Array, predkosc := 40.0) -> void:
 		krok.tween_property(sprite, "position:y", -1.0, 0.16)
 		krok.tween_property(sprite, "position:y", 0.0, 0.16)
 	for cel in punkty:
-		if sprite is AnimatedSprite2D and absf(cel.x - kto.position.x) > 2.0:
-			(sprite as AnimatedSprite2D).flip_h = cel.x < kto.position.x
-		var czas := maxf(kto.position.distance_to(cel) / predkosc, 0.05)
-		var tw := create_tween()
-		tw.tween_property(kto, "position", cel, czas)
-		await tw.finished
-	if krok:
+		for punkt in trasa(kto.position, cel):
+			if not is_instance_valid(kto):
+				return
+			if sprite is AnimatedSprite2D and absf(punkt.x - kto.position.x) > 2.0:
+				(sprite as AnimatedSprite2D).flip_h = punkt.x < kto.position.x
+			var czas := maxf(kto.position.distance_to(punkt) / (predkosc * TEMPO), 0.05)
+			var tw := create_tween()
+			tw.tween_property(kto, "position", punkt, czas)
+			await tw.finished
+	if krok and is_instance_valid(kto):
 		krok.kill()
 		sprite.position.y = 0.0
+
+
+# ---------- omijanie mebli ----------
+# Postacie w przerywnikach idą po punktach ze skryptu, ale jeśli prosta droga
+# przechodzi przez mebel albo ścianę (prostokąty kolizji map), trasa omija je po
+# siatce (AStarGrid2D). Prostokąty, w których stoi start albo cel (krzesło, drzwi
+# w ścianie, lada bufetu), się pomija, żeby dało się z nich wyjść i do nich wejść.
+
+## Wszystkie prostokąty kolizji sceny, poszerzone o pół szerokości stóp.
+func _przeszkody() -> Array:
+	var wynik := []
+	for c in find_children("*", "CollisionShape2D", true, false):
+		if c.get_parent() is StaticBody2D and c.shape is RectangleShape2D and not c.disabled:
+			var roz: Vector2 = c.shape.size
+			wynik.append(Rect2(c.global_position - roz / 2.0, roz).grow(ZAPAS_STOP))
+	return wynik
+
+
+func _wolna(a: Vector2, b: Vector2, przeszkody: Array) -> bool:
+	var kroki := maxi(1, int(a.distance_to(b) / 4.0))
+	for i in kroki + 1:
+		var p := a.lerp(b, float(i) / kroki)
+		for r in przeszkody:
+			if r.has_point(p):
+				return false
+	return true
+
+
+## Punkty pośrednie od a do b (bez a, z b na końcu), omijające przeszkody.
+func trasa(a: Vector2, b: Vector2) -> Array:
+	var przeszkody := _przeszkody().filter(func(r): return not r.has_point(a) and not r.has_point(b))
+	if _wolna(a, b, przeszkody):
+		return [b]
+	var obszar := Rect2(a, Vector2.ZERO).expand(b)
+	for r in przeszkody:
+		obszar = obszar.merge(r)
+	obszar = obszar.grow(KRATKA * 2)
+	var siatka := AStarGrid2D.new()
+	siatka.cell_size = Vector2(KRATKA, KRATKA)
+	siatka.offset = obszar.position + Vector2(KRATKA, KRATKA) / 2.0
+	siatka.region = Rect2i(0, 0, ceili(obszar.size.x / KRATKA), ceili(obszar.size.y / KRATKA))
+	siatka.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_ONLY_IF_NO_OBSTACLES
+	siatka.update()
+	for r in przeszkody:
+		var od := Vector2i(((r.position - obszar.position) / KRATKA).floor())
+		var do_ := Vector2i(((r.end - obszar.position) / KRATKA).ceil())
+		siatka.fill_solid_region(Rect2i(od, do_ - od), true)
+	var start := Vector2i(((a - obszar.position) / KRATKA).floor())
+	var meta := Vector2i(((b - obszar.position) / KRATKA).floor())
+	if not siatka.is_in_boundsv(start) or not siatka.is_in_boundsv(meta):
+		return [b]
+	siatka.set_point_solid(start, false)
+	siatka.set_point_solid(meta, false)
+	var droga := siatka.get_point_path(start, meta)
+	if droga.size() < 2:
+		return [b]
+	# wygładzanie: z każdego punktu idzie się do najdalszego widocznego
+	var punkty: Array = Array(droga)
+	punkty[0] = a
+	punkty[-1] = b
+	var wynik := []
+	var i := 0
+	while i < punkty.size() - 1:
+		var j := punkty.size() - 1
+		while j > i + 1 and not _wolna(punkty[i], punkty[j], przeszkody):
+			j -= 1
+		wynik.append(punkty[j])
+		i = j
+	return wynik
 
 
 # ---------- życie w tle ----------
@@ -445,6 +520,24 @@ func _tropy() -> void:
 		ile = teraz
 
 
+## Pauza na przeczytanie napisu w przerywniku. E, spacja albo Enter ją skracają.
+func pauza(sekundy: float) -> void:
+	var drzewo := get_tree()
+	var czas := 0.0
+	var bylo := _klawisz_dalej()
+	while czas < sekundy and is_inside_tree():
+		await drzewo.process_frame
+		czas += get_process_delta_time()
+		var teraz := _klawisz_dalej()
+		if teraz and not bylo and not Gra.okno_otwarte():
+			return
+		bylo = teraz
+
+
+func _klawisz_dalej() -> bool:
+	return Input.is_physical_key_pressed(KEY_E) or Input.is_physical_key_pressed(KEY_SPACE) or Input.is_physical_key_pressed(KEY_ENTER)
+
+
 ## Antoni znajduje albo dostaje pieniądze: dopisuje je i pokazuje napis u góry.
 func znajdz_kase(ile: int) -> void:
 	Gra.dodaj_kase(ile)
@@ -511,17 +604,19 @@ func spacer(kto: Node2D, punkty: Array, predkosc := 40.0, przerwa := 1.5) -> voi
 	var sprite: Node2D = kto.get_node_or_null("Sprite")
 	while is_instance_valid(kto) and not koniec:
 		var cel: Vector2 = punkty[i % punkty.size()]
-		var czas := kto.position.distance_to(cel) / predkosc
-		if czas > 0.05:
-			var tw := create_tween()
-			tw.tween_property(kto, "position", cel, czas)
+		if kto.position.distance_to(cel) / predkosc > 0.05:
 			var krok: Tween = null
 			if sprite:
 				krok = create_tween().set_loops()
 				krok.tween_property(sprite, "position:y", -1.0, 0.14)
 				krok.tween_property(sprite, "position:y", 0.0, 0.14)
-			await tw.finished
-			if krok:
+			for punkt in trasa(kto.position, cel):
+				if not is_instance_valid(kto) or koniec:
+					return
+				var tw := create_tween()
+				tw.tween_property(kto, "position", punkt, kto.position.distance_to(punkt) / predkosc)
+				await tw.finished
+			if krok and is_instance_valid(kto):
 				krok.kill()
 				sprite.position.y = 0.0
 		await get_tree().create_timer(przerwa).timeout

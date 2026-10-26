@@ -59,3 +59,9 @@ Nie trzeba niczego rozpakowywać ani podmieniać ręcznie.
 - Przedmioty: nazwy i opisy w `dialogi/dialogi.gd` (PRZEDMIOTY, SKRZYNKI), ikonki w `ui/przedmioty/` z `tools/przedmioty_pixel.py`.
 - Dialogi: popiersia nad ramką (Antoni po lewej, rozmówca po prawej), lista mówców w `ui/dialog.gd` (PORTRETY). Własny portret: wrzuć `postacie/<postać>/portret.png`, gra weźmie go zamiast powiększonego sprite'a.
 - Obraz: świat 640x360, okienka rysowane w 480x270 i powiększane o 4/3 (`Gra.SKALA_UI`).
+
+## Scenki zakończeń i przerywniki (26.10)
+
+- Każde zakończenie (A-D) ma własną scenkę: `sceny/zakonczenia/film_a..d` (cmentarz, widownia, garderoba, cmentarz w deszczu). Potem napisy, epilog, "Dziękuję za rozgrywkę. Buziak dla ciebie!" i powrót do menu.
+- Postacie w przerywnikach omijają meble same (`ScenaGry.trasa`, siatka A*), chodzą trochę szybciej (`TEMPO`).
+- Długie pauzy w retrospekcjach i napisach można przeskoczyć klawiszem E, spacją albo Enterem.

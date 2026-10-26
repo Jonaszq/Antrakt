@@ -79,7 +79,7 @@ func _ready() -> void:
 	var lista := Ekwipunek.ma("lista_rekwizytow")
 	var termos := Ekwipunek.ma("termos")
 	if lista or termos:
-		await idz(_adrian, [Vector2(470, 286), Vector2(620, 286), Vector2(700, 262)], 22.0)
+		await idz(_adrian, [Vector2(470, 286), Vector2(620, 276), Vector2(700, 262)], 22.0)
 		await _kolysz()
 		await dymek(_adrian, r["siada"], 2.0)
 		var tw := create_tween()
@@ -92,7 +92,7 @@ func _ready() -> void:
 		await _postoj(1.5)
 		await idz(_adrian, [Vector2(700, 262), Vector2(790, 290)], 18.0)
 	else:
-		await idz(_adrian, [Vector2(470, 286), Vector2(620, 286), Vector2(790, 290)], 22.0)
+		await idz(_adrian, [Vector2(470, 286), Vector2(620, 276), Vector2(790, 290)], 22.0)
 	# skrzynie: pakuje rekwizyty
 	await idz(_adrian, [Vector2(780, 350), Vector2(785, 430)], 16.0)
 	if lista:
@@ -118,7 +118,7 @@ func _ready() -> void:
 	dzwiek("upadek.wav", -4.0)
 	await get_tree().create_timer(2.0).timeout
 	komunikat(r["koniec"], 3.0)
-	await get_tree().create_timer(4.0).timeout
+	await pauza(4.0)
 	przejdz(NASTEPNA)
 
 

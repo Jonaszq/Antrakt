@@ -1,10 +1,11 @@
 extends Node2D
 ## Zakończenie gry: Gra.flagi["zakonczenie"] (A pełne, B połowiczne, C złe, D czas minął)
-## i Gra.flagi["powod"] (dlaczego D). Najpierw ekrany z Dialogi.ZAKONCZENIA, potem
-## epilog z tego, co gracz odkrył i przeoczył (Sledztwo.epilog), stracony czas i KONIEC.
-## E, Enter albo spacja przewija dalej.
+## i Gra.flagi["powod"] (dlaczego D). Najpierw scenka zakończenia (film_a..d), potem tu
+## tytuł, powód, epilog z tego, co gracz odkrył i przeoczył (Sledztwo.epilog), stracony
+## czas, KONIEC, podziękowanie i powrót do menu. E, Enter albo spacja przewija dalej.
 
 const MENU := "res://menu/menu.tscn"
+const FILM := "res://sceny/zakonczenia/film_%s.tscn"
 const CZAS := 4.5
 
 var _dalej := false
@@ -14,6 +15,10 @@ func _ready() -> void:
 	var z: Dictionary = Dialogi.ZAKONCZENIA
 	var f: Dictionary = Gra.flagi
 	var litera: String = f.get("zakonczenie", "D")
+	if not f.get("film_konca", false):
+		f["film_konca"] = true
+		get_tree().change_scene_to_file.call_deferred(FILM % litera.to_lower())
+		return
 	var warstwa := CanvasLayer.new()
 	add_child(warstwa)
 	var tlo := ColorRect.new()
@@ -39,9 +44,9 @@ func _ready() -> void:
 	var powod: String = f.get("powod", "")
 	if powod != "":
 		teksty.append(z[powod])
-	for linia in z[litera][1]:
-		teksty.append(linia % f.get("oskarzony", "") if "%s" in linia else linia)
 	tytul.text = z[litera][0]
+	if teksty.is_empty():
+		teksty.append("")
 	for tekst in teksty:
 		await _pokaz(napis, tekst)
 	tytul.text = ""

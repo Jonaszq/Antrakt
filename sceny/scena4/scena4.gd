@@ -35,7 +35,7 @@ func _ready() -> void:
 	antoni.stan("dol")
 	# Ania stoi sama przy ławce, z dala od świętujących
 	var ania: Node2D = obiekty.get_node("Ania")
-	ania.position = Vector2(150, 284)
+	ania.position = Vector2(160, 284)
 	dodaj_rozmowce(ania, _kolejne("ania"))
 	# Wolski w centrum uwagi, wokół niego goście
 	_wolski = postac("wolski", Vector2(440, 286))

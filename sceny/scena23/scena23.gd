@@ -28,7 +28,7 @@ func _ready() -> void:
 	antoni.sterowanie = false
 	komunikat(t["brawa"], 3.0)
 	dzwiek("oklaski.ogg", -14.0)
-	await idz(wolski, [Vector2(480, 260)], 30.0)
+	await idz(wolski, [Vector2(480, 246)], 30.0)
 	zwroc_sie(wolski)
 	await rozmowa(t["wolski"])
 	if f.get("s14_ostrzezony", false):
@@ -48,8 +48,8 @@ func _ready() -> void:
 	komunikat(t["nowicki_wchodzi"], 3.5)
 	var nowicki := postac("nowicki", Vector2(440, 640))
 	var policjant := postac("policjant", Vector2(520, 640))
-	idz(policjant, [Vector2(520, 290)], 45.0)
-	await idz(nowicki, [Vector2(440, 280)], 45.0)
+	idz(policjant, [Vector2(540, 248)], 45.0)
+	await idz(nowicki, [Vector2(420, 248)], 45.0)
 	zwroc_sie(nowicki)
 	await rozmowa(t["nowicki_slyszal"] if f.get("s21_nowicki", false) else t["nowicki_wezwany"])
 	await rozmowa(t["nowicki_ania"])

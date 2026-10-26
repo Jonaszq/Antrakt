@@ -2758,6 +2758,40 @@ const SCENA23 := {
 }
 
 # Zakończenia. Każde: lista ekranów (napisy), potem epilog i KONIEC.
+## Scenki zakończeń (sceny/zakonczenia/film_a..d), przed ekranem z epilogiem.
+const FILMY_KONCA := {
+	"A": {
+		"plansza": "Cmentarz, piątek 12:00",
+		"policja": "Policja zabrała Anię sprzed teatru. Wolskiego zatrzymano za szantaż i zatajenie wypadku.",
+		"halina": [["", "Halina kładzie na grobie chusteczkę wypraną do białości."], ["Halina", "Ta jedna mi się udała."]],
+		"antoni": [["Antoni", "Teatr zagrał ostatni akt. Tym razem bez dublerów."]],
+		"sam": "Antoni stoi jeszcze długo. Pierwszy raz od soboty nie ma dokąd się spieszyć.",
+	},
+	"B": {
+		"plansza": "Teatr Miejski, miesiąc później",
+		"areszt": "Ania czeka na proces w areszcie. Wolski gra nową premierę.",
+		"dedykacja": "Ten spektakl dedykuję pamięci Adriana.",
+		"usmiech": [["", "Widownia płacze. Wolski kłania się i uśmiecha prosto do Antoniego."]],
+		"dziekuje": "(bezgłośnie) Dziękuję.",
+		"antoni": [["Antoni", "(cicho) Nagranie gdzieś jest. Kiedyś je znajdę."]],
+	},
+	"C": {
+		"plansza": "Garderoba Ani, piątek wieczorem",
+		"areszt": "%s trafia do aresztu. Po tygodniu sprawa zaczyna się sypać.",
+		"pogrzeb": "Na pogrzebie Ania obejmowała Antoniego i dziękowała mu ze łzami.",
+		"rekawiczki": [["", "Ania odkręca kran przy lustrze i długo płucze gumowe rękawiczki."]],
+		"kartka": [["", "Patrzy w lustro. Na kartkę od Adriana: \"Zawsze w ciebie wierzę.\""]],
+		"przepraszam": "(szeptem) Przepraszam.",
+	},
+	"D": {
+		"plansza": "Cmentarz, piątek 12:00. Deszcz.",
+		"zawal": "Sprawa zostaje zamknięta jako zawał.",
+		"kwiaty": [["", "Ania kładzie kwiaty na grobie. Wolski trzyma nad nią parasol i delikatnie ściska jej ramię."]],
+		"wolski": "(cicho) Pierwszego, jak zwykle. Podwójnie.",
+		"antoni": [["", "Antoni patrzy z daleka. Z notesem pełnym pytań."]],
+	},
+}
+
 const ZAKONCZENIA := {
 	"A": ["Zakończenie: Pełne", [
 		"Cmentarz, piątek 12:00.",
@@ -2797,7 +2831,7 @@ const ZAKONCZENIA := {
 	"powod_nikt_nie_zabral": "Nikt nie przyjechał, żeby kogokolwiek zatrzymać.",
 	"stracone": "Zmarnowany czas w śledztwie: %d min",
 	"koniec": "KONIEC",
-	"dziekuje": "Dziękujemy za grę.",
+	"dziekuje": "Dziękuję za rozgrywkę.\nBuziak dla ciebie!",
 }
 
 ## Krótkie napisy argumentów na liście w konfrontacji (pełne zdania w SLEDZTWO_ARGUMENTY).

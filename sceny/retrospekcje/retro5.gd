@@ -39,7 +39,7 @@ func _ready() -> void:
 	await tw.finished
 	for n in _noc():
 		komunikat(n, 3.5)
-		await get_tree().create_timer(4.0).timeout
+		await pauza(4.0)
 	super.przejdz(await Rozdzial4.czwartek(self))
 
 

@@ -2278,7 +2278,134 @@ def plan_miasta():
     return img
 
 
-MAPY = {"foyer": foyer, "kulisy": kulisy, "widownia": widownia, "garderoba": garderoba, "magazyn": magazyn, "budka": budka, "plac": plac, "gabinet": gabinet, "pralnia": pralnia, "pracownia": pracownia, "laboratorium": laboratorium, "garderoba_wolskiego": garderoba_wolskiego, "mieszkanie_adriana": mieszkanie_adriana, "pokoj_antoniego": pokoj_antoniego}
+# ---------- cmentarz (zakończenia A i D) ----------
+
+TRAWA = [(26, 40, 26), (36, 54, 34), (48, 70, 42), (64, 88, 52)]
+ZWIR = [(70, 66, 60), (92, 86, 78), (116, 110, 100), (140, 134, 122)]
+
+
+def nagrobek(krzyz=True, ciemny=False):
+    """Stary nagrobek: płyta z tablicą i krzyżem albo zaokrąglonym szczytem, przed nim znicz."""
+    img = nowy(34, 44)
+    d = ImageDraw.Draw(img)
+    k = [(c[0] - 14, c[1] - 14, c[2] - 12) for c in KAMIEN] if ciemny else KAMIEN
+    prost(d, 1, 30, 32, 12, k[1])  # płyta grobu
+    prost(d, 1, 30, 32, 2, k[2])
+    obrys(d, 1, 30, 32, 12)
+    if krzyz:
+        prost(d, 14, 2, 6, 30, k[2])
+        prost(d, 7, 9, 20, 6, k[2])
+        prost(d, 15, 3, 2, 28, k[3])
+        obrys(d, 14, 2, 6, 30)
+        obrys(d, 7, 9, 20, 6)
+    else:
+        d.rounded_rectangle((5, 6, 29, 32), radius=8, fill=k[2], outline=O)
+        prost(d, 10, 14, 14, 8, k[1])
+        for y in (16, 19):
+            prost(d, 12, y, 10, 1, k[3])
+    prost(d, 24, 34, 5, 6, CZERWIEN[2])  # znicz
+    obrys(d, 24, 34, 5, 6)
+    d.point((26, 33), fill=(250, 210, 90))
+    return img
+
+
+def grob_adriana():
+    """Świeży grób: kopiec ziemi z wieńcami i białymi kwiatami, drewniany krzyż z tabliczką."""
+    img = nowy(72, 60)
+    d = ImageDraw.Draw(img)
+    d.ellipse((2, 26, 70, 58), fill=(58, 40, 28), outline=O)
+    d.ellipse((8, 30, 64, 50), fill=(74, 52, 36))
+    for wx, wy, kol in ((6, 34, ZIELEN[1]), (40, 36, ZIELEN[1]), (22, 42, ZIELEN[0])):
+        d.ellipse((wx, wy, wx + 24, wy + 14), fill=kol, outline=O)
+        d.ellipse((wx + 6, wy + 3, wx + 18, wy + 11), fill=(74, 52, 36))
+        for i in range(5):
+            d.point((wx + 3 + i * 4, wy + 2 + (i % 2) * 9), fill=PAPIER[2])
+    prost(d, 52, 30, 10, 3, PAPIER[2])  # szarfa
+    prost(d, 33, 2, 6, 34, DREWNO[2])
+    prost(d, 24, 10, 24, 6, DREWNO[2])
+    obrys(d, 33, 2, 6, 34)
+    obrys(d, 24, 10, 24, 6)
+    prost(d, 28, 18, 16, 8, PAPIER[1])
+    obrys(d, 28, 18, 16, 8)
+    prost(d, 30, 20, 12, 1, O)
+    prost(d, 31, 23, 10, 1, O)
+    return img
+
+
+def drzewo_cmentarz():
+    img = nowy(70, 96)
+    d = ImageDraw.Draw(img)
+    prost(d, 30, 50, 10, 46, DREWNO[0])
+    prost(d, 32, 50, 3, 46, DREWNO[1])
+    obrys(d, 30, 50, 10, 46)
+    for cx, cy, r, k in ((35, 34, 30, 0), (22, 30, 18, 1), (48, 28, 18, 1), (35, 18, 16, 2), (28, 40, 12, 2)):
+        d.ellipse((cx - r, cy - r, cx + r, cy + r), fill=TRAWA[k], outline=O if k == 0 else None)
+    return img
+
+
+def lawka_park():
+    img = nowy(54, 24)
+    d = ImageDraw.Draw(img)
+    for lx in (4, 46):
+        prost(d, lx, 14, 4, 10, METAL[1])
+    prost(d, 0, 4, 54, 4, DREWNO[2])
+    prost(d, 0, 10, 54, 5, DREWNO[2])
+    obrys(d, 0, 4, 54, 4)
+    obrys(d, 0, 10, 54, 5)
+    return img
+
+
+def cmentarz():
+    mp.SZER, mp.WYS, mp.PODLOGA_Y = 640, 360, 70
+    mp.los = random.Random(23)
+    m = mp.Mapa()
+    d = m.d
+    W, H, PY = mp.SZER, mp.WYS, mp.PODLOGA_Y
+    prost(d, 0, 0, W, H, TRAWA[1])
+    for _ in range(1400):
+        x, y = mp.los.randint(0, W), mp.los.randint(PY, H)
+        prost(d, x, y, 1, mp.los.randint(1, 3), TRAWA[mp.los.choice((0, 2, 2, 3))])
+    # mur cmentarza z bramą i niebem nad nim
+    prost(d, 0, 0, W, 26, NIEBO[1])
+    prost(d, 0, 26, W, PY - 26, CEGLA[2])
+    for y in range(26, PY, 6):
+        for x in range((y // 6) % 2 * 7, W, 14):
+            prost(d, x, y, 13, 5, CEGLA[1 + (x // 14 + y) % 2])
+    prost(d, 0, 22, W, 5, KAMIEN[2])
+    obrys(d, 0, 22, W, 5)
+    prost(d, 280, 18, 80, PY - 18, (18, 20, 24))
+    for x in range(284, 360, 8):
+        prost(d, x, 22, 2, PY - 22, METAL[2])
+    prost(d, 280, 30, 80, 2, METAL[2])
+    obrys(d, 280, 18, 80, PY - 18, METAL[1])
+    m.kolizje.append((0, 0, W, PY))
+    # żwirowa aleja od bramy w dół i w poprzek
+    prost(d, 300, PY, 40, H - PY, ZWIR[1])
+    prost(d, 0, 250, W, 34, ZWIR[1])
+    for _ in range(500):
+        d.point((mp.los.randint(300, 339), mp.los.randint(PY, H - 1)), fill=ZWIR[mp.los.choice((0, 2, 3))])
+        d.point((mp.los.randint(0, W - 1), mp.los.randint(250, 283)), fill=ZWIR[mp.los.choice((0, 2, 3))])
+    prost(d, 298, PY, 2, 180, ZWIR[0])
+    prost(d, 340, PY, 2, 180, ZWIR[0])
+    # rzędy starych grobów po obu stronach alei
+    for i, x in enumerate((40, 96, 152, 208)):
+        m.obiekt(f"grob_l{i}", nagrobek(i % 2 == 0, i == 2), x, 110, 12)
+    for i, x in enumerate((404, 460, 516, 572)):
+        m.obiekt(f"grob_p{i}", nagrobek(i % 2 == 1, i == 1), x, 110, 12)
+    for i, x in enumerate((40, 152, 516, 572)):
+        m.obiekt(f"grob_d{i}", nagrobek(i % 2 == 1, True), x, 296, 12)
+    # świeży grób Adriana na środku prawej kwatery, przy alei
+    m.obiekt("grob_adriana", grob_adriana(), 392, 176, 26)
+    m.obiekt("drzewo_l", drzewo_cmentarz(), 6, 160, 8)
+    m.obiekt("drzewo_p", drzewo_cmentarz(), 566, 170, 8)
+    m.obiekt("lawka", lawka_park(), 210, 216, 8)
+    prost(d, 0, 0, mp.SCIANA, H, KAMIEN[1])
+    prost(d, W - mp.SCIANA, 0, mp.SCIANA, H, KAMIEN[1])
+    obrys(d, 0, 0, W, H)
+    return m, dict(korzen="Cmentarz", start=(320, 300), postacie=(), mrok=(0.7, 0.72, 0.78), podloze="mokry")
+
+
+MAPY = {"foyer": foyer, "kulisy": kulisy, "widownia": widownia, "garderoba": garderoba, "magazyn": magazyn, "budka": budka, "plac": plac, "gabinet": gabinet, "pralnia": pralnia, "pracownia": pracownia, "laboratorium": laboratorium, "garderoba_wolskiego": garderoba_wolskiego, "mieszkanie_adriana": mieszkanie_adriana, "pokoj_antoniego": pokoj_antoniego, "cmentarz": cmentarz}
 
 
 def main(folder_podgladu=None):

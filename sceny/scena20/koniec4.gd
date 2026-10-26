@@ -4,6 +4,9 @@ extends Node2D
 
 const NASTEPNA := "res://sceny/scena21/scena21.tscn"
 
+## E, spacja albo Enter przeskakuje do następnego napisu.
+var _dalej := false
+
 
 func _ready() -> void:
 	Gra.flagi["dni_do_pogrzebu"] = 1
@@ -30,5 +33,15 @@ func _ready() -> void:
 		napis.modulate.a = 0.0
 		var tw := create_tween()
 		tw.tween_property(napis, "modulate:a", 1.0, 0.8)
-		await get_tree().create_timer(4.5).timeout
+		_dalej = false
+		var czas := 0.0
+		while czas < 4.5 and not _dalej:
+			await get_tree().process_frame
+			czas += get_process_delta_time()
 	get_tree().change_scene_to_file(NASTEPNA)
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed and not event.echo \
+			and event.physical_keycode in [KEY_E, KEY_SPACE, KEY_ENTER]:
+		_dalej = true

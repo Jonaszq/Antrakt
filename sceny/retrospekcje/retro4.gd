@@ -55,7 +55,7 @@ func _ready() -> void:
 	await dymek(wolski, r["wolski"], 2.5)
 	if f.get("s18_sejf", false):
 		komunikat(r["pendrive"], 4.0)
-		await get_tree().create_timer(4.5).timeout
+		await pauza(4.5)
 	await przymierz(kierowca, "droga")
 	await idz(kierowca, [Vector2(400, DROGA_Y - 30)], 40.0)
 	kierowca.visible = false
