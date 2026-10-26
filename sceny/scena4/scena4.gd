@@ -98,7 +98,7 @@ func _ready() -> void:
 func _czekaj_wolny(sekundy: float) -> void:
 	await get_tree().create_timer(sekundy).timeout
 	while not wolny():
-		await get_tree().process_frame
+		await (Engine.get_main_loop() as SceneTree).process_frame
 
 
 ## Pierwsza rozmowa z kwestii "<kto>", każda kolejna z "<kto>_potem".

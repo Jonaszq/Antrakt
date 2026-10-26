@@ -103,7 +103,7 @@ func samouczek(rada: String) -> void:
 	_kartka.position.x = 20  # notes w lewo, karteczka obok po prawej
 	_otworz()
 	while _kartka.visible:
-		await get_tree().process_frame
+		await (Engine.get_main_loop() as SceneTree).process_frame
 	_rada.visible = false
 	_kartka.position.x = 80
 

@@ -124,7 +124,7 @@ func _wolski_wchodzi() -> void:
 			f["s18_nagranie"] = true
 		var czas := 0.0
 		while czas < CO_ILE_KWESTIA:
-			await get_tree().process_frame
+			await (Engine.get_main_loop() as SceneTree).process_frame
 			czas += get_process_delta_time()
 			if antoni.position.distance_to(start) > 3.0:
 				await _skrzyp(i)

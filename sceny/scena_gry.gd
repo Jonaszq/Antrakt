@@ -454,8 +454,11 @@ func wybor(opcje: Array) -> int:
 	for i in opcje.size():
 		pozycje.append([opcje[i], func() -> void: stan.nr = i])
 	lista.ustaw(pozycje)
+	# drzewo zapamiętane z góry: gdy scena się zmieni w trakcie wyboru, czekanie po prostu
+	# się urywa, zamiast pytać o get_tree() węzła, którego już nie ma w drzewie
+	var drzewo := get_tree()
 	while stan.nr < 0:
-		await get_tree().process_frame
+		await drzewo.process_frame
 	lista.queue_free()
 	return stan.nr
 
@@ -481,10 +484,11 @@ func wpisz(opis: String, dlugosc := 20) -> String:
 	pole.grab_focus()
 	var wynik := {"tekst": null}
 	pole.text_submitted.connect(func(tekst: String) -> void: wynik.tekst = tekst.strip_edges())
+	var drzewo := get_tree()
 	while wynik.tekst == null:
 		if Input.is_key_pressed(KEY_ESCAPE):
 			wynik.tekst = ""
-		await get_tree().process_frame
+		await drzewo.process_frame
 	tlo.queue_free()
 	antoni.sterowanie = true
 	return wynik.tekst

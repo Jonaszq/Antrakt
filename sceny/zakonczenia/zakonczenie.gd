@@ -62,7 +62,7 @@ func _pokaz(napis: Label, tekst: String) -> void:
 	_dalej = false
 	var czas := 0.0
 	while czas < CZAS and not _dalej and is_inside_tree():
-		await get_tree().process_frame
+		await (Engine.get_main_loop() as SceneTree).process_frame
 		czas += get_process_delta_time()
 
 
