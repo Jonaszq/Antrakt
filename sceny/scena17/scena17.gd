@@ -11,6 +11,7 @@ extends ScenaGry
 const NASTEPNA := "res://sceny/retrospekcje/retro3.tscn"
 const SCHODY := Rect2(526, 300, 100, 46)
 const DRZWI_12 := Rect2(300, 232, 40, 50)
+const DRZWI_11 := Vector2(126, 292)
 const ANIA := Vector2(236, 312)
 const PIN := "1403"
 const PROBY := 3
@@ -186,13 +187,23 @@ func _leki() -> void:
 	Gra.flagi["s17_leki"] = true
 
 
+## Sąsiadka staje w szparze drzwi tylko na czas rozmowy, potem je zamyka. Nie ma
+## kolizji i stoi w progu, żeby nie wpaść na Antoniego, który czeka pod drzwiami.
 func _sasiadka_puka() -> void:
 	if is_instance_valid(_sasiadka):
 		return
+	antoni.sterowanie = false
 	await rozmowa(Dialogi.SCENA17["sasiadka_puka"])
-	_sasiadka = postac("gosc_pani", Vector2(126, 300))
-	dodaj_rozmowce(_sasiadka, _rozmowa_z_sasiadka)
+	if antoni.position.distance_to(DRZWI_11) < 26.0:
+		antoni.position = DRZWI_11 + Vector2(0, 28)
+	antoni.stan("gora")
+	_sasiadka = postac("gosc_pani", DRZWI_11)
+	var stopy := _sasiadka.get_node_or_null("Stopy") as CollisionShape2D
+	if stopy:
+		stopy.disabled = true
 	await _rozmowa_z_sasiadka()
+	_sasiadka.queue_free()
+	antoni.sterowanie = true
 
 
 func _rozmowa_z_sasiadka() -> void:

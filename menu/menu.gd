@@ -209,6 +209,7 @@ func _start(scena: String, z_notesem: bool, z_latarka := false) -> void:
 		for k in KARTY_ROZDZ5:
 			Teczka.dodaj(k)
 			Teczka.karty[k].sprawdzona = true
+			Teczka.karty[k].wpisana = true
 		for fl in FLAGI_ROZDZ5:
 			Gra.flagi[fl] = true
 		Gra.flagi["oskarzony"] = "Ania"
