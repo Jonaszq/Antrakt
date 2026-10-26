@@ -231,12 +231,31 @@ func _pokaz_wybor() -> void:
 	_opis_latarni.text = "Mocno świeci\nw ciemnościach" if latarnia_dostepna else "Nie masz\nlatarki"
 
 
+## TYMCZASOWE do testów: F9 daje wszystkie przedmioty, karty, latarkę i pieniądze.
+## Przed wydaniem gry ustaw na false.
+const TESTY := true
+
+
+func daj_wszystko() -> void:
+	for id in Dialogi.PRZEDMIOTY:
+		if not Ekwipunek.ma(id):
+			Ekwipunek.przedmioty.append(id)
+	for id in Dialogi.KARTY:
+		Teczka.dodaj(id)
+	latarnia_dostepna = true
+	dodaj_kase(300)
+	print("F9: wszystkie przedmioty i karty")
+
+
 func _unhandled_input(zdarzenie: InputEvent) -> void:
 	var k := zdarzenie as InputEventKey
 	if not k or not k.pressed or k.echo:
 		return
 	if k.physical_keycode == KEY_F11 or (k.physical_keycode == KEY_ENTER and k.alt_pressed):
 		przelacz_pelny_ekran()
+		get_viewport().set_input_as_handled()
+	elif k.physical_keycode == KEY_F9 and TESTY:
+		daj_wszystko()
 		get_viewport().set_input_as_handled()
 	elif k.physical_keycode == KEY_TAB:
 		if not _okno.visible and okno_otwarte():

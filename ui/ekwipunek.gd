@@ -6,7 +6,7 @@ extends CanvasLayer
 ## I, Escape albo klik obok zamyka. Na dole pieniądze (Gra.kasa).
 
 const KOLUMNY := 6
-const RZEDY := 4
+const RZEDY := 5
 const POLE := 26  # rozmiar kratki w pikselach gry
 const SIATKA := Vector2(12, 30)  # lewy górny róg siatki w okienku
 
