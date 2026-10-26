@@ -2,9 +2,9 @@ extends ScenaGry
 ## Scena 22 (rozdział 5): pusta scena, piątek 9:00. Przychodzi osoba, do której Antoni
 ## wysłał SMS-a w scenie 21 (Gra.flagi["oskarzony"]) i siada na krześle ofiary.
 ## Ania: rundy z Dialogi.SCENA22["rundy"]. Przy każdym kłamstwie gracz wybiera argument
-## (Sledztwo.argumenty): mocny przechodzi, słaby też, ale kosztuje siły, zły to błąd.
-## Szans jest 3 minus każde pytanie z tablicy, którego Antoni nie przypiął. Każda runda
-## zabiera siły; przy zerze Antoni mdleje (zakończenie D). Ania łamie się przy SMS-ie,
+## (Sledztwo.argumenty): mocny przechodzi, słaby też, ale co drugi słaby liczy się jako
+## błąd, zły to błąd. Szans jest 3 minus każde pytanie z tablicy, którego Antoni nie
+## przypiął. Ania łamie się przy SMS-ie,
 ## potem ostatnia retrospekcja i brawa (scena 23).
 ## Inna osoba: z alibi znanym z teczki albo bez Nowickiego na widowni -> D, inaczej C.
 
@@ -13,8 +13,6 @@ const ZAKONCZENIE := "res://sceny/zakonczenia/zakonczenie.tscn"
 const KRZESLO := Vector2(396, 160)
 const KULISY := Vector2(660, 150)
 const MIEJSCE_ANTONIEGO := Vector2(450, 196)
-const SILY_RUNDA := -6
-const SILY_SLABY := -10
 
 var _kto: Node2D
 
@@ -82,11 +80,8 @@ func _ania() -> void:
 		if not f.get(flaga, false):
 			szanse -= 1
 	var bledy := 0
+	var slabe := 0
 	for runda in t["rundy"]:
-		Gra.dodaj_sily(SILY_RUNDA)
-		if Gra.sily <= 0:
-			await _mdleje()
-			return
 		await rozmowa(runda["klamstwo"])
 		while true:
 			var arg := await wybierz_argument(t["argument"], t["milcz"])
@@ -95,18 +90,18 @@ func _ania() -> void:
 					await _powiedz(arg)
 				await rozmowa(runda["reakcja"])
 				break
-			if arg in runda["slabe"]:
+			var slaby: bool = arg in runda["slabe"]
+			if slaby:
 				await _powiedz(arg)
 				await rozmowa(t["slabe"])
-				Gra.dodaj_sily(SILY_SLABY)
-				if Gra.sily <= 0:
-					await _mdleje()
-					return
-				await rozmowa(runda["reakcja"])
-				break
-			if arg != "":
-				await _powiedz(arg)
-			await rozmowa(t["zle"].pick_random())
+				slabe += 1
+				if slabe % 2 == 1:
+					await rozmowa(runda["reakcja"])
+					break
+			else:
+				if arg != "":
+					await _powiedz(arg)
+				await rozmowa(t["zle"].pick_random())
 			bledy += 1
 			Sledztwo.strata(10)
 			if bledy >= szanse:
@@ -116,6 +111,9 @@ func _ania() -> void:
 				return
 			if bledy == szanse - 1:
 				komunikat(t["ostatnia_szansa"], 3.5)
+			if slaby:
+				await rozmowa(runda["reakcja"])
+				break
 	if f.get("s17_ania_sms", false):
 		await rozmowa(t["sms_juz_wiedziala"])
 	await rozmowa(t["przyznanie"])
@@ -127,13 +125,6 @@ func _ania() -> void:
 		await rozmowa(t["koniec_bez_kartki"])
 	f["s22_przyznala"] = true
 	przejdz(RETRO)
-
-
-func _mdleje() -> void:
-	var t: Dictionary = Dialogi.SCENA22
-	komunikat(t["sily"], 3.0)
-	await rozmowa(t["mdleje"])
-	_koniec("D", "powod_zemdlal")
 
 
 func _inna(kto: String) -> void:

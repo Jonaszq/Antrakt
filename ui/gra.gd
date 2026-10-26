@@ -17,9 +17,10 @@ var latarnia := false
 ## ją dopiero w magazynie (scena 6), do tego czasu Tab nie pozwala jej wybrać.
 var latarnia_dostepna := false
 
-## Pasek sił Antoniego (0-100). Jedzenie z ekwipunku go podnosi.
-## Spadanie z czasem dojdzie razem z licznikiem dni.
-var sily := 80
+## Pieniądze Antoniego w złotych. Starczają na taksówki (TAKSOWKA), dzięki którym
+## przejazd między miejscami nie zjada czasu śledztwa.
+var kasa := 0
+const TAKSOWKA := 15
 
 ## Stan fabuły, który musi przetrwać zmianę sceny (np. powrót z garderoby do kulis).
 var flagi := {}
@@ -104,7 +105,7 @@ func okno_otwarte() -> bool:
 func nowa_gra() -> void:
 	latarnia = false
 	latarnia_dostepna = false
-	sily = 80
+	kasa = 0
 	_kawa_czas = 0.0
 	flagi.clear()
 	Notatnik.aktywny = false
@@ -145,8 +146,8 @@ func napis_glosnosci() -> String:
 	return "Głośność: %d%%" % glosnosc()
 
 
-func dodaj_sily(ile: int) -> void:
-	sily = clampi(sily + ile, 0, 100)
+func dodaj_kase(ile: int) -> void:
+	kasa = maxi(kasa + ile, 0)
 
 
 ## Po kawie Antoni przez pół minuty chodzi szybciej.

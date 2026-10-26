@@ -64,8 +64,8 @@ func _ready() -> void:
 	gdy_blisko(Vector2(282, 128), 34.0, _toaleta)
 	# przedmioty ze scenariusza i jedzenie (teksty w Dialogi.SKRZYNKI)
 	skrzynka(Vector2(372, 470), "stojak_programy", ["program", "numerek"], "stojak_programy")
-	skrzynka(Vector2(740, 132), "bufet", ["kanapka", "kawa"])
-	skrzynka(Vector2(600, 126), "apteczka", ["tabletki"], "apteczka", 46.0)
+	skrzynka(Vector2(740, 132), "bufet", ["kawa"])
+	skrzynka(Vector2(600, 126), "apteczka", [], "apteczka", 46.0)
 	zamkniete_drzwi(Rect2(392, 108, 96, 34), Dialogi.DRZWI["foyer_widownia"])
 	zamkniete_drzwi(Rect2(396, 470, 88, 40), Dialogi.DRZWI["foyer_wyjscie"])
 	zamkniete_drzwi(TOALETY, Dialogi.DRZWI["foyer_toalety"])
@@ -137,7 +137,7 @@ func _rozmowa_z_szatniarzem() -> void:
 		await rozmowa(Dialogi.SCENA1["szatniarz_z_numerkiem"])
 		_plaszcz = true
 		Ekwipunek.dodaj("bilet")
-		Ekwipunek.dodaj("monety")
+		znajdz_kase(20)
 	elif not _wie_o_bilecie:
 		await rozmowa(Dialogi.SCENA1["szatniarz_zwykly"])
 	elif not _szatniarz_zna:

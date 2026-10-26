@@ -63,7 +63,7 @@ func _ready() -> void:
 	var kelner := postac("kelner", Vector2(620, 420))
 	dodaj_rozmowce(kelner, Dialogi.SCENA1["kelner"])
 	spacer(kelner, [Vector2(480, 420), Vector2(330, 440), Vector2(480, 420), Vector2(620, 420)], 34.0, 3.0)
-	skrzynka(Vector2(600, 126), "apteczka", ["tabletki"], "apteczka", 46.0)
+	skrzynka(Vector2(600, 126), "apteczka", [], "apteczka", 46.0)
 	zamkniete_drzwi(WIDOWNIA, Dialogi.DRZWI["antrakt_widownia"])
 	zamkniete_drzwi(Rect2(396, 470, 88, 40), Dialogi.DRZWI["antrakt_wyjscie"])
 	zamkniete_drzwi(Rect2(264, 108, 36, 34), Dialogi.DRZWI["antrakt_toalety"])
@@ -93,13 +93,12 @@ func _bufet() -> void:
 			return
 		stan.kupil = true
 		await rozmowa(t["bufet"])
-		if Ekwipunek.ma("monety"):
-			Ekwipunek.usun("monety")
+		if Gra.kasa >= 5:
+			Gra.dodaj_kase(-5)
 			await rozmowa(t["bufet_place"])
 		else:
 			await rozmowa(t["bufet_na_kreske"])
-		Ekwipunek.dodaj("kawa")
-		Ekwipunek.dodaj("kanapka"), 74.0)
+		Ekwipunek.dodaj("kawa"), 74.0)
 	var kolejka := [postac("gosc_pani", Vector2(712, 150)), postac("dziecko", Vector2(712, 178))]
 	for kto in kolejka:
 		gada_w_tle(kto, Dialogi.ANTRAKT_TLO["kolejka"], 7.0)

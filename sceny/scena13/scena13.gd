@@ -69,7 +69,7 @@ func _wytnij() -> void:
 			await rozmowa(t["wytnij_rekawiczki"])
 		else:
 			await rozmowa(t["wytnij_bez"])
-			Gra.dodaj_sily(-20)
+			Sledztwo.strata(30)
 			Gra.flagi["s13_dotknal"] = true
 		Ekwipunek.usun("woreczek")
 		Ekwipunek.dodaj("probka")

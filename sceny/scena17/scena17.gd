@@ -183,7 +183,6 @@ func _leki() -> void:
 		await rozmowa(t["leki_potem"])
 		return
 	await rozmowa(t["leki"])
-	Ekwipunek.dodaj("tabletki")
 	Gra.flagi["s17_leki"] = true
 
 

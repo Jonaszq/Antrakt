@@ -352,6 +352,12 @@ func komunikat(tekst: String, czas := 3.5) -> void:
 	tw.tween_property(_komunikat, "modulate:a", 0.0, 0.6)
 
 
+## Antoni znajduje albo dostaje pieniądze: dopisuje je i pokazuje napis u góry.
+func znajdz_kase(ile: int) -> void:
+	Gra.dodaj_kase(ile)
+	komunikat("+%d zł  (masz %d zł)" % [ile, Gra.kasa], 3.0)
+
+
 ## Mały napis nad głową postaci na kilka sekund (np. "mama, mema, mima").
 func dymek(kto: Node2D, tekst: String, czas := 2.5) -> void:
 	if not is_instance_valid(kto):

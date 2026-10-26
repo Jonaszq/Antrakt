@@ -1,14 +1,17 @@
 class_name Rozdzial4
 ## Przejścia między scenami rozdziału 4: środa (gabinet Lisa jest opcjonalny), czwartek po
 ## scenie 19 (garderoba Ani, sejf Wolskiego, jeśli wczoraj Antoniego przyłapano) i obiad
-## u Oli raz na dzień (+40 sił, godzina w plecy). Teksty w Dialogi.CZWARTEK i Dialogi.OLA.
+## u Oli raz na dzień (godzina w plecy, ale Ola daje pieniądze na taksówki).
+## Każdy przejazd: taksówka za Gra.TAKSOWKA zł albo autobus (DOJAZD minut w plecy).
+## Teksty w Dialogi.CZWARTEK, Dialogi.OLA i Dialogi.DOJAZD.
 
 const GABINET := "res://sceny/scena16/scena16.tscn"
 const MIESZKANIE := "res://sceny/scena17/scena17.tscn"
 const GARDEROBA_ANI := "res://sceny/scena20/scena20.tscn"
 const GARDEROBA_WOLSKIEGO := "res://sceny/scena18/scena18.tscn"
 const KONIEC := "res://sceny/scena20/koniec4.tscn"
-const OBIAD_SILY := 40
+const OBIAD_KASA := 50
+const DOJAZD := 40
 const OBIAD_CZAS := 60
 
 
@@ -26,6 +29,7 @@ static func sroda(s: ScenaGry, z_gabinetu: bool) -> String:
 			opcje.append(Dialogi.SCENA15_DOKAD_OLA)
 			cele.append("ola")
 		var w := await s.wybor(opcje)
+		await dojazd(s)
 		if cele[w] == "ola":
 			await obiad(s, "obiad_sr")
 			continue
@@ -53,6 +57,8 @@ static func czwartek(s: ScenaGry) -> String:
 		cele.append(KONIEC)
 		s.komunikat(t["pytanie"], 2.5)
 		var w := await s.wybor(opcje)
+		if cele[w] != KONIEC:
+			await dojazd(s)
 		if cele[w] == "ola":
 			await obiad(s, "obiad_czw")
 			continue
@@ -62,20 +68,32 @@ static func czwartek(s: ScenaGry) -> String:
 	return KONIEC
 
 
+## Przejazd na drugi koniec miasta: taksówka (pieniądze) albo autobus (czas śledztwa).
+static func dojazd(s: ScenaGry) -> void:
+	var t: Dictionary = Dialogi.DOJAZD
+	if Gra.kasa < Gra.TAKSOWKA:
+		s.komunikat(t["brak"] % Gra.kasa, 3.0)
+		Sledztwo.strata(DOJAZD)
+		return
+	if await s.wybor([t["taksowka"] % [Gra.TAKSOWKA, Gra.kasa], t["autobus"] % DOJAZD]) == 0:
+		Gra.dodaj_kase(-Gra.TAKSOWKA)
+		Gra.flagi["taksowki"] = true
+	else:
+		Sledztwo.strata(DOJAZD)
+
+
 ## Obiad u Oli. Co mówi Ola, zależy od stanu Antoniego.
 static func obiad(s: ScenaGry, flaga: String) -> void:
 	var t: Dictionary = Dialogi.OLA
 	var f: Dictionary = Gra.flagi
 	s.antoni.sterowanie = false
 	await s.rozmowa(t["start"])
-	if Gra.sily < 40:
+	if Sledztwo.stracone() > 200:
 		await s.rozmowa(t["slaby"])
 	if f.get("s12_dotknal", false) or f.get("s20_dotknal", false):
 		await s.rozmowa(t["palce"])
 	await s.rozmowa(t["ania"] if f.get("s17_sms", false) else t["bilet"])
 	await s.rozmowa(t["koniec"])
-	Gra.dodaj_sily(OBIAD_SILY)
+	s.znajdz_kase(OBIAD_KASA)
 	Sledztwo.strata(OBIAD_CZAS)
-	if not Ekwipunek.ma("zupa"):
-		Ekwipunek.dodaj("zupa")
 	f[flaga] = true

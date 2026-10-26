@@ -48,7 +48,7 @@ static func _plan(s: ScenaGry) -> String:
 				await s.rozmowa(t["dom_potem"])
 			else:
 				await s.rozmowa(t["dom"])
-				Gra.dodaj_sily(40)
+				s.znajdz_kase(40)
 				Gra.flagi["s13_dom"] = true
 			Sledztwo.strata(ZLA_JAZDA + 30)
 		"Teatr":

@@ -410,19 +410,18 @@ const ANTRAKT := {
 		["Antoni", "Dwadzieścia minut przerwy. Kawa, a potem może w końcu toaleta. Jeśli już ją naprawili."],
 	],
 	"bufet": [
-		["Antoni", "Kawę i kanapkę poproszę."],
-		["Bufetowa", "Kawa czarna jak dusza krytyka, proszę bardzo."],
-		["Bufetowa", "I kanapka z serem. Dziewięć złotych."],
+		["Antoni", "Kawę poproszę."],
+		["Bufetowa", "Kawa czarna jak dusza krytyka, proszę bardzo. Pięć złotych."],
 	],
 	"bufet_place": [
 		["Antoni", "Proszę. Akurat drobne z płaszcza."],
 		["Bufetowa", "Co do grosza! Smacznego."],
-		["", "Wskazówka: jedzenie i picie masz w ekwipunku (I). E zjada albo wypija."],
+		["", "Wskazówka: kawę masz w ekwipunku (I). E ją wypija, potem przez chwilę chodzisz szybciej."],
 	],
 	"bufet_na_kreske": [
 		["Antoni", "Mam tylko kartę..."],
 		["Bufetowa", "Terminal nie działa od premiery Hamleta. Niech pan bierze, odda pan po spektaklu."],
-		["", "Wskazówka: jedzenie i picie masz w ekwipunku (I). E zjada albo wypija."],
+		["", "Wskazówka: kawę masz w ekwipunku (I). E ją wypija, potem przez chwilę chodzisz szybciej."],
 	],
 	"bufet_potem": [
 		["Bufetowa", "Druga kawa po spektaklu. Teraz kolejka."],
@@ -898,7 +897,7 @@ const SCENA7 := {
 	"okno": [["", "Za oknem leje. Na placu radiowóz z wyłączonym kogutem."]],
 	"paczki_kupuje": [
 		["Sprzedawca", "(ziewa) Pączek? Z różą, ostatni."],
-		["", "Antoni płaci drobnymi."],
+		["", "Antoni płaci trzy złote i zjada go na miejscu."],
 	],
 	"paczki_bez": [["Sprzedawca", "Bez pieniędzy nie ma pączków. Noc długa, panie."]],
 	"paczki_potem": [["Sprzedawca", "(ziewa) Więcej nie ma. Rano przywiozą."]],
@@ -1552,7 +1551,7 @@ const SAMOCHOD := {
 	"teatr": [["", "Pod teatrem ludzie z kwiatami i zniczami. Nic tu po mnie z tym."]],
 	"komenda": [["", "Komisarza Nowickiego nie ma. Dyżurny wzrusza ramionami."], ["Policjant", "Próbki? To nie do nas, panie. My tu nic nie badamy."]],
 	"szpital": [["", "Na izbie przyjęć kolejka. Pielęgniarka odsyła mnie z kwitkiem."]],
-	"dom": [["", "W domu zupa od Oli w garnku i karteczka: \"Zjedz coś wreszcie!\""], ["", "Jem. Od razu lepiej."]],
+	"dom": [["", "W domu zupa od Oli w garnku i karteczka: \"Zjedz coś wreszcie!\""], ["", "Jem. Z szuflady biorę jeszcze zaskórniaki na taksówki."]],
 	"dom_potem": [["", "W domu cicho. Zupy już nie ma."]],
 	"pralnia": [["", "Wracam pod pralnię."]],
 }
@@ -2395,6 +2394,13 @@ const RETRO5 := {
 }
 
 # Czwartek po scenie 19: dokąd teraz (lista budowana w Rozdzial4.czwartek).
+# Przejazd między miejscami w rozdziale 4: taksówka za pieniądze albo autobus za czas.
+const DOJAZD := {
+	"taksowka": "Taksówka (%d zł, masz %d zł)",
+	"autobus": "Autobusem (%d min w plecy)",
+	"brak": "Mam tylko %d zł, na taksówkę nie starczy. Autobus. Trochę to potrwa.",
+}
+
 const CZWARTEK := {
 	"pytanie": "Czwartek po południu. Co teraz?",
 	"ania": "Garderoba Ani (Ania jest na próbie)",
@@ -2406,11 +2412,11 @@ const CZWARTEK := {
 # Obiad u Oli: raz na dzień, +40 sił, godzina w plecy.
 const OLA := {
 	"start": [["Ola", "No wreszcie! Siadaj. Rosół, ziemniaki, kotlet. I nie gadaj mi, że nie jesteś głodny."]],
-	"slaby": [["Ola", "Antek, ty wyglądasz jak trup. Kiedy ostatnio spałeś? Jedz. Powoli."]],
+	"slaby": [["Ola", "Antek, ty wyglądasz jak trup. Biegasz po mieście i nic z tego nie masz. Kiedy ostatnio spałeś? Jedz. Powoli."]],
 	"palce": [["Ola", "Co ty masz z palcami? Czerwone jak od pokrzyw. Pokaż... Tylko nie mów, że to od pracy."]],
 	"bilet": [["Ola", "Wiesz, że ja ci ten bilet dałam, żebyś odpoczął? A ty mi z premiery zrobiłeś śledztwo."]],
 	"ania": [["Ola", "Ta dziewczyna od tego chłopaka... Biedna. Widziałam ją w telewizji. Taka chuda."]],
-	"koniec": [["Ola", "Masz, słoik zupy na jutro. I zadzwoń do mamy, bo mnie męczy."], ["", "Najedzony. Od razu lepiej się myśli."]],
+	"koniec": [["Ola", "Masz, tu pięćdziesiąt złotych na taksówki. Nie kłóć się. I zadzwoń do mamy, bo mnie męczy."], ["", "Najedzony. Od razu lepiej się myśli."]],
 	"potem": [["Ola", "Dzisiaj już jadłeś. Idź łapać tych swoich morderców."]],
 }
 
@@ -2510,21 +2516,15 @@ const SCENA21 := {
 	"ola_jadl_slaby": [["Ola", "Kłamiesz. Słyszę po głosie. Zjedz coś, zanim się przewrócisz, rozumiesz?"]],
 	"ola_jadl": [["Ola", "No dobrze. Wierzę ci. Prawie."]],
 	"ola_nie": [["Ola", "To zjedz! Masz w lodówce cokolwiek? Nie wychodź z domu na pusty żołądek."]],
-	"ola_zupa": [["Ola", "Masz mój słoik z rosołem. Zjedz go, a nie oglądaj."]],
 	"ola_koniec": [["Ola", "I uważaj na siebie. Wiem, że dziś pogrzeb."]],
 	"nowicki_dzwoni": "Dzwoni telefon. Komisarz Nowicki.",
 	"nowicki": [["Nowicki", "Antek, masz czas do dwunastej. Potem chłopak idzie do ziemi, a sprawa do szafy. Jako zawał."], ["Nowicki", "Chyba że coś mi dasz."]],
 	"nowicki_wybor": ["Przyjedź na 9:30 do teatru. Na scenę.", "Jeszcze nic nie mam"],
 	"nowicki_tak": [["Nowicki", "Na scenę? Ty i te twoje teatry... Dobra. Biorę dwóch chłopaków. Lepiej, żeby to było coś."]],
 	"nowicki_nie": [["Nowicki", "To nie dzwoń. Do dwunastej."]],
-	"czajnik": [["", "Woda, herbata, dwie łyżki cukru. Ręce przestają mi się trząść."]],
-	"czajnik_potem": [["", "Herbata wypita. Na drugą nie mam czasu."]],
-	"lodowka": [["", "Lodówka. Musztarda, dwa jajka, masło. Robię jajecznicę na szybko."]],
-	"lodowka_potem": [["", "Musztarda. Sama musztarda."]],
-	"lozko": [["", "Położyć się na godzinę? Siły wrócą, ale czas nie."]],
-	"lozko_wybor": ["Prześpię się godzinę", "Nie teraz"],
-	"lozko_spi": [["", "Śni mi się teatr. Puste krzesło na scenie. Budzę się zlany potem, ale głowa jaśniejsza."]],
-	"lozko_potem": [["", "Już spałem. Więcej nie mogę sobie pozwolić."]],
+	"czajnik": [["", "Czajnik jeszcze ciepły. Piąta herbata od północy. Ręce i tak mi się trzęsą."]],
+	"lodowka": [["", "Lodówka. Musztarda, dwa jajka, masło. Kartka od Oli: \"Zjedz coś!\" Później."]],
+	"lozko": [["", "Narzuta nawet niepognieciona. Na sen będzie czas po pogrzebie."]],
 	"okno": [["", "Świta. Sąsiad z dołu wyprowadza psa. Pies sika na tę samą latarnię co zawsze. Świat się nie zatrzymał."]],
 	"stol_napis": "Telefon",
 	"stol": [["", "Telefon. Jeden SMS: \"Przyjdź na scenę o 9:00.\" Do kogo?"]],
@@ -2557,9 +2557,8 @@ const SCENA22 := {
 	"argument": "Co jej odpowiesz?",
 	"wiecej": "Więcej...",
 	"milcz": "Nic nie mam (milcz)",
-	"sily": "Antoni ledwo stoi. W oczach mu ciemnieje.",
 	"ostatnia_szansa": "Ania wstaje z krzesła. Jeszcze jedno złe słowo i wyjdzie.",
-	"slabe": [["Ania", "To nic pewnego i dobrze o tym wiesz."], ["", "Zostaje. Ale słyszę, jak to wątle zabrzmiało."]],
+	"slabe": [["Ania", "To nic pewnego i dobrze o tym wiesz."], ["", "Zostaje. Ale słyszę, jak to wątle zabrzmiało. Drugi taki argument i będzie po mnie."]],
 	"zle": [
 		[["Ania", "I co z tego? Szukasz na siłę."]],
 		[["Ania", "To nie ma nic wspólnego ze mną."]],
@@ -2607,7 +2606,6 @@ const SCENA22 := {
 	"koniec_kartka": [["Ania", "(zakrywa twarz) Zabiłam jedyną osobę, która we mnie wierzyła."]],
 	"koniec_bez_kartki": [["Ania", "(długo patrzy w puste krzesło obok) Zabiłam go. Zabiłam Adriana."]],
 	"wychodzi": [["Ania", "Dość. Nie będę tego słuchać w dniu jego pogrzebu."], ["", "Ania wstaje i wychodzi. Drzwi od kulis trzaskają. Echo długo się niesie."]],
-	"mdleje": [["", "Deski sceny podnoszą się na spotkanie. Ostatnie, co słyszę, to kroki Ani. Oddalają się."]],
 	# inne osoby: [kwestie po przyjściu, zaprzeczenie, alibi znane z karty]
 	"inni": {
 		"Wolski": [[["Wolski", "Panie Antoni, o dziewiątej rano? Na pustej scenie? Lubi pan teatr, przyznaję."]], [["Wolski", "Ja? Otruć samego siebie we własnym kostiumie? To byłby świetny scenariusz. Ale nie mój."]], [["Wolski", "Leżałem w czwartek z gorączką, był u mnie lekarz. Ma pan przecież receptę."]]],
@@ -2693,7 +2691,6 @@ const ZAKONCZENIA := {
 	"powod_czas": "Do dziewiątej nikt nie dostał SMS-a.",
 	"powod_nikt": "Antoni nikogo nie oskarżył.",
 	"powod_wyszla": "Ania wyszła ze sceny. Bez przyznania nie było czego dać Nowickiemu.",
-	"powod_zemdlal": "Antoni zemdlał na scenie. Obudził się w karetce o wpół do dwunastej.",
 	"powod_alibi": "Oskarżona osoba miała alibi, o którym Antoni sam wiedział.",
 	"powod_nikt_nie_zabral": "Nikt nie przyjechał, żeby kogokolwiek zatrzymać.",
 	"stracone": "Zmarnowany czas w śledztwie: %d min",
@@ -2801,6 +2798,7 @@ const SLEDZTWO_EPILOG := [
 	[["f:s9_kwit_kuba"], "Kuba odebrał kostium z pralni za wcześnie. Część plamy spłynęła z wodą.", ""],
 	[["f:s12_dotknal"], "Antoni jeszcze przez tydzień czuł pieczenie w palcach.", ""],
 	[["f:s13_dom"], "Ola do dziś wypomina, że zupa była dla niej, nie dla detektywa.", ""],
+	[["f:taksowki"], "Taksówkarze z postoju pod teatrem do dziś machają Antoniemu na powitanie.", ""],
 	[["f:s11_opaska"], "Antoni nosił czarną opaskę Ireny aż do pogrzebu.", ""],
 	[["f:s14_ostrzezony"], "Wolski od tamtego wieczoru nie założył żadnego kostiumu, zanim garderobiana go nie wyprała.", ""],
 	[["f:s14_peruka"], "Garderobiana Wolskiego co premierę przysyła Antoniemu kartkę z podziękowaniem.", ""],
@@ -2813,7 +2811,6 @@ const SLEDZTWO_EPILOG := [
 	[["f:s20_przylapany"], "Ania do pogrzebu nie odezwała się do Antoniego ani słowem.", ""],
 	[["f:obiad_sr", "f:obiad_czw"], "Ola mówi, że w tamtym tygodniu Antoni pierwszy raz od lat jadł u niej dwa dni z rzędu.", ""],
 	[["f:s11_podszewka"], "Irena od tamtej pory wszywa podszewki tylko w rękawiczkach.", ""],
-	[["f:s21_spal"], "Antoni przespał godzinę w dniu pogrzebu. Mówi, że to była najlepiej wydana godzina tego tygodnia.", ""],
 	[["f:s21_nowicki"], "Nowicki od tamtej pory dzwoni do Antoniego, zanim zamknie jakąkolwiek sprawę jako zawał.", "Nowicki dowiedział się wszystkiego z gazet."],
 	[["f:s22_kartka"], "Kartkę od Adriana Antoni oddał jego matce. Powiesiła ją nad łóżkiem syna.", ""],
 ]
@@ -2921,9 +2918,8 @@ const NOTES := {
 
 # ---------- PRZEDMIOTY ----------
 # Nazwa w cudzysłowie przed dwukropkiem to identyfikator (i nazwa ikonki w ui/przedmioty/).
-# [nazwa w grze, opis, rodzaj, siły]
-# rodzaj: "fabularny" (trop, nie znika), "jedzenie" albo "picie" (E zjada/wypija),
-# "inny". Siły to ile pasek sił rośnie po zjedzeniu (0 = nic).
+# [nazwa w grze, opis, rodzaj, nieużywane]
+# rodzaj: "fabularny" (trop, nie znika), "picie" (E wypija: kawa), "inny".
 
 const PRZEDMIOTY := {
 	# fabularne (ze scenariusza; w nawiasie gdzie leżą i w której scenie)
@@ -2941,7 +2937,6 @@ const PRZEDMIOTY := {
 	"paragon": ["Paragon z hurtowni", "Hurtownia tkanin \"Atlas\", czwartek 7:15. Na nazwisko Ireny.", "fabularny", 0],  # skrzynka z materiałami w pracowni, sc. 15
 	"grafik": ["Grafik dostaw", "\"Mleczarnia Łąka. Dostawy: CZWARTKI, 7:30\". Była w skrzynce po mleku pod drzwiami PERSONEL.", "fabularny", 0],  # skrzynka na mleko przy bufecie, sc. 19
 	"spinka": ["Spinka do włosów", "Wygięta. Da się nią otworzyć prosty zamek.", "fabularny", 0],
-	"zupa": ["Słoik zupy od Oli", "Rosół. Zimny, ale domowy.", "jedzenie", 20],  # pudełko z charakteryzacją Ani, sc. 20
 	"telefon_adriana": ["Telefon Adriana", "Pęknięta szybka, na etui naklejka z maską. Rozładowany i zablokowany PIN-em.", "fabularny", 0],  # pod manekinem w magazynie, sc. 6
 	"termos": ["Termos", "Termos Adriana w kratkę, na zakrętce wydrapane \"A.\". Resztka herbaty z cytryną.", "fabularny", 0],  # na sofie w magazynie, sc. 6
 	"kwit_odbioru": ["Kwit z pralni", "\"Pralnia Perła. Odbiór: kostium sceniczny, 1 szt. Nr 0412.\" Leżał pod popielniczką u Lisa.", "fabularny", 0],  # biurko Lisa, sc. 9
@@ -2950,28 +2945,22 @@ const PRZEDMIOTY := {
 	"zdjecie_plamy": ["Zdjęcie plamy", "Podszewka kostiumu Wolskiego. Plama od karku przez ramiona, matowa, w świetle lekko błyszczy.", "fabularny", 0],  # pralnia, sc. 10
 	"zdjecie_pasy": ["Zdjęcie: pasy na ramionach", "Zdjęcie z telefonu. Czerwone, równe pasy na ramionach i plecach Adriana.", "fabularny", 0],  # ciało Adriana, sc. 6
 	"pendrive": ["Pendrive", "Czarny pendrive z sejfu Wolskiego. Coś na nim jest.", "fabularny", 0],  # sejf w garderobie Wolskiego, sc. 18
-	# zwykłe (pasek sił)
+	# zwykłe
 	"probka": ["Próbka podszewki", "Kawałek podszewki z plamą w woreczku na dowody.", "fabularny", 0],  # wycięta w pralni, sc. 13
 	"polisa": ["Polisa na życie", "Ubezpieczony: Adam Wolski. Uposażony: Teatr Miejski. Dwa miliony złotych. Podpis: B. Lis.", "fabularny", 0],  # szuflada Lisa, sc. 16
 	"klucz_adriana": ["Klucz do mieszkania Adriana", "Klucz z breloczkiem w kształcie serca. Od Ani.", "fabularny", 0],  # Ania na klatce, sc. 17
 	"opaska": ["Czarna opaska", "Uszyła ją Irena. Dla Adriana.", "fabularny", 0],  # stół przy maszynie w pracowni, sc. 11
-	"bulka": ["Bułka", "Świeża bułka z pralni pani Haliny.", "jedzenie", 10],
-	"kanapka": ["Kanapka", "Z serem i pomidorem, z bufetu.", "jedzenie", 20],
-	"paczek": ["Pączek", "Z lukrem. Z budki przed magazynem.", "jedzenie", 15],
 	"kawa": ["Kawa", "Czarna. Przez chwilę chodzisz szybciej.", "picie", 5],
-	"herbata": ["Herbata z termosu", "Herbata od Wolskiego. Gorąca i słodka.", "picie", 10],
-	"tabletki": ["Tabletki przeciwbólowe", "Na ból głowy. Nie więcej niż dwie dziennie.", "jedzenie", 15],
 	"papierosy": ["Papierosy", "Antoni nie pali, ale zestresowani ludzie chętniej gadają przy papierosie.", "inny", 0],
-	"monety": ["Drobne monety", "Kilka złotych. Na automat albo taksówkę.", "inny", 0],
 }
 
 # Miejsca do przeszukania (E): [podpowiedź nad miejscem, tekst po przeszukaniu, tekst gdy pusto]
 const SKRZYNKI := {
 	"stojak_programy": ["Stojak z programami", "Program premiery. Jeden wezmę. A pod stojakiem... numerek z szatni! Czterdzieści siedem. To mój!", "Jeden program wystarczy."],
-	"bufet": ["Bufet", "Na ladzie kanapki i kawa dla widzów premiery. Biorę po jednej.", "Więcej nie wezmę, nie wypada."],
+	"bufet": ["Bufet", "Na ladzie kawa dla widzów premiery. Biorę jedną.", "Więcej nie wezmę, nie wypada."],
 	"apteczka_s9": ["Apteczka", "Bandaże, plaster, tabletki. Na dnie paczka lateksowych rękawiczek. Biorę parę.", "Bandaże i plaster."],
-	"apteczka": ["Apteczka", "W apteczce są tabletki przeciwbólowe. Biorę listek.", "Bandaże, plaster. Nic więcej mi nie trzeba."],
-	"bankiet": ["Stół bankietowy", "Tartinki, pączki i wino. Biorę coś na ząb.", "Starczy. Nie chcę wyjść na łakomczucha."],
+	"apteczka": ["Apteczka", "Tabletki, bandaże, plaster. Nic mi nie dolega, zostawiam.", "Bandaże, plaster. Nic więcej mi nie trzeba."],
+	"bankiet": ["Stół bankietowy", "Tartinki, pączki i wino. Zjadam jedną tartinkę na stojąco.", "Starczy. Nie chcę wyjść na łakomczucha."],
 	"bezpieczniki": ["Bezpieczniki", "Między bezpiecznikami wisi zapasowy klucz z zawieszką \"PRACOWNIA / GARDEROBY\". Ktoś tu dba o wygodę.", "Same bezpieczniki."],
 }
 

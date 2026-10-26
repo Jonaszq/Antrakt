@@ -131,7 +131,7 @@ func _ogledziny() -> void:
 					Gra.flagi["s12_podszewka"] = true
 				else:
 					await rozmowa(t["podszewka_bez"])
-					Gra.dodaj_sily(-20)
+					Sledztwo.strata(30)  # mycie i pieczenie palców
 					Gra.flagi["s12_dotknal"] = true
 			"Poświeć lampą UV":
 				if Gra.flagi.get("s12_uv", false):

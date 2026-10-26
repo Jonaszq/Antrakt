@@ -113,7 +113,6 @@ func _bulki() -> void:
 		return
 	await rozmowa(t["bulki"])
 	Gra.flagi["s10_bulka"] = true
-	Ekwipunek.dodaj("bulka")
 
 
 func _rozmowa_z_halina() -> void:

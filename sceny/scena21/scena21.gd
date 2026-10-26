@@ -1,6 +1,6 @@
 extends ScenaGry
 ## Scena 21 (rozdział 5): pokój Antoniego, piątek rano, pogrzeb o 12:00.
-## Zegar idzie tylko od tego, co Antoni robi (tablica, jedzenie, sen). Kto w śledztwie
+## Zegar idzie tylko od tego, co Antoni robi (tablica, telefony). Kto w śledztwie
 ## zmarnował dużo czasu (Sledztwo.stracone), zasypia nad notatkami i zaczyna później.
 ## Tablica: dwa pytania (jak zginął, kto miał zginąć) trzeba przypiąć argumentem
 ## (s21_jak, s21_kto_mial); każde niezamknięte zabiera jedną szansę w konfrontacji.
@@ -16,9 +16,6 @@ const TERMIN := 9 * 60
 const ZA_DUZO_STRACONE := 180  # powyżej tego Antoni zaspał
 const ZLE_PRZYPIECIE := 20
 const PRZYPIECIE := 10
-const JEDZENIE := 10
-const SEN := 60
-const SEN_SILY := 30
 const DRZWI := Rect2(288, 318, 64, 42)
 
 var _minuty := START
@@ -144,11 +141,9 @@ func _ola() -> void:
 	dzwiek("telefon.wav", -6.0)
 	await rozmowa(t["ola"])
 	if await wybor(t["ola_wybor"]) == 0:
-		await rozmowa(t["ola_jadl_slaby"] if Gra.sily < 50 else t["ola_jadl"])
+		await rozmowa(t["ola_jadl_slaby"] if Sledztwo.stracone() > 200 else t["ola_jadl"])
 	else:
 		await rozmowa(t["ola_nie"])
-		if Ekwipunek.ma("zupa"):
-			await rozmowa(t["ola_zupa"])
 	await rozmowa(t["ola_koniec"])
 	await _czas(5)
 
@@ -168,44 +163,15 @@ func _nowicki() -> void:
 
 
 func _czajnik() -> void:
-	if Gra.flagi.get("s21_herbata", false):
-		await rozmowa(Dialogi.SCENA21["czajnik_potem"])
-		return
 	await rozmowa(Dialogi.SCENA21["czajnik"])
-	Gra.flagi["s21_herbata"] = true
-	Gra.dodaj_sily(10)
-	await _czas(JEDZENIE)
 
 
 func _lodowka() -> void:
-	if Gra.flagi.get("s21_jajecznica", false):
-		await rozmowa(Dialogi.SCENA21["lodowka_potem"])
-		return
 	await rozmowa(Dialogi.SCENA21["lodowka"])
-	Gra.flagi["s21_jajecznica"] = true
-	Gra.dodaj_sily(20)
-	await _czas(15)
 
 
 func _lozko() -> void:
-	var t: Dictionary = Dialogi.SCENA21
-	if Gra.flagi.get("s21_spal", false):
-		await rozmowa(t["lozko_potem"])
-		return
-	await rozmowa(t["lozko"])
-	if await wybor(t["lozko_wybor"]) != 0:
-		antoni.sterowanie = true
-		return
-	var tw := create_tween()
-	tw.tween_property(_zaslona, "color:a", 1.0, 0.8)
-	await tw.finished
-	Gra.flagi["s21_spal"] = true
-	Gra.dodaj_sily(SEN_SILY)
-	_minuty += SEN
-	if _minuty < TERMIN:
-		await rozjasnij()
-		await rozmowa(t["lozko_spi"])
-	await _czas(0)
+	await rozmowa(Dialogi.SCENA21["lozko"])
 
 
 ## Telefon na stole: SMS do oskarżonej osoby.

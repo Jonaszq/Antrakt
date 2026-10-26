@@ -39,7 +39,6 @@ func _zlew() -> void:
 	var pali: bool = Gra.flagi.get("s12_dotknal", false) or Gra.flagi.get("s13_dotknal", false)
 	if pali and not Gra.flagi.get("s13_umyl", false):
 		await rozmowa(t["zlew_pali"])
-		Gra.dodaj_sily(10)
 		Gra.flagi["s13_umyl"] = true
 	else:
 		await rozmowa(t["zlew"])

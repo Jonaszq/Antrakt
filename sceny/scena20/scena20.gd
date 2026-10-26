@@ -2,7 +2,7 @@ extends ScenaGry
 ## Scena 20 (rozdział 4, opcjonalna): garderoba Ani, czwartek 16:00, Ania na próbie.
 ## Bez zapasowego klucza Antoni czeka godzinę na garderobianą. W koszu gumowe rękawiczki:
 ## świecą w UV tylko z lampą ze sceny 12 (karta "rekawiczki"); bez własnych lateksowych
-## rękawiczek Antoni sparzy palce (s20_dotknal, -10 sił). Spinka z pudełka z charakteryzacją
+## rękawiczek Antoni sparzy palce (s20_dotknal, pół godziny w plecy). Spinka z pudełka z charakteryzacją
 ## otwiera szufladę z wydrukami przelewów (karta "przelewy"). Kartka od Adriana na lustrze.
 ## Kto siedzi za długo, słyszy kroki, a za drugim razem wchodzi Ania (s20_przylapany).
 ## Wyjście: wybór w Rozdzial4.czwartek. Teksty w Dialogi.SCENA20.
@@ -10,7 +10,7 @@ extends ScenaGry
 const DRZWI := Rect2(288, 318, 64, 42)
 const PIERWSZE_KROKI := 100.0
 const ANIA_WCHODZI := 70.0
-const SILY_PARZY := -10
+const PARZY := 30  # minut na mycie palców
 
 var _ania: Node2D
 
@@ -88,7 +88,7 @@ func _kosz() -> void:
 		await rozmowa(t["kosz_rekawiczki"])
 	else:
 		await rozmowa(t["kosz_reka"])
-		Gra.dodaj_sily(SILY_PARZY)
+		Sledztwo.strata(PARZY)
 		f["s20_dotknal"] = true
 	if Ekwipunek.ma("lampa_uv"):
 		await rozmowa(t["kosz_uv"])

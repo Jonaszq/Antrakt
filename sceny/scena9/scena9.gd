@@ -102,7 +102,6 @@ func _rozmowa_z_bufetowa() -> void:
 	if not Gra.flagi.get("s9_kanapka", false):
 		Gra.flagi["s9_kanapka"] = true
 		await rozmowa(t["bufetowa_start"])
-		Ekwipunek.dodaj("kanapka")
 	var tematy := [
 		["Był tu w czwartek?", temat("s9_bufetowa_czwartek", t["bufetowa_czwartek"])],
 		["Kto bywa w teatrze rano?", t["bufetowa_rano"]],

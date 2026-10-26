@@ -114,7 +114,6 @@ func _rozmowa_z_wolskim() -> void:
 	if not Gra.flagi.get("s8_herbata", false):
 		Gra.flagi["s8_herbata"] = true
 		await rozmowa(t["wolski_start"])
-		Gra.dodaj_sily(10)
 	var tematy := [
 		["Skąd pan wiedział?", temat("s8_wolski_ania_dzwonila", t["wolski_tu"])],
 		["Dobrze pan znał Adriana?", t["wolski_adrian"]],

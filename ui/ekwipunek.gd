@@ -1,9 +1,9 @@
 extends CanvasLayer
 ## Ekwipunek Antoniego pod klawiszem I (singleton "Ekwipunek").
-## Sceny dają przedmioty przez Ekwipunek.dodaj("kanapka"); nazwy, opisy i siły są
+## Sceny dają przedmioty przez Ekwipunek.dodaj("kawa"); nazwy i opisy są
 ## w dialogi/dialogi.gd (PRZEDMIOTY), ikonki w ui/przedmioty/.
-## W okienku: WASD albo mysz wybiera, E (albo klik w "zjedz") zjada jedzenie,
-## I, Escape albo klik obok zamyka. Na dole pasek sił (Gra.sily).
+## W okienku: WASD albo mysz wybiera, E wypija kawę,
+## I, Escape albo klik obok zamyka. Na dole pieniądze (Gra.kasa).
 
 const KOLUMNY := 6
 const RZEDY := 4
@@ -18,8 +18,7 @@ var _siatka: Control
 var _nazwa: Label
 var _opis: Label
 var _akcja: Label
-var _pasek: ColorRect
-var _sily_napis: Label
+var _kasa_napis: Label
 var _dymek: PanelContainer
 var _dymek_tekst: Label
 var _dymek_czas := 0.0
@@ -59,19 +58,9 @@ func _ready() -> void:
 	_akcja = _etykieta("", 12, Color8(150, 220, 140))
 	_akcja.position = Vector2(180, 148)
 	_okno.add_child(_akcja)
-	_sily_napis = _etykieta("Siły", 12, Color8(170, 160, 140))
-	_sily_napis.position = Vector2(12, 172)
-	_okno.add_child(_sily_napis)
-	var tlo_paska := ColorRect.new()
-	tlo_paska.color = Color8(40, 30, 34)
-	tlo_paska.position = Vector2(48, 178)
-	tlo_paska.size = Vector2(122, 8)
-	_okno.add_child(tlo_paska)
-	_pasek = ColorRect.new()
-	_pasek.color = Color8(110, 190, 90)
-	_pasek.position = Vector2(49, 179)
-	_pasek.size = Vector2(120, 6)
-	_okno.add_child(_pasek)
+	_kasa_napis = _etykieta("", 12, Color8(242, 212, 126))
+	_kasa_napis.position = Vector2(12, 172)
+	_okno.add_child(_kasa_napis)
 	var pomoc := _etykieta("I albo Esc – zamknij", 12, Color8(170, 160, 140))
 	pomoc.position = Vector2(270, 186)
 	_okno.add_child(pomoc)
@@ -156,13 +145,12 @@ func _rysuj() -> void:
 		var p: Array = Dialogi.PRZEDMIOTY[przedmioty[_wybor]]
 		_nazwa.text = p[0]
 		_opis.text = p[1]
-		_akcja.text = {"jedzenie": "E – zjedz", "picie": "E – wypij"}.get(p[2], "")
+		_akcja.text = "E – wypij" if p[2] == "picie" else ""
 	else:
 		_nazwa.text = ""
 		_opis.text = "Pusto." if przedmioty.is_empty() else ""
 		_akcja.text = ""
-	_pasek.size.x = 120.0 * Gra.sily / 100.0
-	_sily_napis.text = "Siły"
+	_kasa_napis.text = "Pieniądze: %d zł" % Gra.kasa
 
 
 func _uzyj() -> void:
@@ -170,9 +158,8 @@ func _uzyj() -> void:
 		return
 	var id := przedmioty[_wybor]
 	var p: Array = Dialogi.PRZEDMIOTY[id]
-	if p[2] not in ["jedzenie", "picie"]:
+	if p[2] != "picie":
 		return
-	Gra.dodaj_sily(p[3])
 	if id == "kawa":
 		Gra.wypij_kawe()
 	przedmioty.remove_at(_wybor)

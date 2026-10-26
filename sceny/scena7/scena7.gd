@@ -111,10 +111,9 @@ func _paczki() -> void:
 	var t: Dictionary = Dialogi.SCENA7
 	if Gra.flagi.get("s7_paczek", false):
 		await rozmowa(t["paczki_potem"])
-	elif Ekwipunek.ma("monety"):
+	elif Gra.kasa >= 3:
 		await rozmowa(t["paczki_kupuje"])
-		Ekwipunek.usun("monety")
-		Ekwipunek.dodaj("paczek")
+		Gra.dodaj_kase(-3)
 		Gra.flagi["s7_paczek"] = true
 	else:
 		await rozmowa(t["paczki_bez"])

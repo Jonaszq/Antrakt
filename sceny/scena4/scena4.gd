@@ -77,7 +77,7 @@ func _ready() -> void:
 	rekwizyt("gramofon", Vector2(615, 267), 22.0)
 	miejsce(Vector2(615, 272), "Gramofon", t["gramofon"])
 	rekwizyt("taca_kieliszki", Vector2(715, 237), 24.0)
-	skrzynka(Vector2(712, 132), "bankiet", ["paczek", "kanapka"])
+	skrzynka(Vector2(712, 132), "bankiet", [])
 	zamkniete_drzwi(Rect2(392, 108, 96, 34), Dialogi.DRZWI["bankiet_widownia"])
 	zamkniete_drzwi(Rect2(396, 470, 88, 40), Dialogi.DRZWI["bankiet_wyjscie"])
 	zamkniete_drzwi(DRZWI_PERSONEL, Dialogi.DRZWI["bankiet_personel"])
