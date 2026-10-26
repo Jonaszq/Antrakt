@@ -193,7 +193,6 @@ const SCENA2 := {
 	# zaraz po wejściu
 	"poczatek": [
 		["Antoni", "Ciemno tu jak w grobie. To na pewno nie jest toaleta."],
-		["", "Wskazówka: pod Tab możesz wziąć Antoniego z latarnią, który lepiej widzi w ciemności."],
 	],
 	# Antoni podchodzi do dyrektora i Wolskiego (uruchamia się samo)
 	"klotnia": [
