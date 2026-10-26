@@ -204,8 +204,11 @@ func _kielich() -> void:
 		return
 	await rozmowa(Dialogi.SCENA6["kielich"])
 	Ekwipunek.dodaj("kielich")
-	for r in _rozmowcy:
-		if r[0] is Sprite2D and (r[0] as Sprite2D).texture.resource_path.ends_with("kielich_podloga.png"):
+	# najpierw wypisać z listy rozmówców, potem usunąć: inaczej pętla w ScenaGry
+	# sięga po już zwolniony węzeł ("previously freed instance")
+	for r in _rozmowcy.duplicate():
+		if is_instance_valid(r[0]) and r[0] is Sprite2D and (r[0] as Sprite2D).texture.resource_path.ends_with("kielich_podloga.png"):
+			_rozmowcy.erase(r)
 			r[0].queue_free()
 
 

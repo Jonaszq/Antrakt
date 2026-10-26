@@ -233,7 +233,7 @@ func _pokaz_wybor() -> void:
 
 ## TYMCZASOWE do testów: F9 daje wszystkie przedmioty, karty, latarkę i pieniądze.
 ## Przed wydaniem gry ustaw na false.
-const TESTY := true
+const TESTY := false
 
 
 func daj_wszystko() -> void:

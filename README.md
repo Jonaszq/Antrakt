@@ -81,3 +81,7 @@ Tymczasowo: F9 daje wszystkie przedmioty i karty (`TESTY` w ui/gra.gd).
 - Trucizna z farbiarni ojca Ani (zdjęcie za zdjęciem w sc. 20, s20_tata, argument "farbiarnia").
 - Świadkowie mówią "ktoś" zamiast "kobieta" (Halina, sprzątaczka, Kuba).
 - SMS od Nowickiego na początku sc. 9: pięć dni wolnej ręki i zgoda na wejścia wszędzie.
+
+## Wersja dla testerów (.exe)
+
+W projekcie jest gotowy preset eksportu "Windows" (export_presets.cfg). W Godocie: Projekt → Eksportuj → Windows → Eksportuj projekt. Za pierwszym razem Godot poprosi o pobranie szablonów eksportu (Menedżer szablonów eksportu → Pobierz). Wychodzi jeden plik OstatniAkt.exe (gra jest w środku). Przed eksportem sprawdź, czy w ui/gra.gd jest `TESTY := false` (wyłączony F9).
