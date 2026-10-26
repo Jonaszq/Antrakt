@@ -108,7 +108,6 @@ func nowa_gra() -> void:
 	_kawa_czas = 0.0
 	flagi.clear()
 	Notatnik.aktywny = false
-	Notatnik.tekst = ""
 	Ekwipunek.przedmioty.clear()
 	Teczka.wyczysc()
 	Telefon.sms = Dialogi.SMS.duplicate(true)

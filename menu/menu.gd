@@ -159,6 +159,7 @@ func _ustawienia() -> void:
 
 
 func _nowa_gra() -> void:
+	Notatnik.tekst = ""  # nowa gra = czysty notes; start sceny z menu go nie rusza
 	_start(WSTEP, false)
 
 

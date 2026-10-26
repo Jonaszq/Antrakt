@@ -2,7 +2,10 @@ extends CanvasLayer
 ## Notes Antoniego pod klawiszem T (singleton "Notatnik").
 ## Gracz sam wpisuje w nim notatki, gra niczego tu nie dopisuje.
 ## Escape albo klik obok kartki zamyka notes. Tekst zostaje między scenami
-## (Notatnik.tekst).
+## (Notatnik.tekst) i zapisuje się na dysku przy każdej zmianie (PLIK), więc
+## przetrwa zamknięcie gry i start sceny z menu. Czyści go tylko "Nowa gra".
+
+const PLIK := "user://notes.txt"
 
 ## Notes jest wyłączony, dopóki scena nie zawoła Notatnik.wlacz()
 ## (w scenie 1 po podsłuchaniu Ani, razem z samouczkiem).
@@ -20,6 +23,7 @@ var tekst: String:
 		return _pole.text
 	set(wartosc):
 		_pole.text = wartosc
+		_zapisz()
 
 
 func _ready() -> void:
@@ -56,6 +60,8 @@ func _ready() -> void:
 	for styl in ["normal", "focus", "read_only"]:
 		_pole.add_theme_stylebox_override(styl, StyleBoxEmpty.new())
 	_kartka.add_child(_pole)
+	_pole.text = _wczytaj()
+	_pole.text_changed.connect(_zapisz)
 	var podpis := _etykieta("Esc – zamknij", 12, Color8(150, 132, 108))
 	podpis.position = Vector2(226, 210)
 	_kartka.add_child(podpis)
@@ -87,6 +93,17 @@ func _etykieta(napis: String, rozmiar: int, kolor: Color) -> Label:
 	return l
 
 
+func _wczytaj() -> String:
+	var plik := FileAccess.open(PLIK, FileAccess.READ)
+	return plik.get_as_text() if plik else ""
+
+
+func _zapisz() -> void:
+	var plik := FileAccess.open(PLIK, FileAccess.WRITE)
+	if plik:
+		plik.store_string(_pole.text)
+
+
 func wlacz() -> void:
 	aktywny = true
 
@@ -116,6 +133,7 @@ func _otworz() -> void:
 
 
 func _zamknij() -> void:
+	_zapisz()
 	_pole.release_focus()
 	_kartka.visible = false
 
