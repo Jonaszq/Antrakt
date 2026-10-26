@@ -83,6 +83,14 @@ func plansza(tekst: String) -> void:
 	miejsce.size = Vector2(480, 40)
 	miejsce.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	ui.add_child(miejsce)
+	Gra.ustaw_dzien(tekst)
+	if Gra.flagi.has("dni_do_pogrzebu"):
+		var licznik := etykieta(12, Color8(200, 150, 140))
+		licznik.text = Gra.do_pogrzebu()
+		licznik.size = Vector2(480, 20)
+		licznik.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		miejsce.add_child(licznik)
+		licznik.position = Vector2(0, 40)
 	antoni.sterowanie = false
 	var tw := create_tween()
 	tw.tween_interval(1.4)

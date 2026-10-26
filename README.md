@@ -23,6 +23,7 @@ Nie trzeba niczego rozpakowywać ani podmieniać ręcznie.
 - Rozdział 3 (w budowie): scena 9 w foyer w żałobie i w gabinecie Lisa (`sceny/scena9`, nowa mapa `mapy/gabinet`): kwit z pralni pod popielniczką, Ania chce sama odebrać kostium, bufetowa, rękawiczki w apteczce.
 - Scena 10 w pralni pani Haliny (`sceny/scena10`, mapa `mapy/pralnia`): gracz sam szuka kostiumu 0412 na stojakach, fotografuje plamę pod lampą, książka przyjęć daje kartę "kwit". Jeśli w scenie 9 oddał kwit Ani, kostiumu już nie ma.
 - Scena 11 w pracowni kostiumów (`sceny/scena11`, mapa `mapy/pracownia` z `tools/mapy_teatr.py`): Irena mówi o podszewce dopiero po zdjęciu plamy albo pasów, nożyczki można wziąć, gdy stoi przy oknie, karta "podszewka", zdjęcie z próby, opaska.
+- Scena 11b (`sceny/scena11b`, mapa kulis): niedziela wieczorem w teatrze. Marta, maszynista, garderobiana, sprzątaczka (najpierw oddać jej klucze spod skrzyni) i Kuba. Każdy coś widział w czwartek, ale trzeba ich przycisnąć dowodem albo tematem.
 - Scena 12 w pralni, poniedziałek (`sceny/scena12`): lampa UV z szafki pod ladą tylko, gdy Halina obsługuje klienta albo kuriera, podszewka bez rękawiczek parzy, Ania chce zabrać kostium (wybór: Halina albo Ania, pół dnia straty).
 - Scena 13 (`sceny/scena13`): pralnia we wtorek (wycięcie próbki nożyczkami do woreczka), samochód z planem miasta (`samochod.gd`, `ui/plan_miasta.png`, zła jazda kosztuje czas), laboratorium (nowa mapa `mapy/laboratorium`), telefon z wynikiem i Nowicki. Potem retrospekcja 2 (`sceny/retrospekcje/retro2`): czwartkowa próba, nieznani jako czarne sylwetki.
 - Scena 14 (`sceny/scena14`, nowa mapa `mapy/garderoba_wolskiego`): garderoba Wolskiego we wtorek przed spektaklem. Najpierw trzeba znaleźć perukę, potem powiedzieć Wolskiemu wprost, że to on miał zginąć, i pokazać dowód. Pani Stasia z bukietem, plakat "HAMLET 1998", szpara w drzwiach przy wyjściu.
@@ -35,12 +36,16 @@ Nie trzeba niczego rozpakowywać ani podmieniać ręcznie.
 - Scena 19 (`sceny/scena19`, foyer): Marta, skrzynki po mleku z grafikiem, bufetowa, Kuba (casting, kwit na garnitur).
 - Retrospekcja 5 (`retro5`, pracownia): czwartek 8:00, sylwetka przy kostiumie, potem wybór na czwartkowe popołudnie (`sceny/rozdzial4.gd`: garderoba Ani, sejf Wolskiego, obiad u Oli, dom).
 - Scena 20 (`sceny/scena20`, mapa garderoby): garderoba Ani w czwartek. Rękawiczki w koszu (UV), spinka, szuflada z przelewami, kartka od Adriana. Koniec rozdziału 4: `koniec4.tscn`.
-- Scena 21 (`sceny/scena21`, mapa `pokoj_antoniego`): piątek rano. Tablica z dwoma pytaniami do przypięcia argumentem, telefony od Oli i Nowickiego, kuchnia, łóżko. Zegar idzie od działań; SMS do oskarżonej osoby przed 9:00.
-- Scena 22 (`sceny/scena22`, mapa widowni): konfrontacja na pustej scenie. Z Anią rundy argumentów (szanse zależą od tablicy, siły spadają), z inną osobą zakończenie C albo D.
+- Scena 21 (`sceny/scena21`, mapa `pokoj_antoniego`): piątek rano. Tablica z dwoma pytaniami do przypięcia argumentem, telefony od Oli i Nowickiego. Zegar idzie od działań; SMS do oskarżonej osoby przed 9:00.
+- Scena 22 (`sceny/scena22`, mapa widowni): konfrontacja na pustej scenie. Z Anią rundy argumentów (szanse zależą od tablicy; słaby argument przechodzi co drugi raz), z inną osobą zakończenie C albo D.
 - Retrospekcja 6 (`retro6`, pracownia): czwartek z twarzą Ani, tylko z tym, co gracz ustalił.
 - Scena 23 (`sceny/scena23`): brawa Wolskiego i Nowicki. Pendrive decyduje o zakończeniu A albo B.
 - Zakończenia (`sceny/zakonczenia`): A, B, C, D, potem epilog z tego, co gracz odkrył, i KONIEC.
-- "Wybierz scenę" w menu jest teraz podzielone na rozdziały.
+- "Wybierz scenę" w menu jest podzielone na rozdziały, są tam też wszystkie retrospekcje i scena 23.
+- Pieniądze zamiast sił (`Gra.kasa`, widać w ekwipunku pod I): z płaszcza, od Marty, z domu, od Oli. Taksówka między miejscami kosztuje 15 zł, bez pieniędzy autobus = 40 minut straty (`Rozdzial4.dojazd`).
+- Licznik dni do pogrzebu na planszy każdej sceny i w ekwipunku (`Gra.ustaw_dzien` czyta dzień tygodnia z planszy).
+- Podpowiedzi: gdy gracz przez 2 minuty nic nowego nie znajdzie, Antoni myśli na głos, gdzie iść albo czego szukać (`Dialogi.PODPOWIEDZI`).
+- Zapis: gra zapisuje się na początku każdej sceny (`user://zapis.txt`), w menu jest "Kontynuuj". Notes zapisuje się do `user://notes.txt`.
 - Teczka dowodów i tablica podejrzanych pod F (`ui/teczka.gd`, karty w `Dialogi.KARTY`). Rozmowy jak przesłuchanie: `ScenaGry.przesluchanie()` (tematy i pokazywanie dowodów).
 - Ludzie w tle i odgłosy: postacie rysuje `tools/postacie_pixel.py`, dźwięki tła (gwar, dzwonek, telefon, flesz, oklaski, gramofon, auto) `tools/dzwieki_tla.py`, ujęcia auta i bramy `tools/jazda_pixel.py`.
 - Klawisze: WASD chodzenie, E rozmowa i przeszukiwanie, I ekwipunek, T notes (gracz pisze sam, Esc zamyka), Q telefon, Tab wybór postaci (Antoni albo Antoni z latarnią). Telefon, wybór postaci i dialogi działają też myszką (klik, w telefonie prawy klik cofa, kółko przewija).

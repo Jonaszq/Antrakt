@@ -277,3 +277,24 @@ func _input(zdarzenie: InputEvent) -> void:
 			_okno.visible = false
 		elif not Rect2(Vector2.ZERO, _okno.size).has_point(poz):
 			_okno.visible = false  # klik obok okienka
+
+
+## Dni do pogrzebu liczone od dnia tygodnia na planszy sceny (pogrzeb w piątek).
+const DNI := {"niedziela": 5, "poniedziałek": 4, "wtorek": 3, "środa": 2, "czwartek": 1, "piątek": 0}
+
+
+func ustaw_dzien(tekst: String) -> void:
+	var maly := tekst.to_lower()
+	for dzien in DNI:
+		if dzien in maly:
+			flagi["dni_do_pogrzebu"] = DNI[dzien]
+			return
+
+
+func do_pogrzebu() -> String:
+	var dni: int = flagi.get("dni_do_pogrzebu", 5)
+	if dni <= 0:
+		return "Dziś pogrzeb"
+	if dni == 1:
+		return "Do pogrzebu: 1 dzień"
+	return "Do pogrzebu: %d dni" % dni

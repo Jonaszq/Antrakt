@@ -151,6 +151,8 @@ func _rysuj() -> void:
 		_opis.text = "Pusto." if przedmioty.is_empty() else ""
 		_akcja.text = ""
 	_kasa_napis.text = "Pieniądze: %d zł" % Gra.kasa
+	if Gra.flagi.has("dni_do_pogrzebu"):
+		_kasa_napis.text += "    " + Gra.do_pogrzebu()
 
 
 func _uzyj() -> void:

@@ -10,10 +10,12 @@ const SCENA_LATARKI := ["Scena 6: Magazyn (rozdz. 2)", "res://sceny/scena6/scena
 const DOWODY_ROZDZ4 := ["program", "zdjecie_pasy", "zdjecie_plamy", "papierosy", "rekawiczki", "lampa_uv", "telefon_adriana", "ladowarka", "opaska", "klucz", "kwit_odbioru"]
 const SCENY_ROZDZ4 := ["res://sceny/scena14/scena14.tscn", "res://sceny/scena15/scena15.tscn",
 	"res://sceny/scena16/scena16.tscn", "res://sceny/scena17/scena17.tscn", "res://sceny/retrospekcje/retro3.tscn",
-	"res://sceny/scena18/scena18.tscn", "res://sceny/scena19/scena19.tscn", "res://sceny/scena20/scena20.tscn"]
+	"res://sceny/scena18/scena18.tscn", "res://sceny/retrospekcje/retro4.tscn", "res://sceny/scena19/scena19.tscn",
+	"res://sceny/retrospekcje/retro5.tscn", "res://sceny/scena20/scena20.tscn"]
 
 ## Przy starcie od rozdziału 5 z menu: dowody pełnego śledztwa (żeby dało się sprawdzić finał).
-const SCENY_ROZDZ5 := ["res://sceny/scena21/scena21.tscn", "res://sceny/scena22/scena22.tscn"]
+const SCENY_ROZDZ5 := ["res://sceny/scena21/scena21.tscn", "res://sceny/scena22/scena22.tscn",
+	"res://sceny/retrospekcje/retro6.tscn", "res://sceny/scena23/scena23.tscn"]
 const KARTY_ROZDZ5 := ["kwit", "sms", "marta_grafik", "rekawiczki", "przelewy", "recepta", "garnitur", "zeszyt"]
 const FLAGI_ROZDZ5 := ["s9_obsada", "s11_szwy", "s11_podszewka", "s12_uv", "s14_chory", "s18_podsluch", "s19_szczegoly", "s20_lustro"]
 
@@ -27,10 +29,12 @@ const SCENY := [
 	["Scena 5: Telefon i jazda", "res://sceny/scena5/scena5.tscn"],
 	["Scena 6: Magazyn (rozdz. 2)", "res://sceny/scena6/scena6.tscn"],
 	["Scena 7: Stróż", "res://sceny/scena7/scena7.tscn"],
+	["Retrospekcja 1: Piątek w magazynie", "res://sceny/retrospekcje/retro1.tscn"],
 	["Scena 8: Ania i Wolski", "res://sceny/scena8/scena8.tscn"],
 	["Scena 9: Prośba dyrektora", "res://sceny/scena9/scena9.tscn"],
 	["Scena 10: Pralnia", "res://sceny/scena10/scena10.tscn"],
 	["Scena 11: Pracownia kostiumów", "res://sceny/scena11/scena11.tscn"],
+	["Scena 11b: Kulisy w niedzielę wieczorem", "res://sceny/scena11b/scena11b.tscn"],
 	["Scena 12: Pralnia, poniedziałek", "res://sceny/scena12/scena12.tscn"],
 	["Scena 13: Pralnia, wtorek i laboratorium", "res://sceny/scena13/scena13.tscn"],
 	["Retrospekcja 2: Czwartkowa próba", "res://sceny/retrospekcje/retro2.tscn"],
@@ -38,18 +42,23 @@ const SCENY := [
 	["Scena 15: Irena, środa", "res://sceny/scena15/scena15.tscn"],
 	["Scena 16: Gabinet Lisa", "res://sceny/scena16/scena16.tscn"],
 	["Scena 17: Mieszkanie Adriana", "res://sceny/scena17/scena17.tscn"],
+	["Retrospekcja 3: Czwartek wieczorem", "res://sceny/retrospekcje/retro3.tscn"],
 	["Scena 18: Podsłuch w garderobie", "res://sceny/scena18/scena18.tscn"],
+	["Retrospekcja 4: Wypadek", "res://sceny/retrospekcje/retro4.tscn"],
 	["Scena 19: Marta i skrzynki", "res://sceny/scena19/scena19.tscn"],
+	["Retrospekcja 5: Czwartek rano", "res://sceny/retrospekcje/retro5.tscn"],
 	["Scena 20: Garderoba Ani", "res://sceny/scena20/scena20.tscn"],
 	["Scena 21: Tablica (rozdz. 5)", "res://sceny/scena21/scena21.tscn"],
 	["Scena 22: Pusta scena", "res://sceny/scena22/scena22.tscn"],
+	["Retrospekcja 6: Pracownia", "res://sceny/retrospekcje/retro6.tscn"],
+	["Scena 23: Brawa", "res://sceny/scena23/scena23.tscn"],
 ]
 
 ## Rozdziały w "Wybierz scenę": [napis, pierwszy indeks w SCENY, indeks za ostatnim].
 const ROZDZIALY := [
-	["Rozdział 1: Premiera", 0, 7], ["Rozdział 2: Magazyn", 7, 10],
-	["Rozdział 3: Plama", 10, 16], ["Rozdział 4: Kto miał zginąć?", 16, 23],
-	["Rozdział 5: Ostatni akt", 23, 25],
+	["Rozdział 1: Premiera", 0, 7], ["Rozdział 2: Magazyn", 7, 11],
+	["Rozdział 3: Plama", 11, 18], ["Rozdział 4: Kto miał zginąć?", 18, 28],
+	["Rozdział 5: Ostatni akt", 28, 32],
 ]
 
 var _lista: MenuLista
